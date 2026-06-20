@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------
      2. Revelado genérico al hacer scroll (secciones de texto/visual)
      ------------------------------------------------------------------ */
-  const revealTargets = document.querySelectorAll('.section-copy, .section-visual');
+  const revealTargets = document.querySelectorAll('.section-copy, .limits-image');
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -95,54 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
   updateManifiesto();
 
   /* ------------------------------------------------------------------
-     4. Prótesis — tooltips accesibles por hover, foco de teclado y clic
+     4. Atrévete a desafiar los límites — tarjetas con dato técnico
+        El despliegue visual lo maneja el CSS (:hover / :focus-visible),
+        acá solo sincronizamos aria-expanded para lectores de pantalla.
      ------------------------------------------------------------------ */
-  const hotspots = document.querySelectorAll('.hotspot');
-  hotspots.forEach((hotspot) => {
-    const tooltipId = hotspot.getAttribute('data-tooltip');
-    const tooltip = document.getElementById(tooltipId);
-    if (!tooltip) return;
-
-    function show() {
-      document.querySelectorAll('.protesis .tooltip').forEach((t) => (t.hidden = true));
-      tooltip.hidden = false;
+  document.querySelectorAll('.limits-card').forEach((card) => {
+    function setExpanded(value) {
+      card.setAttribute('aria-expanded', String(value));
     }
-    function hide() {
-      tooltip.hidden = true;
-    }
-
-    hotspot.addEventListener('mouseenter', show);
-    hotspot.addEventListener('mouseleave', hide);
-    hotspot.addEventListener('focus', show);
-    hotspot.addEventListener('blur', hide);
-    hotspot.addEventListener('click', show);
-    hotspot.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        show();
-      }
-    });
+    card.addEventListener('mouseenter', () => setExpanded(true));
+    card.addEventListener('mouseleave', () => setExpanded(false));
+    card.addEventListener('focus', () => setExpanded(true));
+    card.addEventListener('blur', () => setExpanded(false));
   });
 
   /* ------------------------------------------------------------------
-     5. Eco y Roca — ondas de "ecolocalización" reactivas (signature element)
-     ------------------------------------------------------------------ */
-  const ecoVisual = document.getElementById('ecoVisual');
-  if (ecoVisual) {
-    let ecoTimer;
-    function pulseEco() {
-      ecoVisual.classList.add('is-active');
-      clearTimeout(ecoTimer);
-      ecoTimer = setTimeout(() => ecoVisual.classList.remove('is-active'), 1100);
-    }
-    ecoVisual.addEventListener('mousemove', pulseEco);
-    ecoVisual.addEventListener('mouseenter', pulseEco);
-    ecoVisual.addEventListener('focus', pulseEco); // equivalente para navegación por teclado (Tab)
-    ecoVisual.addEventListener('click', pulseEco);
-  }
-
-  /* ------------------------------------------------------------------
-     6. Línea de tiempo del proceso de preparación (acordeón exclusivo)
+     5. Línea de tiempo del proceso de preparación (acordeón exclusivo)
      ------------------------------------------------------------------ */
   const timelineTriggers = document.querySelectorAll('.timeline-trigger');
   timelineTriggers.forEach((btn) => {
@@ -164,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
-     7. Cursos — cada tarjeta se expande de forma independiente
+     6. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
   document.querySelectorAll('.curso-toggle').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -176,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
-     8. Testimonios — carrusel con fundido, controles y puntos accesibles
+     7. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
   const testimoniosTrack = document.getElementById('testimoniosTrack');
   if (testimoniosTrack) {
@@ -210,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     9. Expediciones — carrusel deslizable + tilt 3D suave
+     8. Expediciones — carrusel deslizable + tilt 3D suave
      ------------------------------------------------------------------ */
   const expTrack = document.getElementById('expedicionesTrack');
   if (expTrack) {
@@ -237,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     10. Galería del equipo — carga automática desde /assets/imagN.png
+     9. Galería del equipo — carga automática desde /assets/imagN.png
          Probá la cantidad real de fotos: si agregás o quitás archivos
          en /assets siguiendo el patrón imag1.png, imag2.png, imag3.png...
          la galería se ajusta sola, sin tocar este código.
@@ -288,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     11. Formulario de contacto (Campamento Base)
+     10. Formulario de contacto (Campamento Base)
          NOTA: esto es un envío simulado en el cliente. Reemplazar el
          bloque marcado por la integración real (fetch a tu backend,
          servicio de email transaccional, Google Sheets, CRM, etc.).

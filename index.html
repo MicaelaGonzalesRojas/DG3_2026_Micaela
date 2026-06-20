@@ -28,8 +28,7 @@
       </button>
       <ul class="nav-list" id="navList">
         <li><a href="#manifiesto">Manifiesto</a></li>
-        <li><a href="#protesis">Prótesis</a></li>
-        <li><a href="#eco-roca">Eco y Roca</a></li>
+        <li><a href="#limites">Límites</a></li>
         <li><a href="#proceso">Preparación</a></li>
         <li><a href="#cursos">Cursos</a></li>
         <li><a href="#expediciones">Expediciones</a></li>
@@ -37,6 +36,11 @@
         <li><a class="nav-cta" href="#contacto">Elegir mi cumbre</a></li>
       </ul>
     </nav>
+
+    <button id="motionToggle" class="motion-toggle" type="button" aria-pressed="false">
+      <span class="motion-dot" aria-hidden="true"></span>
+      <span id="motionToggleLabel">Pausar movimiento</span>
+    </button>
   </div>
 </header>
 
@@ -46,16 +50,21 @@
   <section class="hero" id="hero" aria-labelledby="hero-title">
     <div class="hero-noise" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="eyebrow mono">Expediciones para personas con discapacidad</p>
+      <p class="eyebrow mono">Expediciones · Patagonia · Montaña Adaptada</p>
 
-      <h1 id="hero-title" class="hero-title" aria-label="La valentía se queda corta">
+      <h1 id="hero-title" class="hero-title" aria-label="La gravedad es solo un dato. Sube.">
         <span class="reveal-line" aria-hidden="true">
-          <span class="reveal-word">La</span> <span class="reveal-word">valentía</span> <span class="reveal-word">se</span> <span class="reveal-word">queda</span> <span class="reveal-word">corta</span>
+          <span class="reveal-word">La</span> <span class="reveal-word">gravedad</span> <span class="reveal-word">es</span> <span class="reveal-word">solo</span> <span class="reveal-word">un</span> <span class="reveal-word">dato.</span>
+        </span>
+        <span class="reveal-line reveal-line--accent" aria-hidden="true">
+          <span class="reveal-word">Sube.</span>
         </span>
       </h1>
 
       <p class="hero-subtitle">
-        Para las personas que convierten los límites en motivación.
+        No entrenamos para convivir con los límites. Entrenamos para descubrir dónde terminan realmente.
+        Expediciones de alta montaña para personas con prótesis y personas ciegas que buscan algo más
+        que una experiencia: buscan una cumbre.
       </p>
 
       <div class="hero-actions">
@@ -63,6 +72,10 @@
         <a class="btn btn-ghost" href="#proceso">Conocer el programa</a>
       </div>
     </div>
+
+    <a class="scroll-cue" href="#manifiesto" aria-label="Bajar a la siguiente sección">
+      <span aria-hidden="true"></span>
+    </a>
   </section>
 
   <!-- ======================= 2. MANIFIESTO ======================= -->
@@ -87,133 +100,41 @@
     </div>
   </section>
 
-  <!-- ======================= 3. PRÓTESIS ======================= -->
-  <section class="protesis" id="protesis" aria-labelledby="protesis-title">
+  <!-- ======================= 3. ATRÉVETE A DESAFIAR TODOS LOS LÍMITES ======================= -->
+  <section class="limites" id="limites" aria-labelledby="limites-title">
     <div class="section-grid">
       <div class="section-copy">
-        <p class="eyebrow mono">Línea Amputados</p>
-        <h2 id="protesis-title" class="display-md">La tecnología acompaña.<br>La voluntad lidera.</h2>
-        <p>Cada expedición es diseñada para responder a las exigencias reales de un montañista con prótesis.
-        Analizamos equipamiento, puntos de apoyo, distribución de carga, resistencia mecánica y adaptación
-        técnica para que cada movimiento sea eficiente y seguro.</p>
+        <p class="eyebrow mono">Entrenamos a:</p>
+        <h2 id="limites-title" class="display-md">Atrévete a desafiar todos los límites</h2>
+        <p class="limites-lead">Demuestra que la verdadera fuerza surge cuando la adversidad se convierte en impulso.</p>
 
-        <p class="protocol-lead mono">Trabajamos con protocolos específicos para:</p>
-        <ul class="protocol-list">
-          <li>Prótesis transtibiales y transfemorales</li>
-          <li>Adaptación de crampones</li>
-          <li>Marcha en nieve y hielo</li>
-          <li>Gestión de energía en altura</li>
-          <li>Prevención de sobrecargas y lesiones</li>
-        </ul>
+        <div class="limits-cards">
+          <div class="limits-card" tabindex="0" role="group" aria-expanded="false" aria-labelledby="limCard1Title">
+            <h3 id="limCard1Title">Personas con discapacidad motriz:</h3>
+            <p>Sin piernas, sin brazos, con prótesis o apoyos técnicos.</p>
+            <p class="limits-card-extra">Configuración avanzada de crampones en titanio de grado militar. Testeado a -20°C.</p>
+            <span class="visually-hidden">Mantené el foco o el mouse sobre esta tarjeta para ver un dato técnico adicional.</span>
+          </div>
 
-        <p>Porque la pregunta no es si puedes llegar.<br>La pregunta es cuánto estás dispuesto a prepararte para hacerlo.</p>
-
-        <p class="pullquote">La montaña exige rendimiento.<br>Nosotros te ayudamos a construirlo.</p>
+          <div class="limits-card" tabindex="0" role="group" aria-expanded="false" aria-labelledby="limCard2Title">
+            <h3 id="limCard2Title">Personas con discapacidad visual:</h3>
+            <p>Ciegos/baja visión, acompañados de guías especializados.</p>
+            <p class="limits-card-extra">Guiado por comandos de audio 3D de alta precisión y cuerdas de dirección háptica.</p>
+            <span class="visually-hidden">Mantené el foco o el mouse sobre esta tarjeta para ver un dato técnico adicional.</span>
+          </div>
+        </div>
       </div>
 
-      <div class="section-visual">
-        <p class="visual-hint mono" id="protesisHint">Recorré el diagrama con el mouse o el teclado (Tab) para ver los puntos técnicos.</p>
-        <svg class="protesis-diagram" viewBox="0 0 360 480" role="img" aria-labelledby="protesisDiagramTitle protesisDiagramDesc" focusable="false">
-          <title id="protesisDiagramTitle">Diagrama de prótesis de escalada transtibial con crampón adaptado</title>
-          <desc id="protesisDiagramDesc">Ilustración esquemática de una pierna con prótesis transtibial, mostrando el encaje, la articulación de tobillo dinámica y un crampón de hielo adaptado en la base.</desc>
-
-          <line x1="180" y1="40" x2="180" y2="430" class="diagram-axis" aria-hidden="true"></line>
-
-          <path class="diagram-limb" d="M150,40 C140,120 145,200 150,230 L210,230 C215,200 220,120 210,40 Z" />
-          <rect class="diagram-socket" x="138" y="225" width="84" height="95" rx="14" />
-          <rect class="diagram-pylon" x="170" y="320" width="20" height="70" rx="6" />
-          <path class="diagram-foot" d="M135,388 C135,375 160,368 180,368 C205,368 235,376 235,392 C235,405 205,402 180,402 C155,402 135,400 135,388 Z" />
-          <g class="diagram-crampon" aria-hidden="true">
-            <line x1="140" y1="402" x2="140" y2="416"></line>
-            <line x1="160" y1="406" x2="160" y2="420"></line>
-            <line x1="180" y1="408" x2="180" y2="422"></line>
-            <line x1="200" y1="406" x2="200" y2="420"></line>
-            <line x1="220" y1="402" x2="220" y2="416"></line>
-          </g>
-
-          <g class="hotspot" tabindex="0" role="button" data-tooltip="hsSocket" transform="translate(180,270)">
-            <circle r="11" />
-            <circle r="3" class="hotspot-core" />
-          </g>
-          <g class="hotspot" tabindex="0" role="button" data-tooltip="hsAnkle" transform="translate(180,355)">
-            <circle r="11" />
-            <circle r="3" class="hotspot-core" />
-          </g>
-          <g class="hotspot" tabindex="0" role="button" data-tooltip="hsCrampon" transform="translate(180,409)">
-            <circle r="11" />
-            <circle r="3" class="hotspot-core" />
-          </g>
-        </svg>
-
-        <div class="tooltip" id="hsSocket" role="note" hidden>
-          <p class="tooltip-title mono">Encaje (Socket)</p>
-          <p>Punto de mayor presión. Distribuye la carga del peso corporal evitando fricción y puntos calientes durante ascensos largos.</p>
-        </div>
-        <div class="tooltip" id="hsAnkle" role="note" hidden>
-          <p class="tooltip-title mono">Articulación de tobillo</p>
-          <p>Componente dinámico que absorbe impacto y se adapta al ángulo del terreno irregular en roca y hielo.</p>
-        </div>
-        <div class="tooltip" id="hsCrampon" role="note" hidden>
-          <p class="tooltip-title mono">Crampón adaptado</p>
-          <p>Diseñado para anclarse a la base protésica, optimiza el agarre en nieve dura y hielo vivo.</p>
+      <div class="limits-visual">
+        <div class="limits-image-frame">
+          <!-- Reemplazá esta imagen por la foto real (estilo image_8703bd.jpg): escalador técnico en pared de hielo con piolets -->
+          <img class="limits-image" src="assets/escalador-hielo.jpg" alt="Fotografía en contrapicado de un alpinista escalando una pared vertical de hielo y nieve compacta, asegurado con cuerdas y utilizando herramientas de progresión técnica.">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======================= 4. ECO Y ROCA ======================= -->
-  <section class="eco-roca" id="eco-roca" aria-labelledby="eco-title">
-    <div class="section-grid section-grid--reverse">
-      <div class="section-visual eco-visual" id="ecoVisual" tabindex="0" aria-describedby="ecoSceneDescription">
-        <svg class="eco-rings" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-          <circle class="ring" cx="200" cy="200" r="40"></circle>
-          <circle class="ring" cx="200" cy="200" r="80"></circle>
-          <circle class="ring" cx="200" cy="200" r="120"></circle>
-          <circle class="ring" cx="200" cy="200" r="160"></circle>
-          <g class="rock-grain" aria-hidden="true">
-            <circle cx="120" cy="90" r="2"></circle>
-            <circle cx="260" cy="70" r="2.4"></circle>
-            <circle cx="310" cy="180" r="1.8"></circle>
-            <circle cx="90" cy="260" r="2.2"></circle>
-            <circle cx="300" cy="300" r="2"></circle>
-            <circle cx="150" cy="330" r="1.6"></circle>
-            <circle cx="60" cy="160" r="1.8"></circle>
-          </g>
-        </svg>
-        <p class="eco-visual-cue mono">Mové el mouse o presioná Tab para escuchar la roca</p>
-      </div>
-
-      <div class="section-copy">
-        <p class="eyebrow mono">Línea Ciegos</p>
-        <h2 id="eco-title" class="display-md">Cuando desaparece la vista,<br>aparecen nuevas formas de leer la montaña.</h2>
-        <p>Escalar sin ver no significa avanzar sin información. Significa aprender a escuchar mejor.
-        A sentir mejor. A confiar mejor.</p>
-
-        <p class="protocol-lead mono">Nuestro sistema combina:</p>
-        <ul class="protocol-list">
-          <li>Guías especializados</li>
-          <li>Comunicación verbal de precisión</li>
-          <li>Lectura táctil del terreno</li>
-          <li>Navegación asistida</li>
-          <li>Protocolos de seguridad adaptados</li>
-        </ul>
-
-        <p>Cada paso tiene una referencia.<br>Cada maniobra tiene una estrategia.<br>Cada cumbre tiene un camino.</p>
-
-        <p class="pullquote">La montaña sigue hablando.<br>Solo aprendemos otro idioma para escucharla.</p>
-
-        <p id="ecoSceneDescription" class="visually-hidden">
-          Descripción de la escena: el viento golpea la pared de roca helada a tres mil metros de altura.
-          Una guía describe en voz alta cada saliente y cada grieta mientras el grupo avanza atado a la cuerda
-          de seguridad. El sonido de los crampones marcando el hielo se convierte en la brújula de quienes
-          escalan sin ver la cima, y cada eco que rebota en la pared dibuja, paso a paso, el camino exacto
-          hacia arriba.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= 5. PROCESO DE PREPARACIÓN ======================= -->
+  <!-- ======================= 4. PROCESO DE PREPARACIÓN ======================= -->
   <section class="proceso" id="proceso" aria-labelledby="proceso-title">
     <div class="proceso-inner">
       <p class="eyebrow mono">El camino antes de la montaña</p>
@@ -273,7 +194,7 @@
     </div>
   </section>
 
-  <!-- ======================= 6. TESTIMONIOS ======================= -->
+  <!-- ======================= 5. TESTIMONIOS ======================= -->
   <section class="testimonios" id="testimonios" aria-labelledby="testimonios-title">
     <div class="testimonios-inner">
       <p class="eyebrow mono">Prueba social</p>
@@ -322,7 +243,7 @@
     </div>
   </section>
 
-  <!-- ======================= 7. CURSOS ======================= -->
+  <!-- ======================= 6. CURSOS ======================= -->
   <section class="cursos" id="cursos" aria-labelledby="cursos-title">
     <div class="cursos-inner">
       <p class="eyebrow mono">Preparación para la expedición</p>
@@ -382,7 +303,7 @@
     </div>
   </section>
 
-  <!-- ======================= 8. EXPEDICIONES ACTIVAS ======================= -->
+  <!-- ======================= 7. EXPEDICIONES ACTIVAS ======================= -->
   <section class="expediciones" id="expediciones" aria-labelledby="expediciones-title">
     <div class="expediciones-inner">
       <p class="eyebrow mono">Catálogo de rutas</p>
@@ -432,7 +353,7 @@
     </div>
   </section>
 
-  <!-- ======================= 9. EQUIPO DE GUÍAS ÉLITE ======================= -->
+  <!-- ======================= 8. EQUIPO DE GUÍAS ÉLITE ======================= -->
   <section class="equipo" id="equipo" aria-labelledby="equipo-title">
     <div class="equipo-inner">
       <p class="eyebrow mono">El equipo detrás de la cuerda</p>
@@ -459,7 +380,7 @@
     </div>
   </section>
 
-  <!-- ======================= 10. CAMPAMENTO BASE ======================= -->
+  <!-- ======================= 9. CAMPAMENTO BASE ======================= -->
   <section class="contacto" id="contacto" aria-labelledby="contacto-title">
     <div class="contacto-inner">
       <p class="eyebrow mono">Campamento Base</p>
