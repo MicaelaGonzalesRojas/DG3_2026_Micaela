@@ -29,6 +29,7 @@
       <ul class="nav-list" id="navList">
         <li><a href="#manifiesto">Manifiesto</a></li>
         <li><a href="#limites">Límites</a></li>
+        <li><a href="#heroes">Héroes</a></li>
         <li><a href="#proceso">Preparación</a></li>
         <li><a href="#cursos">Cursos</a></li>
         <li><a href="#expediciones">Expediciones</a></li>
@@ -134,7 +135,64 @@
     </div>
   </section>
 
-  <!-- ======================= 4. PROCESO DE PREPARACIÓN ======================= -->
+  <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
+  <section class="heroes" id="heroes" aria-labelledby="heroes-title">
+    <div class="heroes-inner">
+      <h2 id="heroes-title" class="display-md">Héroes de la montaña</h2>
+      <p class="heroes-lead">Cada imagen que ves aquí es prueba de que la verdadera fuerza se mide en
+      quienes se atreven a desafiar lo imposible.</p>
+
+      <div class="heroes-carousel" role="region" aria-roledescription="carrusel" aria-label="Historias de montañistas">
+        <p class="visually-hidden">El carrusel se desplaza automáticamente. Pasá el mouse o moveté con
+        Tab por encima para pausarlo y leer con calma.</p>
+
+        <ul class="heroes-track" id="heroesTrack">
+          <li class="heroes-card-item">
+            <div class="heroes-card" tabindex="0" role="group" aria-label="Héctor Valdez, 54 años. Sin piernas. Cumbre: Monte Everest.">
+              <img class="heroes-card-image" src="assets/imag1.png" alt="Alpinista amputado progresando con prótesis y bastones técnicos sobre una pendiente nevada cerca de la cumbre del Monte Everest.">
+              <div class="heroes-card-data">
+                <p class="heroes-card-name">Héctor Valdez (54 años)</p>
+                <p class="heroes-card-condition">Sin piernas</p>
+                <p class="heroes-card-summit mono">Monte Everest</p>
+              </div>
+            </div>
+          </li>
+          <li class="heroes-card-item">
+            <div class="heroes-card" tabindex="0" role="group" aria-label="John Cameron, 47 años. Ciego. Cumbre: Cordillera de los Andes.">
+              <img class="heroes-card-image" src="assets/imag2.png" alt="Alpinista ciego progresando en una arista de roca y hielo en la Cordillera de los Andes, asistido por cuerdas y guía verbal.">
+              <div class="heroes-card-data">
+                <p class="heroes-card-name">John Cameron (47 años)</p>
+                <p class="heroes-card-condition">Ciego</p>
+                <p class="heroes-card-summit mono">Cordillera de los Andes</p>
+              </div>
+            </div>
+          </li>
+          <li class="heroes-card-item">
+            <div class="heroes-card" tabindex="0" role="group" aria-label="Marina Sosa, 61 años. Amputación transfemoral. Cumbre: Aconcagua.">
+              <img class="heroes-card-image" src="assets/imag3.png" alt="Alpinista con amputación transfemoral asegurada con arnés y cuerdas, avanzando sobre hielo compacto en la pared del Aconcagua.">
+              <div class="heroes-card-data">
+                <p class="heroes-card-name">Marina Sosa (61 años)</p>
+                <p class="heroes-card-condition">Amputación transfemoral</p>
+                <p class="heroes-card-summit mono">Aconcagua</p>
+              </div>
+            </div>
+          </li>
+          <li class="heroes-card-item">
+            <div class="heroes-card" tabindex="0" role="group" aria-label="Diego Quiroga, 39 años. Baja visión. Cumbre: Cerro Torre.">
+              <img class="heroes-card-image" src="assets/imag4.png" alt="Alpinista con baja visión escalando la pared vertical de granito y hielo del Cerro Torre, guiado por comandos de voz precisos.">
+              <div class="heroes-card-data">
+                <p class="heroes-card-name">Diego Quiroga (39 años)</p>
+                <p class="heroes-card-condition">Baja visión</p>
+                <p class="heroes-card-summit mono">Cerro Torre</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 5. PROCESO DE PREPARACIÓN ======================= -->
   <section class="proceso" id="proceso" aria-labelledby="proceso-title">
     <div class="proceso-inner">
       <p class="eyebrow mono">El camino antes de la montaña</p>
@@ -194,7 +252,7 @@
     </div>
   </section>
 
-  <!-- ======================= 5. TESTIMONIOS ======================= -->
+  <!-- ======================= 6. TESTIMONIOS ======================= -->
   <section class="testimonios" id="testimonios" aria-labelledby="testimonios-title">
     <div class="testimonios-inner">
       <p class="eyebrow mono">Prueba social</p>
@@ -243,7 +301,7 @@
     </div>
   </section>
 
-  <!-- ======================= 6. CURSOS ======================= -->
+  <!-- ======================= 7. CURSOS ======================= -->
   <section class="cursos" id="cursos" aria-labelledby="cursos-title">
     <div class="cursos-inner">
       <p class="eyebrow mono">Preparación para la expedición</p>
@@ -303,57 +361,79 @@
     </div>
   </section>
 
-  <!-- ======================= 7. EXPEDICIONES ACTIVAS ======================= -->
+  <!-- ======================= 8. EXPEDICIONES (tabs + panel dinámico) ======================= -->
   <section class="expediciones" id="expediciones" aria-labelledby="expediciones-title">
     <div class="expediciones-inner">
       <p class="eyebrow mono">Catálogo de rutas</p>
-      <h2 id="expediciones-title" class="display-md">Tu próxima cumbre ya está ahí arriba.</h2>
+      <h2 id="expediciones-title" class="display-md">Expediciones</h2>
       <p class="expediciones-intro">Patagonia ofrece algunos de los desafíos más extraordinarios del planeta.
       Nosotros los convertimos en objetivos alcanzables mediante preparación, tecnología y acompañamiento
       especializado.</p>
 
-      <div class="carousel-wrap">
-        <button class="carousel-btn carousel-btn--edge" id="expPrev" aria-label="Ruta anterior">‹</button>
+      <div class="exp-layout">
+        <div class="exp-cards" role="tablist" aria-label="Elegí una expedición para ver su cumbre" aria-orientation="vertical">
 
-        <ul class="expediciones-track" id="expedicionesTrack">
-          <li class="expedicion-card">
-            <div class="expedicion-card-inner">
-              <p class="expedicion-name">Cerro Destino</p>
-              <p class="expedicion-level mono">Adaptación requerida: Media</p>
-              <p class="expedicion-tag">Cupos de Guías 1:1 Disponibles</p>
-            </div>
-          </li>
-          <li class="expedicion-card">
-            <div class="expedicion-card-inner">
-              <p class="expedicion-name">Cumbre Austral</p>
-              <p class="expedicion-level mono">Adaptación requerida: Alta</p>
-              <p class="expedicion-tag">Cupos de Guías 1:1 Disponibles</p>
-            </div>
-          </li>
-          <li class="expedicion-card">
-            <div class="expedicion-card-inner">
-              <p class="expedicion-name">Ruta Glaciar</p>
-              <p class="expedicion-level mono">Adaptación requerida: Avanzada</p>
-              <p class="expedicion-tag">Cupos de Guías 1:1 Disponibles</p>
-            </div>
-          </li>
-          <li class="expedicion-card">
-            <div class="expedicion-card-inner">
-              <p class="expedicion-name">Travesía Andina</p>
-              <p class="expedicion-level mono">Adaptación requerida: Experto</p>
-              <p class="expedicion-tag">Cupos de Guías 1:1 Disponibles</p>
-            </div>
-          </li>
-        </ul>
+          <button type="button" class="exp-tab is-active" id="exp-tab-lanin" role="tab"
+            aria-selected="true" aria-controls="expPanel" tabindex="0"
+            data-name="Volcán Lanín"
+            data-image="assets/lanin.jpg"
+            data-image-alt="Vista del volcán Lanín cubierto de nieve, con su silueta cónica perfecta recortada contra un cielo despejado.">
+            <span class="exp-tab-meta mono">
+              <span>Dificultad media</span>
+              <span>1 semana</span>
+            </span>
+            <h3 class="exp-tab-title">Volcán Lanín</h3>
+            <p class="exp-tab-body">Una ascensión introductoria sobre nieve estable y pendientes moderadas.
+            El terreno ideal para validar la adaptación de prótesis y los primeros protocolos de guiado verbal
+            antes de ir a paredes más exigentes.</p>
+          </button>
 
-        <button class="carousel-btn carousel-btn--edge" id="expNext" aria-label="Ruta siguiente">›</button>
+          <button type="button" class="exp-tab" id="exp-tab-fitzroy" role="tab"
+            aria-selected="false" aria-controls="expPanel" tabindex="-1"
+            data-name="Cerro Fitz Roy"
+            data-image="assets/fitzroy.jpg"
+            data-image-alt="Vista del Cerro Fitz Roy, una aguja de granito vertical envuelta en nubes bajas, con su pared este iluminada por la última luz del día.">
+            <span class="exp-tab-meta mono">
+              <span>Dificultad alta</span>
+              <span>2 semanas</span>
+            </span>
+            <h3 class="exp-tab-title">Cerro Fitz Roy</h3>
+            <p class="exp-tab-body">Roca vertical y hielo expuesto en una de las paredes más icónicas de la
+            Patagonia. Acá se ponen a prueba los crampones adaptados, la gestión de carga en prótesis
+            transfemorales y la comunicación de precisión en tramos de máxima exposición.</p>
+          </button>
+
+          <button type="button" class="exp-tab" id="exp-tab-aconcagua" role="tab"
+            aria-selected="false" aria-controls="expPanel" tabindex="-1"
+            data-name="Monte Aconcagua"
+            data-image="assets/aconcagua.jpg"
+            data-image-alt="Vista panorámica del escarpado e imponente Monte Aconcagua bajo un cielo despejado al atardecer.">
+            <span class="exp-tab-meta mono">
+              <span>Dificultad experta</span>
+              <span>3 semanas</span>
+            </span>
+            <h3 class="exp-tab-title">Monte Aconcagua</h3>
+            <p class="exp-tab-body">La cumbre más alta de América. Altura extrema, viento sostenido y jornadas
+            largas que exigen el máximo nivel de preparación física, técnica y mental alcanzado en el Programa
+            Integral de Expedición.</p>
+          </button>
+        </div>
+
+        <div class="exp-visual">
+          <div class="exp-image-frame" id="expPanel" role="tabpanel" aria-labelledby="exp-tab-lanin" tabindex="0">
+            <!-- Reemplazá estas rutas por fotos reales de cada cumbre -->
+            <img class="exp-image is-current" id="expImageA" src="assets/lanin.jpg" alt="Vista del volcán Lanín cubierto de nieve, con su silueta cónica perfecta recortada contra un cielo despejado.">
+            <img class="exp-image" id="expImageB" src="" alt="" aria-hidden="true">
+          </div>
+          <p class="visually-hidden" id="expLiveRegion" role="status" aria-live="polite"></p>
+        </div>
       </div>
 
       <p class="pullquote pullquote--center">Las montañas no se acercan a las personas.<br>Las personas se acercan a las montañas.</p>
     </div>
   </section>
 
-  <!-- ======================= 8. EQUIPO DE GUÍAS ÉLITE ======================= -->
+  <!-- ======================= 9. EQUIPO DE GUÍAS ÉLITE ======================= -->
   <section class="equipo" id="equipo" aria-labelledby="equipo-title">
     <div class="equipo-inner">
       <p class="eyebrow mono">El equipo detrás de la cuerda</p>
@@ -380,7 +460,7 @@
     </div>
   </section>
 
-  <!-- ======================= 9. CAMPAMENTO BASE ======================= -->
+  <!-- ======================= 10. CAMPAMENTO BASE ======================= -->
   <section class="contacto" id="contacto" aria-labelledby="contacto-title">
     <div class="contacto-inner">
       <p class="eyebrow mono">Campamento Base</p>

@@ -110,7 +110,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
-     5. Línea de tiempo del proceso de preparación (acordeón exclusivo)
+     5. Héroes de la montaña — clonado del track para el marquee infinito
+        El DOM accesible conserva solo las 4 tarjetas reales (tabulables,
+        sin aria-hidden). Los clones existen únicamente para el efecto
+        visual continuo y quedan invisibles al árbol de accesibilidad.
+     ------------------------------------------------------------------ */
+  const heroesTrack = document.getElementById('heroesTrack');
+  if (heroesTrack) {
+    const originalCards = Array.from(heroesTrack.children);
+    originalCards.forEach((item) => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('is-clone');
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('[tabindex]').forEach((el) => el.setAttribute('tabindex', '-1'));
+      const innerCard = clone.querySelector('.heroes-card');
+      if (innerCard) innerCard.classList.add('is-clone');
+      heroesTrack.appendChild(clone);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     6. Línea de tiempo del proceso de preparación (acordeón exclusivo)
      ------------------------------------------------------------------ */
   const timelineTriggers = document.querySelectorAll('.timeline-trigger');
   timelineTriggers.forEach((btn) => {
@@ -132,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
-     6. Cursos — cada tarjeta se expande de forma independiente
+     7. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
   document.querySelectorAll('.curso-toggle').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -144,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
-     7. Testimonios — carrusel con fundido, controles y puntos accesibles
+     8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
   const testimoniosTrack = document.getElementById('testimoniosTrack');
   if (testimoniosTrack) {
@@ -178,36 +198,78 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     8. Expediciones — carrusel deslizable + tilt 3D suave
+     9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
+        de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
+        turnan el rol de "actual" para lograr un crossfade real sin
+        flash ni recarga visible.
      ------------------------------------------------------------------ */
-  const expTrack = document.getElementById('expedicionesTrack');
-  if (expTrack) {
-    const scrollAmount = 280;
-    document.getElementById('expPrev').addEventListener('click', () => {
-      expTrack.scrollBy({ left: -scrollAmount, behavior: motionIsReduced() ? 'auto' : 'smooth' });
-    });
-    document.getElementById('expNext').addEventListener('click', () => {
-      expTrack.scrollBy({ left: scrollAmount, behavior: motionIsReduced() ? 'auto' : 'smooth' });
-    });
+  const expTabs = Array.from(document.querySelectorAll('.exp-tab'));
+  const expPanel = document.getElementById('expPanel');
+  const expLiveRegion = document.getElementById('expLiveRegion');
 
-    document.querySelectorAll('.expedicion-card-inner').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        if (motionIsReduced()) return;
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
+  if (expTabs.length && expPanel) {
+    let expCurrentImg = document.getElementById('expImageA');
+    let expNextImg = document.getElementById('expImageB');
+
+    function swapExpeditionImage(src, alt) {
+      const incoming = expNextImg;
+      const outgoing = expCurrentImg;
+
+      function reveal() {
+        incoming.classList.add('is-current');
+        incoming.removeAttribute('aria-hidden');
+        outgoing.classList.remove('is-current');
+        outgoing.setAttribute('aria-hidden', 'true');
+        expCurrentImg = incoming;
+        expNextImg = outgoing;
+      }
+
+      incoming.alt = alt;
+      if (incoming.getAttribute('src') === src && incoming.complete) {
+        reveal();
+      } else {
+        incoming.addEventListener('load', reveal, { once: true });
+        incoming.src = src;
+      }
+    }
+
+    function activateExpTab(index, { focus = true } = {}) {
+      expTabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.classList.toggle('is-active', selected);
+        tab.setAttribute('aria-selected', String(selected));
+        tab.setAttribute('tabindex', selected ? '0' : '-1');
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+
+      const tab = expTabs[index];
+      if (focus) tab.focus();
+
+      swapExpeditionImage(tab.dataset.image, tab.dataset.imageAlt);
+      expPanel.setAttribute('aria-labelledby', tab.id);
+      if (expLiveRegion) expLiveRegion.textContent = `Expedición seleccionada: ${tab.dataset.name}.`;
+    }
+
+    expTabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activateExpTab(i, { focus: false }));
+      tab.addEventListener('keydown', (e) => {
+        let newIndex = null;
+        if (e.key === 'ArrowDown') newIndex = (i + 1) % expTabs.length;
+        else if (e.key === 'ArrowUp') newIndex = (i - 1 + expTabs.length) % expTabs.length;
+        else if (e.key === 'Home') newIndex = 0;
+        else if (e.key === 'End') newIndex = expTabs.length - 1;
+        if (newIndex !== null) {
+          e.preventDefault();
+          activateExpTab(newIndex);
+        }
       });
     });
   }
 
   /* ------------------------------------------------------------------
-     9. Galería del equipo — carga automática desde /assets/imagN.png
+     10. Galería del equipo — carga automática desde /assets/imagN.png
          Probá la cantidad real de fotos: si agregás o quitás archivos
          en /assets siguiendo el patrón imag1.png, imag2.png, imag3.png...
+
          la galería se ajusta sola, sin tocar este código.
      ------------------------------------------------------------------ */
   const gallery = document.getElementById('equipoGallery');
@@ -256,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     10. Formulario de contacto (Campamento Base)
+     11. Formulario de contacto (Campamento Base)
          NOTA: esto es un envío simulado en el cliente. Reemplazar el
          bloque marcado por la integración real (fetch a tu backend,
          servicio de email transaccional, Google Sheets, CRM, etc.).

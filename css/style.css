@@ -17,6 +17,9 @@
   --color-frost:       #BFD7DE;
   --color-mint:        #C9F1E6;
   --color-glacier:     #34D6E0;
+  --color-pale:        #E7EEF0;
+  --color-slate:       #45525A;
+  --color-coral:       #FF7A6A;
   --color-ink:         #0A0D10;
 
   --font-display: 'Anton', 'Arial Narrow', sans-serif;
@@ -416,7 +419,91 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 [data-motion="reduced"] .limits-image{ transform: none; }
 
 /* ---------------------------------------------------------------------
-   4. PROCESO — timeline accordion
+   4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
+   --------------------------------------------------------------------- */
+.heroes{ background: linear-gradient(180deg, var(--color-void), var(--color-rock)); }
+.heroes-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
+.heroes-lead{
+  max-width: 70ch;
+  margin: 0 auto;
+  color: var(--color-ice-dim);
+}
+
+.heroes-carousel{
+  position: relative;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.heroes-track{
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding: .5rem 0;
+  animation: heroes-marquee 34s linear infinite;
+}
+.heroes-carousel:hover .heroes-track,
+.heroes-carousel:focus-within .heroes-track{
+  animation-play-state: paused;
+}
+@keyframes heroes-marquee{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+.heroes-card-item{ flex: 0 0 auto; }
+.heroes-card{
+  width: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--color-rock-soft);
+  display: block;
+  text-align: left;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.heroes-card:hover,
+.heroes-card:focus-visible,
+.heroes-card:focus{
+  transform: scale(1.02);
+  box-shadow: 0 20px 44px rgba(0,0,0,.5);
+}
+.heroes-card-image{
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+.heroes-card-data{
+  background: var(--color-pale);
+  color: var(--color-ink);
+  padding: 1.25rem 1.4rem;
+}
+.heroes-card-name{ font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
+.heroes-card-condition{ color: var(--color-slate); font-size: .85rem; margin-bottom: .25rem; }
+.heroes-card-summit{
+  color: var(--color-slate);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* Reducir movimiento: se detiene el marquee y se ocultan los clones,
+   dejando las 4 tarjetas reales en una fila navegable manualmente. */
+[data-motion="reduced"] .heroes-track{
+  animation: none;
+  transform: none;
+  overflow-x: auto;
+}
+[data-motion="reduced"] .heroes-card.is-clone,
+[data-motion="reduced"] .heroes-card-item.is-clone{ display: none; }
+
+@media (max-width: 540px){
+  .heroes-card{ width: 220px; }
+}
+
+/* ---------------------------------------------------------------------
+   5. PROCESO — timeline accordion
    --------------------------------------------------------------------- */
 .proceso{ background: var(--color-rock); }
 .proceso-inner{ max-width: 880px; margin: 0 auto; text-align: center; }
@@ -462,7 +549,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 }
 
 /* ---------------------------------------------------------------------
-   5. TESTIMONIOS — fade carousel
+   6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
 .testimonios{ background: var(--color-void); }
 .testimonios-inner{ max-width: 760px; margin: 0 auto; text-align: center; }
@@ -505,7 +592,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 .testimonios-dots button[aria-selected="true"]{ background: var(--color-ember); opacity: 1; }
 
 /* ---------------------------------------------------------------------
-   6. CURSOS
+   7. CURSOS
    --------------------------------------------------------------------- */
 .cursos{ background: var(--color-rock); }
 .cursos-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
@@ -541,47 +628,95 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 .curso-panel strong{ color: var(--color-ice); }
 
 /* ---------------------------------------------------------------------
-   7. EXPEDICIONES — tilt carousel
+   8. EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
    --------------------------------------------------------------------- */
 .expediciones{ background: var(--color-void); }
 .expediciones-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
 .expediciones-intro{ color: var(--color-ice-dim); max-width: 620px; margin: 0 auto; }
-.carousel-wrap{ display: flex; align-items: center; gap: 1rem; margin-top: 3rem; }
-.carousel-btn--edge{ flex-shrink: 0; }
-.expediciones-track{
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 1rem 0;
-  flex: 1;
-}
-.expediciones-track::-webkit-scrollbar{ height: 6px; }
-.expediciones-track::-webkit-scrollbar-thumb{ background: var(--color-titanium); border-radius: 4px; }
-.expedicion-card{
-  flex: 0 0 260px;
-  scroll-snap-align: start;
-  perspective: 800px;
-}
-.expedicion-card-inner{
-  background: linear-gradient(160deg, var(--color-rock-soft), var(--color-rock));
-  border: 1px solid rgba(140,151,160,.25);
-  border-radius: var(--radius);
-  padding: 2.5rem 1.5rem;
+
+.exp-layout{
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 2rem;
+  align-items: stretch;
+  margin-top: 3rem;
   text-align: left;
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-  transform-style: preserve-3d;
-  will-change: transform;
 }
-.expedicion-card-inner:hover, .expedicion-card-inner:focus-within{
-  border-color: var(--color-ember);
+
+.exp-cards{
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
 }
-.expedicion-name{ font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; margin-bottom: .6rem; }
-.expedicion-level{ color: var(--color-frost); font-size: .78rem; margin-bottom: 1.5rem; }
-.expedicion-tag{ font-family: var(--font-mono); font-size: .72rem; color: var(--color-ember); text-transform: uppercase; letter-spacing: .03em; }
+.exp-tab{
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--color-pale);
+  color: var(--color-ink);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
+  cursor: pointer;
+  transition: background-color .12s linear, color .12s linear;
+}
+.exp-tab-meta{
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: .72rem;
+  color: var(--color-slate);
+  margin-bottom: .65rem;
+}
+.exp-tab-title{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  line-height: 1.15;
+  margin-bottom: .55rem;
+  color: inherit;
+}
+.exp-tab-body{
+  font-size: .9rem;
+  line-height: 1.55;
+  color: var(--color-slate);
+  margin: 0;
+}
+.exp-tab[aria-selected="true"]{
+  background: var(--color-coral);
+  color: #FFFFFF;
+}
+.exp-tab[aria-selected="true"] .exp-tab-meta,
+.exp-tab[aria-selected="true"] .exp-tab-body{
+  color: rgba(255,255,255,.92);
+}
+
+.exp-visual{ position: relative; }
+.exp-image-frame{
+  position: relative;
+  height: 100%;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--color-rock-soft);
+}
+.exp-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+.exp-image.is-current{ opacity: 1; transform: scale(1); }
+[data-motion="reduced"] .exp-image{ transition: none; }
 
 /* ---------------------------------------------------------------------
-   8. EQUIPO — gallery grayscale → color
+   9. EQUIPO — gallery grayscale → color
    --------------------------------------------------------------------- */
 .equipo{ background: var(--color-rock); }
 .equipo-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
@@ -615,7 +750,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 [data-motion="reduced"] .equipo-gallery img{ filter: grayscale(0); }
 
 /* ---------------------------------------------------------------------
-   9. CONTACTO
+   10. CONTACTO
    --------------------------------------------------------------------- */
 .contacto{
   background: linear-gradient(180deg, var(--color-void), #060708);
@@ -687,6 +822,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
    --------------------------------------------------------------------- */
 @media (max-width: 920px){
   .section-grid{ grid-template-columns: 1fr; }
+  .exp-layout{ grid-template-columns: 1fr; }
   .cursos-grid{ grid-template-columns: 1fr; }
   .curso-card--featured{ transform: none; }
 }
