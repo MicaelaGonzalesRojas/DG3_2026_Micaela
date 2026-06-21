@@ -129,6 +129,78 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+/**
+ * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
+ * Vanilla JS, sin dependencias externas. Autocontenido en un IIFE para
+ * no filtrar variables globales al integrarse en cualquier página.
+ *
+ * Lógica:
+ * 1. Si el navegador no respeta "prefers-reduced-motion: reduce", todas
+ *    las ruedas numéricas se reinician a 0 al cargar el script (estado
+ *    de "pre-giro"). El valor final real ya vive en el atributo
+ *    data-digit y, como fallback sin JS, en el style="--target-digit"
+ *    de cada .digit-strip en el HTML.
+ * 2. Un IntersectionObserver dispara la animación de "Ridge Reveal" del
+ *    título y el giro mecánico de cada dígito hasta su valor final,
+ *    una sola vez, cuando la sección entra en el viewport.
+ * 3. Si prefiere movimiento reducido, no se toca el estado inicial: el
+ *    valor correcto ya está visible desde el primer milisegundo, sin
+ *    animación.
+ */
+(function () {
+  'use strict';
+
+  var section = document.querySelector('.stats-block');
+  if (!section) return;
+
+  var title = section.querySelector('.stats-title');
+  var digitWindows = section.querySelectorAll('.digit-window');
+
+  var prefersReducedMotion =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Paso 1: estado de "pre-giro" (solo si hay movimiento permitido).
+  if (!prefersReducedMotion) {
+    digitWindows.forEach(function (win) {
+      var strip = win.querySelector('.digit-strip');
+      if (strip) strip.style.setProperty('--target-digit', '0');
+    });
+  }
+
+  function reveal() {
+    if (title) title.classList.add('is-visible');
+    digitWindows.forEach(function (win) {
+      var strip = win.querySelector('.digit-strip');
+      var target = win.getAttribute('data-digit');
+      if (strip && target !== null) {
+        strip.style.setProperty('--target-digit', target);
+      }
+    });
+  }
+
+  // Paso 2 / 3: disparo único al entrar en viewport.
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            reveal();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(section);
+  } else {
+    // Sin soporte de IntersectionObserver: revelar de inmediato.
+    reveal();
+  }
+})();
+
+
+
   /* ------------------------------------------------------------------
      6. Línea de tiempo del proceso de preparación (acordeón exclusivo)
      ------------------------------------------------------------------ */
