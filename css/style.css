@@ -64,6 +64,9 @@ h1, h2, h3, .display-md {
   letter-spacing: -0.02em;
 }
 
+p {
+  font-size: 23px; /* tamaño base (~16px) */}
+
 h2 {
   font-weight: 600 !important;
 }
@@ -356,9 +359,8 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
    2. MANIFIESTO — scroll-linked rock → ice background
    --------------------------------------------------------------------- */
 .manifiesto{
-  background-color: var(--color-rock);
-  background: color-mix(in srgb, var(--color-rock) calc(100% - (var(--mf-progress, 0) * 1%)), var(--color-ice) calc(var(--mf-progress, 0) * 1%));
-  color: var(--color-ice);
+  background-color: var(--color-frost);
+  color: var(--color-frost);
   transition: background .05s linear;
 }
 .manifiesto-inner{ max-width: 760px; margin: 0 auto; text-align: center; }
@@ -370,7 +372,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   transition: opacity .4s var(--ease);
 }
 .manifiesto-copy .is-lit{ opacity: 1; }
-.manifiesto-question{ font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem,2.4vw,1.7rem); color: var(--color-ember); }
+.manifiesto-question{ font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem,2.4vw,1.7rem); color: var(--color-ice); }
 .manifiesto-close{ font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.2rem,2vw,1.5rem); }
 [data-motion="reduced"] .manifiesto-copy p{ opacity: 1; }
 [data-motion="reduced"] .manifiesto{ background: var(--color-rock); }
@@ -790,7 +792,7 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
-.testimonios{ background: var(--color-void); }
+.testimonios{ background: var(--color-ink); }
 .testimonios-inner{ max-width: 760px; margin: 0 auto; text-align: center; }
 .testimonios-carousel{ margin-top: 2.5rem; }
 .testimonios-track{ position: relative; min-height: 100px; }
@@ -803,8 +805,9 @@ html[data-motion="reduced"] .digit-strip,
 
 .testimonio.is-active{ opacity: 1; pointer-events: auto; position: relative; }
 .testimonio blockquote{ margin: 0 0 1.25rem; }
-.testimonio p{ font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; color: var(--color-ice); }
-.testimonio figcaption{ color: var(--color-titanium); font-size: .8rem; margin-bottom: 1.25rem; }
+.testimonio p{ font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; color: var(--color-void); }
+.testimonio figcaption{ color: var(--color-void); font-size: .8rem; margin-bottom: 1.25rem; }
+
 .audio-btn{
   display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-mono); font-size: .78rem;
