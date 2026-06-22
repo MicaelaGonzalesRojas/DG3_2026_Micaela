@@ -338,58 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------
-     10. Galería del equipo — carga automática desde /assets/imagN.png
-         Probá la cantidad real de fotos: si agregás o quitás archivos
-         en /assets siguiendo el patrón imag1.png, imag2.png, imag3.png...
-
-         la galería se ajusta sola, sin tocar este código.
-     ------------------------------------------------------------------ */
-  const gallery = document.getElementById('equipoGallery');
-  const galleryFallback = document.getElementById('galleryFallback');
-  if (gallery) {
-    const MAX_ATTEMPTS = 24;
-    const MAX_CONSECUTIVE_ERRORS = 4;
-    let loadedCount = 0;
-    let consecutiveErrors = 0;
-
-    const galleryRevealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            galleryRevealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    function tryLoad(i) {
-      if (i > MAX_ATTEMPTS || consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
-        if (loadedCount === 0) galleryFallback.classList.remove('visually-hidden');
-        return;
-      }
-      const img = new Image();
-      img.alt = `Foto del equipo y la comunidad de Cúspide en terreno (${i})`;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.addEventListener('load', () => {
-        consecutiveErrors = 0;
-        loadedCount += 1;
-        gallery.appendChild(img);
-        galleryRevealObserver.observe(img);
-        tryLoad(i + 1);
-      });
-      img.addEventListener('error', () => {
-        consecutiveErrors += 1;
-        tryLoad(i + 1);
-      });
-      img.src = `assets/imag${i}.png`;
-    }
-    tryLoad(1);
-  }
-
-  /* ------------------------------------------------------------------
      11. Formulario de contacto (Campamento Base)
          NOTA: esto es un envío simulado en el cliente. Reemplazar el
          bloque marcado por la integración real (fetch a tu backend,
