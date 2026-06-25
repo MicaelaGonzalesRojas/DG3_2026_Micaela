@@ -274,35 +274,35 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             nombre:'HECTOR AGUIRRE',
             condicion:'Baja visión',
-            avatar:'assets/testimonio-1.jpg',
+            avatar:'assets/per1.jpg',
             texto:'Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
         },
 
         {
             nombre:'MATEO BENAVÍDEZ',
             condicion:'Lesión Medular L2',
-            avatar:'assets/testimonio-2.jpg',
+            avatar:'assets/per1.jpg',
             texto:'En el Ama Dablam el frío amenazó mis sistemas adaptativos. CÚSPIDE no me bajó de la montaña; me dio la técnica para resistir y liderar.'
         },
 
         {
             nombre:'ELENA ROSTOVA',
             condicion:'Amputación Bilateral',
-            avatar:'assets/testimonio-3.jpg',
+            avatar:'assets/per1.jpg',
             texto:'Muchos te dicen lo que no puedes hacer. En este equipo diseñan los anclajes de carbono que necesitas para morder el hielo vertical.'
         },
 
         {
             nombre:'MARCUS VANCE',
             condicion:'Ceguera Total',
-            avatar:'assets/testimonio-4.jpg',
+            avatar:'assets/per1.jpg',
             texto:'Escalar una pared vertical en total oscuridad es absoluto terror hasta que aprendes a confiar en el sonar táctil de tu arnés adaptado.'
         },
 
         {
             nombre:'SOFIA GRIEG',
             condicion:'Amputación Femoral',
-            avatar:'assets/testimonio-5.jpg',
+            avatar:'assets/per1.jpg',
             texto:'La cumbre no te pide currículum, te pide preparación. CÚSPIDE transformó mi prótesis en una extensión de la roca.'
         }
     ];

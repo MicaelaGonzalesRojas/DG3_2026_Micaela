@@ -12,14 +12,14 @@
   --color-ice:         #7E6A65; /* Marrón (Texto Base) */
   --color-ice-dim:     #7E6A65; /* Marrón Secondary */
   --color-titanium:    #7E6A65; 
-  --color-ember:       #FF8479; /* Naranja Táctico (Acciones y Destacados) */
-  --color-ember-soft:  #FF9E95; 
+  --color-ember:       #fa6558; /* Naranja Táctico (Acciones y Destacados) */
+  --color-ember-soft:  #fa6558; 
   --color-frost:       #D7E2E5; /* Celeste */
   --color-mint:        #D7E2E5; 
-  --color-glacier:     #FF8479; 
+  --color-glacier:     #fa6558; 
   --color-pale:        #D7E2E5; /* Fondo de cards */
   --color-slate:       #7E6A65; 
-  --color-coral:       #FF8479; 
+  --color-coral:       #fa6558; 
   --color-ink:         #292020; /* Negro (Títulos de alta jerarquía) */
 
   --font-display: 'Nippo', 'Anton', sans-serif;
@@ -291,7 +291,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   pointer-events: none;
 }
 .hero-inner{ max-width: 880px; position: relative; z-index: 1; 
-  margin-top: -30vh; /* lo sube */
+  margin-top: 5vh; /* lo sube */
 }
 .hero-title{
   font-family: var(--font-display);
@@ -299,7 +299,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   font-size: clamp(2.6rem, 9vw, 6.4rem);
   line-height: .98;
   margin: .5rem 0 1rem;
-  color: var(--color-void); /* aplica tu color definido */
+  color: var(--color-glacier); /* aplica tu color definido */
 }
 .reveal-line{ display: block; overflow: hidden; }
 .reveal-line--accent{ color: var(--color-ember); }
@@ -326,12 +326,12 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 
 .hero-subtitle {
   font-size: clamp(1.2rem, 2.5vw, 2rem);
-  color: var(--color-ember);
+  color: var(--color-void);
   max-width: 620px;
-  margin: 0rem;
+  margin: 1rem;
 }
 
-.hero-actions{ display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-actions{ display: flex; gap: 1rem; justify-content: flex-start; flex-wrap: wrap; }
 
 .scroll-cue{
   position: absolute;
@@ -408,7 +408,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 }
 
 
-.limites-lead{ color: var(--color-ice-dim); max-width: 480px; }
+.limites-lead{ color: var(--color-ice-dim); max-width: 250px; }
 
 .limits-cards{
   display: flex;
@@ -1110,7 +1110,7 @@ html[data-motion="reduced"] .testimonios-v2-track{
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 0;
+    gap: 60px;
     margin-top: 1,5rem;
 }
 
