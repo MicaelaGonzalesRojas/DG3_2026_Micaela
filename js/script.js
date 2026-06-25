@@ -258,47 +258,39 @@ document.addEventListener('DOMContentLoaded', () => {
    ------------------------------------------------------------------ */
 
 (() => {
-
     const track = document.getElementById(
         'testimoniosTrackV2'
     );
-
     const button = document.getElementById(
         'testimoniosToggle'
     );
-
     if(!track || !button) return;
 
     const data = [
-
         {
             nombre:'HECTOR AGUIRRE',
             condicion:'Baja visión',
             avatar:'assets/per1.jpg',
             texto:'Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
         },
-
         {
             nombre:'MATEO BENAVÍDEZ',
             condicion:'Lesión Medular L2',
             avatar:'assets/per1.jpg',
             texto:'En el Ama Dablam el frío amenazó mis sistemas adaptativos. CÚSPIDE no me bajó de la montaña; me dio la técnica para resistir y liderar.'
         },
-
         {
             nombre:'ELENA ROSTOVA',
             condicion:'Amputación Bilateral',
             avatar:'assets/per1.jpg',
             texto:'Muchos te dicen lo que no puedes hacer. En este equipo diseñan los anclajes de carbono que necesitas para morder el hielo vertical.'
         },
-
         {
             nombre:'MARCUS VANCE',
             condicion:'Ceguera Total',
             avatar:'assets/per1.jpg',
             texto:'Escalar una pared vertical en total oscuridad es absoluto terror hasta que aprendes a confiar en el sonar táctil de tu arnés adaptado.'
         },
-
         {
             nombre:'SOFIA GRIEG',
             condicion:'Amputación Femoral',
@@ -306,18 +298,16 @@ document.addEventListener('DOMContentLoaded', () => {
             texto:'La cumbre no te pide currículum, te pide preparación. CÚSPIDE transformó mi prótesis en una extensión de la roca.'
         }
     ];
+    track.style.transition = 'transform 1s ease-in-out';
 
     data.forEach(item => {
-
         track.insertAdjacentHTML(
             'beforeend',
             `
             <article class="testimonio-v2">
-
                 <p class="testimonio-v2-quote">
                     "${item.texto}"
                 </p>
-
                 <div class="testimonio-v2-footer">
 
                     <div class="testimonio-v2-avatar">
@@ -327,44 +317,31 @@ document.addEventListener('DOMContentLoaded', () => {
                             loading="lazy"
                         >
                     </div>
-
                     <div>
-
                         <div class="testimonio-v2-name">
                             ${item.nombre}
                         </div>
-
                         <div class="testimonio-v2-condition">
                             ${item.condicion}
                         </div>
-
                     </div>
-
                 </div>
-
             </article>
             `
         );
     });
-
     let page = 0;
-
     function update(){
-
         const card =
             track.querySelector('.testimonio-v2');
-
         const width =
             card.offsetWidth + 16;
-
         track.style.transform =
             `translate3d(${-page * width * 2}px,0,0)`;
-
         button.classList.toggle(
             'is-back',
             page === 1
         );
-
         button.setAttribute(
             'aria-label',
             page === 0
@@ -372,11 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 : 'Volver a testimonios anteriores'
         );
     }
-
     button.addEventListener(
         'click',
         () => {
-
             page =
                 page === 0
                     ? 1
@@ -385,31 +360,24 @@ document.addEventListener('DOMContentLoaded', () => {
             update();
         }
     );
-
     button.addEventListener(
         'keydown',
         e => {
-
             if(
                 e.key === 'ArrowRight'
             ){
-
                 page = 1;
                 update();
             }
-
             if(
                 e.key === 'ArrowLeft'
             ){
-
                 page = 0;
                 update();
             }
         }
     );
-
     update();
-
 })();
 
   /* ------------------------------------------------------------------
