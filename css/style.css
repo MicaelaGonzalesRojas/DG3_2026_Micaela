@@ -68,7 +68,7 @@ p {
   font-size: 23px; /* tamaño base (~16px) */}
 
 h2 {
-  font-weight: 600 !important;
+  font-weight: 500 !important;
 }
 
 h4 {
@@ -355,32 +355,59 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   100%{ transform: translateY(16px); opacity: 0; }
 }
 
+
+
+
 /* ---------------------------------------------------------------------
-   2. MANIFIESTO — scroll-linked rock → ice background
+  CARRUSEL
    --------------------------------------------------------------------- */
-.manifiesto{
-  background-color: var(--color-frost);
-  color: var(--color-frost);
-  transition: background .05s linear;
+.carousel-line {
+  background: var(--color-ember);
+  color: var(--color-void);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0.4rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
 }
-.manifiesto-inner{ max-width: 760px; margin: 0 auto; text-align: center; }
-.manifiesto-copy p{
-  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-  margin: 0 auto 1.1rem;
-  max-width: 620px;
-  opacity: .55;
-  transition: opacity .4s var(--ease);
+
+.carousel-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 25s linear infinite;
 }
-.manifiesto-copy .is-lit{ opacity: 1; }
-.manifiesto-question{ font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem,2.4vw,1.7rem); color: var(--color-ice); }
-.manifiesto-close{ font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.2rem,2vw,1.5rem); }
-[data-motion="reduced"] .manifiesto-copy p{ opacity: 1; }
-[data-motion="reduced"] .manifiesto{ background: var(--color-rock); }
+
+.carousel-track span {
+  display: inline-block;
+  padding-right: 2rem;
+}
+
+/* Animación del desplazamiento infinito */
+@keyframes scrollText {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
 
 /* ---------------------------------------------------------------------
    3. ATRÉVETE A DESAFIAR TODOS LOS LÍMITES
    --------------------------------------------------------------------- */
-.limites{ background: var(--color-void); }
+.limites {
+  background: var(--color-void);
+  padding-top: 100px;     /* espacio arriba */
+  padding-bottom: 60px;  /* espacio abajo */
+}
+
+
 .limites-lead{ color: var(--color-ice-dim); max-width: 480px; }
 
 .limits-cards{
@@ -459,6 +486,9 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 }
 .limits-image.is-visible{ transform: scale(1); }
 [data-motion="reduced"] .limits-image{ transform: none; }
+
+
+
 
 /* ---------------------------------------------------------------------
    4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
@@ -634,6 +664,15 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   top: auto; /* opcional, elimina la referencia de desplazamiento */
 }
 
+
+.stats-block {
+  background: var(--color-void);
+  padding-left: 80px;  /* igual que las demás secciones */
+  padding-right: 80px;
+}
+
+
+
 .stats-title {
   font-family: var(--font-stats-disp);
   font-size: clamp(2rem, 4vw, 3.2rem);
@@ -792,47 +831,186 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
-.testimonios{ background: var(--color-ink); }
-.testimonios-inner{ max-width: 760px; margin: 0 auto; text-align: center; }
-.testimonios-carousel{ margin-top: 2.5rem; }
-.testimonios-track{ position: relative; min-height: 100px; }
-.testimonio{
-  position: absolute; inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--dur-base) var(--ease);
+/* ==========================================================
+   TESTIMONIOS V2
+   ========================================================== */
+
+.testimonios-v2 {
+    background: var(--color-void);
+    padding: clamp(4rem,8vw,7rem) var(--pad);
+}
+.testimonios-v2-inner {
+    max-width: var(--maxw);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: clamp(2rem,5vw,4rem);
+    align-items: center;
 }
 
-.testimonio.is-active{ opacity: 1; pointer-events: auto; position: relative; }
-.testimonio blockquote{ margin: 0 0 1.25rem; }
-.testimonio p{ font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; color: var(--color-void); }
-.testimonio figcaption{ color: var(--color-void); font-size: .8rem; margin-bottom: 1.25rem; }
+/* --------------------------
+   COLUMNA IZQUIERDA
+   -------------------------- */
 
-.audio-btn{
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--font-mono); font-size: .78rem;
-  color: var(--color-titanium);
-  border: 1px solid rgba(140,151,160,.4);
-  padding: .5rem 1rem; border-radius: 999px;
-  cursor: not-allowed;
+.testimonios-v2-copy h2 {
+    font-size: clamp(2.2rem,4vw,4rem);
+    line-height: .92;
+    margin-bottom: 1.5rem;
 }
-.testimonios-controls{ display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
-.carousel-btn{
-  width: 40px; height: 40px;
-  border: 1px solid var(--color-titanium);
-  border-radius: 50%;
-  font-size: 1.3rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+
+.testimonios-v2-copy p {
+    max-width: 250px;
+    color: var(--color-ice);
+    line-height: 1.5;
 }
-.carousel-btn:hover{ border-color: var(--color-ember); color: var(--color-ember); }
-.testimonios-dots{ display: flex; gap: .5rem; }
-.testimonios-dots button{
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--color-titanium);
-  opacity: .5;
+/* --------------------------
+   CONTENEDOR
+   -------------------------- */
+.testimonios-v2-slider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
 }
-.testimonios-dots button[aria-selected="true"]{ background: var(--color-ember); opacity: 1; }
+.testimonios-v2-track {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    transition:
+        transform 400ms cubic-bezier(0.16,1,0.3,1),
+        opacity 400ms cubic-bezier(0.16,1,0.3,1);
+    will-change: transform;
+    transform: translate3d(0,0,0);
+}
+/* -------------------------
+   CARD
+   -------------------------- */
+.testimonio-v2 {
+    min-width: calc((100% - 2rem) / 3);
+    background: #ECECEC;
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+}
+
+.testimonio-v2-quote {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--color-ice);
+    margin-bottom: 2rem;
+}
+
+.testimonio-v2-footer {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.testimonio-v2-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.testimonio-v2-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonio-v2-name {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-ink);
+}
+.testimonio-v2-condition {
+    font-size: .72rem;
+    color: var(--color-ice);
+}
+
+/* --------------------------
+   BOTÓN
+   -------------------------- */
+.testimonios-v2-nav {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--color-ember);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.testimonios-v2-nav:hover {
+
+    transform: translateY(-2px);
+}
+
+.testimonios-v2-nav:focus-visible {
+
+    outline: 3px solid var(--color-ember);
+
+    outline-offset: 5px;
+}
+
+.testimonios-v2-nav.is-back svg {
+
+    transform: rotate(180deg);
+}
+
+/* --------------------------
+   MOBILE
+   -------------------------- */
+
+@media(max-width:900px){
+
+    .testimonios-v2-inner{
+
+        grid-template-columns:1fr;
+    }
+
+    .testimonios-v2-copy p{
+
+        max-width:100%;
+    }
+
+    .testimonios-v2-track{
+
+        overflow-x:auto;
+
+        scroll-snap-type:x mandatory;
+
+        scrollbar-width:none;
+    }
+
+    .testimonio-v2{
+
+        min-width:85%;
+
+        scroll-snap-align:start;
+    }
+
+    .testimonios-v2-nav{
+
+        display:none;
+    }
+}
+
+html[data-motion="reduced"] .testimonios-v2-track{
+
+    transition:none;
+}
 
 /* ---------------------------------------------------------------------
    7. CURSOS
@@ -873,101 +1051,177 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    8. EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
    --------------------------------------------------------------------- */
-.expediciones{ background: var(--color-void); }
-.expediciones-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
-.expediciones-intro{ color: var(--color-ice-dim); max-width: 620px; margin: 0 auto; }
+/* ==========================================================
+   EXPEDICIONES TABS
+   ========================================================== */
 
-.exp-layout{
-  display: grid;
-  grid-template-columns: 45% 55%;
-  gap: 2rem;
-  align-items: stretch;
-  margin-top: 3rem;
-  text-align: left;
+.expediciones-tabs-section {
+    background: var(--color-void);
+    padding: 3rem 0 0;
+    overflow: hidden;
 }
 
-.exp-cards{
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-.exp-tab{
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: var(--color-pale);
-  color: var(--color-ink);
-  border: 2px solid transparent;
-  border-radius: 16px;
-  padding: 1.5rem 1.6rem;
-  cursor: pointer;
-  transition: background-color .12s linear, color .12s linear;
-}
-.exp-tab-meta{
-  display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  font-size: .72rem;
-  color: var(--color-slate);
-  margin-bottom: .65rem;
-}
-.exp-tab-title{
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 1.3rem;
-  line-height: 1.15;
-  margin-bottom: .55rem;
-  color: inherit;
-}
-.exp-tab-body{
-  font-size: .9rem;
-  line-height: 1.55;
-  color: var(--color-slate);
-  margin: 0;
-}
-.exp-tab[aria-selected="true"]{
-  background: var(--color-coral);
-  color: #FFFFFF;
-}
-.exp-tab[aria-selected="true"] .exp-tab-meta,
-.exp-tab[aria-selected="true"] .exp-tab-body{
-  color: rgba(255,255,255,.92);
+.expediciones-tabs-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 var(--pad);
 }
 
-.exp-visual{ position: relative; }
-.exp-image-frame{
-  position: relative;
-  height: 100%;
-  min-height: 420px;
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--color-rock-soft);
+.expediciones-tabs-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: clamp(2.5rem,4vw,4rem);
 }
-.exp-image{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.03);
-  transition: opacity .3s ease, transform .3s ease;
-  pointer-events: none;
+
+.expediciones-tabs-panel {
+    max-width: 550px;
+    margin: 0 auto 1rem;
+    text-align: left;
 }
-.exp-image.is-current{ opacity: 1; transform: scale(1); }
-[data-motion="reduced"] .exp-image{ transition: none; }
+
+.expediciones-tabs-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-ice);
+}
+
+.expediciones-tabs-panel h3 {
+    font-size: clamp(2rem,3vw,3rem);
+    margin-bottom: 1rem;
+}
+
+.expediciones-tabs-panel p {
+    color: var(--color-ice);
+    margin-bottom: 1.5rem;
+    max-width: 42ch;
+}
+
+/* ========================
+   MONTAÑAS
+   ======================== */
+
+.mountain-selector {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    margin-top: 1,5rem;
+}
+
+.mountain-selector-tab {
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+
+    transition:
+        transform var(--dur-base) cubic-bezier(.16,.84,.32,1),
+        filter var(--dur-base) cubic-bezier(.16,.84,.32,1);
+
+    position: relative;
+}
+
+.mountain-selector-tab img {
+    width: clamp(220px,30vw,420px);
+    height: auto;
+    display: block;
+
+    filter:
+        grayscale(100%)
+        opacity(.65);
+
+    transition:
+        filter var(--dur-base) cubic-bezier(.16,.84,.32,1),
+        transform var(--dur-base) cubic-bezier(.16,.84,.32,1);
+}
+
+.mountain-selector-tab:nth-child(2) {
+    margin-inline: -100px;
+    z-index: 2;
+}
+
+.mountain-selector-tab.is-active {
+    z-index: 5;
+}
+
+.mountain-selector-tab.is-active img {
+    filter:
+        grayscale(0%)
+        opacity(1);
+
+    transform: scale(1.03);
+
+    filter:
+        drop-shadow(0 0 0 var(--color-ember))
+        grayscale(0%)
+        opacity(1);
+}
+
+.mountain-selector-tab.is-active::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border: 3px solid var(--color-ember);
+
+    clip-path: polygon(
+        50% 0%,
+        100% 100%,
+        0% 100%
+    );
+
+    pointer-events: none;
+}
+
+.expediciones-tabs-panel {
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.expediciones-tabs-panel.is-active {
+    opacity: 1;
+    transform: translateY(0);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+}
+
+@media(max-width:900px){
+
+    .mountain-selector {
+        gap: 1rem;
+    }
+
+    .mountain-selector-tab:nth-child(2) {
+        margin-inline: 0;
+    }
+
+    .mountain-selector-tab img {
+        width: 30vw;
+    }
+}
 
 /* ---------------------------------------------------------------------
    10. CONTACTO
    --------------------------------------------------------------------- */
-.contacto
+.contacto {
+  background: var(--color-ink); /* 👉 fondo con tu color ink */
+}
+
 .contacto-inner{ max-width: 620px; margin: 0 auto; text-align: center; }
 .contacto-sub{ color: var(--color-ember); font-family: var(--font-mono); text-transform: uppercase; font-size: .85rem; margin-bottom: 1rem; }
-.contacto-copy{ color: var(--color-ice-dim); margin-bottom: 2.5rem; }
+.contacto-copy{ color: var(--color-coral); margin-bottom: 2.5rem; }
 .contact-form{ text-align: left; display: grid; gap: 1.25rem; }
 .field{ display: grid; gap: .5rem; position: relative; }
-.field label{ font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-titanium); }
+.field label{ font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-void); }
 .field input, .field textarea{
   background: var(--color-rock-soft);
   border: 1px solid rgba(140,151,160,.4);
@@ -977,6 +1231,12 @@ html[data-motion="reduced"] .digit-strip,
   position: relative;
   transition: border-color var(--dur-fast) var(--ease);
 }
+
+#contacto-title {
+  color: var(--color-void); /* tono oscuro que estás usando en el resto del sitio */
+}
+
+
 .field input:focus, .field textarea:focus{
   border-color: var(--color-ember);
   outline: none;

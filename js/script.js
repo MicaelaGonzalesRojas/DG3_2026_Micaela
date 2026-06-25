@@ -53,6 +53,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------
+carrusel
+     ------------------------------------------------------------------ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.querySelector('.carousel-track');
+  if (!track) return;
+
+  // Duplica solo el contenido interno, no el contenedor
+  const content = track.innerHTML;
+  track.innerHTML += content;
+});
+
+  
+
+  /* ------------------------------------------------------------------
      2. Revelado genérico al hacer scroll (secciones de texto/visual)
      ------------------------------------------------------------------ */
   const revealTargets = document.querySelectorAll('.section-copy, .limits-image');
@@ -238,36 +253,164 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
-  const testimoniosTrack = document.getElementById('testimoniosTrack');
-  if (testimoniosTrack) {
-    const items = Array.from(testimoniosTrack.querySelectorAll('.testimonio'));
-    const dotsWrap = document.getElementById('testimonioDots');
-    let current = 0;
+  /* ------------------------------------------------------------------
+   TESTIMONIOS V2
+   ------------------------------------------------------------------ */
 
-    items.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('role', 'tab');
-      dot.setAttribute('aria-label', `Ver testimonio ${i + 1} de ${items.length}`);
-      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      dot.addEventListener('click', () => goToTestimonio(i));
-      dotsWrap.appendChild(dot);
+(() => {
+
+    const track = document.getElementById(
+        'testimoniosTrackV2'
+    );
+
+    const button = document.getElementById(
+        'testimoniosToggle'
+    );
+
+    if(!track || !button) return;
+
+    const data = [
+
+        {
+            nombre:'HECTOR AGUIRRE',
+            condicion:'Baja visión',
+            avatar:'assets/testimonio-1.jpg',
+            texto:'Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
+        },
+
+        {
+            nombre:'MATEO BENAVÍDEZ',
+            condicion:'Lesión Medular L2',
+            avatar:'assets/testimonio-2.jpg',
+            texto:'En el Ama Dablam el frío amenazó mis sistemas adaptativos. CÚSPIDE no me bajó de la montaña; me dio la técnica para resistir y liderar.'
+        },
+
+        {
+            nombre:'ELENA ROSTOVA',
+            condicion:'Amputación Bilateral',
+            avatar:'assets/testimonio-3.jpg',
+            texto:'Muchos te dicen lo que no puedes hacer. En este equipo diseñan los anclajes de carbono que necesitas para morder el hielo vertical.'
+        },
+
+        {
+            nombre:'MARCUS VANCE',
+            condicion:'Ceguera Total',
+            avatar:'assets/testimonio-4.jpg',
+            texto:'Escalar una pared vertical en total oscuridad es absoluto terror hasta que aprendes a confiar en el sonar táctil de tu arnés adaptado.'
+        },
+
+        {
+            nombre:'SOFIA GRIEG',
+            condicion:'Amputación Femoral',
+            avatar:'assets/testimonio-5.jpg',
+            texto:'La cumbre no te pide currículum, te pide preparación. CÚSPIDE transformó mi prótesis en una extensión de la roca.'
+        }
+    ];
+
+    data.forEach(item => {
+
+        track.insertAdjacentHTML(
+            'beforeend',
+            `
+            <article class="testimonio-v2">
+
+                <p class="testimonio-v2-quote">
+                    "${item.texto}"
+                </p>
+
+                <div class="testimonio-v2-footer">
+
+                    <div class="testimonio-v2-avatar">
+                        <img
+                            src="${item.avatar}"
+                            alt="${item.nombre}"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div>
+
+                        <div class="testimonio-v2-name">
+                            ${item.nombre}
+                        </div>
+
+                        <div class="testimonio-v2-condition">
+                            ${item.condicion}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+            `
+        );
     });
 
-    function goToTestimonio(i) {
-      items[current].classList.remove('is-active');
-      items[current].setAttribute('aria-hidden', 'true');
-      current = (i + items.length) % items.length;
-      items[current].classList.add('is-active');
-      items[current].setAttribute('aria-hidden', 'false');
-      Array.from(dotsWrap.children).forEach((dot, idx) =>
-        dot.setAttribute('aria-selected', String(idx === current))
-      );
+    let page = 0;
+
+    function update(){
+
+        const card =
+            track.querySelector('.testimonio-v2');
+
+        const width =
+            card.offsetWidth + 16;
+
+        track.style.transform =
+            `translate3d(${-page * width * 2}px,0,0)`;
+
+        button.classList.toggle(
+            'is-back',
+            page === 1
+        );
+
+        button.setAttribute(
+            'aria-label',
+            page === 0
+                ? 'Ver más testimonios'
+                : 'Volver a testimonios anteriores'
+        );
     }
 
-    document.getElementById('testimonioPrev').addEventListener('click', () => goToTestimonio(current - 1));
-    document.getElementById('testimonioNext').addEventListener('click', () => goToTestimonio(current + 1));
-  }
+    button.addEventListener(
+        'click',
+        () => {
+
+            page =
+                page === 0
+                    ? 1
+                    : 0;
+
+            update();
+        }
+    );
+
+    button.addEventListener(
+        'keydown',
+        e => {
+
+            if(
+                e.key === 'ArrowRight'
+            ){
+
+                page = 1;
+                update();
+            }
+
+            if(
+                e.key === 'ArrowLeft'
+            ){
+
+                page = 0;
+                update();
+            }
+        }
+    );
+
+    update();
+
+})();
 
   /* ------------------------------------------------------------------
      9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
@@ -275,67 +418,61 @@ document.addEventListener('DOMContentLoaded', () => {
         turnan el rol de "actual" para lograr un crossfade real sin
         flash ni recarga visible.
      ------------------------------------------------------------------ */
-  const expTabs = Array.from(document.querySelectorAll('.exp-tab'));
-  const expPanel = document.getElementById('expPanel');
-  const expLiveRegion = document.getElementById('expLiveRegion');
+/* ==========================================================
+   EXPEDICIONES SELECTOR
+   ========================================================== */
 
-  if (expTabs.length && expPanel) {
-    let expCurrentImg = document.getElementById('expImageA');
-    let expNextImg = document.getElementById('expImageB');
+(() => {
 
-    function swapExpeditionImage(src, alt) {
-      const incoming = expNextImg;
-      const outgoing = expCurrentImg;
+    const tabs = document.querySelectorAll(
+        '.mountain-selector-tab'
+    );
+    const panel = document.getElementById(
+        'expedicionesPanel'
+    );
+    const dificultad = document.getElementById(
+        'expDificultad'
+    );
+    const duracion = document.getElementById(
+        'expDuracion'
+    );
+    const nombre = document.getElementById(
+        'expNombre'
+    );
+    const descripcion = document.getElementById(
+        'expDescripcion'
+    );
+    panel.classList.add('is-active');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(item => {
+                item.classList.remove('is-active');
 
-      function reveal() {
-        incoming.classList.add('is-current');
-        incoming.removeAttribute('aria-hidden');
-        outgoing.classList.remove('is-current');
-        outgoing.setAttribute('aria-hidden', 'true');
-        expCurrentImg = incoming;
-        expNextImg = outgoing;
-      }
-
-      incoming.alt = alt;
-      if (incoming.getAttribute('src') === src && incoming.complete) {
-        reveal();
-      } else {
-        incoming.addEventListener('load', reveal, { once: true });
-        incoming.src = src;
-      }
-    }
-
-    function activateExpTab(index, { focus = true } = {}) {
-      expTabs.forEach((tab, i) => {
-        const selected = i === index;
-        tab.classList.toggle('is-active', selected);
-        tab.setAttribute('aria-selected', String(selected));
-        tab.setAttribute('tabindex', selected ? '0' : '-1');
-      });
-
-      const tab = expTabs[index];
-      if (focus) tab.focus();
-
-      swapExpeditionImage(tab.dataset.image, tab.dataset.imageAlt);
-      expPanel.setAttribute('aria-labelledby', tab.id);
-      if (expLiveRegion) expLiveRegion.textContent = `Expedición seleccionada: ${tab.dataset.name}.`;
-    }
-
-    expTabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => activateExpTab(i, { focus: false }));
-      tab.addEventListener('keydown', (e) => {
-        let newIndex = null;
-        if (e.key === 'ArrowDown') newIndex = (i + 1) % expTabs.length;
-        else if (e.key === 'ArrowUp') newIndex = (i - 1 + expTabs.length) % expTabs.length;
-        else if (e.key === 'Home') newIndex = 0;
-        else if (e.key === 'End') newIndex = expTabs.length - 1;
-        if (newIndex !== null) {
-          e.preventDefault();
-          activateExpTab(newIndex);
-        }
-      });
+                item.setAttribute(
+                    'aria-selected',
+                    'false'
+                );
+            });
+            tab.classList.add('is-active');
+            tab.setAttribute(
+                'aria-selected',
+                'true'
+            );
+            panel.classList.remove('is-active');
+            setTimeout(() => {
+                dificultad.textContent =
+                    tab.dataset.dificultad;
+                duracion.textContent =
+                    tab.dataset.duracion;
+                nombre.textContent =
+                    tab.dataset.nombre;
+                descripcion.textContent =
+                    tab.dataset.descripcion;
+                panel.classList.add('is-active');
+            }, 150);
+        });
     });
-  }
+})();
 
   /* ------------------------------------------------------------------
      11. Formulario de contacto (Campamento Base)
