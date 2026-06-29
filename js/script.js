@@ -7,6 +7,38 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
 
+const summitHero = document.getElementById("summitHero");
+
+const manifestoElements = document.querySelectorAll(
+  ".summit-center-content"
+);
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if(window.scrollY > 80){
+
+      summitHero.classList.add("scrolled");
+
+      manifestoElements.forEach(el => {
+        el.setAttribute("aria-hidden","true");
+      });
+
+    }else{
+
+      summitHero.classList.remove("scrolled");
+
+      manifestoElements.forEach(el => {
+        el.setAttribute("aria-hidden","false");
+      });
+
+    }
+
+  },
+  { passive:true }
+);
+
   /* ------------------------------------------------------------------
      0. Estado de movimiento (toggle manual + preferencia de sistema)
      ------------------------------------------------------------------ */
@@ -35,6 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function motionIsReduced() {
     return root.getAttribute('data-motion') === 'reduced';
   }
+const header = document.querySelector('.site-header');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
 
   /* ------------------------------------------------------------------
      1. Menú móvil
@@ -136,28 +178,28 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "JOHN CAMERON",
             condition: "Discapacidad visual",
             summit: "Monte Everest",
-            image: "assets/heroes/everest.jpg"
+            image: "assets/heroe-1.jpg"
         },
 
         {
             name: "ELENA ROSTOVA",
             condition: "Amputación bilateral",
             summit: "Aconcagua",
-            image: "assets/heroes/aconcagua.jpg"
+            image: "assets/heroe-2.jpg"
         },
 
         {
             name: "MATEO BENAVIDEZ",
             condition: "Lesión medular",
             summit: "Denali",
-            image: "assets/heroes/denali.jpg"
+            image: "assets/heroe-3.jpg"
         },
 
         {
             name: "SOFIA GRIEG",
             condition: "Amputación femoral",
             summit: "Mont Blanc",
-            image: "assets/heroes/montblanc.jpg"
+            image: "assets/heroe-4.jpg"
         }
     ];
 

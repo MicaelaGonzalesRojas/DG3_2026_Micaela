@@ -184,15 +184,25 @@ h4 {
 /* ---------------------------------------------------------------------
    HEADER / NAV
    --------------------------------------------------------------------- */
-.site-header{
+.site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10,13,16,.82);
+  background: transparent; /* inicio totalmente transparente */
+  backdrop-filter: none;   /* sin blur al inicio */
+  border-bottom: none;     /* sin borde al inicio */
+  transition: background 450ms cubic-bezier(.25,1,.5,1),
+              backdrop-filter 450ms cubic-bezier(.25,1,.5,1),
+              border-bottom 450ms cubic-bezier(.25,1,.5,1);
+}
+
+.site-header.scrolled {
+  background: rgba(10,13,16,.82); /* sólido con opacidad */
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(140,151,160,.18);
 }
-.header-inner{
+
+.header-inner {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 var(--pad);
@@ -202,67 +212,50 @@ h4 {
   justify-content: space-between;
   gap: 1.5rem;
 }
+
 .brand {
   font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 500; /* más pesado (bold) */
-  color: var(--color-void); /* o cualquier color que quieras */
+  font-weight: 500;
+  color: var(--color-void);
 }
 
-.primary-nav{ flex: 1; display: flex; justify-content: flex-end; }
-.nav-list{
+.primary-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
   display: flex;
   align-items: center;
   gap: 1.6rem;
   font-size: .85rem;
 }
+
 .nav-list a {
-  color: #FDF9F4; 
+  color: #FDF9F4;
   transition: color 0.3s ease;
 }
 
 .nav-list a:hover {
-  color: #FF9E95; 
+  color: #FF9E95;
 }
 
 .nav-cta {
   font-family: 'Montserrat', sans-serif;
-  color: #ff6b6b !important; /* color personalizado */
+  color: #ff6b6b !important;
   border: 1px solid #ff6b6b;
   padding: .45rem 1rem;
   border-radius: 2px;
 }
 
-.nav-toggle{ display: none; flex-direction: column; gap: 5px; padding: .4rem; }
-.nav-toggle-bar, .nav-toggle-bar::before, .nav-toggle-bar::after{
-  content: ""; display: block; width: 22px; height: 2px; background: var(--color-ice);
-}
-.nav-toggle-bar::before{ transform: translateY(-7px); }
-.nav-toggle-bar::after{ transform: translateY(5px); }
-
-.motion-toggle{
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  font-family: var(--font-mono);
-  font-size: .72rem;
-  color: var(--color-titanium);
-  border: 1px solid rgba(140,151,160,.4);
-  padding: .4rem .7rem;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.motion-dot{
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--color-ember);
-}
-[data-motion="reduced"] .motion-dot{ background: var(--color-titanium); }
-.motion-toggle:hover{ color: var(--color-ice); border-color: var(--color-ice); }
 
 /* ---------------------------------------------------------------------
    SHARED SECTION LAYOUT
    --------------------------------------------------------------------- */
-section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
+section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); 
+margin-top: -64px; /* compensa la altura del header */}
 .section-grid{
   max-width: var(--maxw);
   margin: 0 auto;
@@ -277,12 +270,11 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
    1. HERO
    --------------------------------------------------------------------- */
 .hero {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh); 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  text-align: left;
+  justify-content: flex-end; /* alineado abajo */  text-align: left;
   position: relative;
   background: url('../assets/hero.png') no-repeat center center / cover;
   overflow: hidden;
@@ -791,7 +783,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 
 .metodologia-scroll {
 
-    padding: 5rem var(--pad);
+    padding: 5rem var(--pad) 10rem; /* más espacio abajo */
 
     background: var(--color-void);
 }
@@ -827,7 +819,8 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 
     position: sticky;
 
-    top: 100px;
+    top: 50%;               /* se ancla al 50% de la altura de la ventana */
+  transform: translateY(-50%); /* lo centra verticalmente */
 
     height: fit-content;
 }
@@ -957,6 +950,10 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
     will-change:
         transform,
         opacity;
+}
+
+.metodo-step:last-child {
+  margin-bottom: 7rem; /* espacio adicional debajo del último bloque */
 }
 
 .metodo-step.is-visible {
@@ -2171,7 +2168,7 @@ html[data-motion="reduced"] .digit-strip,
 
     background:var(--color-ember);
 
-    color:var(--color-vo);
+    color:var(--color-void);
 
     font-weight:800;
 
