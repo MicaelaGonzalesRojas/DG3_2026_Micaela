@@ -1706,7 +1706,7 @@ html[data-motion="reduced"] .digit-strip,
 .training-courses-card {
     flex: 1;
 
-    background: #d9d9d9;
+    background: var(--color-mint); /* aplica tu color pale al texto */;
     border-radius: 5px;
 
     overflow: hidden;
