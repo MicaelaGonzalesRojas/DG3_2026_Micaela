@@ -316,24 +316,98 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------
      6. Línea de tiempo del proceso de preparación (acordeón exclusivo)
      ------------------------------------------------------------------ */
-  const timelineTriggers = document.querySelectorAll('.timeline-trigger');
-  timelineTriggers.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+(() => {
 
-      timelineTriggers.forEach((other) => {
-        if (other !== btn) {
-          other.setAttribute('aria-expanded', 'false');
-          document.getElementById(other.getAttribute('aria-controls')).hidden = true;
-        }
-      });
+    const sections =
+        document.querySelectorAll(
+            '.metodo-step'
+        );
 
-      btn.setAttribute('aria-expanded', String(!isExpanded));
-      panel.hidden = isExpanded;
-      if (!isExpanded) panel.scrollIntoView({ block: 'nearest', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+    const nodes =
+        document.querySelectorAll(
+            '.timeline-node'
+        );
+
+    const progress =
+        document.getElementById(
+            'timelineProgress'
+        );
+
+    const total =
+        nodes.length - 1;
+
+    const observer =
+        new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if(
+                        !entry.isIntersecting
+                    ) return;
+
+                    const index =
+                        Number(
+                            entry.target.dataset.step
+                        );
+
+                    sections.forEach(el =>
+                        el.classList.remove(
+                            'is-visible'
+                        )
+                    );
+
+                    entry.target.classList.add(
+                        'is-visible'
+                    );
+
+                    nodes.forEach(node => {
+
+                        node.classList.remove(
+                            'is-active'
+                        );
+
+                        node.removeAttribute(
+                            'aria-current'
+                        );
+                    });
+
+                    nodes[index]
+                    .classList.add(
+                        'is-active'
+                    );
+
+                    nodes[index]
+                    .setAttribute(
+                        'aria-current',
+                        'step'
+                    );
+
+                    const percentage =
+                        (index / total) * 100;
+
+                    progress.style.height =
+                        `${percentage}%`;
+
+                });
+
+            },
+
+            {
+                threshold: 0.55,
+                rootMargin:
+                "-10% 0px -20% 0px"
+            }
+
+        );
+
+    sections.forEach(section => {
+
+        observer.observe(section);
     });
-  });
+
+})();
 
   /* ------------------------------------------------------------------
      7. Cursos — cada tarjeta se expande de forma independiente

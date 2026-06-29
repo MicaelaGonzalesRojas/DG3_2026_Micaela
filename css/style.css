@@ -785,47 +785,210 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 /* ---------------------------------------------------------------------
    5. PROCESO — timeline accordion
    --------------------------------------------------------------------- */
-.proceso{ background: var(--color-rock); }
-.proceso-inner{ max-width: 880px; margin: 0 auto; text-align: center; }
-.proceso-intro{ color: var(--color-ice-dim); max-width: 620px; margin: 0 auto 3rem; }
-.timeline{
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-top: 1px solid rgba(140,151,160,.25);
-  text-align: left;
+/* =====================================================
+   METODOLOGÍA SCROLL
+   ===================================================== */
+
+.metodologia-scroll {
+
+    padding: 5rem var(--pad);
+
+    background: var(--color-void);
 }
-.timeline-item{ border-bottom: 1px solid rgba(140,151,160,.25); }
-.timeline-trigger{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.3rem .25rem;
+
+.metodologia-header {
+
+    text-align: center;
+
+    margin-bottom: 6rem;
 }
-.timeline-marker{
-  color: var(--color-ember);
-  font-size: .85rem;
-  width: 2.2rem;
-  flex-shrink: 0;
+
+.metodologia-header h2 {
+
+    font-size: clamp(2.8rem,5vw,5rem);
 }
-.timeline-label{
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
+
+.metodologia-layout {
+
+    max-width: 1300px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 220px 1fr;
+
+    gap: 4rem;
 }
-.timeline-trigger::after{
-  content: "+";
-  margin-left: auto;
-  font-family: var(--font-mono);
-  color: var(--color-titanium);
-  transition: transform var(--dur-fast) var(--ease);
+
+/* -------------------------------- */
+
+.metodologia-timeline {
+
+    position: sticky;
+
+    top: 100px;
+
+    height: fit-content;
 }
-.timeline-trigger[aria-expanded="true"]::after{ content: "–"; color: var(--color-ember); }
-.timeline-panel{
-  padding: 0 .25rem 1.5rem 3.7rem;
-  color: var(--color-ice-dim);
-  max-width: 620px;
+
+.timeline-track {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2.5rem;
+
+    padding-left: 1rem;
+}
+
+.timeline-track::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+
+    top: 8px;
+
+    width: 2px;
+
+    height: calc(100% - 16px);
+
+    background: rgba(0,0,0,.18);
+}
+
+.timeline-progress {
+
+    position: absolute;
+
+    left: 8px;
+
+    top: 8px;
+
+    width: 2px;
+
+    height: 0;
+
+    background: var(--color-ember);
+
+    transition:
+        height .45s ease;
+}
+
+.timeline-node {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    font-size: .75rem;
+
+    letter-spacing: .08em;
+
+    color: rgba(0,0,0,.45);
+
+    transition: color .3s ease;
+}
+
+.timeline-node span {
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #2b2323;
+
+    transition: all .3s ease;
+}
+
+.timeline-node.is-active {
+
+    color: var(--color-ember);
+}
+
+.timeline-node.is-active span {
+
+    background: var(--color-ember);
+
+    transform: scale(1.15);
+}
+
+/* -------------------------------- */
+
+.metodologia-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12rem;
+}
+
+.metodo-step {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px,340px)
+        1fr;
+
+    gap: 3rem;
+
+    align-items: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(50px)
+        scale(.98);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+.metodo-step.is-visible {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.metodo-step img {
+
+    width: 100%;
+
+    border-radius: 10px;
+
+    display: block;
+}
+
+.metodo-step h3 {
+
+    margin-bottom: 1rem;
+
+    font-size: clamp(1.6rem,2vw,2.4rem);
+}
+
+.metodo-step p {
+
+    max-width: 520px;
+
+    line-height: 1.7;
 }
 
 /* ====================================================================
@@ -1291,7 +1454,7 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    7. CURSOS
    --------------------------------------------------------------------- */
-.cursos{ background: var(--color-coral); }
+.cursos{ background: var(--color-void); }
 .cursos-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
 .cursos-grid{
   display: grid;
