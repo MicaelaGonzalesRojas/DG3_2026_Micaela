@@ -146,21 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
- * Vanilla JS, sin dependencias externas. Autocontenido en un IIFE para
- * no filtrar variables globales al integrarse en cualquier página.
- *
- * Lógica:
- * 1. Si el navegador no respeta "prefers-reduced-motion: reduce", todas
- *    las ruedas numéricas se reinician a 0 al cargar el script (estado
- *    de "pre-giro"). El valor final real ya vive en el atributo
- *    data-digit y, como fallback sin JS, en el style="--target-digit"
- *    de cada .digit-strip en el HTML.
- * 2. Un IntersectionObserver dispara la animación de "Ridge Reveal" del
- *    título y el giro mecánico de cada dígito hasta su valor final,
- *    una sola vez, cuando la sección entra en el viewport.
- * 3. Si prefiere movimiento reducido, no se toca el estado inicial: el
- *    valor correcto ya está visible desde el primer milisegundo, sin
- *    animación.
  */
 (function () {
   'use strict';
@@ -390,56 +375,326 @@ document.addEventListener('DOMContentLoaded', () => {
    EXPEDICIONES SELECTOR
    ========================================================== */
 
+/* ------------------------------------------------------------------
+   EXPEDICIONES DECK 3D
+   ------------------------------------------------------------------ */
+
 (() => {
 
-    const tabs = document.querySelectorAll(
-        '.mountain-selector-tab'
-    );
-    const panel = document.getElementById(
-        'expedicionesPanel'
-    );
-    const dificultad = document.getElementById(
-        'expDificultad'
-    );
-    const duracion = document.getElementById(
-        'expDuracion'
-    );
-    const nombre = document.getElementById(
-        'expNombre'
-    );
-    const descripcion = document.getElementById(
-        'expDescripcion'
-    );
-    panel.classList.add('is-active');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(item => {
-                item.classList.remove('is-active');
+    const track =
+        document.getElementById(
+            'expDeckTrack'
+        );
 
-                item.setAttribute(
-                    'aria-selected',
-                    'false'
-                );
-            });
-            tab.classList.add('is-active');
-            tab.setAttribute(
-                'aria-selected',
-                'true'
-            );
-            panel.classList.remove('is-active');
-            setTimeout(() => {
-                dificultad.textContent =
-                    tab.dataset.dificultad;
-                duracion.textContent =
-                    tab.dataset.duracion;
-                nombre.textContent =
-                    tab.dataset.nombre;
-                descripcion.textContent =
-                    tab.dataset.descripcion;
-                panel.classList.add('is-active');
-            }, 150);
-        });
+    if(!track) return;
+
+    const backgrounds =
+        document.querySelectorAll(
+            '.exp-bg-layer'
+        );
+
+    const expediciones = [
+
+        {
+            nombre:'MONTE ACONCAGUA',
+            dificultad:'DIFICULTAD MEDIA',
+            duracion:'2 SEMANAS',
+            fondo:'assets/aconcagua.jpg',
+            descripcion:'La montaña más alta de América exige resistencia física sostenida y adaptación progresiva a la altura.'
+        },
+
+        {
+            nombre:'EVEREST',
+            dificultad:'DIFICULTAD EXTREMA',
+            duracion:'8 SEMANAS',
+            fondo:'assets/everest.jpg',
+            descripcion:'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.'
+        },
+
+        {
+            nombre:'KILIMANJARO',
+            dificultad:'DIFICULTAD MODERADA',
+            duracion:'10 DÍAS',
+            fondo:'assets/kilimanjaro.jpg',
+            descripcion:'Ascenso progresivo donde la gestión del oxígeno y el ritmo son determinantes.'
+        },
+
+        {
+            nombre:'MONT BLANC',
+            dificultad:'DIFICULTAD ALTA',
+            duracion:'1 SEMANA',
+            fondo:'assets/montblanc.jpg',
+            descripcion:'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.'
+        },
+
+        {
+            nombre:'DENALI',
+            dificultad:'DIFICULTAD EXTREMA',
+            duracion:'3 SEMANAS',
+            fondo:'assets/denali.jpg',
+            descripcion:'La montaña más dura de Norteamérica por clima, aislamiento y carga logística.'
+        }
+    ];
+
+    let active = 0;
+    let bgIndex = 0;
+
+    expediciones.forEach((exp,index)=>{
+
+        track.insertAdjacentHTML(
+            'beforeend',
+            `
+            <article
+                class="expedicion-card"
+                data-index="${index}"
+                aria-label="${exp.nombre}"
+            >
+                <div class="expedicion-card-inner">
+
+                    <div class="expedicion-face expedicion-face--front">
+
+                        <svg class="expedicion-icon" viewBox="0 0 100 100">
+                            <path d="M10 80 L40 30 L55 55 L75 20 L90 80" fill="none" stroke="currentColor" stroke-width="4"/>
+                        </svg>
+
+                        <h3 class="expedicion-name">
+                            ${exp.nombre}
+                        </h3>
+
+                        <div class="expedicion-meta">
+                            ${exp.dificultad}
+                            <br>
+                            ${exp.duracion}
+                        </div>
+
+                    </div>
+
+                    <div class="expedicion-face expedicion-face--back">
+
+                        <p class="expedicion-copy">
+                            ${exp.descripcion}
+                        </p>
+
+                        <button class="expedicion-cta">
+                            ACEPTAR EL DESAFÍO
+                        </button>
+
+                    </div>
+
+                </div>
+            </article>
+            `
+        );
     });
+
+    const cards =
+        [...track.children];
+
+    function updateDeck(){
+
+    cards.forEach((card,index)=>{
+
+        let offset = index - active;
+
+        if(offset < 0){
+            offset += cards.length;
+        }
+
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        let rotateZ = 0;
+        let rotateY = 0;
+        let scale = 1;
+
+        switch(offset){
+
+            case 0:
+
+                x = 0;
+                y = 0;
+                z = 120;
+
+                rotateZ = 0;
+                rotateY = 0;
+
+                scale = 1;
+
+            break;
+
+            case 1:
+
+                x = 115;
+                y = 18;
+                z = 40;
+
+                rotateZ = 12;
+                rotateY = -4;
+
+                scale = .94;
+
+            break;
+
+            case 2:
+
+                x = 190;
+                y = 40;
+                z = -20;
+
+                rotateZ = 20;
+                rotateY = -8;
+
+                scale = .88;
+
+            break;
+
+            case 3:
+
+                x = -190;
+                y = 40;
+                z = -20;
+
+                rotateZ = -20;
+                rotateY = 8;
+
+                scale = .88;
+
+            break;
+
+            case 4:
+
+                x = -115;
+                y = 18;
+                z = 40;
+
+                rotateZ = -12;
+                rotateY = 4;
+
+                scale = .94;
+
+            break;
+        }
+
+        card.style.zIndex =
+            100 - Math.abs(offset);
+
+        card.style.transform = `
+            translate3d(
+                calc(-50% + ${x}px),
+                calc(-50% + ${y}px),
+                ${z}px
+            )
+            rotateZ(${rotateZ}deg)
+            rotateY(${rotateY}deg)
+            scale(${scale})
+        `;
+    });
+
+    swapBackground(
+        expediciones[active].fondo
+    );
+}
+
+    function swapBackground(src){
+
+        const current =
+            backgrounds[bgIndex];
+
+        bgIndex =
+            bgIndex === 0 ? 1 : 0;
+
+        const next =
+            backgrounds[bgIndex];
+
+        next.style.backgroundImage =
+            `url(${src})`;
+
+        next.classList.add(
+            'is-active'
+        );
+
+        current.classList.remove(
+            'is-active'
+        );
+    }
+
+    function nextCard(){
+
+        active =
+            (active + 1)
+            % cards.length;
+
+        updateDeck();
+    }
+
+    updateDeck();
+
+    let startX = 0;
+
+    track.addEventListener(
+        'pointerdown',
+        e => startX = e.clientX
+    );
+
+    track.addEventListener(
+        'pointerup',
+        e => {
+
+            if(
+                Math.abs(
+                    e.clientX - startX
+                ) > 50
+            ){
+                nextCard();
+            }
+        }
+    );
+
+    document.addEventListener(
+        'keydown',
+        e => {
+
+            if(e.key === 'ArrowRight')
+                nextCard();
+
+            if(e.key === 'ArrowLeft'){
+
+                active =
+                    (active - 1 + cards.length)
+                    % cards.length;
+
+                updateDeck();
+            }
+
+            if(e.key === 'Enter'){
+
+                cards[active]
+                .classList.toggle(
+                    'is-flipped'
+                );
+            }
+        }
+    );
+
+    cards.forEach(card=>{
+
+        card.addEventListener(
+            'click',
+            () => {
+
+                if(
+                    Number(
+                        card.dataset.index
+                    ) === active
+                ){
+                    card.classList.toggle(
+                        'is-flipped'
+                    );
+                }
+            }
+        );
+    });
+
 })();
 
   /* ------------------------------------------------------------------

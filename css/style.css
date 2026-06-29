@@ -12,14 +12,14 @@
   --color-ice:         #7E6A65; /* Marrón (Texto Base) */
   --color-ice-dim:     #7E6A65; /* Marrón Secondary */
   --color-titanium:    #7E6A65; 
-  --color-ember:       #fa6558; /* Naranja Táctico (Acciones y Destacados) */
-  --color-ember-soft:  #fa6558; 
+  --color-ember:       #FF4A18; /* Naranja Táctico (Acciones y Destacados) */
+  --color-ember-soft:  #FF4A18; 
   --color-frost:       #D7E2E5; /* Celeste */
   --color-mint:        #D7E2E5; 
-  --color-glacier:     #fa6558; 
+  --color-glacier:     #FF4A18; 
   --color-pale:        #D7E2E5; /* Fondo de cards */
   --color-slate:       #7E6A65; 
-  --color-coral:       #fa6558; 
+  --color-coral:       #FF4A18; 
   --color-ink:         #292020; /* Negro (Títulos de alta jerarquía) */
 
   --font-display: 'Nippo', 'Anton', sans-serif;
@@ -103,7 +103,7 @@ h4 {
 }
 .skip-link:focus{ left: 1rem; }
 
-.mono{ font-family: var(--font-mono); }
+.mono{ font-family: 'Nippo', sans-serif }
 
 .eyebrow{
   text-transform: uppercase;
@@ -315,12 +315,6 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
     0 6px 14px rgba(0,0,0,0.55);
 }
 
-.hero-title .highlight {
-  color: var(--color-void); /* mantiene el color base */
-  background: var(--color-glacier); /* franja tipo resaltador */
-  padding: 0 .25rem; /* espacio lateral para que el fondo sobresalga */
-}
-
 
 
 .reveal-line{ display: block; overflow: hidden; }
@@ -501,7 +495,7 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 0px;
   display: block;
   transform: scale(1.05);
   transition: transform var(--dur-slow) var(--ease);
@@ -548,8 +542,8 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 
 .heroes-card-item{ flex: 0 0 auto; }
 .heroes-card{
-  width: 260px;
-  border-radius: 18px;
+  width: 300px;
+  border-radius: 0px;
   overflow: hidden;
   background: var(--color-rock-soft);
   display: block;
@@ -1099,156 +1093,261 @@ background: var(--color-void)}
    EXPEDICIONES TABS
    ========================================================== */
 
-.expediciones-tabs-section {
-    background: var(--color-void);
-    padding: 3rem 0 0;
+/* ==========================================================
+   EXPEDICIONES DECK 3D
+   ========================================================== */
+
+.expediciones-deck {
+
+    position: relative;
+
+    min-height: 100vh;
+
     overflow: hidden;
-}
 
-.expediciones-tabs-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 var(--pad);
-}
+    background: #ff4a18;
 
-.expediciones-tabs-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 28px
-}
-
-.expediciones-tabs-panel {
-    max-width: 550px;
-    margin: 0 auto 1rem;
-    text-align: left;
-}
-
-.expediciones-tabs-meta {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    font-family: var(--font-body);
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--color-ice);
-}
 
-.expediciones-tabs-panel h3 {
-    font-size: clamp(2rem,3vw,3rem);
-    margin-bottom: 1rem;
-}
+    align-items: center;
 
-.expediciones-tabs-panel p {
-    color: var(--color-ice);
-    margin-bottom: 1.5rem;
-    max-width: 42ch;
-}
-
-/* ========================
-   MONTAÑAS
-   ======================== */
-
-.mountain-selector {
-    display: flex;
     justify-content: center;
-    align-items: flex-end;
-    gap: 60px;
-    margin-top: 1,5rem;
 }
 
-.mountain-selector-tab {
-    border: 0;
-    background: none;
-    padding: 0;
-    cursor: pointer;
+.expediciones-bg {
+
+    position: absolute;
+
+    inset: 0;
+}
+
+.exp-bg-layer {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+
+    transform: scale(1.05);
 
     transition:
-        transform var(--dur-base) cubic-bezier(.16,.84,.32,1),
-        filter var(--dur-base) cubic-bezier(.16,.84,.32,1);
+        opacity 600ms ease,
+        transform 600ms ease;
+
+    will-change: transform, opacity;
+}
+
+.exp-bg-layer.is-active {
+
+    opacity: .22;
+
+    transform: scale(1);
+}
+
+.expediciones-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+    linear-gradient(
+        rgba(255,74,24,.82),
+        rgba(255,74,24,.82)
+    );
+}
+
+.expediciones-inner {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    text-align: center;
+
+    padding: 4rem;
+}
+
+.expediciones-headline {
+
+    margin-bottom: 6rem;
+
+    font-size: clamp(2.5rem,5vw,5.5rem);
+
+    line-height: .95;
+
+    color: #292020;
+}
+
+.expediciones-headline span {
+
+    color: white;
+}
+
+.expediciones-deck-stage {
+
+    perspective: 1000px;
+
+    height: 420px;
 
     position: relative;
 }
 
-.mountain-selector-tab img {
-    width: clamp(220px,30vw,420px);
-    height: auto;
-    display: block;
+.expediciones-deck-track {
 
-    filter: grayscale(100%); /* mantiene solo el efecto en escala de grises */
+    width: 100%;
+
+    height: 100%;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+}
+
+.expedicion-card {
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:260px;
+    height:360px;
+
+    transform-style:preserve-3d;
+
+    transform-origin:center 85%;
+
+    cursor:pointer;
+
     transition:
-        filter var(--dur-base) cubic-bezier(.16,.84,.32,1),
-        transform var(--dur-base) cubic-bezier(.16,.84,.32,1);
+        transform 700ms cubic-bezier(.16,.84,.32,1),
+        opacity 700ms cubic-bezier(.16,.84,.32,1);
+
+    will-change:transform;
 }
 
+.expedicion-card-inner {
 
-.mountain-selector-tab:nth-child(2) {
-    margin-inline: -100px;
-    z-index: 2;
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+
+    transition: transform .8s cubic-bezier(.16,.84,.32,1);
 }
 
-.mountain-selector-tab.is-active {
-    z-index: 5;
+.expedicion-card.is-flipped .expedicion-card-inner {
+
+    transform: rotateY(180deg);
 }
 
-.mountain-selector-tab.is-active img {
-    filter:
-        grayscale(0%)
-        opacity(1);
-
-    transform: scale(1.03);
-
-    filter:
-        drop-shadow(0 0 0 var(--color-ember))
-        grayscale(0%)
-        opacity(1);
-}
-
-.mountain-selector-tab.is-active::after {
-    content: "";
+.expedicion-face {
 
     position: absolute;
+
     inset: 0;
 
-    border: 3px solid var(--color-ember);
+    backface-visibility: hidden;
 
-    clip-path: polygon(
-        50% 0%,
-        100% 100%,
-        0% 100%
-    );
+    background: #efefef;
 
-    pointer-events: none;
+    border-radius: 12px;
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,.15);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 2rem;
 }
 
-.expediciones-tabs-panel {
-    opacity: 0;
-    transform: translateY(15px);
+.expedicion-face--front {
+
+    border: 2px solid var(--color-ember);
 }
 
-.expediciones-tabs-panel.is-active {
-    opacity: 1;
-    transform: translateY(0);
+.expedicion-face--back {
 
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
+    transform: rotateY(180deg);
+
+    text-align: center;
 }
 
-@media(max-width:900px){
+.expedicion-icon {
 
-    .mountain-selector {
-        gap: 1rem;
-    }
+    width: 90px;
 
-    .mountain-selector-tab:nth-child(2) {
-        margin-inline: 0;
-    }
+    margin-bottom: 2rem;
 
-    .mountain-selector-tab img {
-        width: 30vw;
-    }
+    opacity: .7;
+}
+
+.expedicion-name {
+
+    font-size: 2rem;
+
+    line-height: .95;
+
+    margin-bottom: 1rem;
+}
+
+.expedicion-meta {
+
+    font-size: .8rem;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+.expedicion-copy {
+
+    font-size: .95rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 1.5rem;
+}
+
+.expedicion-cta {
+
+    background: var(--color-ember);
+
+    color: white;
+
+    padding: 1rem 1.5rem;
+
+    border-radius: 6px;
+
+    font-weight: 700;
+}
+
+.expediciones-label {
+
+    margin-top: 3rem;
+
+    font-size: clamp(2rem,4vw,3rem);
+
+    color: white;
+
+    font-family: var(--font-display);
 }
 
 /* ---------------------------------------------------------------------

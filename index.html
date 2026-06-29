@@ -227,72 +227,50 @@
   </section>
 
   <!-- ======================= 8. EXPEDICIONES (tabs + panel dinámico) ======================= -->
-<section id="expediciones" class="expediciones-tabs-section">
-    <div class="expediciones-tabs-container">
-        <h2 class="expediciones-tabs-title">
-            EXPEDICIONES
-        </h2>
-        <div id="expedicionesPanel" class="expediciones-tabs-panel">
-            <div class="expediciones-tabs-meta">
-                <span id="expDificultad">
-                    DIFICULTAD MEDIA
-                </span>
-                <span id="expDuracion">
-                    2 SEMANAS
-                </span>
-            </div>
-            <h3 id="expNombre">
-                MONTE ACONCAGUA
-            </h3>
-            <p id="expDescripcion">
-                Ascenso progresivo por rutas adaptadas, trabajo técnico en altura para la cumbre más alta de América.
-            </p>
-            <a href="#" class="btn btn-primary">
-                VER MÁS →
-            </a>
-        </div>
-        <div
-            class="mountain-selector"
-            role="tablist"
-            aria-label="Selector de expediciones"
-        >
-            <button
-                class="mountain-selector-tab is-active"
-                role="tab"
-                aria-selected="true"
-                data-dificultad="DIFICULTAD MEDIA"
-                data-duracion="2 SEMANAS"
-                data-nombre="MONTE ACONCAGUA"
-                data-descripcion="Ascenso progresivo por rutas adaptadas, trabajo técnico en altura para la cumbre más alta de América."
-            >
-                <img src="assets/aconcagua.png" alt="Monte Aconcagua">
-            </button>
-            <button
-                class="mountain-selector-tab"
-                role="tab"
-                aria-selected="false"
-                data-dificultad="DIFICULTAD ALTA"
-                data-duracion="10 DÍAS"
-                data-nombre="FITZ ROY"
-                data-descripcion="Travesía técnica en roca y hielo dentro de uno de los macizos más emblemáticos de la Patagonia."
-            >
-                <img src="assets/fitzroy.png" alt="Monte Fitz Roy">
-            </button>
-            <button
-                class="mountain-selector-tab"
-                role="tab"
-                aria-selected="false"
-                data-dificultad="DIFICULTAD AVANZADA"
-                data-duracion="12 DÍAS"
-                data-nombre="CERRO TORRE"
-                data-descripcion="Desafío extremo para participantes con experiencia previa en ambientes de alta montaña."
-            >
-                <img src="assets/tronador.png" alt="Cerro Torre">
-            </button>
-        </div>
-    </div>
-</section>
+<section class="expediciones-deck" aria-labelledby="expDeckTitle">
 
+    <div class="expediciones-bg">
+
+        <div class="exp-bg-layer is-active"></div>
+        <div class="exp-bg-layer"></div>
+
+    </div>
+
+    <div class="expediciones-overlay"></div>
+
+    <div class="expediciones-inner">
+
+        <h2
+            id="expDeckTitle"
+            class="expediciones-headline"
+        >
+            SI QUERÉS LLEGAR A LA MONTAÑA
+            <br>
+            MEJOR <span>PREPARATE AHORA</span>
+        </h2>
+
+        <div
+            class="expediciones-deck-stage"
+            tabindex="0"
+            aria-label="Selector de expediciones"
+            aria-live="polite"
+        >
+
+            <div
+                class="expediciones-deck-track"
+                id="expDeckTrack"
+            >
+            </div>
+
+        </div>
+
+        <div class="expediciones-label">
+            EXPEDICIONES
+        </div>
+
+    </div>
+
+</section>
 
   <!-- ======================= 7. CURSOS ======================= -->
   <section class="cursos" id="cursos" aria-labelledby="cursos-title">
