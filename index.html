@@ -216,7 +216,7 @@
             >
 
                 <img
-                    src="assets/etapa.jpg"
+                    src="assets/et1.jpeg"
                     alt="Evaluación física"
                 >
 
@@ -243,7 +243,7 @@
             >
 
                 <img
-                    src="assets/etapa.jpg"
+                    src="assets/et2.jpeg"
                     alt="Entrenamiento base"
                 >
 
@@ -270,7 +270,7 @@
             >
 
                 <img
-                    src="assets/etapa.jpg"
+                    src="assets/et3.jpeg"
                     alt="Táctica de altura"
                 >
 
@@ -329,48 +329,36 @@
   <!-- ======================= 8. EXPEDICIONES (tabs + panel dinámico) ======================= -->
 <section class="expediciones-deck" aria-labelledby="expDeckTitle">
 
-    <div class="expediciones-bg">
+  <div class="expediciones-bg">
+    <!-- Imagen de fondo en blanco y negro -->
+    <img 
+      src="assets/fitzroy.png" 
+      alt="Monte Fitz Roy" 
+      style="width:100%; height:100%; object-fit:cover; filter:grayscale(100%); position:absolute; inset:0;"
+    >
 
-        <div class="exp-bg-layer is-active"></div>
-        <div class="exp-bg-layer"></div>
+    <div class="exp-bg-layer is-active"></div>
+    <div class="exp-bg-layer"></div>
+  </div>
 
+  <!-- Overlay naranja encima de la imagen -->
+  <div class="expediciones-overlay"></div>
+
+  <div class="expediciones-inner">
+    <h2 id="expDeckTitle" class="expediciones-headline">
+      PARA LOS QUE ELIGEN LOS <br>
+      <span>DESAFÍOS REALES</span>
+    </h2>
+
+    <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones" aria-live="polite">
+      <div class="expediciones-deck-track" id="expDeckTrack"></div>
     </div>
 
-    <div class="expediciones-overlay"></div>
-
-    <div class="expediciones-inner">
-
-        <h2
-            id="expDeckTitle"
-            class="expediciones-headline"
-        >
-            PARA LOS QUE ELIGEN LOS
-            <br>
-            <span>DESAFÍOS REALES</span>
-        </h2>
-
-        <div
-            class="expediciones-deck-stage"
-            tabindex="0"
-            aria-label="Selector de expediciones"
-            aria-live="polite"
-        >
-
-            <div
-                class="expediciones-deck-track"
-                id="expDeckTrack"
-            >
-            </div>
-
-        </div>
-
-        <div class="expediciones-label">
-            EXPEDICIONES
-        </div>
-
-    </div>
+    <div class="expediciones-label">EXPEDICIONES</div>
+  </div>
 
 </section>
+
 
   <!-- ======================= 7. CURSOS ======================= -->
 <section class="training-courses-section">
@@ -439,7 +427,7 @@
             <div class="training-courses-image">
 
                 <img
-                    src="assets/curso.jpg"
+                    src="assets/cur3.jpg"
                     alt="Comunicación en la montaña"
                 >
 
@@ -485,7 +473,7 @@
             <div class="training-courses-image">
 
                 <img
-                    src="assets/curso.jpg"
+                    src="assets/cur2.png"
                     alt="Resistencia física"
                 >
 

@@ -725,7 +725,7 @@ trainingCoursesCards.forEach((card) => {
         },
 
         {
-            nombre:'EVEREST',
+            nombre:'TRONADOR',
             dificultad:'DIFICULTAD EXTREMA',
             duracion:'8 SEMANAS',
             fondo:'assets/everest.jpg',
@@ -733,7 +733,7 @@ trainingCoursesCards.forEach((card) => {
         },
 
         {
-            nombre:'KILIMANJARO',
+            nombre:'MONTE TORRE',
             dificultad:'DIFICULTAD MODERADA',
             duracion:'10 DÍAS',
             fondo:'assets/kilimanjaro.jpg',
@@ -741,7 +741,7 @@ trainingCoursesCards.forEach((card) => {
         },
 
         {
-            nombre:'MONT BLANC',
+            nombre:'FITZ ROY',
             dificultad:'DIFICULTAD ALTA',
             duracion:'1 SEMANA',
             fondo:'assets/montblanc.jpg',
