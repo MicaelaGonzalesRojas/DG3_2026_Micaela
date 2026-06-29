@@ -509,85 +509,277 @@ section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); }
 /* ---------------------------------------------------------------------
    4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
    --------------------------------------------------------------------- */
-.heroes{ background: linear-gradient(180deg, var(--color-void), var(--color-rock)); }
-.heroes-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
-.heroes-lead{
-  max-width: 70ch;
-  margin: 0 auto;
-  color: var(--color-ice-dim);
+/* ==========================================================
+   HEROES DE LA MONTAÑA
+   ========================================================== */
+
+.heroes {
+
+    padding: 4rem 0 6rem;
+
+    overflow: hidden;
+
+    background: var(--color-void);
 }
 
-.heroes-carousel{
-  position: relative;
-  overflow: hidden;
-  margin-top: 3rem;
-}
-.heroes-track{
-  display: flex;
-  gap: 1.5rem;
-  width: max-content;
-  list-style: none;
-  margin: 0;
-  padding: .5rem 0;
-  animation: heroes-marquee 34s linear infinite;
-}
-.heroes-carousel:hover .heroes-track,
-.heroes-carousel:focus-within .heroes-track{
-  animation-play-state: paused;
-}
-@keyframes heroes-marquee{
-  from{ transform: translateX(0); }
-  to{ transform: translateX(-50%); }
+/* ------------------------------------
+   HEADER
+   ------------------------------------ */
+
+.heroes-header {
+
+    text-align: center;
+
+    max-width: 720px;
+
+    margin: 0 auto 3rem;
 }
 
-.heroes-card-item{ flex: 0 0 auto; }
-.heroes-card{
-  width: 300px;
-  border-radius: 0px;
-  overflow: hidden;
-  background: var(--color-rock-soft);
-  display: block;
-  text-align: left;
-  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
-}
-.heroes-card:hover,
-.heroes-card:focus-visible,
-.heroes-card:focus{
-  transform: scale(1.02);
-  box-shadow: 0 20px 44px rgba(0,0,0,.5);
-}
-.heroes-card-image{
-  width: 100%;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  display: block;
-}
-.heroes-card-data{
-  background: var(--color-pale);
-  color: var(--color-ink);
-  padding: 1.25rem 1.4rem;
-}
-.heroes-card-name{ font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
-.heroes-card-condition{ color: var(--color-slate); font-size: .85rem; margin-bottom: .25rem; }
-.heroes-card-summit{
-  color: var(--color-slate);
-  font-size: .78rem;
-  text-transform: uppercase;
-  letter-spacing: .04em;
+.heroes-header h2 {
+
+    margin-bottom: 1rem;
+
+    font-size: clamp(2rem,4vw,3.6rem);
 }
 
-/* Reducir movimiento: se detiene el marquee y se ocultan los clones,
-   dejando las 4 tarjetas reales en una fila navegable manualmente. */
-[data-motion="reduced"] .heroes-track{
-  animation: none;
-  transform: none;
-  overflow-x: auto;
-}
-[data-motion="reduced"] .heroes-card.is-clone,
-[data-motion="reduced"] .heroes-card-item.is-clone{ display: none; }
+.heroes-header p {
 
-@media (max-width: 540px){
-  .heroes-card{ width: 220px; }
+    color: var(--color-ice);
+
+    line-height: 1.6;
+}
+
+/* ------------------------------------
+   MARQUEE
+   ------------------------------------ */
+
+.heroes-marquee {
+
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    /* Curva superior e inferior */
+    clip-path: polygon(
+        0% 10%,
+        15% 6%,
+        35% 4%,
+        50% 3%,
+        65% 4%,
+        85% 6%,
+        100% 10%,
+
+        100% 90%,
+
+        85% 94%,
+        65% 96%,
+        50% 97%,
+        35% 96%,
+        15% 94%,
+        0% 90%
+    );
+}
+
+.heroes-track {
+
+    display: flex;
+
+    gap: 16px;
+
+    width: max-content;
+
+    animation:
+        heroesMarquee 40s linear infinite;
+
+    will-change: transform;
+}
+
+.heroes-marquee:hover .heroes-track {
+
+    animation-play-state: paused;
+}
+
+@keyframes heroesMarquee {
+
+    from {
+
+        transform:
+        translate3d(
+            0,
+            0,
+            0
+        );
+    }
+
+    to {
+
+        transform:
+        translate3d(
+            -50%,
+            0,
+            0
+        );
+    }
+}
+
+/* ------------------------------------
+   CARD
+   ------------------------------------ */
+
+.hero-card {
+
+    position: relative;
+
+    width: 240px;
+
+    height: 420px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.hero-card img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .6s ease,
+        filter .4s ease;
+}
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 2rem;
+
+    transition:
+        background .4s ease;
+}
+
+.hero-content {
+
+    opacity: 0;
+
+    transform:
+        translateY(20px);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+
+    color: white;
+}
+
+.hero-card:hover .hero-overlay {
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .7
+        );
+}
+
+.hero-card:hover img {
+
+    transform: scale(1.05);
+}
+
+.hero-card:hover .hero-content {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.hero-name {
+
+    font-size: 1.6rem;
+
+    font-weight: 700;
+
+    margin-bottom: .5rem;
+}
+
+.hero-condition {
+
+    opacity: .9;
+
+    margin-bottom: .4rem;
+}
+
+.hero-mountain {
+
+    font-weight: 600;
+}
+
+/* ------------------------------------
+   ACCESSIBILITY
+   ------------------------------------ */
+
+.hero-card:focus-visible {
+
+    outline:
+        3px solid
+        var(--color-ember);
+
+    outline-offset: -3px;
+}
+
+/* ------------------------------------
+   MOBILE
+   ------------------------------------ */
+
+@media(max-width:768px){
+
+    .heroes-marquee{
+
+        clip-path:none;
+    }
+
+    .hero-card{
+
+        width:200px;
+        height:340px;
+    }
+
+    .heroes-track{
+
+        animation-duration:30s;
+    }
 }
 
 /* ---------------------------------------------------------------------
@@ -854,192 +1046,246 @@ html[data-motion="reduced"] .digit-strip,
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
 
-.testimonios-v2 {
+/* =======================================================
+   TESTIMONIOS PREMIUM
+   ======================================================= */
+
+.testimonials-premium {
+
     background: var(--color-void);
-    padding: clamp(4rem,8vw,7rem) var(--pad);
+
+    padding: clamp(5rem,8vw,8rem) var(--pad);
 }
-.testimonios-v2-inner {
-    max-width: var(--maxw);
+
+.testimonials-premium__inner {
+
+    max-width: 1200px;
+
     margin: auto;
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: clamp(2rem,5vw,4rem);
-    align-items: center;
 }
 
-.testimonios-v2-slider {
-  position: relative;
-}
-.testimonios-v2-nav {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.testimonials-premium__title {
+
+    text-align: center;
+
+    margin-bottom: 4rem;
+
+    font-size: clamp(3rem,5vw,5rem);
 }
 
+.testimonial-scene {
 
-/* --------------------------
-   COLUMNA IZQUIERDA
-   -------------------------- */
-
-.testimonios-v2-copy h2 {
-    font-size: clamp(2.2rem,4vw,4rem);
-    line-height: .92;
-    margin-bottom: 1.5rem;
+    perspective: 1000px;
 }
 
-.testimonios-v2-copy p {
-    max-width: 250px;
-    color: var(--color-ice);
-    line-height: 1.5;
-}
-/* --------------------------
-   CONTENEDOR
-   -------------------------- */
-.testimonios-v2-slider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    overflow: hidden;
-}
-.testimonios-v2-track {
-    flex: 1;
-    display: flex;
-    gap: 1rem;
-    transition:
-        transform 400ms cubic-bezier(0.16,1,0.3,1),
-        opacity 400ms cubic-bezier(0.16,1,0.3,1);
+.testimonial-bubble {
+
+    position: relative;
+
+    background: #d7e0e3;
+
+    border-radius: 28px;
+
+    min-height: 360px;
+
+    padding: clamp(2rem,4vw,4rem);
+
+    transform-style: preserve-3d;
+
     will-change: transform;
-    transform: translate3d(0,0,0);
+
+    transition:
+        transform .25s ease,
+        opacity .4s ease,
+        filter .4s ease;
 }
-/* -------------------------
-   CARD
-   -------------------------- */
-.testimonio-v2 {
-    min-width: calc((100% - 2rem) / 3);
-    background: #ECECEC;
-    border-radius: 20px;
-    padding: 1.5rem;
+
+.testimonial-bubble::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 40px;
+
+    bottom: -45px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 40px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 70px solid #d7e0e3;
+}
+
+.testimonial-bubble.is-leaving {
+
+    opacity: 0;
+
+    transform:
+        translateZ(-80px)
+        rotateX(4deg);
+
+    filter: blur(4px);
+}
+
+.testimonial-bubble.is-entering {
+
+    opacity: 0;
+
+    transform:
+        translateZ(120px)
+        rotateY(-10deg);
+}
+
+.testimonial-quote {
+
+    font-size: clamp(2rem,4vw,4.2rem);
+
+    line-height: 1.25;
+
+    color: var(--color-ink);
+
+    margin: 0;
+}
+
+.testimonial-footer {
+
+    margin-top: 4rem;
+
     display: flex;
-    flex-direction: column;
+
     justify-content: space-between;
-    min-height: 250px;
-}
 
-.testimonio-v2-quote {
-    font-size: .95rem;
-    line-height: 1.7;
-    color: var(--color-ice);
-    margin-bottom: 2rem;
-}
-
-.testimonio-v2-footer {
-    display: flex;
     align-items: center;
-    gap: .8rem;
+
+    gap: 2rem;
 }
 
-.testimonio-v2-avatar {
-    width: 52px;
-    height: 52px;
+.testimonial-person {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+}
+
+.testimonial-avatar {
+
+    width: 130px;
+    height: 130px;
+
     border-radius: 50%;
+
     overflow: hidden;
+
     flex-shrink: 0;
+
+    background: #fff;
 }
 
-.testimonio-v2-avatar img {
+.testimonial-avatar img {
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
 
-.testimonio-v2-name {
-    font-size: .8rem;
-    font-weight: 700;
+.testimonial-name {
+
+    font-weight: 800;
+
+    font-size: 1.3rem;
+
     text-transform: uppercase;
-    color: var(--color-ink);
 }
-.testimonio-v2-condition {
-    font-size: .72rem;
+
+.testimonial-role {
+
+    margin-top: .3rem;
+
     color: var(--color-ice);
 }
 
-/* --------------------------
-   BOTÓN
-   -------------------------- */
-.testimonios-v2-nav {
-    width: 58px;
-    height: 58px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    background: var(--color-ember);
-    color: white;
+.testimonial-controls {
+
     display: flex;
-    justify-content: center;
+
+    gap: .75rem;
+}
+
+.testimonial-btn {
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 12px;
+
+    background: var(--color-ember);
+
+    color: white;
+
+    display: flex;
+
     align-items: center;
+
+    justify-content: center;
+
     transition:
         transform .25s ease,
         background .25s ease;
 }
 
-.testimonios-v2-nav:hover {
+.testimonial-btn:hover {
 
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
-.testimonios-v2-nav:focus-visible {
+.testimonial-btn:focus-visible {
 
-    outline: 3px solid var(--color-ember);
+    outline: 4px solid white;
 
-    outline-offset: 5px;
+    outline-offset: 4px;
 }
 
-.testimonios-v2-nav.is-back svg {
+.testimonial-btn svg {
 
-    transform: rotate(180deg);
+    width: 28px;
+    height: 28px;
+
+    stroke: currentColor;
+    stroke-width: 2.5;
+
+    fill: none;
 }
 
-/* --------------------------
-   MOBILE
-   -------------------------- */
+@media(max-width:768px){
 
-@media(max-width:900px){
+    .testimonial-footer {
 
-    .testimonios-v2-inner{
+        flex-direction: column;
 
-        grid-template-columns:1fr;
+        align-items: flex-start;
     }
 
-    .testimonios-v2-copy p{
+    .testimonial-avatar {
 
-        max-width:100%;
+        width: 90px;
+        height: 90px;
     }
 
-    .testimonios-v2-track{
+    .testimonial-quote {
 
-        overflow-x:auto;
-
-        scroll-snap-type:x mandatory;
-
-        scrollbar-width:none;
+        font-size: 1.8rem;
     }
 
-    .testimonio-v2{
+    .testimonial-btn {
 
-        min-width:85%;
-
-        scroll-snap-align:start;
+        width: 60px;
+        height: 60px;
     }
-
-    .testimonios-v2-nav{
-
-        display:none;
-    }
-}
-
-html[data-motion="reduced"] .testimonios-v2-track{
-
-    transition:none;
 }
 
 /* ---------------------------------------------------------------------

@@ -124,25 +124,137 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('blur', () => setExpanded(false));
   });
 
-  /* ------------------------------------------------------------------
-     5. Héroes de la montaña — clonado del track para el marquee infinito
-        El DOM accesible conserva solo las 4 tarjetas reales (tabulables,
-        sin aria-hidden). Los clones existen únicamente para el efecto
-        visual continuo y quedan invisibles al árbol de accesibilidad.
-     ------------------------------------------------------------------ */
-  const heroesTrack = document.getElementById('heroesTrack');
-  if (heroesTrack) {
-    const originalCards = Array.from(heroesTrack.children);
-    originalCards.forEach((item) => {
-      const clone = item.cloneNode(true);
-      clone.classList.add('is-clone');
-      clone.setAttribute('aria-hidden', 'true');
-      clone.querySelectorAll('[tabindex]').forEach((el) => el.setAttribute('tabindex', '-1'));
-      const innerCard = clone.querySelector('.heroes-card');
-      if (innerCard) innerCard.classList.add('is-clone');
-      heroesTrack.appendChild(clone);
-    });
-  }
+/* ------------------------------------------------------------------
+   HEROES DE LA MONTAÑA
+   ------------------------------------------------------------------ */
+
+(() => {
+
+    const athletes = [
+
+        {
+            name: "JOHN CAMERON",
+            condition: "Discapacidad visual",
+            summit: "Monte Everest",
+            image: "assets/heroes/everest.jpg"
+        },
+
+        {
+            name: "ELENA ROSTOVA",
+            condition: "Amputación bilateral",
+            summit: "Aconcagua",
+            image: "assets/heroes/aconcagua.jpg"
+        },
+
+        {
+            name: "MATEO BENAVIDEZ",
+            condition: "Lesión medular",
+            summit: "Denali",
+            image: "assets/heroes/denali.jpg"
+        },
+
+        {
+            name: "SOFIA GRIEG",
+            condition: "Amputación femoral",
+            summit: "Mont Blanc",
+            image: "assets/heroes/montblanc.jpg"
+        }
+    ];
+
+    const track =
+        document.getElementById(
+            'heroesTrack'
+        );
+
+    if(!track) return;
+
+    function createCards(){
+
+        const duplicated =
+            [...athletes, ...athletes];
+
+        duplicated.forEach(hero => {
+
+            track.insertAdjacentHTML(
+                'beforeend',
+                `
+                <article
+                    class="hero-card"
+                    tabindex="0"
+                >
+
+                    <img
+                        src="${hero.image}"
+                        alt="${hero.name}"
+                        loading="lazy"
+                    >
+
+                    <div
+                        class="hero-overlay"
+                    >
+
+                        <div
+                            class="hero-content"
+                        >
+
+                            <div
+                                class="hero-name"
+                            >
+                                ${hero.name}
+                            </div>
+
+                            <div
+                                class="hero-condition"
+                            >
+                                ${hero.condition}
+                            </div>
+
+                            <div
+                                class="hero-mountain"
+                            >
+                                ${hero.summit}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+                `
+            );
+        });
+    }
+
+    createCards();
+
+    const marquee =
+        document.getElementById(
+            'heroesMarquee'
+        );
+
+    marquee.addEventListener(
+        'mouseenter',
+        () => {
+
+            marquee.setAttribute(
+                'aria-live',
+                'polite'
+            );
+        }
+    );
+
+    marquee.addEventListener(
+        'mouseleave',
+        () => {
+
+            marquee.setAttribute(
+                'aria-live',
+                'off'
+            );
+        }
+    );
+
+})();
 
 /**
  * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
@@ -243,126 +355,170 @@ document.addEventListener('DOMContentLoaded', () => {
    ------------------------------------------------------------------ */
 
 (() => {
-    const track = document.getElementById(
-        'testimoniosTrackV2'
-    );
-    const button = document.getElementById(
-        'testimoniosToggle'
-    );
-    if(!track || !button) return;
 
-    const data = [
+    const testimonials = [
+
         {
-            nombre:'HECTOR AGUIRRE',
-            condicion:'Baja visión',
-            avatar:'assets/per1.jpg',
-            texto:'Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
+            name: "HECTOR AGUIRRE",
+            role: "Baja visión",
+            avatar: "assets/hector.jpg",
+            quote:
+            "Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites."
         },
+
         {
-            nombre:'MATEO BENAVÍDEZ',
-            condicion:'Lesión Medular L2',
-            avatar:'assets/per1.jpg',
-            texto:'En el Ama Dablam el frío amenazó mis sistemas adaptativos. CÚSPIDE no me bajó de la montaña; me dio la técnica para resistir y liderar.'
+            name: "AMBAR ZHENG",
+            role: "Amputación Femoral",
+            avatar: "assets/ambar.jpg",
+            quote:
+            "El viento blanco a 6,000 metros te exige precisión absoluta. Las prótesis no fallan si el entrenamiento de ingeniería biomecánica previo fue implacable."
         },
+
         {
-            nombre:'ELENA ROSTOVA',
-            condicion:'Amputación Bilateral',
-            avatar:'assets/per1.jpg',
-            texto:'Muchos te dicen lo que no puedes hacer. En este equipo diseñan los anclajes de carbono que necesitas para morder el hielo vertical.'
+            name: "JULIÁN SASTRE",
+            role: "Ceguera Cortical",
+            avatar: "assets/julian.jpg",
+            quote:
+            "La montaña no se ve, se escucha y se siente bajo los crampones. Aprendí a mapear el hielo mediante ecosonido táctil; la cumbre fue el resultado lógico."
         },
+
         {
-            nombre:'MARCUS VANCE',
-            condicion:'Ceguera Total',
-            avatar:'assets/per1.jpg',
-            texto:'Escalar una pared vertical en total oscuridad es absoluto terror hasta que aprendes a confiar en el sonar táctil de tu arnés adaptado.'
-        },
-        {
-            nombre:'SOFIA GRIEG',
-            condicion:'Amputación Femoral',
-            avatar:'assets/per1.jpg',
-            texto:'La cumbre no te pide currículum, te pide preparación. CÚSPIDE transformó mi prótesis en una extensión de la roca.'
+            name: "VALERIE DUPONT",
+            role: "Paraplejía T12",
+            avatar: "assets/valerie.jpg",
+            quote:
+            "Adaptamos el trineo de tracción para pendientes del 45%. Dijeron que era logísticamente imposible; nuestro laboratorio técnico demostró lo contrario en el glaciar."
         }
     ];
-    track.style.transition = 'transform 1s ease-in-out';
 
-    data.forEach(item => {
-        track.insertAdjacentHTML(
-            'beforeend',
-            `
-            <article class="testimonio-v2">
-                <p class="testimonio-v2-quote">
-                    "${item.texto}"
-                </p>
-                <div class="testimonio-v2-footer">
+    const bubble = document.getElementById('testimonialBubble');
 
-                    <div class="testimonio-v2-avatar">
-                        <img
-                            src="${item.avatar}"
-                            alt="${item.nombre}"
-                            loading="lazy"
-                        >
-                    </div>
-                    <div>
-                        <div class="testimonio-v2-name">
-                            ${item.nombre}
-                        </div>
-                        <div class="testimonio-v2-condition">
-                            ${item.condicion}
-                        </div>
-                    </div>
-                </div>
-            </article>
-            `
-        );
-    });
-    let page = 0;
-    function update(){
-        const card =
-            track.querySelector('.testimonio-v2');
-        const width =
-            card.offsetWidth + 16;
-        track.style.transform =
-            `translate3d(${-page * width * 2}px,0,0)`;
-        button.classList.toggle(
-            'is-back',
-            page === 1
-        );
-        button.setAttribute(
-            'aria-label',
-            page === 0
-                ? 'Ver más testimonios'
-                : 'Volver a testimonios anteriores'
-        );
+    const quote = document.getElementById('testimonialQuote');
+    const name = document.getElementById('testimonialName');
+    const role = document.getElementById('testimonialRole');
+    const avatar = document.getElementById('testimonialAvatar');
+
+    const prev = document.getElementById('testimonialPrev');
+    const next = document.getElementById('testimonialNext');
+
+    let current = 0;
+
+    function render(index){
+
+        bubble.classList.add('is-leaving');
+
+        setTimeout(() => {
+
+            const item = testimonials[index];
+
+            quote.textContent = `“${item.quote}”`;
+            name.textContent = item.name;
+            role.textContent = item.role;
+
+            avatar.src = item.avatar;
+            avatar.alt = item.name;
+
+            bubble.classList.remove('is-leaving');
+
+            bubble.classList.add('is-entering');
+
+            requestAnimationFrame(() => {
+
+                requestAnimationFrame(() => {
+
+                    bubble.classList.remove(
+                        'is-entering'
+                    );
+                });
+            });
+
+        },200);
     }
-    button.addEventListener(
-        'click',
-        () => {
-            page =
-                page === 0
-                    ? 1
-                    : 0;
 
-            update();
-        }
+    next.addEventListener('click', () => {
+
+        current =
+            (current + 1)
+            % testimonials.length;
+
+        render(current);
+    });
+
+    prev.addEventListener('click', () => {
+
+        current =
+            (current - 1 + testimonials.length)
+            % testimonials.length;
+
+        render(current);
+    });
+
+    /* PARALLAX 3D */
+
+    bubble.addEventListener('mousemove', e => {
+
+        if(window.innerWidth < 1024) return;
+
+        const rect =
+            bubble.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left)
+            / rect.width;
+
+        const y =
+            (e.clientY - rect.top)
+            / rect.height;
+
+        const rotateY =
+            (x - .5) * 6;
+
+        const rotateX =
+            (0.5 - y) * 6;
+
+        bubble.style.transform =
+            `
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            `;
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+
+        bubble.style.transform =
+            'rotateX(0deg) rotateY(0deg)';
+    });
+
+    /* SWIPE MOBILE */
+
+    let startX = 0;
+
+    bubble.addEventListener(
+        'pointerdown',
+        e => startX = e.clientX
     );
-    button.addEventListener(
-        'keydown',
+
+    bubble.addEventListener(
+        'pointerup',
         e => {
-            if(
-                e.key === 'ArrowRight'
-            ){
-                page = 1;
-                update();
+
+            const delta =
+                e.clientX - startX;
+
+            if(delta > 60){
+
+                prev.click();
             }
-            if(
-                e.key === 'ArrowLeft'
-            ){
-                page = 0;
-                update();
+
+            if(delta < -60){
+
+                next.click();
             }
         }
     );
-    update();
+
+    render(0);
+
 })();
 
   /* ------------------------------------------------------------------

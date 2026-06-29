@@ -114,61 +114,33 @@
 
 
   <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
-  <section class="heroes" id="heroes" aria-labelledby="heroes-title">
-    <div class="heroes-inner">
-      <h2 id="heroes-title" class="display-md">Héroes de la montaña</h2>
-      <p class="heroes-lead">Cada imagen que ves aquí es prueba de que la verdadera fuerza se mide en
-      quienes se atreven a desafiar lo imposible.</p>
+<section class="heroes">
 
-      <div class="heroes-carousel" role="region" aria-roledescription="carrusel" aria-label="Historias de montañistas">
-        <p class="visually-hidden">El carrusel se desplaza automáticamente. Pasá el mouse o moveté con
-        Tab por encima para pausarlo y leer con calma.</p>
+    <div class="heroes-header">
 
-        <ul class="heroes-track" id="heroesTrack">
-          <li class="heroes-card-item">
-            <div class="heroes-card" tabindex="0" role="group" aria-label="Héctor Valdez, 54 años. Sin piernas. Cumbre: Monte Everest.">
-              <img class="limits-image" src="assets/heroe-1.jpg" alt="Escalador en hielo">
-              <div class="heroes-card-data">
-                <p class="heroes-card-name">Héctor Valdez (54 años)</p>
-                <p class="heroes-card-condition">Sin piernas</p>
-                <p class="heroes-card-summit mono">Monte Everest</p>
-              </div>
-            </div>
-          </li>
-          <li class="heroes-card-item">
-            <div class="heroes-card" tabindex="0" role="group" aria-label="John Cameron, 47 años. Ciego. Cumbre: Cordillera de los Andes.">
-              <img class="limits-image" src="assets/heroe-2.jpg" alt="Escalador en hielo">
-              <div class="heroes-card-data">
-                <p class="heroes-card-name">Lee Mina (33 años)</p>
-                <p class="heroes-card-condition">Ciego</p>
-                <p class="heroes-card-summit mono">Fitz Roy</p>
-              </div>
-            </div>
-          </li>
-          <li class="heroes-card-item">
-            <div class="heroes-card" tabindex="0" role="group" aria-label="Marina Sosa, 61 años. Amputación transfemoral. Cumbre: Aconcagua.">
-              <img class="limits-image" src="assets/heroe-3.jpg" alt="Escalador en hielo">
-              <div class="heroes-card-data">
-                <p class="heroes-card-name">Marina Sosa (45 años)</p>
-                <p class="heroes-card-condition">Amputación transfemoral</p>
-                <p class="heroes-card-summit mono">Aconcagua</p>
-              </div>
-            </div>
-          </li>
-          <li class="heroes-card-item">
-            <div class="heroes-card" tabindex="0" role="group" aria-label="Diego Quiroga, 39 años. Baja visión. Cumbre: Cerro Torre.">
-              <img class="limits-image" src="assets/heroe-4.jpg" alt="Escalador en hielo">
-              <div class="heroes-card-data">
-                <p class="heroes-card-name">Diego Rogel (62 años)</p>
-                <p class="heroes-card-condition">Sin piernas</p>
-                <p class="heroes-card-summit mono">Cerro Torre</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+        <h2>HÉROES DE LA MONTAÑA</h2>
+
+        <p>
+            Cada imagen que ves aquí es prueba de que la verdadera fuerza
+            se mide en quienes se atreven a desafiar lo imposible.
+        </p>
+
     </div>
-  </section>
+
+    <div
+        class="heroes-marquee"
+        id="heroesMarquee"
+        aria-live="off"
+    >
+
+        <div
+            class="heroes-track"
+            id="heroesTrack"
+        ></div>
+
+    </div>
+
+</section>
 
   <!-- ======================= 5. PROCESO DE PREPARACIÓN ======================= -->
   <section class="proceso" id="proceso" aria-labelledby="proceso-title">
@@ -443,48 +415,94 @@
 
 
   <!-- ======================= 6. TESTIMONIOS ======================= -->
-<section class="testimonios-v2">
-    <div class="testimonios-v2-inner">
-        <aside class="testimonios-v2-copy">
-            <h2>
-                ELLOS<br>
-                LLEGARON
-            </h2>
-            <p>
-                Es un camino bastante complicado,
-                te vas a atrever vos también?
-            </p>
-        </aside>
-        <div class="testimonios-v2-slider">
-            <div
-                class="testimonios-v2-track"
-                id="testimoniosTrackV2"
+<section class="testimonials-premium" aria-labelledby="testimonialsTitle">
+
+    <div class="testimonials-premium__inner">
+
+        <h2
+            id="testimonialsTitle"
+            class="testimonials-premium__title"
+        >
+            TESTIMONIOS
+        </h2>
+
+        <div class="testimonial-scene">
+
+            <article
+                class="testimonial-bubble"
+                id="testimonialBubble"
+                aria-live="polite"
             >
-                <!-- JS -->
+
+                <div class="testimonial-bubble__content">
+
+                    <p
+                        class="testimonial-quote"
+                        id="testimonialQuote"
+                    ></p>
+
+                </div>
+
+            </article>
+
+            <div class="testimonial-footer">
+
+                <div class="testimonial-person">
+
+                    <div class="testimonial-avatar">
+                        <img
+                            id="testimonialAvatar"
+                            src=""
+                            alt=""
+                        >
+                    </div>
+
+                    <div>
+
+                        <div
+                            class="testimonial-name"
+                            id="testimonialName"
+                        ></div>
+
+                        <div
+                            class="testimonial-role"
+                            id="testimonialRole"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <div class="testimonial-controls">
+
+                    <button
+                        id="testimonialPrev"
+                        class="testimonial-btn"
+                        aria-label="Testimonio anterior"
+                    >
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15 4L7 12L15 20"/>
+                        </svg>
+                    </button>
+
+                    <button
+                        id="testimonialNext"
+                        class="testimonial-btn"
+                        aria-label="Siguiente testimonio"
+                    >
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 4L17 12L9 20"/>
+                        </svg>
+                    </button>
+
+                </div>
+
             </div>
-            <button
-                class="testimonios-v2-nav"
-                id="testimoniosToggle"
-                aria-label="Ver más testimonios"
-            >
-                <svg
-                    id="testimoniosArrow"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                >
-                    <path
-                        d="M5 12H19M19 12L13 6M19 12L13 18"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-            </button>
+
         </div>
+
     </div>
+
 </section>
 
 
