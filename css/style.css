@@ -969,7 +969,7 @@ margin-top: -64px; /* compensa la altura del header */}
 
     width: 100%;
 
-    border-radius: 10px;
+    border-radius: 5px;
 
     display: block;
 }
@@ -1448,6 +1448,49 @@ html[data-motion="reduced"] .digit-strip,
     }
 }
 
+@media (min-width:1024px) {
+  .testimonials-premium .testimonials-premium__inner {
+    padding: 0 160px; /* solo afecta a testimonios */
+  }
+}
+
+  .testimonials-premium__title {
+    font-size: clamp(2.2rem,3.5vw,3.5rem);
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-bubble {
+    min-height: 280px;
+    padding: clamp(1.5rem,3vw,3rem);
+    border-radius: 20px;
+  }
+
+  .testimonial-quote {
+    font-size: clamp(1.6rem,2.5vw,2.4rem);
+    line-height: 1.4;
+  }
+
+  .testimonial-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .testimonial-name {
+    font-size: 1.1rem;
+  }
+
+  .testimonial-btn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .testimonial-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+
 /* ---------------------------------------------------------------------
    7. CURSOS
    --------------------------------------------------------------------- */
@@ -1661,6 +1704,8 @@ html[data-motion="reduced"] .digit-strip,
 
     justify-content: center;
 }
+
+
 
 .expediciones-bg {
 
@@ -1889,7 +1934,7 @@ html[data-motion="reduced"] .digit-strip,
 
 .expediciones-label {
 
-    margin-top: 3rem;
+    margin-top: 2rem;
 
     font-size: clamp(2rem,4vw,3rem);
 

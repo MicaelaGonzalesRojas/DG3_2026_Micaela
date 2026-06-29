@@ -360,6 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
      ------------------------------------------------------------------ */
 (() => {
 
+   
+    
     const sections =
         document.querySelectorAll(
             '.metodo-step'
@@ -524,7 +526,7 @@ trainingCoursesCards.forEach((card) => {
         {
             name: "HECTOR AGUIRRE",
             role: "Baja visión",
-            avatar: "assets/hector.jpg",
+            avatar: "assets/per1.jpg",
             quote:
             "Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites."
         },
@@ -532,7 +534,7 @@ trainingCoursesCards.forEach((card) => {
         {
             name: "AMBAR ZHENG",
             role: "Amputación Femoral",
-            avatar: "assets/ambar.jpg",
+            avatar: "assets/per2.jpg",
             quote:
             "El viento blanco a 6,000 metros te exige precisión absoluta. Las prótesis no fallan si el entrenamiento de ingeniería biomecánica previo fue implacable."
         },
@@ -540,7 +542,7 @@ trainingCoursesCards.forEach((card) => {
         {
             name: "JULIÁN SASTRE",
             role: "Ceguera Cortical",
-            avatar: "assets/julian.jpg",
+            avatar: "assets/per3.jpg",
             quote:
             "La montaña no se ve, se escucha y se siente bajo los crampones. Aprendí a mapear el hielo mediante ecosonido táctil; la cumbre fue el resultado lógico."
         },
@@ -548,9 +550,9 @@ trainingCoursesCards.forEach((card) => {
         {
             name: "VALERIE DUPONT",
             role: "Paraplejía T12",
-            avatar: "assets/valerie.jpg",
+            avatar: "assets/per4.jpg",
             quote:
-            "Adaptamos el trineo de tracción para pendientes del 45%. Dijeron que era logísticamente imposible; nuestro laboratorio técnico demostró lo contrario en el glaciar."
+            "Adaptamos el trineo de tracción para pendientes del 45%. Dijeron que era logísticamente imposible; demostramos lo contrario en el glaciar."
         }
     ];
 
