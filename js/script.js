@@ -156,16 +156,57 @@ document.addEventListener('DOMContentLoaded', () => {
         El despliegue visual lo maneja el CSS (:hover / :focus-visible),
         acá solo sincronizamos aria-expanded para lectores de pantalla.
      ------------------------------------------------------------------ */
-  document.querySelectorAll('.limits-card').forEach((card) => {
-    function setExpanded(value) {
-      card.setAttribute('aria-expanded', String(value));
-    }
-    card.addEventListener('mouseenter', () => setExpanded(true));
-    card.addEventListener('mouseleave', () => setExpanded(false));
-    card.addEventListener('focus', () => setExpanded(true));
-    card.addEventListener('blur', () => setExpanded(false));
-  });
+/* ==========================================
+   CUSPIDE PILLARS
+========================================== */
 
+const cuspidePillarCards = document.querySelectorAll(
+    ".cuspide-pillar-card"
+);
+
+const isTouchDevice =
+    window.matchMedia("(max-width: 768px)").matches ||
+    ("ontouchstart" in window);
+
+if (isTouchDevice) {
+
+    cuspidePillarCards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const expanded =
+                card.classList.contains("is-flipped");
+
+            card.classList.toggle("is-flipped");
+
+            card.setAttribute(
+                "aria-expanded",
+                expanded ? "false" : "true"
+            );
+        });
+
+        card.addEventListener("keydown", (e) => {
+
+            if (
+                e.key === "Enter" ||
+                e.key === " "
+            ) {
+
+                e.preventDefault();
+
+                const expanded =
+                    card.classList.contains("is-flipped");
+
+                card.classList.toggle("is-flipped");
+
+                card.setAttribute(
+                    "aria-expanded",
+                    expanded ? "false" : "true"
+                );
+            }
+        });
+    });
+}
 /* ------------------------------------------------------------------
    HEROES DE LA MONTAÑA
    ------------------------------------------------------------------ */

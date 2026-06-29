@@ -524,92 +524,206 @@ margin-top: -64px; /* compensa la altura del header */}
 /* ---------------------------------------------------------------------
    3. ATRÉVETE A DESAFIAR TODOS LOS LÍMITES
    --------------------------------------------------------------------- */
-.limites {
-  background: var(--color-void);
-  padding-top: 150px;     /* espacio arriba */
-  padding-bottom: 60px;  /* espacio abajo */
+/* ==========================================
+   CUSPIDE PILLARS
+========================================== */
+
+.cuspide-pillars-section {
+    padding: 120px 0;
+    background: var(--color-light);
 }
 
+.cuspide-pillars-layout {
+    width: min(1200px, calc(100% - 80px));
+    margin: 0 auto;
 
-.limites-lead{ color: var(--color-ice-dim); max-width: 480px; }
-
-.limits-cards{
-  display: flex;
-  gap: 1.25rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-.limits-card{
-  flex: 1 1 220px;
-  background: var(--color-rock-soft);
-  border: 1px solid rgba(140,151,160,.3);
-  border-radius: var(--radius);
-  padding: 1rem;
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
-  text-align: center; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.limits-card h3{
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  margin-bottom: .65rem;
-}
-.limits-card p{ color: var(--color-ice-dim); font-size: .92rem; margin: 0; }
-.limits-card:hover,
-.limits-card:focus-visible,
-.limits-card:focus{
-  transform: translateY(-8px);
-  border-color: var(--color-glacier);
-  box-shadow: 0 0 0 1px var(--color-glacier), 0 16px 32px rgba(52,214,224,.18);
-}
-.limits-card-extra{
-  margin-top: 0;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  color: var(--color-glacier);
-  font-family: var(--font-mono);
-  font-size: .78rem;
-  line-height: 1.5;
-  transition: max-height var(--dur-base) var(--ease), opacity var(--dur-fast) var(--ease), margin-top var(--dur-base) var(--ease);
-}
-.limits-card:hover .limits-card-extra,
-.limits-card:focus-visible .limits-card-extra,
-.limits-card:focus .limits-card-extra{
-  max-height: 140px;
-  opacity: 1;
-  margin-top: .85rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: center;
 }
 
-.limits-visual{ position: relative; }
-.limits-image-frame{ position: relative; border-radius: 18px; }
-.limits-image-frame::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--color-mint);
-  border-radius: 18px;
-  transform: translate(18px, 18px);
-  z-index: 0;
-}
-.limits-image{
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  border-radius: 0px;
-  display: block;
-  transform: scale(1.05);
-  transition: transform var(--dur-slow) var(--ease);
-}
-.limits-image.is-visible{ transform: scale(1); }
-[data-motion="reduced"] .limits-image{ transform: none; }
+/* ==========================================
+   TEXTOS
+========================================== */
 
+.cuspide-pillars-copy h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: .9;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.cuspide-pillars-copy p {
+    max-width: 420px;
+    color: #6b625e;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   TARJETAS
+========================================== */
+
+.cuspide-pillars-grid {
+    display: flex;
+    gap: 24px;
+
+    perspective: 1500px;
+}
+
+.cuspide-pillar-card {
+    width: 240px;
+    height: 210px;
+
+    cursor: pointer;
+    perspective: 1500px;
+}
+
+.cuspide-pillar-inner {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+will-change: transform; /* fuerza a la GPU a preparar la animación */
+
+    transform-style: preserve-3d;
+
+     transition: transform 800ms ease-in-out;
+}
+
+.cuspide-pillar-card.is-flipped .cuspide-pillar-inner {
+    transform: rotateY(180deg);
+}
+.cuspide-pillar-face {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 16px;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    overflow: hidden;
+}
+
+/* ==========================================
+   FRONT
+========================================== */
+
+.cuspide-pillar-front {
+    background: var(--color-pale); /* antes: #dde4e8 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.cuspide-pillar-icon-placeholder {
+    width: 52px;
+    height: 52px;
+
+    background: #b7b7b7;
+
+    border-radius: 2px;
+
+    /*
+    Reemplazar por SVG futuro
+    sin romper centrado.
+    */
+}
+
+.cuspide-pillar-front h3 {
+    font-size: .95rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   BACK
+========================================== */
+
+/* BACK */
+.cuspide-pillar-back {
+    background: var(--color-pale); /* antes: #dde4e8 */
+    color: #292020; /* texto oscuro para contraste */
+    transform: rotateY(180deg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+}
+
+.cuspide-pillar-back h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.cuspide-pillar-back p {
+    line-height: 1.6;
+    font-size: .95rem;
+}
+
+/* ==========================================
+   HOVER DESKTOP
+========================================== */
+
+@media (hover:hover) {
+
+    .cuspide-pillar-card:hover .cuspide-pillar-inner {
+        transform: rotateY(180deg);
+    }
+
+    .cuspide-pillar-card:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* ==========================================
+   FOCUS WCAG
+========================================== */
+
+.cuspide-pillar-card:focus-visible {
+    outline: 3px solid #ff5a1f;
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:768px) {
+
+    .cuspide-pillars-section {
+        padding: 80px 0;
+    }
+
+    .cuspide-pillars-layout {
+        width: calc(100% - 40px);
+
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .cuspide-pillars-copy {
+        text-align: center;
+    }
+
+    .cuspide-pillars-copy p {
+        margin: 0 auto;
+    }
+
+    .cuspide-pillars-grid {
+        flex-direction: column;
+    }
+
+    .cuspide-pillar-card {
+        width: 100%;
+        height: 220px;
+    }
+}
 
 
 
