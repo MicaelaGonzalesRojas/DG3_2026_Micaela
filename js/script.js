@@ -1018,6 +1018,111 @@ track.addEventListener("pointerup", e => {
 
 })();
 
+
+/* ==========================================
+   CÚSPIDE · ESCUELA DE GUÍAS
+========================================== */
+
+(() => {
+
+    const section =
+        document.querySelector('.cuspide-guides');
+
+    if (!section) return;
+
+    /* ------------------------
+       REVEAL
+    ------------------------ */
+
+    const observer =
+        new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        section.classList.add('is-visible');
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.25
+            }
+        );
+
+    observer.observe(section);
+
+    /* ------------------------
+       PARALLAX DESKTOP
+    ------------------------ */
+
+    if (window.innerWidth <= 768) return;
+
+    const summit =
+        section.querySelector(
+            '.cuspide-guides__capsule--summit'
+        );
+
+    const team =
+        section.querySelector(
+            '.cuspide-guides__capsule--team'
+        );
+
+    let currentX = 0;
+    let currentY = 0;
+
+    let targetX = 0;
+    let targetY = 0;
+
+    section.addEventListener('mousemove', (e) => {
+
+        const rect =
+            section.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            rect.width;
+
+        const y =
+            (e.clientY - rect.top) /
+            rect.height;
+
+        targetX = (x - 0.5) * 16;
+        targetY = (y - 0.5) * 16;
+
+    });
+
+    function animate() {
+
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+
+        summit.style.transform =
+            `translate3d(
+                ${currentX}px,
+                ${currentY}px,
+                0
+            )`;
+
+        team.style.transform =
+            `translate3d(
+                ${-currentX}px,
+                ${-currentY}px,
+                0
+            )`;
+
+        requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+})();
+
+
+
   /* ------------------------------------------------------------------
      11. Formulario de contacto (Campamento Base)
          NOTA: esto es un envío simulado en el cliente. Reemplazar el
@@ -1038,6 +1143,110 @@ summitForm.addEventListener("submit", (e) => {
     formSuccess.classList.remove("show");
   }, 5000);
 });
+
+
+/* ==========================================
+   CÚSPIDE · CUSTOM CURSOR
+========================================== */
+
+(function () {
+
+    if (window.innerWidth < 1024) return;
+
+    const cursor = document.querySelector('.cuspide-cursor');
+
+    if (!cursor) return;
+
+    const dot = cursor.querySelector('.cuspide-cursor__dot');
+    const ring = cursor.querySelector('.cuspide-cursor__ring');
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const LERP = 0.15;
+
+    function animateCursor() {
+
+        ringX += (mouseX - ringX) * LERP;
+        ringY += (mouseY - ringY) * LERP;
+
+        dot.style.transform =
+            `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
+
+        ring.style.transform =
+            `translate3d(${ringX - 15}px, ${ringY - 15}px, 0)`;
+
+        requestAnimationFrame(animateCursor);
+    }
+
+    requestAnimationFrame(animateCursor);
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    /* =====================
+       HOVER INTERACTIVO
+    ===================== */
+
+    const interactiveSelector = `
+        a,
+        button,
+        input,
+        textarea,
+        select,
+        .interactive-hover,
+        [role="button"]
+    `;
+
+    
+    document.addEventListener('mouseover', (e) => {
+
+        if (e.target.closest(interactiveSelector)) {
+            cursor.classList.add('is-hover');
+        }
+
+    });
+
+    document.addEventListener('mouseout', (e) => {
+
+        if (e.target.closest(interactiveSelector)) {
+            cursor.classList.remove('is-hover');
+        }
+
+    });
+
+    /* =====================
+       CLICK
+    ===================== */
+
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('is-pressed');
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('is-pressed');
+    });
+
+    /* =====================
+       TAB INACTIVO
+    ===================== */
+
+    document.addEventListener('visibilitychange', () => {
+
+        if (document.hidden) {
+            cursor.style.opacity = '0';
+        } else {
+            cursor.style.opacity = '1';
+        }
+
+    });
+
+})();
 
 
   /* =========================
