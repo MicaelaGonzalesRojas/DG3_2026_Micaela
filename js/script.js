@@ -178,14 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "JOHN CAMERON",
             condition: "Discapacidad visual",
             summit: "Monte Everest",
-            image: "assets/heroe-1.jpg"
+            image: "assets/heroe-2.jpg"
         },
 
         {
             name: "ELENA ROSTOVA",
             condition: "Amputación bilateral",
             summit: "Aconcagua",
-            image: "assets/heroe-2.jpg"
+            image: "assets/heroe-1.jpg"
         },
 
         {
@@ -721,7 +721,7 @@ trainingCoursesCards.forEach((card) => {
             dificultad:'DIFICULTAD MEDIA',
             duracion:'2 SEMANAS',
             fondo:'assets/aconcagua.jpg',
-            descripcion:'La montaña más alta de América exige resistencia física sostenida y adaptación progresiva a la altura.'
+            descripcion:'Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
         },
 
         {
@@ -737,7 +737,7 @@ trainingCoursesCards.forEach((card) => {
             dificultad:'DIFICULTAD MODERADA',
             duracion:'10 DÍAS',
             fondo:'assets/kilimanjaro.jpg',
-            descripcion:'Ascenso progresivo donde la gestión del oxígeno y el ritmo son determinantes.'
+            descripcion:'El ascenso progresivo y el ritmo con el que se aprende son impresionantes.'
         },
 
         {
