@@ -1454,46 +1454,188 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    7. CURSOS
    --------------------------------------------------------------------- */
-.cursos{ background: var(--color-void); }
-.cursos-inner{ max-width: var(--maxw); margin: 0 auto; text-align: center; }
-.cursos-grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 3rem;
-  align-items: start;
-  text-align: left;
+.training-courses-section {
+    width: 100%;
+    padding: 120px 80px;
 }
 
-#cursos-title {
-  color: var(--color-void); /* usa tu variable de color oscuro */
+.training-courses-heading {
+    font-size: clamp(3rem, 5vw, 5rem);
+    margin-bottom: 48px;
 }
 
+.training-courses-accordion {
+    display: flex;
+    gap: 16px;
 
-.curso-card{
-  background: var(--color-rock-soft);
-  border: 1px solid rgba(140,151,160,.25);
-  border-radius: var(--radius);
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+    perspective: 1200px;
+    transform-style: preserve-3d;
 }
-.curso-card--featured{
-  border-color: var(--color-ember);
-  transform: scale(1.04);
+
+.training-courses-card {
+    flex: 1;
+
+    background: #d9d9d9;
+    border-radius: 24px;
+
+    overflow: hidden;
+    cursor: pointer;
+
+    transition:
+        flex 450ms cubic-bezier(.25,1,.5,1),
+        transform 450ms cubic-bezier(.25,1,.5,1);
 }
-.curso-toggle{ width: 100%; display: block; text-align: left; padding: 2rem 1.6rem; position: relative; 
-background: var(--color-void)}
-.curso-card h3{ font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; margin-bottom: .75rem; line-height: 1.15; }
-.curso-tag{ color: var(--color-ember); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .9rem; }
-.curso-summary{ color: var(--color-ice-dim); font-size: .92rem; }
-.curso-expand-icon{
-  position: absolute; top: 1.8rem; right: 1.4rem;
-  color: var(--color-titanium); font-family: var(--font-mono);
+
+.training-courses-card--active {
+    flex: 2.5;
 }
-.curso-toggle[aria-expanded="true"] .curso-expand-icon{ color: var(--color-ember); }
-.curso-panel{ padding: 0 1.6rem 1.8rem; 
-background: var(--color-void)}
-.curso-panel ul{ display: grid; gap: .65rem; font-size: .88rem; color: var(--color-ice-dim); }
-.curso-panel strong{ color: var(--color-ice); }
+
+.training-courses-image {
+    position: relative;
+    height: 320px;
+}
+
+.training-courses-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        filter 450ms cubic-bezier(.25,1,.5,1),
+        transform 450ms cubic-bezier(.25,1,.5,1);
+}
+
+.training-courses-card:not(.training-courses-card--active)
+.training-courses-image img {
+    filter: grayscale(1);
+}
+
+.training-courses-card--active
+.training-courses-image img {
+    filter: grayscale(0);
+}
+
+.training-courses-cta {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ff5a1f;
+    color: white;
+
+    cursor: pointer;
+
+    transition: all 450ms cubic-bezier(.25,1,.5,1);
+
+    overflow: hidden;
+}
+
+.training-courses-cta--active {
+    width: 110px;
+}
+
+.training-courses-content {
+    padding: 24px;
+}
+
+.training-courses-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.training-courses-title {
+    font-size: 2rem;
+    line-height: .9;
+}
+
+.training-courses-duration {
+    opacity: .55;
+    white-space: nowrap;
+}
+
+.training-courses-description {
+    margin-top: 16px;
+
+    line-height: 1.6;
+
+    max-width: 520px;
+
+    transition:
+        opacity 300ms ease,
+        transform 300ms ease;
+}
+
+.training-courses-card:not(.training-courses-card--active)
+.training-courses-description {
+    opacity: 0;
+    transform: translateY(15px);
+    height: 0;
+    overflow: hidden;
+}
+
+.training-courses-card:nth-child(1):not(.training-courses-card--active){
+    transform: rotateY(4deg) translateZ(-20px);
+}
+
+.training-courses-card:nth-child(3):not(.training-courses-card--active){
+    transform: rotateY(-4deg) translateZ(-20px);
+}
+
+.training-courses-cta:focus-visible{
+    outline: 3px solid white;
+    outline-offset: 4px;
+}
+
+@media (max-width:768px){
+
+    .training-courses-section{
+        padding:80px 20px;
+    }
+
+    .training-courses-accordion{
+        flex-direction:column;
+    }
+
+    .training-courses-card{
+        flex:none;
+    }
+
+    .training-courses-card--active{
+        flex:none;
+    }
+
+    .training-courses-image{
+        height:240px;
+    }
+
+    .training-courses-card:not(.training-courses-card--active)
+    .training-courses-content{
+        padding-bottom:18px;
+    }
+
+    .training-courses-card:not(.training-courses-card--active)
+    .training-courses-description{
+        display:none;
+    }
+
+    .training-courses-card:not(.training-courses-card--active)
+    .training-courses-image{
+        height:160px;
+    }
+
+    .training-courses-title{
+        font-size:1.5rem;
+    }
+}
 
 /* ---------------------------------------------------------------------
    8. EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
@@ -1762,60 +1904,689 @@ background: var(--color-void)}
 /* ---------------------------------------------------------------------
    10. CONTACTO
    --------------------------------------------------------------------- */
-.contacto {
-  background: var(--color-ink); /* 👉 fondo con tu color ink */
+/* ==========================================
+   CONTACTO / CONVERSIÓN
+========================================== */
+
+.summit-contact{
+
+    background:#2B2323;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-top:8rem;
 }
 
-.contacto-inner{ max-width: 620px; margin: 0 auto; text-align: center; }
-.contacto-sub{ color: var(--color-ember); font-family: var(--font-mono); text-transform: uppercase; font-size: .85rem; margin-bottom: 1rem; }
-.contacto-copy{ color: var(--color-coral); margin-bottom: 2.5rem; }
-.contact-form{ text-align: left; display: grid; gap: 1.25rem; }
-.field{ display: grid; gap: .5rem; position: relative; }
-.field label{ font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-void); }
-.field input, .field textarea{
-  background: var(--color-rock-soft);
-  border: 1px solid rgba(140,151,160,.4);
-  border-radius: 2px;
-  padding: .85rem 1rem;
-  color: var(--color-ice);
-  position: relative;
-  transition: border-color var(--dur-fast) var(--ease);
+.summit-contact::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.18;
+
+    background-image:
+        radial-gradient(
+            circle at 20% 40%,
+            transparent 0,
+            transparent 80px,
+            rgba(255,255,255,.12) 81px,
+            transparent 82px
+        );
+
+    pointer-events:none;
 }
 
-#contacto-title {
-  color: var(--color-void); /* tono oscuro que estás usando en el resto del sitio */
+.summit-contact__container{
+
+    width:min(1400px, calc(100% - 80px));
+
+    margin:auto;
+
+    padding:
+        clamp(5rem,8vw,8rem)
+        0;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(320px, 1fr)
+        minmax(400px, 1fr);
+
+    gap:5rem;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:2;
 }
 
+/* ==========================================
+   CONTENIDO
+========================================== */
 
-.field input:focus, .field textarea:focus{
-  border-color: var(--color-ember);
-  outline: none;
+.summit-contact__title{
+
+    color:white;
+
+    font-size:clamp(2.5rem,4vw,5rem);
+
+    line-height:.95;
+
+    text-transform:uppercase;
+
+    margin-bottom:2rem;
 }
-.field::after{
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  height: 2px; width: 0;
-  background: var(--color-ember);
-  transition: width var(--dur-base) var(--ease);
+
+.summit-contact__title span{
+
+    color:var(--color-accent);
 }
-.field:has(input:focus)::after, .field:has(textarea:focus)::after{ width: 100%; }
-.form-status {
-  color: #FF8479; /* rojo coral */
-  font-size: .85rem;
-  min-height: 1.2em;
+
+.summit-contact__description{
+
+    color:rgba(255,255,255,.85);
+
+    max-width:500px;
+
+    line-height:1.7;
+
+    font-size:1.15rem;
+
+    margin-bottom:2.5rem;
+}
+
+/* ==========================================
+   BENEFICIOS
+========================================== */
+
+.summit-contact__benefits{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1.25rem;
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+}
+
+.summit-contact__benefits li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:1rem;
+
+    color:white;
+
+    font-size:1.15rem;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    animation:
+        benefitFade .3s ease forwards;
+}
+
+.summit-contact__benefits li:nth-child(1){
+    animation-delay:.15s;
+}
+
+.summit-contact__benefits li:nth-child(2){
+    animation-delay:.35s;
+}
+
+.summit-contact__benefits li:nth-child(3){
+    animation-delay:.55s;
+}
+
+.benefit-square{
+
+    width:22px;
+    height:22px;
+
+    background:#ECE8E4;
+
+    flex-shrink:0;
+}
+
+@keyframes benefitFade{
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.summit-contact__form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1.5rem;
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.75rem;
+}
+
+.form-group label{
+
+    color:rgba(255,255,255,.75);
+
+    font-size:.75rem;
+
+    letter-spacing:.12em;
+
+    font-weight:700;
+
+    transition:.25s ease;
+}
+
+.form-group input,
+.form-group textarea{
+
+    border:none;
+
+    background:#DCE4E8;
+
+    color:#2B2323;
+
+    padding:1rem 1.25rem;
+
+    font-size:1rem;
+
+    transition:.25s ease;
+
+    border-radius:4px;
+}
+
+.form-group textarea{
+
+    resize:vertical;
+
+    min-height:120px;
+}
+
+/* Focus */
+
+.form-group:focus-within label{
+
+    color:var(--color-accent);
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+
+    background:#EDF4F7;
+
+    outline:none;
+
+    box-shadow:
+        0 0 0 2px rgba(255,90,30,.35);
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible{
+
+    outline:
+        3px solid var(--color-accent);
+
+    outline-offset:2px;
+}
+
+/* ==========================================
+   CTA
+========================================== */
+
+.summit-contact__cta{
+
+    border:none;
+
+    height:64px;
+
+    background:var(--color-ember);
+
+    color:var(--color-vo);
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+
+    cursor:pointer;
+
+    transition:
+        filter .25s ease-out,
+        transform .25s ease-out;
+}
+
+.summit-contact__cta:hover{
+
+    filter:brightness(1.1);
+}
+
+.summit-contact__cta:hover span{
+
+    transform:scale(1.02);
+}
+
+.summit-contact__cta:focus-visible{
+
+    outline:3px solid rgb(255, 66, 66);
+
+    outline-offset:4px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:1024px){
+
+    .summit-contact__container{
+
+        grid-template-columns:1fr;
+
+        gap:4rem;
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+    .summit-contact{
+
+        margin-top:5rem;
+    }
+
+    .summit-contact__container{
+
+        width:calc(100% - 40px);
+
+        padding:4rem 0;
+    }
+
+    .summit-contact__title{
+
+        font-size:2.3rem;
+    }
+
+    .summit-contact__description{
+
+        font-size:1rem;
+    }
+
+    .summit-contact__benefits li{
+
+        font-size:1rem;
+    }
+
+    .summit-contact__cta{
+
+        height:60px;
+
+        font-size:.9rem;
+    }
 }
 
 
 /* ---------------------------------------------------------------------
    FOOTER
    --------------------------------------------------------------------- */
-.site-footer{ background: #292020; padding: 3rem var(--pad); }
-.footer-inner{ max-width: var(--maxw); margin: 0 auto; color: var(--color-titanium); font-size: .85rem; }
-.brand--footer{ font-family: var(--font-display); color: var(--color-ice); font-size: 1.1rem; margin-bottom: .75rem; letter-spacing: .08em; }
-.footer-a11y{ margin-top: 1rem; font-size: .75rem; }
-.footer-a11y code{ font-family: var(--font-mono); color: var(--color-frost); }
+.footer-cuspide{
 
+    background:#292020;
+
+    color:#ECE8E4;
+
+    padding:clamp(4rem,8vw,7rem) var(--section-padding) 2rem;
+
+    margin-top:0rem;
+}
+
+.footer-cuspide__grid{
+
+    display:grid;
+
+    grid-template-columns:
+        2fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    gap:4rem;
+}
+
+/* ------------------- */
+/* BRAND */
+/* ------------------- */
+
+.footer-logo{
+
+    font-size:2.5rem;
+
+    font-weight:900;
+
+    margin-bottom:1.5rem;
+}
+
+.footer-brand__text{
+
+    color:#b7bbb8;
+
+    line-height:1.8;
+
+    max-width:320px;
+
+    margin-bottom:2rem;
+}
+
+.footer-contact{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.5rem;
+
+    margin-bottom:2rem;
+}
+
+.footer-label{
+
+    color:#7d8580;
+
+    font-size:.75rem;
+
+    letter-spacing:.15em;
+}
+
+/* ------------------- */
+/* MAGNETIC CTA */
+/* ------------------- */
+
+.footer-magnetic-btn{
+
+    width:220px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:999px;
+
+    background:var(--color-accent);
+
+    color:#fff;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        transform .35s cubic-bezier(.22,1,.36,1);
+}
+
+.footer-magnetic-btn:focus-visible{
+
+    outline:3px solid #fff;
+
+    outline-offset:4px;
+}
+
+/* ------------------- */
+/* SOCIALS */
+/* ------------------- */
+
+.footer-socials{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin-top:2rem;
+}
+
+.footer-socials a{
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:999px;
+
+    padding:.8rem 1.2rem;
+}
+
+/* ------------------- */
+/* COLUMNS */
+/* ------------------- */
+
+.footer-column{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.footer-mobile-trigger{
+
+    background:none;
+
+    border:none;
+
+    color:#8f9791;
+
+    text-align:left;
+
+    font-size:.8rem;
+
+    letter-spacing:.12em;
+
+    margin-bottom:1.5rem;
+
+    font-weight:700;
+
+    pointer-events:none;
+}
+
+.footer-links{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.9rem;
+}
+
+.footer-links a{
+
+    color:#fff;
+
+    text-decoration:none;
+
+    position:relative;
+
+    width:max-content;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+.footer-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-4px;
+
+    height:2px;
+
+    background:var(--color-accent);
+
+    transform:scaleX(0);
+
+    transform-origin:center;
+
+    transition:transform .3s ease;
+}
+
+.footer-links a:hover{
+
+    transform:translateX(2px);
+}
+
+.footer-links a:hover::after{
+
+    transform:scaleX(1);
+}
+
+.footer-links a:focus-visible{
+
+    outline:2px solid var(--color-accent);
+
+    outline-offset:4px;
+}
+
+/* ------------------- */
+/* BOTTOM */
+/* ------------------- */
+
+.footer-bottom{
+
+    margin-top:4rem;
+
+    padding-top:2rem;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:2rem;
+
+    flex-wrap:wrap;
+}
+
+.footer-bottom-links{
+
+    display:flex;
+
+    gap:2rem;
+
+    flex-wrap:wrap;
+}
+
+.footer-bottom-links a{
+
+    color:#cfd3d0;
+
+    text-decoration:none;
+}
+
+/* ------------------- */
+/* MOBILE */
+/* ------------------- */
+
+@media (max-width:768px){
+
+    .footer-cuspide__grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .footer-brand{
+
+        text-align:center;
+    }
+
+    .footer-brand__text{
+
+        margin-inline:auto;
+    }
+
+    .footer-magnetic-btn{
+
+        margin-inline:auto;
+    }
+
+    .footer-socials{
+
+        justify-content:center;
+    }
+
+    .footer-mobile-trigger{
+
+        pointer-events:auto;
+
+        width:100%;
+
+        cursor:pointer;
+
+        padding:1rem 0;
+
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .footer-links{
+
+        max-height:0;
+
+        overflow:hidden;
+
+        transition:max-height .3s ease;
+    }
+
+    .footer-column.active .footer-links{
+
+        max-height:500px;
+    }
+
+    .footer-bottom{
+
+        text-align:center;
+
+        justify-content:center;
+    }
+
+    .footer-bottom-links{
+
+        justify-content:center;
+    }
+}
 /* ---------------------------------------------------------------------
    SCROLL REVEALS (generic)
    --------------------------------------------------------------------- */

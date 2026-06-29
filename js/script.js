@@ -412,15 +412,62 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------
      7. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
-  document.querySelectorAll('.curso-toggle').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!isExpanded));
-      panel.hidden = isExpanded;
-    });
-  });
+const trainingCoursesCards = document.querySelectorAll(
+    ".training-courses-card"
+);
 
+trainingCoursesCards.forEach((card) => {
+
+    card.addEventListener("click", () => {
+
+        trainingCoursesCards.forEach((item) => {
+
+            item.classList.remove(
+                "training-courses-card--active"
+            );
+
+            item.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            const btn =
+                item.querySelector(
+                    ".training-courses-cta"
+                );
+
+            btn.classList.remove(
+                "training-courses-cta--active"
+            );
+
+            btn.innerHTML = "↓";
+
+        });
+
+        card.classList.add(
+            "training-courses-card--active"
+        );
+
+        card.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        const activeBtn =
+            card.querySelector(
+                ".training-courses-cta"
+            );
+
+        activeBtn.classList.add(
+            "training-courses-cta--active"
+        );
+
+        activeBtn.innerHTML =
+            "<span>VER MÁS</span> →";
+
+    });
+
+});
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
@@ -933,17 +980,88 @@ document.addEventListener('DOMContentLoaded', () => {
          bloque marcado por la integración real (fetch a tu backend,
          servicio de email transaccional, Google Sheets, CRM, etc.).
      ------------------------------------------------------------------ */
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    const status = document.getElementById('formStatus');
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+const summitForm = document.getElementById("summitForm");
+const formSuccess = document.getElementById("formSuccess");
 
-      // --- INTEGRACIÓN REAL VA AQUÍ ---
-      // fetch('/api/contacto', { method: 'POST', body: new FormData(contactForm) })
+summitForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // 👈 esta línea evita que el formulario se envíe y cambie de página
 
-      status.textContent = 'Gracias. Recibimos tu mensaje y te vamos a contactar a la brevedad.';
-      contactForm.reset();
-    });
-  }
+  formSuccess.classList.add("show");
+
+  summitForm.reset();
+
+  setTimeout(() => {
+    formSuccess.classList.remove("show");
+  }, 5000);
+});
+
+
+  /* =========================
+   MAGNETIC BUTTON
+========================= */
+
+const magneticBtn =
+document.getElementById(
+    'footerMagneticBtn'
+);
+
+if(magneticBtn){
+
+    magneticBtn.addEventListener(
+        'mousemove',
+        e => {
+
+            const rect =
+                magneticBtn.getBoundingClientRect();
+
+            const x =
+                e.clientX -
+                rect.left -
+                rect.width / 2;
+
+            const y =
+                e.clientY -
+                rect.top -
+                rect.height / 2;
+
+            magneticBtn.style.transform =
+                `translate(${x * .08}px, ${y * .08}px)`;
+        }
+    );
+
+    magneticBtn.addEventListener(
+        'mouseleave',
+        () => {
+
+            magneticBtn.style.transform =
+                'translate(0,0)';
+        }
+    );
+}
+
+/* =========================
+   MOBILE ACCORDIONS
+========================= */
+
+document
+.querySelectorAll(
+    '.footer-mobile-trigger'
+)
+.forEach(trigger => {
+
+    trigger.addEventListener(
+        'click',
+        () => {
+
+            if(
+                window.innerWidth > 768
+            ) return;
+
+            trigger
+            .parentElement
+            .classList
+            .toggle('active');
+        }
+    );
+});
 });
