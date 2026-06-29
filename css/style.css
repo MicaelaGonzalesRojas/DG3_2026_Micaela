@@ -64,8 +64,12 @@ h1, h2, h3, .display-md {
   letter-spacing: -0.02em;
 }
 
-p {
-  font-size: 23px; /* tamaño base (~16px) */}
+h1 {
+  font-weight: 500 !important;
+}
+
+
+p { font-size: 23px; /* tamaño base (~16px) */}
 
 h2 {
   font-weight: 500 !important;
@@ -279,6 +283,14 @@ margin-top: -64px; /* compensa la altura del header */}
   background: url('../assets/hero.png') no-repeat center center / cover;
   overflow: hidden;
 }
+
+/* versión mobile */
+@media (max-width: 768px) {
+  .hero {
+    background: url('../assets/hero-mobile.png') no-repeat center center / cover;
+  }
+}
+
 .hero-noise {
   position: absolute;
   inset: 0;
@@ -411,7 +423,7 @@ margin-top: -64px; /* compensa la altura del header */}
    --------------------------------------------------------------------- */
 .limites {
   background: var(--color-void);
-  padding-top: 100px;     /* espacio arriba */
+  padding-top: 150px;     /* espacio arriba */
   padding-bottom: 60px;  /* espacio abajo */
 }
 
@@ -774,6 +786,15 @@ margin-top: -64px; /* compensa la altura del header */}
     }
 }
 
+@media (max-width: 768px) {
+  .heroes-header p {
+    padding-inline: 1rem; /* menos aire en los costados */
+    margin: 0 auto 1rem;  /* opcional: reducir el margen inferior */
+    text-align: center;   /* mantiene el centrado */
+  }
+}
+
+
 /* ---------------------------------------------------------------------
    5. PROCESO — timeline accordion
    --------------------------------------------------------------------- */
@@ -987,6 +1008,80 @@ margin-top: -64px; /* compensa la altura del header */}
 
     line-height: 1.7;
 }
+
+@media (max-width: 768px) {
+  .metodologia-layout {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+  }
+
+  .metodologia-timeline {
+    position: static;
+    transform: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0rem 0;
+  }
+
+  .timeline-track {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .timeline-node {
+    flex-direction: column;
+    align-items: center;
+    font-size: 01rem;
+    scroll-snap-align: center;
+  }
+
+  .timeline-track::before,
+  .timeline-progress {
+    display: none; /* ocultamos la línea vertical */
+  }
+
+  .metodologia-content {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .metodo-step {
+    flex: 0 0 85%;
+    grid-template-columns: 1fr;
+    text-align: center;
+    scroll-snap-align: center;
+  }
+
+  .metodo-step img {
+    max-width: 100%;
+    margin: 0 auto 0rem;
+  }
+
+  .metodo-step h3 {
+    font-size: 1.4rem;
+  }
+
+  .metodo-step p {
+    font-size: 1,3rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+.metodo-step.is-visible {
+  gap: 1.5rem; /* antes 3rem, reduce el espacio entre imagen y texto */
+}
+
+}
+
 
 /* ====================================================================
    Componente: Estadísticas de Autoridad "La comunidad sigue subiendo"
@@ -1357,16 +1452,9 @@ html[data-motion="reduced"] .digit-strip,
 
     font-weight: 800;
 
-    font-size: 1.3rem;
+    font-size: 23px;
 
     text-transform: uppercase;
-}
-
-.testimonial-role {
-
-    margin-top: .3rem;
-
-    color: var(--color-ice);
 }
 
 .testimonial-controls {
@@ -1488,7 +1576,7 @@ html[data-motion="reduced"] .digit-strip,
     width: 22px;
     height: 22px;
   }
-}
+
 
 
 /* ---------------------------------------------------------------------
@@ -1516,7 +1604,7 @@ html[data-motion="reduced"] .digit-strip,
     flex: 1;
 
     background: #d9d9d9;
-    border-radius: 24px;
+    border-radius: 5px;
 
     overflow: hidden;
     cursor: pointer;
@@ -1803,7 +1891,9 @@ html[data-motion="reduced"] .digit-strip,
     position: relative;
 
     transform-style: preserve-3d;
+    touch-action: none;
 }
+
 
 .expedicion-card {
 
@@ -1943,6 +2033,16 @@ html[data-motion="reduced"] .digit-strip,
     font-family: var(--font-display);
 }
 
+
+@media (max-width: 768px) {
+  .expediciones-inner {
+    padding: 2rem 0rem; /* menos aire arriba/abajo y costados */
+    text-align: center; /* opcional: mantener centrado */
+  }
+}
+
+
+
 /* ---------------------------------------------------------------------
    10. CONTACTO
    --------------------------------------------------------------------- */
@@ -1983,30 +2083,18 @@ html[data-motion="reduced"] .digit-strip,
     pointer-events:none;
 }
 
-.summit-contact__container{
-
-    width:min(1400px, calc(100% - 80px));
-
-    margin:auto;
-
-    padding:
-        clamp(5rem,8vw,8rem)
-        0;
-
-    display:grid;
-
-    grid-template-columns:
-        minmax(320px, 1fr)
-        minmax(400px, 1fr);
-
-    gap:5rem;
-
-    align-items:center;
-
-    position:relative;
-
-    z-index:2;
+.summit-contact__container {
+  width: min(1000px, calc(100% - 80px));
+  margin: auto;
+  padding: 0px 0; /* superior e inferior 40px, laterales 0 */
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(400px, 1fr);
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
 }
+
 
 /* ==========================================
    CONTENIDO
@@ -2030,18 +2118,27 @@ html[data-motion="reduced"] .digit-strip,
     color:var(--color-accent);
 }
 
-.summit-contact__description{
-
-    color:rgba(255,255,255,.85);
-
-    max-width:500px;
-
-    line-height:1.7;
-
-    font-size:1.15rem;
-
-    margin-bottom:2.5rem;
+.summit-contact__description {
+  color: var(--color-void);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  font-size: inherit; /* fuerza a usar el tamaño del padre (p) */
 }
+
+.form-status {
+  display: none;            /* oculto por defecto */
+  color: var(--color-void); /* texto en color void */
+  font-size: .9rem;
+  margin-top: 0rem;         /* espacio debajo del botón */
+  text-align: center;
+}
+
+.form-status.show {
+  display: block;           /* se muestra cuando JS agrega la clase */
+}
+
+
 
 /* ==========================================
    BENEFICIOS
@@ -2267,7 +2364,7 @@ html[data-motion="reduced"] .digit-strip,
 
     .summit-contact{
 
-        margin-top:5rem;
+        margin-top:0rem;
     }
 
     .summit-contact__container{

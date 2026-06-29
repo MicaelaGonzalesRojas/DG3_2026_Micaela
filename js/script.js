@@ -952,22 +952,22 @@ trainingCoursesCards.forEach((card) => {
 
     let startX = 0;
 
-    track.addEventListener(
-        'pointerdown',
-        e => startX = e.clientX
-    );
+track.addEventListener("pointerdown", e => {
+  startX = e.clientX;
+});
 
-    track.addEventListener(
-        'pointerup',
-        e => {
+track.addEventListener("pointerup", e => {
+  const delta = e.clientX - startX;
 
-            if(
-                Math.abs(
-                    e.clientX - startX
-                ) > 50
-            ){
-                nextCard();
-            }
+  if (delta > 50) {
+    // swipe derecha → siguiente
+    active = (active + 1) % cards.length;
+    updateDeck();
+  } else if (delta < -50) {
+    // swipe izquierda → anterior
+    active = (active - 1 + cards.length) % cards.length;
+    updateDeck();
+  }
         }
     );
 
