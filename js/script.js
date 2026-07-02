@@ -1163,105 +1163,35 @@ track.addEventListener("pointerup", e => {
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS
 ========================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-(() => {
+    const section = document.querySelector("#hero-guides");
 
-    const section =
-        document.querySelector('.cuspide-guides');
+    const observer = new IntersectionObserver(
 
-    if (!section) return;
+        entries => {
 
-    /* ------------------------
-       REVEAL
-    ------------------------ */
+            entries.forEach(entry => {
 
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
+                if(entry.isIntersecting){
 
-                entries.forEach(entry => {
+                    section.classList.add("is-visible");
 
-                    if (entry.isIntersecting) {
-                        section.classList.add('is-visible');
-                    }
+                }
 
-                });
+            });
 
-            },
-            {
-                threshold: 0.25
-            }
-        );
+        },
+
+        {
+            threshold:0.25
+        }
+
+    );
 
     observer.observe(section);
 
-    /* ------------------------
-       PARALLAX DESKTOP
-    ------------------------ */
-
-    if (window.innerWidth <= 768) return;
-
-    const summit =
-        section.querySelector(
-            '.cuspide-guides__capsule--summit'
-        );
-
-    const team =
-        section.querySelector(
-            '.cuspide-guides__capsule--team'
-        );
-
-    let currentX = 0;
-    let currentY = 0;
-
-    let targetX = 0;
-    let targetY = 0;
-
-    section.addEventListener('mousemove', (e) => {
-
-        const rect =
-            section.getBoundingClientRect();
-
-        const x =
-            (e.clientX - rect.left) /
-            rect.width;
-
-        const y =
-            (e.clientY - rect.top) /
-            rect.height;
-
-        targetX = (x - 0.5) * 16;
-        targetY = (y - 0.5) * 16;
-
-    });
-
-    function animate() {
-
-        currentX += (targetX - currentX) * 0.08;
-        currentY += (targetY - currentY) * 0.08;
-
-        summit.style.transform =
-            `translate3d(
-                ${currentX}px,
-                ${currentY}px,
-                0
-            )`;
-
-        team.style.transform =
-            `translate3d(
-                ${-currentX}px,
-                ${-currentY}px,
-                0
-            )`;
-
-        requestAnimationFrame(animate);
-
-    }
-
-    animate();
-
-})();
-
+});
 
 
   /* ------------------------------------------------------------------
