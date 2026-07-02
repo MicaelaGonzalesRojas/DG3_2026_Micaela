@@ -393,6 +393,18 @@ margin-top: -64px; /* compensa la altura del header */}
   height: 1250px; /* ajustá el valor según tu diseño */
 }
 
+.csp-summit-hero h1 {
+  font-size: 3rem;          /* ajustá según tu diseño */
+  font-weight: 900;
+  color: #2b1c14;           /* color principal del texto */
+  
+  /* Borde fino marrón claro */
+  -webkit-text-stroke: 1px #a68a79; 
+  text-stroke: 1px #a68a79; /* soporte adicional */
+
+  /* Sombra suave de fondo */
+  text-shadow: 2px 2px 4px rgba(166, 138, 121, 0.4);
+}
 
 
 /* ==================================================
