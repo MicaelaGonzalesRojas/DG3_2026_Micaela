@@ -923,14 +923,14 @@ activateCard(selectedCard);
         fondo: 'assets/2fitz-roy.jpeg',
         descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
         altura: '71 M',
-        lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internacional']
+        lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
       },
       {
-        nombre: 'MONTE TORRE',
+        nombre: 'TORRE',
         dificultad: 'DIFICULTAD MEDIA',
         duracion: '10 DÍAS',
         fondo: 'assets/2fitz-roy.jpeg',
-        descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son impresionantes.',
+        descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son icre.',
         altura: '75 M',
         lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
       },
@@ -948,7 +948,7 @@ activateCard(selectedCard);
         dificultad: 'DIFICULTAD EXTREMA',
         duracion: '3 SEMANAS',
         fondo: 'assets/2fitz-roy.jpeg',
-        descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga logística.',
+        descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
         altura: '85 M',
         lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
       }
