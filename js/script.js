@@ -713,173 +713,113 @@ activateCard(selectedCard);
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
-(() => {
+const viewport = document.querySelector(".conquistadores__viewport");
+const track = document.querySelector(".conquistadores__track");
 
-    const testimonials = [
+const cards = [...document.querySelectorAll(".conquistadores__card")];
 
-        {
-            name: "HECTOR AGUIRRE",
-            role: "Baja visión",
-            avatar: "assets/per1.jpg",
-            quote:
-            "Aquí no hay concesiones ni compasión. Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites."
-        },
+const nextBtn = document.querySelector(".conquistadores__btn--next");
+const prevBtn = document.querySelector(".conquistadores__btn--prev");
 
-        {
-            name: "AMBAR ZHENG",
-            role: "Amputación Femoral",
-            avatar: "assets/per2.jpg",
-            quote:
-            "El viento blanco a 6,000 metros te exige precisión absoluta. Las prótesis no fallan si el entrenamiento de ingeniería biomecánica previo fue implacable."
-        },
+let currentIndex = 0;
 
-        {
-            name: "JULIÁN SASTRE",
-            role: "Ceguera Cortical",
-            avatar: "assets/per3.jpg",
-            quote:
-            "La montaña no se ve, se escucha y se siente bajo los crampones. Aprendí a mapear el hielo mediante ecosonido táctil; la cumbre fue el resultado lógico."
-        },
+let startX = 0;
+let currentTranslate = 0;
+let previousTranslate = 0;
+let dragging = false;
 
-        {
-            name: "VALERIE DUPONT",
-            role: "Paraplejía T12",
-            avatar: "assets/per4.jpg",
-            quote:
-            "Adaptamos el trineo de tracción para pendientes del 45%. Dijeron que era logísticamente imposible; demostramos lo contrario en el glaciar."
-        }
-    ];
+const GAP = 24;
 
-    const bubble = document.getElementById('testimonialBubble');
+function getStep() {
+    return cards[0].offsetWidth + GAP;
+}
 
-    const quote = document.getElementById('testimonialQuote');
-    const name = document.getElementById('testimonialName');
-    const role = document.getElementById('testimonialRole');
-    const avatar = document.getElementById('testimonialAvatar');
+function getMaxIndex() {
+    return Math.max(
+        0,
+        cards.length - Math.floor(viewport.offsetWidth / getStep())
+    );
+}
 
-    const prev = document.getElementById('testimonialPrev');
-    const next = document.getElementById('testimonialNext');
+function updateSlider() {
 
-    let current = 0;
-
-    function render(index){
-
-        bubble.classList.add('is-leaving');
-
-        setTimeout(() => {
-
-            const item = testimonials[index];
-
-            quote.textContent = `“${item.quote}”`;
-            name.textContent = item.name;
-            role.textContent = item.role;
-
-            avatar.src = item.avatar;
-            avatar.alt = item.name;
-
-            bubble.classList.remove('is-leaving');
-
-            bubble.classList.add('is-entering');
-
-            requestAnimationFrame(() => {
-
-                requestAnimationFrame(() => {
-
-                    bubble.classList.remove(
-                        'is-entering'
-                    );
-                });
-            });
-
-        },200);
-    }
-
-    next.addEventListener('click', () => {
-
-        current =
-            (current + 1)
-            % testimonials.length;
-
-        render(current);
-    });
-
-    prev.addEventListener('click', () => {
-
-        current =
-            (current - 1 + testimonials.length)
-            % testimonials.length;
-
-        render(current);
-    });
-
-    /* PARALLAX 3D */
-
-    bubble.addEventListener('mousemove', e => {
-
-        if(window.innerWidth < 1024) return;
-
-        const rect =
-            bubble.getBoundingClientRect();
-
-        const x =
-            (e.clientX - rect.left)
-            / rect.width;
-
-        const y =
-            (e.clientY - rect.top)
-            / rect.height;
-
-        const rotateY =
-            (x - .5) * 6;
-
-        const rotateX =
-            (0.5 - y) * 6;
-
-        bubble.style.transform =
-            `
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            `;
-    });
-
-    bubble.addEventListener('mouseleave', () => {
-
-        bubble.style.transform =
-            'rotateX(0deg) rotateY(0deg)';
-    });
-
-    /* SWIPE MOBILE */
-
-    let startX = 0;
-
-    bubble.addEventListener(
-        'pointerdown',
-        e => startX = e.clientX
+    currentIndex = Math.max(
+        0,
+        Math.min(currentIndex, getMaxIndex())
     );
 
-    bubble.addEventListener(
-        'pointerup',
-        e => {
+    previousTranslate = -(currentIndex * getStep());
 
-            const delta =
-                e.clientX - startX;
+    track.style.transform = `translateX(${previousTranslate}px)`;
 
-            if(delta > 60){
+}
 
-                prev.click();
-            }
+nextBtn.addEventListener("click", () => {
 
-            if(delta < -60){
+    currentIndex++;
 
-                next.click();
-            }
-        }
-    );
+    updateSlider();
 
-    render(0);
+});
 
-})();
+prevBtn.addEventListener("click", () => {
 
+    currentIndex--;
+
+    updateSlider();
+
+});
+
+track.addEventListener("pointerdown", (e) => {
+
+    if (window.innerWidth < 768) return;
+
+    dragging = true;
+
+    startX = e.clientX;
+
+    currentTranslate = previousTranslate;
+
+    track.classList.add("dragging");
+
+    track.setPointerCapture(e.pointerId);
+
+});
+
+track.addEventListener("pointermove", (e) => {
+
+    if (!dragging) return;
+
+    const delta = e.clientX - startX;
+
+    track.style.transform = `translateX(${currentTranslate + delta}px)`;
+
+});
+
+function stopDragging(e) {
+
+    if (!dragging) return;
+
+    dragging = false;
+
+    track.classList.remove("dragging");
+
+    const delta = e.clientX - startX;
+
+    currentTranslate += delta;
+
+    currentIndex = Math.round(Math.abs(currentTranslate) / getStep());
+
+    updateSlider();
+
+}
+
+track.addEventListener("pointerup", stopDragging);
+track.addEventListener("pointercancel", stopDragging);
+
+window.addEventListener("resize", updateSlider);
+
+updateSlider();
   /* ------------------------------------------------------------------
      9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
         de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se

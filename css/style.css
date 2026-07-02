@@ -1401,56 +1401,41 @@ margin-top: -64px; /* compensa la altura del header */}
 }
 
 /* ====================================================================
-  LA COMUNIAD SIGUE CRECIENDO
+  LA COMUNIDAD SIGUE CRECIENDO
    ==================================================================== */
 
 .stats-block {
-  /* Enlace directo a tus variables y tokens globales unificados */
-  --stats-bone:       var(--color-void);       /* Crema #FDF9F4 */
-  --stats-ink:        var(--color-ink);        /* Negro #292020 */
-  --stats-muted:      var(--color-ice);        /* Marrón #7E6A65 */
-  --stats-accent:     var(--color-ember);      /* Naranja #FF8479 */
-  --stats-line:       rgba(41, 32, 32, 0.12);  /* Basado en el Negro global */
-  
-  --font-stats-disp:  var(--font-display);     /* Nippo */
-  --font-stats-body:  var(--font-body);        /* Outfit */
-  
-  --ease-mechanical:  cubic-bezier(.34, 1.56, .64, 1); /* Rebote de engranaje back.out(1.2) */
+  --stats-bone:       var(--color-void);
+  --stats-ink:        var(--color-ink);
+  --stats-muted:      var(--color-ice);
+  --stats-accent:     var(--color-ember);
+  --stats-line:       rgba(41, 32, 32, 0.12);
 
-  box-sizing: border-box;
+  --font-stats-disp:  var(--font-display);
+  --font-stats-body:  var(--font-body);
+
+  --ease-mechanical:  cubic-bezier(.34, 1.56, .64, 1);
+
   background: var(--stats-bone);
   color: var(--stats-ink);
   font-family: var(--font-stats-body);
-  padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 4rem);
-  
+
+  padding-top: 120px;
+  padding-bottom: 120px;
+
+
   display: grid;
   grid-template-columns: 40% 60%;
   gap: clamp(2.5rem, 6vw, 5rem);
   align-items: start;
 }
 
-.stats-block *, 
-.stats-block *::before, 
-.stats-block *::after {
-  box-sizing: border-box;
-}
-
 /* ---------------------------------------------------------------------
    COLUMNA IZQUIERDA: EL MANIFIESTO
    --------------------------------------------------------------------- */
 .stats-manifesto {
-  position: static; /* vuelve al flujo normal del documento */
-  top: auto; /* opcional, elimina la referencia de desplazamiento */
+  position: static;
 }
-
-
-.stats-block {
-  background: var(--color-void);
-  padding-left: 80px;  /* igual que las demás secciones */
-  padding-right: 80px;
-}
-
-
 
 .stats-title {
   font-family: var(--font-stats-disp);
@@ -1479,7 +1464,7 @@ margin-top: -64px; /* compensa la altura del header */}
   transform: translateY(0);
 }
 
-/* Retardo secuencial de palabras estilo cordillera */
+/* Retardo secuencial */
 .stats-title .line-mask:nth-child(1) .word:nth-child(2) { transition-delay: 0.05s; }
 .stats-title .line-mask:nth-child(2) .word:nth-child(1) { transition-delay: 0.1s; }
 .stats-title .line-mask:nth-child(2) .word:nth-child(2) { transition-delay: 0.15s; }
@@ -1493,7 +1478,7 @@ margin-top: -64px; /* compensa la altura del header */}
 }
 
 /* ---------------------------------------------------------------------
-   COLUMNA DERECHA: REJILLA DE IMPACTO (CONTADORES)
+   COLUMNA DERECHA: REJILLA DE IMPACTO
    --------------------------------------------------------------------- */
 .stats-grid {
   display: grid;
@@ -1501,8 +1486,7 @@ margin-top: -64px; /* compensa la altura del header */}
 }
 
 .stat {
-  padding: 20px 15px; /* arriba/abajo 20px, izquierda/derecha 15px */
-  background: transparent !important; /* Mantiene la pureza tipográfica limpia */
+  padding: 20px 15px;
 }
 
 .stat-number {
@@ -1516,31 +1500,31 @@ margin-top: -64px; /* compensa la altura del header */}
   align-items: flex-start;
 }
 
-.digit-group{ display: inline-flex; }
+.digit-group { display: inline-flex; }
 
-.digit-window{
+.digit-window {
   display: inline-block;
-  overflow: hidden;            /* esconde todas las cifras salvo la activa */
+  overflow: hidden;
   height: 1em;
   width: 1ch;
-  font-variant-numeric: tabular-nums; /* todas las cifras ocupan el mismo ancho */
+  font-variant-numeric: tabular-nums;
 }
 
-.digit-strip{
+.digit-strip {
   --target-digit: 0;
   display: flex;
   flex-direction: column;
   transform: translateY(calc(var(--target-digit) * -1em));
   transition: transform var(--roll-duration, 900ms) var(--ease-mechanical) var(--roll-delay, 0ms);
-  will-change: transform;
 }
-.digit-strip span{
+
+.digit-strip span {
   height: 1em;
   line-height: 1;
   text-align: center;
 }
 
-/* Desfases mecánicos para las ruedas del odómetro */
+/* Desfases mecánicos */
 .digit-group .digit-window:nth-child(1) .digit-strip { --roll-duration: 850ms;  --roll-delay: 0ms; }
 .digit-group .digit-window:nth-child(2) .digit-strip { --roll-duration: 1000ms; --roll-delay: 90ms; }
 .digit-group .digit-window:nth-child(3) .digit-strip { --roll-duration: 1150ms; --roll-delay: 180ms; }
@@ -1550,12 +1534,6 @@ margin-top: -64px; /* compensa la altura del header */}
   color: var(--stats-accent);
 }
 
-.stats-block {
-  padding-inline: clamp(1rem, 4vw, 3rem); /* laterales */
-  padding-block: clamp(2rem, 6vw, 5rem);  /* arriba y abajo */
-}
-
-
 .stat-label {
   margin: 0.45rem 0 0 0;
   text-transform: uppercase;
@@ -1563,12 +1541,10 @@ margin-top: -64px; /* compensa la altura del header */}
   font-size: 0.90rem;
   font-weight: 600;
   color: var(--stats-muted);
-  line-height: 18px; /* interlinea fija en px */
-  width: 200px;      /* ancho fijo en píxeles */
-  height: 40px;      /* alto fijo en píxeles */
+  line-height: 18px;
+  width: 200px;
+  height: 40px;
 }
-
-
 
 /* ---------------------------------------------------------------------
    ACCESIBILIDAD Y RESPONSIVE
@@ -1588,24 +1564,17 @@ margin-top: -64px; /* compensa la altura del header */}
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  .stats-manifesto {
-    position: static;
-  }
 }
 
 @media (max-width: 480px) {
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr); /* dos columnas iguales */
-    border-left: none;
+    grid-template-columns: repeat(2, 1fr);
   }
-
   .stat {
-    padding: 20px 0; /* podés ajustar el padding si querés */
-    border-right: none;
+    padding: 20px 0;
   }
 }
 
-/* Respeto estricto a la directiva del sistema o botón manual */
 html[data-motion="reduced"] .digit-strip,
 @media (prefers-reduced-motion: reduce) {
   .digit-strip {
@@ -1618,7 +1587,6 @@ html[data-motion="reduced"] .digit-strip,
 }
 
 
-
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
@@ -1626,278 +1594,164 @@ html[data-motion="reduced"] .digit-strip,
 /* =======================================================
    TESTIMONIOS PREMIUM
    ======================================================= */
-
-.testimonials-premium {
-
-    background: var(--color-void);
-
-    padding: clamp(5rem,8vw,8rem) var(--pad);
+#conquistadores{
+    background:#dceef0;
+    padding:90px 0;
 }
 
-.testimonials-premium__inner {
-
-    max-width: 1200px;
-
-    margin: auto;
+.conquistadores__container{
+    width:min(1150px,92%);
+    margin:auto;
 }
 
-.testimonials-premium__title {
-
-    text-align: center;
-
-    margin-bottom: 4rem;
-
-    font-size: clamp(3rem,5vw,5rem);
+.conquistadores__header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
 }
 
-.testimonial-scene {
-
-    perspective: 1000px;
+.conquistadores__title{
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:.05em;
+    color:#2b1c14;
 }
 
-.testimonial-bubble {
-
-    position: relative;
-
-    background: #d7e0e3;
-
-    border-radius: 28px;
-
-    min-height: 360px;
-
-    padding: clamp(2rem,4vw,4rem);
-
-    transform-style: preserve-3d;
-
-    will-change: transform;
-
-    transition:
-        transform .25s ease,
-        opacity .4s ease,
-        filter .4s ease;
+.conquistadores__controls{
+    display:flex;
+    gap:8px;
 }
 
-.testimonial-bubble::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 40px;
-
-    bottom: -45px;
-
-    width: 0;
-    height: 0;
-
-    border-left: 40px solid transparent;
-    border-right: 0 solid transparent;
-    border-top: 70px solid #d7e0e3;
+.conquistadores__btn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:8px;
+    background:#ff5b21;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:.25s;
 }
 
-.testimonial-bubble.is-leaving {
-
-    opacity: 0;
-
-    transform:
-        translateZ(-80px)
-        rotateX(4deg);
-
-    filter: blur(4px);
+.conquistadores__btn:hover{
+    background:#ff4613;
 }
 
-.testimonial-bubble.is-entering {
-
-    opacity: 0;
-
-    transform:
-        translateZ(120px)
-        rotateY(-10deg);
+.conquistadores__viewport{
+    width:100%;
+    max-width:1008px; /* 320*3 + 24*2 */
+      margin: 0 auto;     /* centra horizontalmente */
+    overflow:hidden;
 }
 
-.testimonial-quote {
-
-    font-size: clamp(2rem,4vw,4.2rem);
-
-    line-height: 1.25;
-
-    color: var(--color-ink);
-
-    margin: 0;
+.conquistadores__track{
+    display:flex;
+    gap:24px;
+    will-change:transform;
+    transition:transform .5s cubic-bezier(.16,1,.3,1);
+    user-select:none;
+    cursor:grab;
 }
 
-.testimonial-footer {
-
-    margin-top: 4rem;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 2rem;
+.conquistadores__track.dragging{
+    cursor:grabbing;
+    transition:none;
 }
 
-.testimonial-person {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 1.5rem;
+.conquistadores__card{
+    flex:0 0 320px;
+    min-height:255px;
+    background:#fbf7f2;
+    border-radius:10px;
+    padding:28px;
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 }
 
-.testimonial-avatar {
-
-    width: 130px;
-    height: 130px;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    flex-shrink: 0;
-
-    background: #fff;
+.conquistadores__blockquote{
+    margin:0;
 }
 
-.testimonial-avatar img {
+.conquistadores__quote{
+    font-size:74px;
+    color:#c4d7da;
+    line-height:1;
+}
 
+.conquistadores__blockquote p{
+    margin-top:8px;
+    line-height:1.8;
+    color:#32261e;
+}
+
+.conquistadores__footer{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:30px;
+}
+
+.conquistadores__avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.conquistadores__name{
+    display:block;
+    font-size:14px;
+    letter-spacing:.04em;
+}
+
+.conquistadores__condition{
+    font-size:13px;
+    color:#777;
+}
+
+@media (max-width: 768px) {
+  .conquistadores__controls {
+    display: none;
+  }
+.conquistadores__title {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  color: #2b1c14;
+  flex: 1;              /* ocupa todo el espacio disponible */
+  text-align: center;   /* centra el texto */
+}
+
+  .conquistadores__viewport {
     width: 100%;
-    height: 100%;
+    overflow-x: auto;              /* permite scroll horizontal */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; /* snap en cada card */
+  }
 
-    object-fit: cover;
-}
+  .conquistadores__viewport::-webkit-scrollbar {
+    display: none;
+  }
 
-.testimonial-name {
-
-    font-weight: 800;
-
-    font-size: 23px;
-
-    text-transform: uppercase;
-}
-
-.testimonial-controls {
-
+  .conquistadores__track {
     display: flex;
+    gap: 24px;                     /* espacio entre cards */
+    transform: none !important;
+    transition: none;
+    padding: 0 16px;               /* aire lateral */
+  }
 
-    gap: .75rem;
-}
-
-.testimonial-btn {
-
-    width: 72px;
-    height: 72px;
-
-    border-radius: 12px;
-
-    background: var(--color-ember);
-
-    color: white;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
-}
-
-.testimonial-btn:hover {
-
-    transform: translateY(-3px);
-}
-
-.testimonial-btn:focus-visible {
-
-    outline: 4px solid white;
-
-    outline-offset: 4px;
-}
-
-.testimonial-btn svg {
-
-    width: 28px;
-    height: 28px;
-
-    stroke: currentColor;
-    stroke-width: 2.5;
-
-    fill: none;
-}
-
-@media(max-width:768px){
-
-    .testimonial-footer {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-    .testimonial-avatar {
-
-        width: 90px;
-        height: 90px;
-    }
-
-    .testimonial-quote {
-
-        font-size: 1.8rem;
-    }
-
-    .testimonial-btn {
-
-        width: 60px;
-        height: 60px;
-    }
-}
-
-@media (min-width:1024px) {
-  .testimonials-premium .testimonials-premium__inner {
-    padding: 0 160px; /* solo afecta a testimonios */
+  .conquistadores__card {
+    flex: 0 0 100%;                 /* cada card ocupa ~82% del viewport */
+    scroll-snap-align: center;     /* centra cada card al hacer scroll */
   }
 }
 
-  .testimonials-premium__title {
-    font-size: clamp(2.2rem,3.5vw,3.5rem);
-    margin-bottom: 3rem;
-  }
-
-  .testimonial-bubble {
-    min-height: 280px;
-    padding: clamp(1.5rem,3vw,3rem);
-    border-radius: 20px;
-  }
-
-  .testimonial-quote {
-    font-size: clamp(1.6rem,2.5vw,2.4rem);
-    line-height: 1.4;
-  }
-
-  .testimonial-avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .testimonial-name {
-    font-size: 1.1rem;
-  }
-
-  .testimonial-btn {
-    width: 56px;
-    height: 56px;
-  }
-
-  .testimonial-btn svg {
-    width: 22px;
-    height: 22px;
-  }
 
 
 
