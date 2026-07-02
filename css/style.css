@@ -171,8 +171,13 @@ h1 {
   font-weight: 500 !important;
 }
 
+p {
+  font-size: 21px;
+  line-height: 30px; /* interlinea fija en px */
+  font-weight: 300;
+}
 
-p { font-size: 23px; /* tamaño base (~16px) */}
+
 
 h2 {
   font-weight: 500 !important;
@@ -376,111 +381,324 @@ margin-top: -64px; /* compensa la altura del header */}
 /* ---------------------------------------------------------------------
    1. HERO
    --------------------------------------------------------------------- */
-.hero {
-  min-height: calc(100vh); 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end; /* alineado abajo */  text-align: left;
-  position: relative;
-  background: url('../assets/hero.png') no-repeat center center / cover;
-  overflow: hidden;
-}
+/* HERO */
+/* ==================================================
+   CUSPIDE SUMMIT HERO
+================================================== */
 
-/* versión mobile */
-@media (max-width: 768px) {
-  .hero {
-    background: url('../assets/hero-mobile.png') no-repeat center center / cover;
-  }
-}
-
-.hero-noise {
-  position: absolute;
-  inset: 0;
-  background:
-    url('assets/hero.jpg') no-repeat center center / cover,
-    repeating-linear-gradient(115deg, rgba(255,255,255,.02) 0 2px, transparent 2px 4px);
-  pointer-events: none;
-}
-.hero-inner{ max-width: 880px; position: relative; z-index: 1; 
-  margin-top: 5vh; /* lo sube */
-}
-.hero-title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: clamp(2.6rem, 9vw, 6.4rem);
-  line-height: .98;
-  margin: .5rem 0 1rem;
-  color: var(--color-void);
-
-   text-shadow:
-    -1px -1px 0 #9f9f9f,
-     1px -1px 0 #9f9f9f,
-    -1px  1px 0 #9f9f9f,
-     1px  1px 0 #9f9f9f,
-    /* difuminado oscuro detrás */
-    0 6px 14px rgba(0,0,0,0.55);
+.csp-summit-hero {
+  background-image: url("../assets/hero-large.png");
+  background-size: contain; /* 👉 ajusta la imagen completa */
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
 
-.reveal-line{ display: block; overflow: hidden; }
-.reveal-line--accent{ color: var(--color-ember); }
-.reveal-word{
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(60%);
-}
-[data-motion="full"] .reveal-word{
-  animation: word-up var(--dur-base) var(--ease) forwards;
-}
-.reveal-word:nth-child(1){ animation-delay: .05s; }
-.reveal-word:nth-child(2){ animation-delay: .14s; }
-.reveal-word:nth-child(3){ animation-delay: .23s; }
-.reveal-word:nth-child(4){ animation-delay: .32s; }
-.reveal-word:nth-child(5){ animation-delay: .41s; }
-.reveal-word:nth-child(6){ animation-delay: .5s; }
-.reveal-line--accent .reveal-word{ animation-delay: .62s !important; }
-[data-motion="reduced"] .reveal-word{ opacity: 1; transform: none; animation: none; }
+/* ==================================================
+   HERO SUPERIOR
+================================================== */
 
-@keyframes word-up{
-  to{ opacity: 1; transform: translateY(0); }
+.csp-summit-hero__top{
+    min-height:60vh;
+
+    display:flex;
+    align-items:center;
+    padding-bottom: 200px;
+    padding-inline:clamp(30px,6vw,90px);
 }
 
-.hero-subtitle {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  color: var(--color-void);
-  max-width: 620px;
-  margin: 1rem;
+.csp-summit-copy{
+    max-width:700px;
 }
 
-.hero-actions{ display: flex; gap: 1rem; justify-content: flex-start; flex-wrap: wrap; }
+.csp-summit-copy h1{
+    color:white;
 
-.scroll-cue{
-  position: absolute;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%);
-  width: 26px; height: 42px;
-  border: 1.5px solid var(--color-titanium);
-  border-radius: 14px;
-}
-.scroll-cue span{
-  display: block;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--color-ember);
-  margin: 7px auto 0;
-}
-[data-motion="full"] .scroll-cue span{ animation: cue-fall 1.8s ease-in-out infinite; }
-@keyframes cue-fall{
-  0%{ transform: translateY(0); opacity: 1; }
-  70%{ opacity: 0; }
-  100%{ transform: translateY(16px); opacity: 0; }
+    font-size:clamp(3.5rem,8vw,7rem);
+    line-height:.9;
+
+    text-transform:uppercase;
 }
 
+.csp-summit-actions{
+    display:flex;
+    gap:14px;
 
+    margin-top:28px;
+}
 
+.csp-btn-primary,
+.csp-btn-secondary{
+    min-width:130px;
 
+    padding:14px 24px;
+
+    text-decoration:none;
+
+    font-weight:700;
+    font-size:.85rem;
+
+    text-align:center;
+}
+
+.csp-btn-primary{
+    background:#ff5a1f;
+    color:white;
+}
+
+.csp-btn-secondary{
+    border:1px solid #ff5a1f;
+    background:rgba(0,0,0,.35);
+    color:white;
+}
+
+/* ==================================================
+   BLOQUE INFERIOR
+================================================== */
+
+.csp-summit-hero__bottom{
+
+    min-height:40vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+
+    gap:24px;
+     padding-top: 180px;
+    padding-inline:40px;
+    padding-bottom:100px;
+}
+
+/* ==================================================
+   CARD BLANCA
+================================================== */
+
+.csp-summit-info{
+
+    width:320px;
+
+    background:#f5f3ef;
+
+    border-radius:18px;
+
+    padding:32px;
+}
+
+.csp-summit-info h2{
+
+    color:#2c1c14;
+
+    font-size:2rem;
+    line-height:1;
+    text-transform:uppercase;
+}
+
+.csp-summit-info p{
+
+    margin-top:24px;
+
+    color:#4f4843;
+
+    line-height:1.8;
+}
+
+/* ==================================================
+   CONTENEDOR CARDS
+================================================== */
+
+.csp-summit-cards{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+}
+
+/* ==================================================
+   CARD FLIP
+================================================== */
+
+.csp-flip-card{
+
+    width:280px;
+    height:160px;
+
+    perspective:1200px;
+
+    cursor:pointer;
+}
+
+.csp-flip-inner{
+
+    width:100%;
+    height:100%;
+
+    position:relative;
+
+    transform-style:preserve-3d;
+
+    transition:
+    transform .65s cubic-bezier(.4,0,.2,1);
+}
+
+.csp-flip-card.is-active .csp-flip-inner{
+    transform:rotateY(180deg);
+}
+
+/* ==================================================
+   CARAS
+================================================== */
+
+.csp-face-front,
+.csp-face-back{
+
+    position:absolute;
+    inset:0;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    backface-visibility:hidden;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.csp-face-back{
+    transform:rotateY(180deg);
+}
+
+/* ==================================================
+   NARANJA
+================================================== */
+
+.csp-orange{
+    background:#ff5a1f;
+    color:white;
+}
+
+/* ==================================================
+   CELESTE
+================================================== */
+
+.csp-ice{
+    background:#dcebed;
+    color:#2c1c14;
+}
+
+/* ==================================================
+   FRONT
+================================================== */
+
+.csp-face-front{
+
+    justify-content:center;
+    align-items:center;
+}
+
+.csp-face-front h3{
+
+    margin-top:16px;
+
+    text-align:center;
+
+    font-size:1rem;
+    line-height:1.2;
+}
+
+.csp-face-front span{
+
+    position:absolute;
+
+    top:12px;
+    right:16px;
+
+    font-size:1rem;
+}
+
+/* ==================================================
+   BACK
+================================================== */
+
+.csp-face-back h3{
+
+    font-size:1rem;
+
+    margin-bottom:14px;
+
+    text-transform:uppercase;
+}
+
+.csp-face-back p{
+
+    font-size:.9rem;
+    line-height:1.7;
+}
+
+.csp-face-back span{
+
+    position:absolute;
+
+    top:12px;
+    right:16px;
+}
+
+/* ==================================================
+   ICONO
+================================================== */
+
+.csp-icon{
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    border:4px solid white;
+}
+
+.csp-icon.dark{
+    border-color:#2c1c14;
+}
+
+/* ==================================================
+   HOVER VISUAL
+================================================== */
+
+.csp-flip-card:hover{
+    transform:translateY(-4px);
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width:768px){
+
+    .csp-summit-hero__bottom{
+
+        flex-direction:column;
+
+        align-items:center;
+    }
+
+    .csp-summit-info{
+        width:100%;
+        max-width:500px;
+    }
+
+    .csp-summit-cards{
+        width:100%;
+        max-width:500px;
+    }
+
+    .csp-flip-card{
+        width:100%;
+    }
+}
 /* ---------------------------------------------------------------------
   CARRUSEL
    --------------------------------------------------------------------- */
@@ -518,213 +736,6 @@ margin-top: -64px; /* compensa la altura del header */}
     transform: translateX(-50%);
   }
 }
-
-
-
-/* ---------------------------------------------------------------------
-   3. ATRÉVETE A DESAFIAR TODOS LOS LÍMITES
-   --------------------------------------------------------------------- */
-/* ==========================================
-   CUSPIDE PILLARS
-========================================== */
-
-.cuspide-pillars-section {
-    padding: 120px 0;
-    background: var(--color-light);
-}
-
-.cuspide-pillars-layout {
-    width: min(1200px, calc(100% - 80px));
-    margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 80px;
-    align-items: center;
-}
-
-/* ==========================================
-   TEXTOS
-========================================== */
-
-.cuspide-pillars-copy h2 {
-    font-size: clamp(2rem, 4vw, 4rem);
-    line-height: .9;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-.cuspide-pillars-copy p {
-    max-width: 420px;
-    color: #6b625e;
-    line-height: 1.7;
-}
-
-/* ==========================================
-   TARJETAS
-========================================== */
-
-.cuspide-pillars-grid {
-    display: flex;
-    gap: 24px;
-
-    perspective: 1500px;
-}
-
-.cuspide-pillar-card {
-    width: 240px;
-    height: 210px;
-
-    cursor: pointer;
-    perspective: 1500px;
-}
-
-.cuspide-pillar-inner {
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-will-change: transform; /* fuerza a la GPU a preparar la animación */
-
-    transform-style: preserve-3d;
-
-     transition: transform 800ms ease-in-out;
-}
-
-.cuspide-pillar-card.is-flipped .cuspide-pillar-inner {
-    transform: rotateY(180deg);
-}
-.cuspide-pillar-face {
-    position: absolute;
-    inset: 0;
-
-    border-radius: 16px;
-
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-
-    overflow: hidden;
-}
-
-/* ==========================================
-   FRONT
-========================================== */
-
-.cuspide-pillar-front {
-    background: var(--color-pale); /* antes: #dde4e8 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-}
-
-.cuspide-pillar-icon-placeholder {
-    width: 52px;
-    height: 52px;
-
-    background: #b7b7b7;
-
-    border-radius: 2px;
-
-    /*
-    Reemplazar por SVG futuro
-    sin romper centrado.
-    */
-}
-
-.cuspide-pillar-front h3 {
-    font-size: .95rem;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-/* ==========================================
-   BACK
-========================================== */
-
-/* BACK */
-.cuspide-pillar-back {
-    background: var(--color-pale); /* antes: #dde4e8 */
-    color: #292020; /* texto oscuro para contraste */
-    transform: rotateY(180deg);
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 18px;
-}
-
-.cuspide-pillar-back h3 {
-    font-size: 1rem;
-    text-transform: uppercase;
-}
-
-.cuspide-pillar-back p {
-    line-height: 1.6;
-    font-size: .95rem;
-}
-
-/* ==========================================
-   HOVER DESKTOP
-========================================== */
-
-@media (hover:hover) {
-
-    .cuspide-pillar-card:hover .cuspide-pillar-inner {
-        transform: rotateY(180deg);
-    }
-
-    .cuspide-pillar-card:hover {
-        transform: translateY(-4px);
-    }
-}
-
-/* ==========================================
-   FOCUS WCAG
-========================================== */
-
-.cuspide-pillar-card:focus-visible {
-    outline: 3px solid #ff5a1f;
-    outline-offset: 4px;
-    border-radius: 16px;
-}
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media (max-width:768px) {
-
-    .cuspide-pillars-section {
-        padding: 80px 0;
-    }
-
-    .cuspide-pillars-layout {
-        width: calc(100% - 40px);
-
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .cuspide-pillars-copy {
-        text-align: center;
-    }
-
-    .cuspide-pillars-copy p {
-        margin: 0 auto;
-    }
-
-    .cuspide-pillars-grid {
-        flex-direction: column;
-    }
-
-    .cuspide-pillar-card {
-        width: 100%;
-        height: 220px;
-    }
-}
-
 
 
 /* ---------------------------------------------------------------------
@@ -1015,9 +1026,6 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
 /* ---------------------------------------------------------------------
    5. PROCESO — timeline accordion
    --------------------------------------------------------------------- */
-/* =====================================================
-   METODOLOGÍA SCROLL
-   ===================================================== */
 
 .metodologia-scroll {
 
@@ -1214,17 +1222,16 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
 
 .metodo-step h3 {
 
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
 
     font-size: clamp(1.6rem,2vw,2.4rem);
 }
 
 .metodo-step p {
-
-    max-width: 520px;
-
-    line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
 }
+
 
 @media (max-width: 768px) {
   .metodologia-layout {
@@ -1272,24 +1279,29 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
     padding-bottom: 2rem;
   }
 
-  .metodo-step {
-    flex: 0 0 85%;
-    grid-template-columns: 1fr;
-    text-align: center;
-    scroll-snap-align: center;
-  }
+.metodo-step {
+  display: flex;          /* en vez de grid */
+  flex-direction: column; /* apila imagen y texto en vertical */
+  align-items: center;    /* centra el contenido */
+  gap: 2rem;              /* espacio entre imagen y texto */
+}
 
-  .metodo-step img {
-    max-width: 100%;
-    margin: 0 auto 0rem;
-  }
+
+
+.metodo-step img {
+  width: 500px;   /* ancho fijo en px, más grande */
+  height: auto;   /* mantiene proporción vertical */
+  border-radius: 5px;
+  display: block;
+}
+
 
   .metodo-step h3 {
     font-size: 1.4rem;
   }
 
   .metodo-step p {
-    font-size: 1,3rem;
+    font-size: 17px;
     max-width: 90%;
     margin: 0 auto;
   }
@@ -1301,8 +1313,7 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
 
 
 /* ====================================================================
-   Componente: Estadísticas de Autoridad "La comunidad sigue subiendo"
-   Acoplado al Sistema de Diseño Global de Cúspide
+  LA COMUNIAD SIGUE CRECIENDO
    ==================================================================== */
 
 .stats-block {
@@ -1458,13 +1469,18 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
 
 
 .stat-label {
-  margin: 0.85rem 0 0 0;
+  margin: 0.45rem 0 0 0;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  font-size: 0.76rem;
-  font-weight: 700;
+  font-size: 0.90rem;
+  font-weight: 600;
   color: var(--stats-muted);
+  line-height: 18px; /* interlinea fija en px */
+  width: 200px;      /* ancho fijo en píxeles */
+  height: 40px;      /* alto fijo en píxeles */
 }
+
+
 
 /* ---------------------------------------------------------------------
    ACCESIBILIDAD Y RESPONSIVE
@@ -1482,7 +1498,7 @@ will-change: transform; /* fuerza a la GPU a preparar la animación */
 @media (max-width: 820px) {
   .stats-block {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 1.5rem;
   }
   .stats-manifesto {
     position: static;
@@ -1512,6 +1528,7 @@ html[data-motion="reduced"] .digit-strip,
     transition: none !important;
   }
 }
+
 
 
 /* ---------------------------------------------------------------------
@@ -1799,464 +1816,520 @@ html[data-motion="reduced"] .digit-strip,
 /* ---------------------------------------------------------------------
    7. CURSOS
    --------------------------------------------------------------------- */
-.training-courses-section {
-    width: 100%;
-    padding: 120px 80px;
+/* ==========================================
+   ESPECIALISTAS
+========================================== */
+/* =========================
+   CURSOS
+========================= */
+
+.cursos-section {
+    padding: 120px 0;
+    background: #f4f2ef;
 }
 
-.training-courses-heading {
+.cursos-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.cursos-title {
     font-size: clamp(3rem, 5vw, 5rem);
-    margin-bottom: 48px;
+    line-height: 1;
+    margin-bottom: 50px;
+    color: #261c1b;
 }
 
-.training-courses-accordion {
+.cursos-accordion {
     display: flex;
     gap: 16px;
-
-    perspective: 1200px;
-    transform-style: preserve-3d;
+    height: 560px;
 }
 
-.training-courses-card {
-    flex: 1;
+.curso-inner {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
 
-    background: var(--color-mint); /* aplica tu color pale al texto */;
-    border-radius: 5px;
+    transition:
+        opacity 450ms ease,
+        transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 450ms ease;
+}
+
+.curso-card.is-active .curso-inner {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+.curso-card.is-leaving .curso-inner {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+}
+/* =========================
+   CARD
+========================= */
+
+.curso-card {
+    flex: 1;
+    min-width: 180px;
+
+    display: flex;
+    flex-direction: column;
 
     overflow: hidden;
+    border-radius: 24px;
+
     cursor: pointer;
 
+    background: #d9e6e8;
+
     transition:
-        flex 450ms cubic-bezier(.25,1,.5,1),
-        transform 450ms cubic-bezier(.25,1,.5,1);
+        flex 600ms cubic-bezier(0.25,1,0.5,1),
+        transform 600ms cubic-bezier(0.25,1,0.5,1);
 }
 
-.training-courses-card--active {
-    flex: 2.5;
+.curso-card.is-active {
+    flex: 2.8;
 }
 
-.training-courses-image {
+/* =========================
+   IMAGEN
+========================= */
+
+.curso-image {
     position: relative;
-    height: 320px;
+    flex: 1;
+    overflow: hidden;
 }
 
-.training-courses-image img {
+.curso-image img {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
 
+    filter: grayscale(100%);
+
     transition:
-        filter 450ms cubic-bezier(.25,1,.5,1),
-        transform 450ms cubic-bezier(.25,1,.5,1);
+        filter 600ms cubic-bezier(0.25,1,0.5,1),
+        transform 600ms cubic-bezier(0.25,1,0.5,1);
 }
 
-.training-courses-card:not(.training-courses-card--active)
-.training-courses-image img {
-    filter: grayscale(1);
+.curso-card.is-active .curso-image img {
+    filter: grayscale(0%);
 }
 
-.training-courses-card--active
-.training-courses-image img {
-    filter: grayscale(0);
+.curso-card:hover .curso-image img {
+    transform: scale(1.03);
 }
 
-.training-courses-cta {
+/* =========================
+   BOTON SUPERIOR
+========================= */
+
+.curso-toggle {
     position: absolute;
-    top: 16px;
-    right: 16px;
-
-    width: 38px;
-    height: 38px;
+    top: 18px;
+    right: 18px;
 
     border: none;
-
-    border-radius: 10px;
+    cursor: pointer;
 
     background: #ff5a1f;
     color: white;
 
-    cursor: pointer;
-
-    transition: all 450ms cubic-bezier(.25,1,.5,1);
-
-    overflow: hidden;
-}
-
-.training-courses-cta--active {
-    width: 110px;
-}
-
-.training-courses-content {
-    padding: 24px;
-}
-
-.training-courses-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.training-courses-title {
-    font-size: 2rem;
-    line-height: .9;
-}
-
-.training-courses-duration {
-    opacity: .55;
-    white-space: nowrap;
-}
-
-.training-courses-description {
-    margin-top: 16px;
-
-    line-height: 1.6;
-
-    max-width: 520px;
-
-    transition:
-        opacity 300ms ease,
-        transform 300ms ease;
-}
-
-.training-courses-card:not(.training-courses-card--active)
-.training-courses-description {
-    opacity: 0;
-    transform: translateY(15px);
-    height: 0;
-    overflow: hidden;
-}
-
-.training-courses-card:nth-child(1):not(.training-courses-card--active){
-    transform: rotateY(4deg) translateZ(-20px);
-}
-
-.training-courses-card:nth-child(3):not(.training-courses-card--active){
-    transform: rotateY(-4deg) translateZ(-20px);
-}
-
-.training-courses-cta:focus-visible{
-    outline: 3px solid white;
-    outline-offset: 4px;
-}
-
-@media (max-width:768px){
-
-    .training-courses-section{
-        padding:80px 20px;
-    }
-
-    .training-courses-accordion{
-        flex-direction:column;
-    }
-
-    .training-courses-card{
-        flex:none;
-    }
-
-    .training-courses-card--active{
-        flex:none;
-    }
-
-    .training-courses-image{
-        height:240px;
-    }
-
-    .training-courses-card:not(.training-courses-card--active)
-    .training-courses-content{
-        padding-bottom:18px;
-    }
-
-    .training-courses-card:not(.training-courses-card--active)
-    .training-courses-description{
-        display:none;
-    }
-
-    .training-courses-card:not(.training-courses-card--active)
-    .training-courses-image{
-        height:160px;
-    }
-
-    .training-courses-title{
-        font-size:1.5rem;
-    }
-}
-
-/* ---------------------------------------------------------------------
-   8. EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
-   --------------------------------------------------------------------- */
-/* ==========================================================
-   EXPEDICIONES TABS
-   ========================================================== */
-
-/* ==========================================================
-   EXPEDICIONES DECK 3D
-   ========================================================== */
-
-.expediciones-deck {
-
-    position: relative;
-
-    min-height: 100vh;
-
-    overflow: hidden;
-
-    background: #ff4a18;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-
-.expediciones-bg {
-
-    position: absolute;
-
-    inset: 0;
-}
-
-.exp-bg-layer {
-
-    position: absolute;
-
-    inset: 0;
-
-    background-size: cover;
-    background-position: center;
-
-    opacity: 0;
-
-    transform: scale(1.05);
-
-    transition:
-        opacity 600ms ease,
-        transform 600ms ease;
-
-    will-change: transform, opacity;
-}
-
-.exp-bg-layer.is-active {
-
-    opacity: .22;
-
-    transform: scale(1);
-}
-
-.expediciones-overlay {
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-    linear-gradient(
-        rgba(255,74,24,.82),
-        rgba(255,74,24,.82)
-    );
-}
-
-.expediciones-inner {
-
-    position: relative;
-
-    z-index: 5;
-
-    width: 100%;
-
-    max-width: 1400px;
-
-    text-align: center;
-
-    padding: 4rem;
-}
-
-.expediciones-headline {
-
-    margin-bottom: 6rem;
-
-    font-size: clamp(2.5rem,5vw,5.5rem);
-
-    line-height: .95;
-
-    color: #292020;
-}
-
-.expediciones-headline span {
-
-    color: white;
-}
-
-.expediciones-deck-stage {
-
-    perspective: 1000px;
-
-    height: 420px;
-
-    position: relative;
-}
-
-.expediciones-deck-track {
-
-    width: 100%;
-
-    height: 100%;
-
-    position: relative;
-
-    transform-style: preserve-3d;
-    touch-action: none;
-}
-
-
-.expedicion-card {
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:260px;
-    height:360px;
-
-    transform-style:preserve-3d;
-
-    transform-origin:center 85%;
-
-    cursor:pointer;
-
-    transition:
-        transform 700ms cubic-bezier(.16,.84,.32,1),
-        opacity 700ms cubic-bezier(.16,.84,.32,1);
-
-    will-change:transform;
-}
-
-.expedicion-card-inner {
-
-    width: 100%;
-    height: 100%;
-
-    position: relative;
-
-    transform-style: preserve-3d;
-
-    transition: transform .8s cubic-bezier(.16,.84,.32,1);
-}
-
-.expedicion-card.is-flipped .expedicion-card-inner {
-
-    transform: rotateY(180deg);
-}
-
-.expedicion-face {
-
-    position: absolute;
-
-    inset: 0;
-
-    backface-visibility: hidden;
-
-    background: #efefef;
+    height: 42px;
+    width: 42px;
 
     border-radius: 12px;
 
-    box-shadow:
-        0 25px 50px rgba(0,0,0,.15);
-
     display: flex;
-
-    flex-direction: column;
-
+    align-items: center;
     justify-content: center;
 
-    align-items: center;
+    overflow: hidden;
 
-    padding: 2rem;
+    transition:
+        width 400ms cubic-bezier(0.25,1,0.5,1);
 }
 
-.expedicion-face--front {
-
-    border: 2px solid var(--color-ember);
+.curso-toggle-icon {
+    font-size: 18px;
 }
 
-.expedicion-face--back {
+.curso-cta {
+    opacity: 0;
+    width: 0;
 
-    transform: rotateY(180deg);
+    overflow: hidden;
+    white-space: nowrap;
 
-    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+
+    transition: opacity .3s ease;
 }
 
-.expedicion-icon {
-
-    width: 90px;
-
-    margin-bottom: 2rem;
-
-    opacity: .7;
+.curso-card.is-active .curso-toggle {
+    width: 120px;
+    gap: 8px;
 }
 
-.expedicion-name {
-
-    font-size: 2rem;
-
-    line-height: .95;
-
-    margin-bottom: 1rem;
+.curso-card.is-active .curso-cta {
+    opacity: 1;
+    width: auto;
 }
 
-.expedicion-meta {
+/* =========================
+   FRANJA INFERIOR
+========================= */
 
-    font-size: .8rem;
-
-    letter-spacing: .08em;
-
-    text-transform: uppercase;
+.curso-content {
+    background: #d9e6e8;
+    padding: 28px;
+    min-height: 150px;
+    overflow: hidden;
 }
 
-.expedicion-copy {
+.curso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.curso-header h3 {
+    color: #261c1b;
+
+    font-size: clamp(1.3rem,1.5vw,2rem);
+
+    line-height: 1;
+
+    margin: 0;
+}
+
+.curso-duration {
+    color: #7c6f6a;
 
     font-size: .95rem;
 
-    line-height: 1.6;
+    white-space: nowrap;
 
-    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
 }
 
-.expedicion-cta {
+.curso-description {
+    margin-top: 18px;
 
-    background: var(--color-ember);
+    max-width: 520px;
 
-    color: white;
+    color: #4d4643;
 
-    padding: 1rem 1.5rem;
+    line-height: 1.5;
 
-    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(12px);
 
-    font-weight: 700;
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
 }
 
-.expediciones-label {
+/* SOLO TITULO EN CERRADAS */
 
-    margin-top: 2rem;
-
-    font-size: clamp(2rem,4vw,3rem);
-
-    color: white;
-
-    font-family: var(--font-display);
+.curso-card:not(.is-active) .curso-content {
+    min-height: 90px;
 }
 
+.curso-card:not(.is-active) .curso-description,
+.curso-card:not(.is-active) .curso-duration {
+    display: none;
+}
+
+/* REVEAL */
+
+.curso-card.is-active .curso-duration,
+.curso-card.is-active .curso-description {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 150ms;
+}
+
+/* =========================
+   FOCUS
+========================= */
+
+.curso-card:focus-visible {
+    outline: 3px solid #ff5a1f;
+    outline-offset: 4px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 768px) {
+
+    .cursos-section .container {
+        padding: 0 20px;
+    }
+
+    .cursos-accordion {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .curso-card {
+        flex: none;
+        height: 240px;
+    }
+
+    .curso-card.is-active {
+        height: 420px;
+    }
+
+    .curso-content {
+        min-height: auto;
+    }
+
+    .curso-description {
+        display: block;
+    }
+}
+/* ---------------------------------------------------------------------
+   EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
+   --------------------------------------------------------------------- */
+.expediciones-deck {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #ff4a18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.expediciones-bg {
+  position: absolute;
+  inset: 0;
+}
+.exp-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: transform, opacity;
+}
+.exp-bg-layer.is-active {
+  opacity: .22;
+  transform: scale(1);
+}
+.expediciones-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(255,74,24,.82), rgba(255,74,24,.82));
+}
+.expediciones-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+  padding: 4rem;
+}
+.expediciones-headline {
+  margin-bottom: 6rem;
+  font-size: clamp(2.5rem,5vw,5.5rem);
+  line-height: 1.2;
+  color: #292020;
+}
+.expediciones-headline span {
+  color: white;
+}
+.expediciones-deck-stage {
+  perspective: 1000px;
+  height: 420px;
+  position: relative;
+}
+.expediciones-deck-track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  touch-action: none;
+}
+.expedicion-card {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:260px;
+  height:360px;
+  transform-style:preserve-3d;
+  transform-origin:center 85%;
+  cursor:pointer;
+  transition: transform 700ms cubic-bezier(.16,.84,.32,1), opacity 700ms cubic-bezier(.16,.84,.32,1);
+  will-change:transform;
+  user-select: none; /* evita que se seleccione texto o imágenes */
+}
+.expedicion-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .8s cubic-bezier(.16,.84,.32,1);
+}
+.expedicion-card.is-flipped .expedicion-card-inner {
+  transform: rotateY(180deg);
+}
+.expedicion-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: #efefef;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.expedicion-face--front {
+  background: var(--color-void);
+  border: 2px solid var(--color-ember);
+  border-radius: 10px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+}
+.expedicion-photo {
+  width: 240px;
+  height: 240px;
+  overflow: hidden;
+  pointer-events: none; /* opcional: bloquea interacción directa */
+}
+.expedicion-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 5px;
+}
+.expedicion-dificultad {
+  color: var(--color-ember);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.expedicion-duracion {
+  color: var(--color-slate);
+}
+.expedicion-face--back {
+  transform: rotateY(180deg);
+  background: var(--color-void);
+  border: 2px solid var(--color-ember);
+  border-radius: 10px;
+  box-shadow: 0 25px 50px rgba(0,0,0,.15);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 2rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+.expedicion-name {
+  font-size: 2rem;
+  line-height: .95;
+  margin-bottom: 0.5rem;
+}
+.expedicion-meta {
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.expedicion-copy {
+  font-size: .95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.expedicion-title--back {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 0rem;
+}
+.expedicion-text--back {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.expedicion-list--back {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+.expedicion-list--back li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.4rem;
+  font-size: 17px;
+  font-weight: 300;
+}
+.expedicion-circle--back {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-slate);
+  flex-shrink: 0;
+}
+.expedicion-btn--back {
+  background: var(--color-ink);
+  font-size: 14px;
+  color: var(--color-void);
+  padding: 0.6rem 0.8rem;
+  border-radius: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  transition: background 0.3s ease;
+}
+.expedicion-btn--back:hover {
+  background: var(--color-ember);
+}
+.expediciones-label {
+  margin-top: 2rem;
+  font-size: clamp(2rem,4vw,3rem);
+  color: white;
+  font-family: var(--font-display);
+}
+@media (max-width: 768px) {
   .expediciones-inner {
-    padding: 2rem 0rem; /* menos aire arriba/abajo y costados */
-    text-align: center; /* opcional: mantener centrado */
+    padding: 2rem 0rem;
+    text-align: center;
   }
 }
+
 
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS

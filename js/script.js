@@ -109,6 +109,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 
+/* ==========================================
+   CUSPIDE SUMMIT FLIP CARDS
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const cards = document.querySelectorAll(".csp-flip-card");
+
+    let selectedCard = null;
+
+    cards.forEach(card => {
+
+        /* ------------------------
+           HOVER TEMPORAL
+        ------------------------ */
+
+        card.addEventListener("mouseenter", () => {
+
+            if(window.innerWidth <= 768) return;
+
+            if(card === selectedCard) return;
+
+            card.classList.add("is-active");
+        });
+
+        card.addEventListener("mouseleave", () => {
+
+            if(window.innerWidth <= 768) return;
+
+            if(card === selectedCard) return;
+
+            card.classList.remove("is-active");
+        });
+
+        /* ------------------------
+           CLICK FIJO
+        ------------------------ */
+
+        card.addEventListener("click", () => {
+
+            if(selectedCard === card){
+
+                card.classList.remove("is-active");
+
+                selectedCard = null;
+
+                return;
+            }
+
+            cards.forEach(item => {
+                item.classList.remove("is-active");
+            });
+
+            card.classList.add("is-active");
+
+            selectedCard = card;
+        });
+
+        /* ------------------------
+           TECLADO
+        ------------------------ */
+
+        card.addEventListener("keydown", (e) => {
+
+            if(e.key === "Enter" || e.key === " "){
+
+                e.preventDefault();
+
+                card.click();
+            }
+        });
+
+    });
+
+});
+
+
+
   /* ------------------------------------------------------------------
      2. Revelado genérico al hacer scroll (secciones de texto/visual)
      ------------------------------------------------------------------ */
@@ -338,7 +416,7 @@ if (isTouchDevice) {
     );
 
 })();
-
+ 
 /**
  * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
  */
@@ -392,11 +470,12 @@ if (isTouchDevice) {
     // Sin soporte de IntersectionObserver: revelar de inmediato.
     reveal();
   }
+  
 })();
 
 
 
-  /* ------------------------------------------------------------------
+/* ------------------------------------------------------------------
      6. Línea de tiempo del proceso de preparación (acordeón exclusivo)
      ------------------------------------------------------------------ */
 (() => {
@@ -497,69 +576,141 @@ if (isTouchDevice) {
   /* ------------------------------------------------------------------
      7. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
-const trainingCoursesCards = document.querySelectorAll(
-    ".training-courses-card"
-);
+const cursoCards = document.querySelectorAll(".curso-card");
 
-trainingCoursesCards.forEach((card) => {
+let selectedCard =
+    document.querySelector(".curso-card.is-selected") ||
+    cursoCards[0];
 
-    card.addEventListener("click", () => {
+function activateCard(card) {
 
-        trainingCoursesCards.forEach((item) => {
+    cursoCards.forEach(item => {
 
-            item.classList.remove(
-                "training-courses-card--active"
+        item.classList.remove("is-active");
+
+        item.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    });
+
+    card.classList.add("is-active");
+
+    card.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+}
+function activateCard(card) {
+
+    const current =
+        document.querySelector(".curso-card.is-active");
+
+    if (current === card) return;
+
+    if (current) {
+
+        current.classList.add("is-leaving");
+
+        setTimeout(() => {
+
+            current.classList.remove(
+                "is-active",
+                "is-leaving"
             );
 
-            item.setAttribute(
+            current.setAttribute(
                 "aria-expanded",
                 "false"
             );
 
-            const btn =
-                item.querySelector(
-                    ".training-courses-cta"
-                );
+            card.classList.add("is-active");
 
-            btn.classList.remove(
-                "training-courses-cta--active"
+            card.setAttribute(
+                "aria-expanded",
+                "true"
             );
 
-            btn.innerHTML = "↓";
+        }, 180);
 
-        });
+    } else {
 
-        card.classList.add(
-            "training-courses-card--active"
-        );
+        card.classList.add("is-active");
 
         card.setAttribute(
             "aria-expanded",
             "true"
         );
+    }
+}
+/* ---------- Hover ---------- */
 
-        const activeBtn =
-            card.querySelector(
-                ".training-courses-cta"
-            );
+cursoCards.forEach(card => {
 
-        activeBtn.classList.add(
-            "training-courses-cta--active"
-        );
+    card.addEventListener("mouseenter", () => {
 
-        activeBtn.innerHTML =
-            "<span>VER MÁS</span> →";
+        if (window.innerWidth < 768) return;
 
+        if (selectedCard) return;
+
+        activateCard(card);
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        if (window.innerWidth < 768) return;
+
+        if (selectedCard) return;
+
+        activateCard(cursoCards[0]);
     });
 
 });
+
+/* ---------- Click ---------- */
+
+cursoCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        cursoCards.forEach(item =>
+            item.classList.remove("is-selected")
+        );
+
+        card.classList.add("is-selected");
+
+        selectedCard = card;
+
+        activateCard(card);
+    });
+
+});
+
+/* ---------- Teclado ---------- */
+
+cursoCards.forEach(card => {
+
+    card.addEventListener("keydown", e => {
+
+        if (
+            e.key === "Enter" ||
+            e.key === " "
+        ) {
+
+            e.preventDefault();
+
+            card.click();
+        }
+    });
+
+});
+
+/* ---------- Inicial ---------- */
+
+activateCard(selectedCard);
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
-  /* ------------------------------------------------------------------
-   TESTIMONIOS V2
-   ------------------------------------------------------------------ */
-
 (() => {
 
     const testimonials = [
@@ -756,47 +907,53 @@ trainingCoursesCards.forEach((card) => {
         );
 
     const expediciones = [
-
-        {
-            nombre:'MONTE ACONCAGUA',
-            dificultad:'DIFICULTAD MEDIA',
-            duracion:'2 SEMANAS',
-            fondo:'assets/aconcagua.jpg',
-            descripcion:'Lo que se gana no es una foto en la cima, es la certeza de haber vencido tus propios límites.'
-        },
-
-        {
-            nombre:'TRONADOR',
-            dificultad:'DIFICULTAD EXTREMA',
-            duracion:'8 SEMANAS',
-            fondo:'assets/everest.jpg',
-            descripcion:'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.'
-        },
-
-        {
-            nombre:'MONTE TORRE',
-            dificultad:'DIFICULTAD MODERADA',
-            duracion:'10 DÍAS',
-            fondo:'assets/kilimanjaro.jpg',
-            descripcion:'El ascenso progresivo y el ritmo con el que se aprende son impresionantes.'
-        },
-
-        {
-            nombre:'FITZ ROY',
-            dificultad:'DIFICULTAD ALTA',
-            duracion:'1 SEMANA',
-            fondo:'assets/montblanc.jpg',
-            descripcion:'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.'
-        },
-
-        {
-            nombre:'DENALI',
-            dificultad:'DIFICULTAD EXTREMA',
-            duracion:'3 SEMANAS',
-            fondo:'assets/denali.jpg',
-            descripcion:'La montaña más dura de Norteamérica por clima, aislamiento y carga logística.'
-        }
+      {
+        nombre: 'ACONCAGUA',
+        dificultad: 'DIFICULTAD MEDIA',
+        duracion: '2 SEMANAS',
+        fondo: 'assets/2fitz-roy.jpeg',
+        descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
+        altura: '71 M',
+        lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
+      },
+      {
+        nombre: 'TRONADOR',
+        dificultad: 'DIFICULTAD EXTREMA',
+        duracion: '8 SEMANAS',
+        fondo: 'assets/2fitz-roy.jpeg',
+        descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
+        altura: '71 M',
+        lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internacional']
+      },
+      {
+        nombre: 'MONTE TORRE',
+        dificultad: 'DIFICULTAD MEDIA',
+        duracion: '10 DÍAS',
+        fondo: 'assets/2fitz-roy.jpeg',
+        descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son impresionantes.',
+        altura: '75 M',
+        lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
+      },
+      {
+        nombre: 'FITZ ROY',
+        dificultad: 'DIFICULTAD ALTA',
+        duracion: '1 SEMANA',
+        fondo: 'assets/2fitz-roy.jpeg',
+        descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
+        altura: '105 M',
+        lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
+      },
+      {
+        nombre: 'DENALI',
+        dificultad: 'DIFICULTAD EXTREMA',
+        duracion: '3 SEMANAS',
+        fondo: 'assets/2fitz-roy.jpeg',
+        descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga logística.',
+        altura: '85 M',
+        lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
+      }
     ];
+
 
     let active = 0;
     let bgIndex = 0;
@@ -813,35 +970,36 @@ trainingCoursesCards.forEach((card) => {
             >
                 <div class="expedicion-card-inner">
 
-                    <div class="expedicion-face expedicion-face--front">
+                   <div class="expedicion-face expedicion-face--front">
+                          <figure class="expedicion-photo">
+                          <img src="${exp.fondo}" alt="${exp.nombre}">
+                          </figure>
 
-                        <svg class="expedicion-icon" viewBox="0 0 100 100">
-                            <path d="M10 80 L40 30 L55 55 L75 20 L90 80" fill="none" stroke="currentColor" stroke-width="4"/>
-                        </svg>
+                          <h3 class="expedicion-name">${exp.nombre}</h3>
 
-                        <h3 class="expedicion-name">
-                            ${exp.nombre}
-                        </h3>
+                          <div class="expedicion-meta">
+                          <span class="expedicion-dificultad">${exp.dificultad}</span> – ${exp.altura}
+                          <br>
+                          <span class="expedicion-duracion">DURACIÓN: ${exp.duracion}</span>
+                          </div>
+                   </div>
 
-                        <div class="expedicion-meta">
-                            ${exp.dificultad}
-                            <br>
-                            ${exp.duracion}
-                        </div>
 
-                    </div>
 
-                    <div class="expedicion-face expedicion-face--back">
+                   <!-- Parte trasera -->
+          <div class="expedicion-face expedicion-face--back">
+            <h3 class="expedicion-title--back">${exp.nombre}</h3>
+            <div class="expedicion-meta--back">
+            </div>
+            <p class="expedicion-text--back">${exp.descripcion}</p>
+            <ul class="expedicion-list--back">
+              ${exp.lugares.map(lugar => `
+                <li><span class="expedicion-circle--back"></span> ${lugar}</li>
+              `).join('')}
+            </ul>
+            <button class="expedicion-btn--back">VER MÁS</button>
+          </div>
 
-                        <p class="expedicion-copy">
-                            ${exp.descripcion}
-                        </p>
-
-                        <button class="expedicion-cta">
-                            ACEPTAR EL DESAFÍO
-                        </button>
-
-                    </div>
 
                 </div>
             </article>
