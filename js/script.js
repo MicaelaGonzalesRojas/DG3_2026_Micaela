@@ -850,19 +850,19 @@ updateSlider();
 
     const expediciones = [
       {
-        nombre: 'ACONCAGUA',
-        dificultad: 'DIFICULTAD MEDIA',
-        duracion: '2 SEMANAS',
-        fondo: 'assets/2fitz-roy.jpeg',
-        descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
-        altura: '71 M',
-        lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
+        nombre: 'FITZ ROY',
+        dificultad: 'DIFICULTAD ALTA',
+        duracion: '1 SEMANA',
+        fondo: 'assets/fitzroy-act.png',
+        descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
+        altura: '105 M',
+        lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
       },
       {
         nombre: 'TRONADOR',
         dificultad: 'DIFICULTAD EXTREMA',
         duracion: '8 SEMANAS',
-        fondo: 'assets/2fitz-roy.jpeg',
+        fondo: 'assets/tronador-act.png',
         descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
         altura: '71 M',
         lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
@@ -871,25 +871,25 @@ updateSlider();
         nombre: 'TORRE',
         dificultad: 'DIFICULTAD MEDIA',
         duracion: '10 DÍAS',
-        fondo: 'assets/2fitz-roy.jpeg',
+        fondo: 'assets/torre-act.png',
         descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son icre.',
         altura: '75 M',
         lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
       },
       {
-        nombre: 'FITZ ROY',
-        dificultad: 'DIFICULTAD ALTA',
-        duracion: '1 SEMANA',
-        fondo: 'assets/2fitz-roy.jpeg',
-        descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
-        altura: '105 M',
-        lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
+        nombre: 'ACONCAGUA',
+        dificultad: 'DIFICULTAD MEDIA',
+        duracion: '2 SEMANAS',
+        fondo: 'assets/aconcagua-act.png',
+        descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
+        altura: '71 M',
+        lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
       },
       {
-        nombre: 'DENALI',
+        nombre: 'SAN VALENTÍN',
         dificultad: 'DIFICULTAD EXTREMA',
         duracion: '3 SEMANAS',
-        fondo: 'assets/2fitz-roy.jpeg',
+        fondo: 'assets/sanvalentin-act.png',
         descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
         altura: '85 M',
         lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']

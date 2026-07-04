@@ -1606,10 +1606,13 @@ html[data-motion="reduced"] .digit-strip,
 /* =======================================================
    TESTIMONIOS PREMIUM
    ======================================================= */
-#conquistadores{
-    background:#dceef0;
-    padding:90px 0;
+
+#conquistadores {
+  background: url("../assets/fondo-test.png") no-repeat center center;
+  background-size: cover;   /* hace que la imagen cubra todo el área */
+  padding: 90px 0;
 }
+
 
 .conquistadores__container{
     width:min(1150px,92%);
@@ -2073,17 +2076,18 @@ html[data-motion="reduced"] .digit-strip,
 .expediciones-bg {
   position: absolute;
   inset: 0;
+  background-image: url("assets/fitzroy.png");
+  background-size: cover;       /* ocupa todo el área */
+  background-position: center;  /* centrada */
+  background-repeat: no-repeat; /* evita repeticiones */
 }
-.exp-bg-layer {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 600ms ease, transform 600ms ease;
-  will-change: transform, opacity;
+
+/* desactiva las capas encima */
+.exp-bg-layer,
+.expediciones-overlay {
+  display: none;
 }
+
 .exp-bg-layer.is-active {
   opacity: .22;
   transform: scale(1);
