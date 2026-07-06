@@ -217,7 +217,7 @@
 
                     <span class="cuspide-glacier-separator__line cuspide-glacier-separator__line--accent">
 
-                        NO TIENE QUE SER TOMADA A LA LIGERA
+                        NO PUEDE TOMARSE A LA LIGERA
 
                     </span>
 
@@ -409,24 +409,112 @@
 </section>
 
   <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
-<section class="heroes">
-  <div class="heroes-header">
-    <h2>HÉROES DE LA MONTAÑA</h2>
-    <p>La montaña no concede privilegios: reconoce la voluntad de avanzar.</p>
-  </div>
+<section
+    id="cuspide-global-inspiration"
+    class="cuspide-global-inspiration">
 
-  <div class="heroes-marquee" id="heroesMarquee" aria-live="off">
-    <div class="heroes-track" id="heroesTrack"></div>
-  </div>
+    <div class="cuspide-global-inspiration__container">
 
-  <!-- Montañas al final -->
-  <div class="heroes-mountains">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path
-        d="M0 230L120 120L260 290L390 210L520 290L760 230L920 290L1080 250L1220 150L1290 250L1440 160V320H0Z"
-      />
-    </svg>
-  </div>
+        <!-- COLUMNA IZQUIERDA -->
+
+        <div class="cuspide-global-inspiration__content">
+            <h2 class="cuspide-global-inspiration__title">
+                INSPIRADOS POR TODO EL MUNDO
+            </h2>
+
+            <p class="cuspide-global-inspiration__text">
+                Ellos demostraron que el verdadero límite nunca estuvo
+                en el cuerpo.
+            </p>
+
+            <p class="cuspide-global-inspiration__text">
+                Cada expedición abre un camino para quienes vienen
+                detrás. Sus historias hoy inspiran a cientos de nuevos
+                montañistas.
+            </p>
+
+            <div class="cuspide-global-inspiration__thumb-grid">
+
+                <button
+                    class="cuspide-global-inspiration__thumb-card is-active"
+                    data-index="0">
+
+                    <img
+                        src="img/thumb-01.jpg"
+                        alt="Dana Paola">
+
+                </button>
+
+                <button
+                    class="cuspide-global-inspiration__thumb-card"
+                    data-index="1">
+
+                    <img
+                        src="img/thumb-02.jpg"
+                        alt="Carlos Mendoza">
+
+                </button>
+
+                <button
+                    class="cuspide-global-inspiration__thumb-card"
+                    data-index="2">
+
+                    <img
+                        src="img/thumb-03.jpg"
+                        alt="Lucía Torres">
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+
+        <aside class="cuspide-global-inspiration__display-showcase">
+
+            <div class="cuspide-global-inspiration__image-frame">
+
+                <img
+                    id="cuspideGlobalImage"
+                    class="cuspide-global-inspiration__hero-image"
+                    src="img/inspiration-01.jpg"
+                    alt="Dana Paola">
+
+            </div>
+
+            <div class="cuspide-global-inspiration__info">
+
+                <h3
+                    id="cuspideGlobalName"
+                    class="cuspide-global-inspiration__name">
+
+                    DANA PAOLA
+
+                </h3>
+
+                <p
+                    id="cuspideGlobalDisability"
+                    class="cuspide-global-inspiration__disability">
+
+                    35 años · Baja visión
+
+                </p>
+
+                <span
+                    id="cuspideGlobalLocation"
+                    class="cuspide-global-inspiration__location">
+
+                    Monte Everest · 2003
+
+                </span>
+
+            </div>
+
+        </aside>
+
+    </div>
+
 </section>
 
 
@@ -612,6 +700,116 @@
 </section>
 
 
+<!--
+  Componente: Estadísticas de Autoridad ("La comunidad sigue subiendo")
+  Fragmento aislado. Para integrarlo en una página, incluí además:
+    <link rel="stylesheet" href="componente-estadisticas.css">
+    <script src="componente-estadisticas.js" defer></script>
+  Sin dependencias externas más allá de la fuente (vía @import en el CSS).
+-->
+<section class="stats-block" aria-labelledby="stats-title">
+
+  <div class="stats-manifesto">
+    <h2 id="stats-title" class="stats-title">
+      <span class="line-mask"><span class="word">LA</span> <span class="word">COMUNIDAD</span></span>
+      <span class="line-mask"><span class="word">SIGUE</span> <span class="word">SUBIENDO</span></span>
+    </h2>
+    <p>Somos la opción más confiable para ayudar a romper todas esas metas
+    imposibles. Te preparamos para eso.</p>
+  </div>
+
+  <div class="stats-grid">
+
+    <!-- 50+ Expediciones -->
+    <div class="stat">
+      <div class="stat-number" aria-hidden="true">
+        <span class="digit-group">
+          <span class="digit-window" data-digit="5">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+          <span class="digit-window" data-digit="8">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+        </span>
+        <span class="stat-suffix">+</span>
+      </div>
+      <p class="stat-label">Expediciones</p>
+      <span class="sr-only">Más de 50 expediciones realizadas.</span>
+    </div>
+
+    <!-- 800+ Alumnos -->
+    <div class="stat">
+      <div class="stat-number" aria-hidden="true">
+        <span class="digit-group">
+          <span class="digit-window" data-digit="8">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+          <span class="digit-window" data-digit="2">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+          <span class="digit-window" data-digit="2">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+        </span>
+        <span class="stat-suffix">+</span>
+      </div>
+      <p class="stat-label">Alumnos</p>
+      <span class="sr-only">Más de 800 alumnos acumulados.</span>
+    </div>
+
+    <!-- 15+ Expediciones x año -->
+    <div class="stat">
+      <div class="stat-number" aria-hidden="true">
+        <span class="digit-group">
+          <span class="digit-window" data-digit="1">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+          <span class="digit-window" data-digit="5">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+        </span>
+        <span class="stat-suffix">+</span>
+      </div>
+      <p class="stat-label">Expediciones hechas por año</p>
+      <span class="sr-only">Más de 15 expediciones por año.</span>
+    </div>
+
+    <!-- 30 Profesores experimentados -->
+    <div class="stat">
+      <div class="stat-number" aria-hidden="true">
+        <span class="digit-group">
+          <span class="digit-window" data-digit="3">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+          <span class="digit-window" data-digit="5">
+            <span class="digit-strip" style="--target-digit:0;">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </span>
+          </span>
+        </span>
+      </div>
+      <p class="stat-label">Profesores experimentados</p>
+      <span class="sr-only">30 profesores experimentados.</span>
+    </div>
+
+  </div>
+</section>
 
 
   <!-- ======================= 6. TESTIMONIOS ======================= -->
@@ -835,116 +1033,6 @@
 
 </section>
 
-<!--
-  Componente: Estadísticas de Autoridad ("La comunidad sigue subiendo")
-  Fragmento aislado. Para integrarlo en una página, incluí además:
-    <link rel="stylesheet" href="componente-estadisticas.css">
-    <script src="componente-estadisticas.js" defer></script>
-  Sin dependencias externas más allá de la fuente (vía @import en el CSS).
--->
-<section class="stats-block" aria-labelledby="stats-title">
-
-  <div class="stats-manifesto">
-    <h2 id="stats-title" class="stats-title">
-      <span class="line-mask"><span class="word">LA</span> <span class="word">COMUNIDAD</span></span>
-      <span class="line-mask"><span class="word">SIGUE</span> <span class="word">SUBIENDO</span></span>
-    </h2>
-    <p>Somos la opción más confiable para ayudar a romper todas esas metas
-    imposibles. Te preparamos para eso.</p>
-  </div>
-
-  <div class="stats-grid">
-
-    <!-- 50+ Expediciones -->
-    <div class="stat">
-      <div class="stat-number" aria-hidden="true">
-        <span class="digit-group">
-          <span class="digit-window" data-digit="5">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-          <span class="digit-window" data-digit="8">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-        </span>
-        <span class="stat-suffix">+</span>
-      </div>
-      <p class="stat-label">Expediciones</p>
-      <span class="sr-only">Más de 50 expediciones realizadas.</span>
-    </div>
-
-    <!-- 800+ Alumnos -->
-    <div class="stat">
-      <div class="stat-number" aria-hidden="true">
-        <span class="digit-group">
-          <span class="digit-window" data-digit="8">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-          <span class="digit-window" data-digit="2">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-          <span class="digit-window" data-digit="2">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-        </span>
-        <span class="stat-suffix">+</span>
-      </div>
-      <p class="stat-label">Alumnos</p>
-      <span class="sr-only">Más de 800 alumnos acumulados.</span>
-    </div>
-
-    <!-- 15+ Expediciones x año -->
-    <div class="stat">
-      <div class="stat-number" aria-hidden="true">
-        <span class="digit-group">
-          <span class="digit-window" data-digit="1">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-          <span class="digit-window" data-digit="5">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-        </span>
-        <span class="stat-suffix">+</span>
-      </div>
-      <p class="stat-label">Expediciones hechas por año</p>
-      <span class="sr-only">Más de 15 expediciones por año.</span>
-    </div>
-
-    <!-- 30 Profesores experimentados -->
-    <div class="stat">
-      <div class="stat-number" aria-hidden="true">
-        <span class="digit-group">
-          <span class="digit-window" data-digit="3">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-          <span class="digit-window" data-digit="5">
-            <span class="digit-strip" style="--target-digit:0;">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-            </span>
-          </span>
-        </span>
-      </div>
-      <p class="stat-label">Profesores experimentados</p>
-      <span class="sr-only">30 profesores experimentados.</span>
-    </div>
-
-  </div>
-</section>
 
 
   <!-- ======================= 10. CAMPAMENTO BASE ======================= -->

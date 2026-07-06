@@ -504,7 +504,7 @@ h4 {
    SHARED SECTION LAYOUT
    --------------------------------------------------------------------- */
 section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); 
-margin-top: -64px; /* compensa la altura del header */}
+margin-top: 0px; /* compensa la altura del header */}
 .section-grid{
   max-width: var(--maxw);
   margin: 0 auto;
@@ -524,6 +524,7 @@ margin-top: -64px; /* compensa la altura del header */}
 ================================================== */
 
 .csp-summit-hero {
+    margin-top: -64px; /* compensa la altura del header */
   background-image: url("../assets/hero-large.png");
   background-size: 100%; /* 👉 ajusta la imagen completa */
   background-repeat: no-repeat;
@@ -903,249 +904,163 @@ margin-bottom: 30px;
    CÚSPIDE GLACIER SEPARATOR
 ========================================================== */
 
-.cuspide-glacier-separator{
+.cuspide-glacier-separator {
+  --separator-bg: #3a302c;
+  --separator-white: #fdfbf8;
+  --separator-orange: #ff4b17;
 
-    --separator-bg:#3a302c;
-    --separator-white:#fdfbf8;
-    --separator-orange:#ff4b17;
+  position: relative;
+  width: 100%;
+  min-height: 42vh;
 
-    position:relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    width:100%;
-    min-height:42vh;
+  overflow: hidden;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  /* color base + imagen */
+  background-color: var(--separator-bg);
+  background-image: url("../assets/separador.png");
+  background-size: 100% auto;       /* ocupa todo el ancho */
+  background-position: bottom center;
+  background-repeat: no-repeat;
 
-    overflow:hidden;
-
-    background:var(--separator-bg);
-
-    padding:8rem 2rem;
-
+  padding: 12rem 2rem;
 }
 
 /* ========================================= */
 
-.cuspide-glacier-separator__wrapper{
-
-    position:relative;
-
-    width:min(1100px,100%);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
+.cuspide-glacier-separator__wrapper {
+  position: relative;
+  width: min(1100px, 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ========================================= */
 
-.cuspide-glacier-separator__content{
-
-    width:100%;
-
-    text-align:center;
-
+.cuspide-glacier-separator__content {
+  width: 100%;
+  text-align: center;
 }
 
 /* ========================================= */
 
-.cuspide-glacier-separator__mask-line{
-
-    overflow:hidden;
-
-    display:block;
-
+.cuspide-glacier-separator__mask-line {
+  overflow: hidden;
+  display: block;
 }
 
-.cuspide-glacier-separator__title{
-
-    margin:0;
-
-    font-family:var(--font-display);
-
-    font-size:clamp(2.6rem,4vw,4.8rem);
-
-    font-weight:700;
-
-    text-transform:uppercase;
-
-    letter-spacing:.04em;
-
-    line-height:1.05;
-
+.cuspide-glacier-separator__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw, 4.8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1.05;
 }
 
 /* ========================================= */
 
-.cuspide-glacier-separator__line{
-
-    display:inline-block;
-
-    color:var(--separator-white);
-
-    transform:translate3d(0,110%,0);
-
-    opacity:0;
-
-    will-change:transform,opacity;
-
+.cuspide-glacier-separator__line {
+  display: inline-block;
+  color: var(--separator-white);
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
-.cuspide-glacier-separator__line--accent{
-
-    color:var(--separator-orange);
-
+.cuspide-glacier-separator__line--accent {
+  color: var(--separator-orange);
 }
 
 /* ========================================= */
 
 .cuspide-glacier-separator.is-visible
 .cuspide-glacier-separator__mask-line:nth-child(1)
-.cuspide-glacier-separator__line{
-
-    transform:translate3d(0,0,0);
-
-    opacity:1;
-
-    transition:
-
-    transform .9s cubic-bezier(.25,1,.5,1),
+.cuspide-glacier-separator__line {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  transition:
+    transform .9s cubic-bezier(.25, 1, .5, 1),
     opacity .6s ease;
-
 }
 
 .cuspide-glacier-separator.is-visible
 .cuspide-glacier-separator__mask-line:nth-child(2)
-.cuspide-glacier-separator__line{
-
-    transform:translate3d(0,0,0);
-
-    opacity:1;
-
-    transition:
-
-    transform .9s cubic-bezier(.25,1,.5,1) .18s,
+.cuspide-glacier-separator__line {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  transition:
+    transform .9s cubic-bezier(.25, 1, .5, 1) .18s,
     opacity .6s ease .18s;
-
 }
-
-
 
 /* ========================================= */
 /* HOVER */
 /* ========================================= */
 
 .cuspide-glacier-separator:hover
-.cuspide-glacier-separator__line{
-
-    text-shadow:
-
-    0 0 16px rgba(255,255,255,.12);
-
+.cuspide-glacier-separator__line {
+  text-shadow: 0 0 16px rgba(255, 255, 255, .12);
 }
 
 .cuspide-glacier-separator:hover
-.cuspide-glacier-separator__line--accent{
-
-    text-shadow:
-
-    0 0 18px rgba(255,75,23,.18);
-
+.cuspide-glacier-separator__line--accent {
+  text-shadow: 0 0 18px rgba(255, 75, 23, .18);
 }
 
 /* ========================================= */
 /* RESPONSIVE */
 /* ========================================= */
 
-@media (max-width:900px){
+@media (max-width: 900px) {
+  .cuspide-glacier-separator {
+    min-height: 34vh;
+    padding: 6rem 1.5rem;
+    background-size: cover; /* para que se adapte mejor */
+  }
 
-    .cuspide-glacier-separator{
-
-        min-height:34vh;
-
-        padding:6rem 1.5rem;
-
-    }
-
-    .cuspide-glacier-separator__title{
-
-        font-size:clamp(2rem,7vw,3.2rem);
-
-    }
-
+  .cuspide-glacier-separator__title {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+  }
 }
 
-@media (max-width:768px){
+@media (max-width: 768px) {
+  .cuspide-glacier-separator {
+    min-height: 30vh;
+  }
 
-    .cuspide-glacier-separator{
+  .cuspide-glacier-separator__title {
+    font-size: clamp(1.45rem, 6vw, 2.2rem);
+    line-height: 1.15;
+  }
 
-        min-height:30vh;
+  .cuspide-glacier-separator__corner-cross {
+    font-size: 1.8rem;
+  }
 
-    }
-
-    .cuspide-glacier-separator__title{
-
-        font-size:clamp(1.45rem,6vw,2.2rem);
-
-        line-height:1.15;
-
-    }
-
-    .cuspide-glacier-separator__corner-cross{
-
-        font-size:1.8rem;
-
-    }
-
-    .cuspide-glacier-separator__corner-cross--tl{
-
-        left:12px;
-
-    }
-
-    .cuspide-glacier-separator__corner-cross--tr{
-
-        right:12px;
-
-    }
-
-    .cuspide-glacier-separator__corner-cross--bl{
-
-        left:12px;
-
-    }
-
-    .cuspide-glacier-separator__corner-cross--br{
-
-        right:12px;
-
-    }
-
+  .cuspide-glacier-separator__corner-cross--tl { left: 12px; }
+  .cuspide-glacier-separator__corner-cross--tr { right: 12px; }
+  .cuspide-glacier-separator__corner-cross--bl { left: 12px; }
+  .cuspide-glacier-separator__corner-cross--br { right: 12px; }
 }
 
 /* ========================================= */
 /* REDUCED MOTION */
 /* ========================================= */
 
-@media (prefers-reduced-motion:reduce){
-
-    .cuspide-glacier-separator__line,
-    .cuspide-glacier-separator__corner-cross{
-
-        transition:none !important;
-
-        transform:none !important;
-
-        opacity:1 !important;
-
-    }
-
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-glacier-separator__line,
+  .cuspide-glacier-separator__corner-cross {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
-
-
 
 /* ---------------------------------------------------------------------
    5. PROCESO — timeline accordion
@@ -1167,7 +1082,7 @@ margin-bottom: 30px;
 
 .metodologia-header h2 {
 
-    font-size: clamp(2.8rem,5vw,5rem);
+    font-size: 40px;
 }
 
 .metodologia-layout {
@@ -1463,301 +1378,318 @@ margin-bottom: 30px;
    4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
    --------------------------------------------------------------------- */
 /* ==========================================================
-   HEROES DE LA MONTAÑA
-   ========================================================== */
+   CÚSPIDE GLOBAL INSPIRATION
+========================================================== */
 
-.heroes {
-    padding: 0rem 0 4rem;
-  background-color: var(--color-mint); /* 👉 color de fondo */
+.cuspide-global-inspiration{
+
+    padding:120px 0;
+    background:#fbf9f6;
+    overflow:hidden;
 }
 
-/* ------------------------------------
-   HEADER
-   ------------------------------------ */
+.cuspide-global-inspiration__container{
 
-.heroes-header {
-   
-    text-align: center;
+    width:min(1180px,92%);
+    margin:0 auto;
 
-    max-width: 720px;
-   
-    margin: 0 auto 1.5rem;
+    display:grid;
+    grid-template-columns:520px 1fr;
+    gap:90px;
+    align-items:center;
 }
 
-.heroes-header h2 {
+/*==========================================================
+  COLUMNA IZQUIERDA
+==========================================================*/
 
-    margin-top: 4rem;
-
-    font-size: clamp(2rem,4vw,3.6rem);
+.cuspide-global-inspiration__content {
+  opacity: 1; /* antes no estaba */
+  transform: none; /* quita el desplazamiento inicial */
 }
 
-.heroes-header p {
+.cuspide-global-inspiration.is-visible
+.cuspide-global-inspiration__content{
 
-    color: var(--color-ice);
-
-    line-height: 1.6;
+    opacity:1;
+    transform:none;
 }
 
-/* ------------------------------------
-   MARQUEE
-   ------------------------------------ */
+.cuspide-global-inspiration__eyebrow{
 
-.heroes-marquee {
+    display:block;
 
-    position: relative;
+    margin-bottom:14px;
 
-    width: 100%;
+    color:#ff4f18;
 
-    overflow: hidden;
+    font-size:.95rem;
+    font-weight:700;
+    letter-spacing:.25em;
 
-    isolation: isolate;
-
-    /* Curva superior e inferior */
-    clip-path: polygon(
-        0% 10%,
-        15% 6%,
-        35% 4%,
-        50% 3%,
-        65% 4%,
-        85% 6%,
-        100% 10%,
-
-        100% 90%,
-
-        85% 94%,
-        65% 96%,
-        50% 97%,
-        35% 96%,
-        15% 94%,
-        0% 90%
-    );
+    text-transform:uppercase;
 }
 
-.heroes-track {
+.cuspide-global-inspiration__title{
 
-    display: flex;
+    margin:0;
 
-    gap: 16px;
+    color:#2d221d;
 
-    width: max-content;
-
-    animation:
-        heroesMarquee 40s linear infinite;
-
-    will-change: transform;
+    font-size:2rem;
+    line-height:.92;
+    font-weight:900;
+    text-transform:uppercase;
 }
 
-.heroes-marquee:hover .heroes-track {
+.cuspide-global-inspiration__text{
 
-    animation-play-state: paused;
+    margin:30px 0 0;
+
+    max-width:440px;
+
+    color:#5b4b42;
+
+    font-size:1.2rem;
+    line-height:1.7;
 }
 
-.heroes-mountains {
-  position: relative;
-  transition: transform 1200ms cubic-bezier(.16,1,.3,1) 300ms;
+/*==========================================================
+  MINIATURAS
+==========================================================*/
+
+.cuspide-global-inspiration__thumb-grid{
+
+    display:flex;
+    gap:18px;
+
+    margin-top:50px;
 }
 
-.heroes-mountains svg {
-  display: block;
+.cuspide-global-inspiration__thumb-card{
+
+    width:112px;
+    height:112px;
+
+    border:none;
+    padding:0;
+
+    border-radius:5px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    background:none;
+
+    filter:grayscale(100%);
+    opacity:.55;
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.10);
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s,
+        filter .35s,
+        opacity .35s,
+        border-color .35s;
+
+    border:3px solid transparent;
+
+    will-change:transform,filter;
+}
+
+.cuspide-global-inspiration__thumb-card:hover{
+
+    transform:translateY(-6px) scale(1.03);
+
+    box-shadow:
+        0 22px 40px rgba(0,0,0,.18);
+}
+
+.cuspide-global-inspiration__thumb-card.is-active{
+
+    filter:grayscale(0);
+
+    opacity:1;
+
+    border-color:#ff4f18;
+
+    transform:scale(1.04);
+
+    box-shadow:
+        0 24px 44px rgba(0,0,0,.18);
+}
+
+.cuspide-global-inspiration__thumb-card img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+/*==========================================================
+  TARJETA DERECHA
+==========================================================*/
+
+.cuspide-global-inspiration__display-showcase {
+  opacity: 1;
+  transform: none;
+}
+
+.cuspide-global-inspiration.is-visible
+.cuspide-global-inspiration__display-showcase{
+
+    opacity:1;
+    transform:none;
+}
+
+.cuspide-global-inspiration__image-frame{
+
+    overflow:hidden;
+ border-radius: 5px;
+    background:#ddd;
+}
+
+.cuspide-global-inspiration__hero-image {
   width: 100%;
-  height: 200px; /* ajustá según tu diseño */
+  max-height: 480px;     /* controla el alto máximo */
+  aspect-ratio: 3/4;     /* más vertical */
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;   /* suaviza los bordes */
+  transition: opacity .35s ease, transform .35s ease;
 }
 
-.heroes-mountains path {
-  fill: var(--color-void); /* 👉 celeste claro */
+
+.cuspide-global-inspiration__hero-image.is-changing{
+
+    opacity:0;
+
+    transform:scale(.98);
 }
 
+.cuspide-global-inspiration__info{
 
-@keyframes heroesMarquee {
+    padding:22px 26px;
+ border-radius: 5px;
 
-    from {
+    background:#dceef2;
+}
 
-        transform:
-        translate3d(
-            0,
-            0,
-            0
-        );
+.cuspide-global-inspiration__name{
+
+    margin:0;
+
+    color:#2d221d;
+
+    font-size:1.35rem;
+    font-weight:800;
+
+    text-transform:uppercase;
+}
+
+.cuspide-global-inspiration__disability{
+
+    color:#5d4a42;
+
+    font-size:1rem;
+}
+
+.cuspide-global-inspiration__location{
+
+    color:#74655d;
+
+    font-size:.95rem;
+}
+
+/*==========================================================
+  RESPONSIVE
+==========================================================*/
+
+@media(max-width:900px){
+
+    .cuspide-global-inspiration__container{
+
+        gap:50px;
+
+        grid-template-columns:1fr;
     }
 
-    to {
-
-        transform:
-        translate3d(
-            -50%,
-            0,
-            0
-        );
-    }
 }
-
-/* ------------------------------------
-   CARD
-   ------------------------------------ */
-
-.hero-card {
-
-    position: relative;
-
-    width: 240px;
-
-    height: 420px;
-
-    flex-shrink: 0;
-
-    overflow: hidden;
-
-    cursor: pointer;
-}
-
-.hero-card img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-
-    transition:
-        transform .6s ease,
-        filter .4s ease;
-}
-
-.hero-overlay {
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            0
-        );
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 2rem;
-
-    transition:
-        background .4s ease;
-}
-
-.hero-content {
-
-    opacity: 0;
-
-    transform:
-        translateY(20px);
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
-
-    color: white;
-}
-
-.hero-card:hover .hero-overlay {
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .7
-        );
-}
-
-.hero-card:hover img {
-
-    transform: scale(1.05);
-}
-
-.hero-card:hover .hero-content {
-
-    opacity: 1;
-
-    transform:
-        translateY(0);
-}
-
-.hero-name {
-
-    font-size: 1.6rem;
-
-    font-weight: 700;
-
-    margin-bottom: .5rem;
-}
-
-.hero-condition {
-
-    opacity: .9;
-
-    margin-bottom: .4rem;
-}
-
-.hero-mountain {
-
-    font-weight: 600;
-}
-
-/* ------------------------------------
-   ACCESSIBILITY
-   ------------------------------------ */
-
-.hero-card:focus-visible {
-
-    outline:
-        3px solid
-        var(--color-ember);
-
-    outline-offset: -3px;
-}
-
-/* ------------------------------------
-   MOBILE
-   ------------------------------------ */
 
 @media(max-width:768px){
 
-    .heroes-marquee{
+    .cuspide-global-inspiration{
 
-        clip-path:none;
+        padding:80px 0;
     }
 
-    .hero-card{
+    .cuspide-global-inspiration__container{
 
-        width:200px;
-        height:340px;
+        display:flex;
+        flex-direction:column;
+        gap:35px;
     }
 
-    .heroes-track{
+    /* Orden solicitado:
+       Miniaturas
+       Foto
+       Texto */
 
-        animation-duration:30s;
+    .cuspide-global-inspiration__thumb-grid{
+
+        order:1;
+
+        overflow-x:auto;
+
+        margin-top:35px;
+
+        padding-bottom:8px;
+
+        scrollbar-width:none;
+
+        -webkit-overflow-scrolling:touch;
     }
-    .heroes-mountains svg {
-    height: 140px;
-  }
+
+    .cuspide-global-inspiration__thumb-grid::-webkit-scrollbar{
+
+        display:none;
+    }
+
+    .cuspide-global-inspiration__display-showcase{
+
+        order:2;
+
+        width:100%;
+    }
+
+    .cuspide-global-inspiration__content{
+
+        order:3;
+    }
+
+    .cuspide-global-inspiration__thumb-card{
+
+        flex:0 0 100px;
+        height:100px;
+    }
+
+    .cuspide-global-inspiration__title{
+
+        font-size:3rem;
+    }
+
+    .cuspide-global-inspiration__text{
+
+        font-size:1.05rem;
+    }
+
 }
-
-@media (max-width: 768px) {
-  .heroes-header p {
-    padding-inline: 1rem; /* menos aire en los costados */
-    margin: 0 auto 1rem;  /* opcional: reducir el margen inferior */
-    text-align: center;   /* mantiene el centrado */
-  }
-}
-
 
 /* ====================================================================
   LA COMUNIDAD SIGUE CRECIENDO

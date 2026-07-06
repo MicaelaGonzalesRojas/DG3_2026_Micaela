@@ -348,134 +348,109 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ------------------------------------------------------------------
    HEROES DE LA MONTAÑA
    ------------------------------------------------------------------ */
+/* ==========================================================
+   CÚSPIDE GLOBAL INSPIRATION
+========================================================== */
 
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const athletes = [
+  const section = document.querySelector(".cuspide-global-inspiration");
+  if (!section) return;
 
-        {
-            name: "JOHN CAMERON",
-            condition: "Discapacidad visual",
-            summit: "Monte Everest",
-            image: "assets/heroe-2.jpg"
-        },
-
-        {
-            name: "ELENA ROSTOVA",
-            condition: "Amputación bilateral",
-            summit: "Aconcagua",
-            image: "assets/heroe-1.jpg"
-        },
-
-        {
-            name: "MATEO BENAVIDEZ",
-            condition: "Lesión medular",
-            summit: "Denali",
-            image: "assets/heroe-3.jpg"
-        },
-
-        {
-            name: "SOFIA GRIEG",
-            condition: "Amputación femoral",
-            summit: "Mont Blanc",
-            image: "assets/heroe-4.jpg"
-        }
-    ];
-
-    const track =
-        document.getElementById(
-            'heroesTrack'
-        );
-
-    if(!track) return;
-
-    function createCards(){
-
-        const duplicated =
-            [...athletes, ...athletes];
-
-        duplicated.forEach(hero => {
-
-            track.insertAdjacentHTML(
-                'beforeend',
-                `
-                <article
-                    class="hero-card"
-                    tabindex="0"
-                >
-
-                    <img
-                        src="${hero.image}"
-                        alt="${hero.name}"
-                        loading="lazy"
-                    >
-
-                    <div
-                        class="hero-overlay"
-                    >
-
-                        <div
-                            class="hero-content"
-                        >
-
-                            <div
-                                class="hero-name"
-                            >
-                                ${hero.name}
-                            </div>
-
-                            <div
-                                class="hero-condition"
-                            >
-                                ${hero.condition}
-                            </div>
-
-                            <div
-                                class="hero-mountain"
-                            >
-                                ${hero.summit}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </article>
-                `
-            );
-        });
+  /* ==========================================
+     DATOS
+  ========================================== */
+  const athletes = [
+    {
+      image: "img/inspiration-01.jpg",
+      name: "DANA PAOLA",
+      disability: "35 años · Baja visión",
+      location: "Monte Everest · 2003"
+    },
+    {
+      image: "img/inspiration-02.jpg",
+      name: "CARLOS MENDOZA",
+      disability: "42 años · Amputado",
+      location: "Aconcagua · 2018"
+    },
+    {
+      image: "img/inspiration-03.jpg",
+      name: "LUCÍA TORRES",
+      disability: "31 años · Movilidad reducida",
+      location: "Kilimanjaro · 2021"
     }
+  ];
 
-    createCards();
+  /* ==========================================
+     ELEMENTOS
+  ========================================== */
+  const thumbs = document.querySelectorAll(".cuspide-global-inspiration__thumb-card");
+  const heroImage = document.getElementById("cuspideGlobalImage");
+  const heroName = document.getElementById("cuspideGlobalName");
+  const heroDisability = document.getElementById("cuspideGlobalDisability");
+  const heroLocation = document.getElementById("cuspideGlobalLocation");
 
-    const marquee =
-        document.getElementById(
-            'heroesMarquee'
-        );
+  /* ==========================================
+     SCROLL REVEAL (asegura visibilidad)
+  ========================================== */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      section.classList.add("is-visible");
+      observer.disconnect();
+    });
+  }, { threshold: 0.25 });
 
-    marquee.addEventListener(
-        'mouseenter',
-        () => {
+  observer.observe(section);
 
-            marquee.setAttribute(
-                'aria-live',
-                'polite'
-            );
-        }
-    );
+  // fallback: mostrar siempre si no hay animación
+  section.classList.add("is-visible");
 
-    marquee.addEventListener(
-        'mouseleave',
-        () => {
+  /* ==========================================
+     CAMBIO DE CASO
+  ========================================== */
+  function changeAthlete(index) {
+    const athlete = athletes[index];
 
-            marquee.setAttribute(
-                'aria-live',
-                'off'
-            );
-        }
-    );
+    heroImage.classList.add("is-changing");
 
-})();
+    setTimeout(() => {
+      heroImage.src = athlete.image;
+      heroImage.alt = athlete.name;
+      heroName.textContent = athlete.name;
+      heroDisability.textContent = athlete.disability;
+      heroLocation.textContent = athlete.location;
+
+      requestAnimationFrame(() => {
+        heroImage.classList.remove("is-changing");
+      });
+    }, 180);
+  }
+
+  /* ==========================================
+     EVENTOS
+  ========================================== */
+  thumbs.forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index);
+
+      thumbs.forEach(item => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+
+      changeAthlete(index);
+    });
+  });
+
+  /* ==========================================
+     INICIALIZACIÓN (primer atleta activo)
+  ========================================== */
+  if (thumbs.length > 0) {
+    thumbs[0].classList.add("is-active");
+    changeAthlete(0);
+  }
+
+});
+
  
 /**
  * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
