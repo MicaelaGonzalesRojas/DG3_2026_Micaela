@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+        <link rel="stylesheet" href="css/curso-detalle.css">
+        <script src="js/curso-detalle.js"></script>
+
+
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervivencia en Montaña — Refugios y Manejo de Recursos | CÚSPIDE</title>
+<meta name="description" content="Aprendé a construir refugios, leer el clima y administrar tus recursos en alta montaña. Curso adaptado a cada capacidad, dictado por guías certificados en Cerro Catedral.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/curso-detalle.css">
+</head>
+<body>
+
+<a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+<!-- =========================
+     CÚSPIDE CUSTOM CURSOR
+========================= -->
+<div class="cuspide-cursor" aria-hidden="true">
+    <div class="cuspide-cursor__ring"></div>
+    <div class="cuspide-cursor__dot"></div>
+</div>
+
+<body>
+
+<a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#" class="brand">CÚSPIDE</a>
+    <nav class="primary-nav" aria-label="Principal">
+      <ul class="nav-list" id="navList">
+        <li><a href="#introduccion">El curso</a></li>
+        <li><a href="#aprender">Qué vas a aprender</a></li>
+        <li><a href="#recorrido">Recorrido</a></li>
+        <li><a href="#instructor">Instructor</a></li>
+        <li><a href="#valoraciones">Opiniones</a></li>
+        <li><a href="#cierre" class="nav-cta">Reservar cupo</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- =========================================================
+     1. HERO
+========================================================= -->
+<section class="curso-hero" aria-labelledby="heroTitle">
+  <div class="curso-hero__scene" aria-hidden="true">
+    <svg class="curso-hero__svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a2620"/>
+          <stop offset="42%" stop-color="#a85a3a"/>
+          <stop offset="70%" stop-color="#e8a86b"/>
+          <stop offset="100%" stop-color="#f6d9b8"/>
+        </linearGradient>
+        <linearGradient id="peakFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8a7a8f"/>
+          <stop offset="100%" stop-color="#c9b9c2"/>
+        </linearGradient>
+        <linearGradient id="peakMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5c4f57"/>
+          <stop offset="100%" stop-color="#9a8a8f"/>
+        </linearGradient>
+        <linearGradient id="peakNear" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#292020"/>
+          <stop offset="100%" stop-color="#4a3a38"/>
+        </linearGradient>
+      </defs>
+      <rect width="1440" height="900" fill="url(#sky)"/>
+      <circle cx="1180" cy="230" r="90" fill="#ffd9a0" opacity=".85"/>
+      <polygon points="0,560 220,360 380,520 560,300 760,540 960,340 1180,540 1440,420 1440,900 0,900" fill="url(#peakFar)" opacity=".55"/>
+      <polygon points="0,650 260,460 480,620 700,410 900,640 1150,440 1440,600 1440,900 0,900" fill="url(#peakMid)" opacity=".75"/>
+      <polygon points="0,760 180,600 340,700 540,520 720,700 940,560 1120,720 1300,600 1440,700 1440,900 0,900" fill="url(#peakNear)"/>
+      <polygon points="340,700 540,520 720,700" fill="#f6ece0" opacity=".9"/>
+      <polygon points="940,560 1120,720 1300,600" fill="#f6ece0" opacity=".8"/>
+    </svg>
+  </div>
+
+  <div class="curso-hero__content">
+    <span class="curso-hero__badge">Curso destacado</span>
+    <h1 id="heroTitle" class="curso-hero__title">Supervivencia<br>en Montaña</h1>
+    <p class="curso-hero__subtitle">Refugios, orientación y manejo de recursos en condiciones extremas. Contenido y ritmo adaptados a cada capacidad — nadie se queda al pie de la montaña.</p>
+    <div class="curso-hero__actions">
+      <a href="#cierre" class="cuspide-action-btn cuspide-action-btn--pyromountain"><span>Reservar mi cupo</span></a>
+      <a href="#recorrido" class="cuspide-action-btn cuspide-action-btn--darkabyss"><span>Ver programa</span></a>
+    </div>
+  </div>
+
+  <div class="curso-info-bar">
+    <div class="curso-info-bar__inner">
+      <div class="curso-info-item">
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <div>
+          <strong>Nivel intermedio</strong>
+          <span>Con base física previa</span>
+        </div>
+      </div>
+      <div class="curso-info-item">
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <div>
+          <strong>6 clases (3 semanas)</strong>
+          <span>2 veces por semana</span>
+        </div>
+      </div>
+      <div class="curso-info-item">
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+        <div>
+          <strong>Duración x clase</strong>
+          <span>5 horas de campo</span>
+        </div>
+      </div>
+      <div class="curso-info-item">
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+        <div>
+          <strong>Cerro Catedral</strong>
+          <span>Bariloche, Río Negro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     2. INTRODUCCIÓN
+========================================================= -->
+<section class="curso-intro" id="introduccion">
+  <div class="curso-intro__grid">
+    <div class="section-copy">
+      <span class="eyebrow">Sobre el curso</span>
+      <h2 class="display-md">La montaña no perdona improvisados</h2>
+      <p>El clima cambia en minutos, los recursos se agotan más rápido de lo que pensás y un refugio mal hecho puede costarte la noche. Este curso te da las herramientas para leer el terreno, construir donde no hay nada y administrar lo poco que llevás encima como si fuera abundante.</p>
+      <p>Trabajamos en grupos reducidos, con guías certificados en rescate de montaña y protocolos de adaptación para distintas capacidades físicas y sensoriales. La exigencia es real; las barreras de entrada, no.</p>
+    </div>
+    <div class="curso-intro__stats">
+      <div class="curso-stat">
+        <span class="curso-stat__num">1</span>
+        <span class="curso-stat__label">Refugio de nieve construido por alumno, con sus propias manos</span>
+      </div>
+      <div class="curso-stat">
+        <span class="curso-stat__num">6</span>
+        <span class="curso-stat__label">Alumnos máximo por guía, para acompañar cada ritmo</span>
+      </div>
+      <div class="curso-stat">
+        <span class="curso-stat__num">80%</span>
+        <span class="curso-stat__label">Del tiempo es práctica en terreno real, no aula</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     3. INFO DEL CURSO
+========================================================= -->
+<section class="curso-detalles">
+  <div class="curso-detalles__head section-copy">
+    <span class="eyebrow">Información del curso</span>
+    <h2 class="display-md">Lo esencial, antes de anotarte</h2>
+  </div>
+  <div class="curso-detalles__grid">
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Modalidad</span>
+      <p class="curso-detalle-card__value">Presencial, en campo</p>
+      <p class="curso-detalle-card__desc">Sin clases virtuales: todo se practica en la montaña, en condiciones reales de nieve y viento.</p>
+    </div>
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Cupos</span>
+      <p class="curso-detalle-card__value">12 personas</p>
+      <p class="curso-detalle-card__desc">Divididos en dos grupos de 6 para mantener la atención personalizada de los guías.</p>
+    </div>
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Equipo</span>
+      <p class="curso-detalle-card__value">Incluido</p>
+      <p class="curso-detalle-card__desc">Ponemos carpa de expedición, pala de nieve, sonda, botiquín y equipo de radio. Vos ponés las ganas.</p>
+    </div>
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Adaptación</span>
+      <p class="curso-detalle-card__value">A medida</p>
+      <p class="curso-detalle-card__desc">Relevamos tu capacidad física antes de empezar y ajustamos ritmos, apoyos y tareas de cada estación.</p>
+    </div>
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Certificación</span>
+      <p class="curso-detalle-card__value">CÚSPIDE Nivel I</p>
+      <p class="curso-detalle-card__desc">Constancia de finalización, válida como requisito para nuestras expediciones de altura.</p>
+    </div>
+    <div class="curso-detalle-card">
+      <span class="curso-detalle-card__label">Inversión</span>
+      <p class="curso-detalle-card__value">6 cuotas sin interés</p>
+      <p class="curso-detalle-card__desc">Incluye traslado desde Bariloche centro y seguro de actividad de montaña.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     4. QUÉ VAS A APRENDER
+========================================================= -->
+<section class="curso-aprender" id="aprender">
+  <div class="curso-aprender__grid">
+    <div class="curso-aprender__media">
+      <svg viewBox="0 0 500 620" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="snowGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e9c39a"/>
+            <stop offset="100%" stop-color="#f4e3cc"/>
+          </linearGradient>
+        </defs>
+        <rect width="500" height="620" fill="#d7e2e5"/>
+        <polygon points="0,420 120,300 240,400 360,260 500,380 500,620 0,620" fill="url(#snowGrad)"/>
+        <path d="M120 460 q60 -70 130 0 q10 40 -10 60 q-60 30 -120 0 q-15 -25 0 -60 Z" fill="#292020"/>
+        <circle cx="380" cy="150" r="46" fill="#ff9d5c" opacity=".9"/>
+        <path d="M60 460 l30 -40 l25 40 z" fill="#7e6a65"/>
+      </svg>
+    </div>
+    <div class="curso-aprender__copy section-copy">
+      <span class="eyebrow">Por qué es importante</span>
+      <h2 class="display-md">¿Qué vas a aprender?</h2>
+      <p>No se trata de memorizar teoría: cada habilidad se practica hasta que el cuerpo la recuerda sola, incluso con frío, cansancio y visibilidad reducida.</p>
+      <p>Al terminar, vas a poder tomar decisiones de refugio y recursos por tu cuenta en una salida de montaña, sin depender de que alguien más decida por vos.</p>
+
+      <div class="curso-accordion" id="cursoAccordion">
+        <div class="curso-accordion__item is-open">
+          <button class="curso-accordion__trigger" aria-expanded="true">
+            <span>Construcción de refugios de nieve</span>
+            <span class="curso-accordion__sign" aria-hidden="true">–</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Igloo simplificado, trinchera y quinzhee: cuándo elegir cada uno según el tiempo, la nieve disponible y la energía del grupo.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Administración de recursos</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Raciones, agua y energía calculadas para 3 días con lo que entra en una mochila, y cómo estirarlas si algo se complica.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Orientación y lectura del clima</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Mapa, brújula y señales del cielo para anticipar un cambio de tiempo antes de que te agarre expuesto.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Primeros auxilios en altura</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Reconocimiento temprano de hipotermia y mal de altura, y protocolo de evacuación con los recursos del grupo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     5. RECORRIDO DEL CURSO
+========================================================= -->
+<section class="curso-recorrido" id="recorrido">
+  <div class="curso-recorrido__head section-copy">
+    <span class="eyebrow">Recorrido del curso</span>
+    <h2 class="display-md">Seis clases, un mismo objetivo</h2>
+    <p>El orden importa: cada clase se apoya en lo que aprendiste en la anterior, hasta llegar a la noche en refugio propio.</p>
+  </div>
+
+  <ol class="curso-timeline">
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 1</span>
+      <h3>Lectura del terreno y del clima</h3>
+      <p>Reconocimiento de la zona, tipos de nieve y señales de cambio de tiempo en Cerro Catedral.</p>
+    </li>
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 2</span>
+      <h3>Herramientas y técnica de excavación</h3>
+      <p>Uso de pala y sonda, y técnica de corte de bloques de nieve compactada.</p>
+    </li>
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 3</span>
+      <h3>Primer refugio guiado</h3>
+      <p>Construcción de una trinchera en equipos de dos, con corrección en el momento.</p>
+    </li>
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 4</span>
+      <h3>Raciones y manejo de energía</h3>
+      <p>Planificación de comida y agua para una salida de tres días con mochila de 20 kg.</p>
+    </li>
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 5</span>
+      <h3>Primeros auxilios y evacuación</h3>
+      <p>Simulacro de hipotermia leve y armado de camilla improvisada con material de montaña.</p>
+    </li>
+    <li class="curso-timeline__item">
+      <span class="curso-timeline__num">Clase 6</span>
+      <h3>Noche en refugio propio</h3>
+      <p>Evaluación final: construís tu refugio solo o en pareja, y pasás la noche en él con guías cerca.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- =========================================================
+     6. INSTRUCTOR
+========================================================= -->
+<section class="curso-instructor" id="instructor">
+  <div class="curso-instructor__grid">
+    <div class="curso-instructor__avatar" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="100" fill="#292020"/>
+        <circle cx="100" cy="82" r="34" fill="#d7e2e5"/>
+        <path d="M40 175 q60 -60 120 0 z" fill="#d7e2e5"/>
+        <circle cx="152" cy="50" r="18" fill="#ff4a18"/>
+      </svg>
+    </div>
+    <div class="curso-instructor__copy section-copy">
+      <span class="eyebrow">Tu guía</span>
+      <h2 class="display-md">Marina Coliqueo</h2>
+      <p class="curso-instructor__role">Guía de montaña certificada UIAGM · Especialista en programas adaptados</p>
+      <p>15 años guiando expediciones en la Patagonia y a cargo del área de accesibilidad de CÚSPIDE desde 2019. Formó a más de 300 personas en técnicas de refugio y supervivencia invernal.</p>
+      <p class="pullquote">"No bajo la exigencia por adaptar un curso. Bajo las barreras para llegar a esa exigencia."</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     7. VALORACIONES
+========================================================= -->
+<section class="curso-valoraciones" id="valoraciones">
+  <div class="curso-valoraciones__head section-copy">
+    <span class="eyebrow">Valoraciones del curso</span>
+    <h2 class="display-md">Lo que dicen quienes ya construyeron su refugio</h2>
+  </div>
+
+  <div class="curso-testimonios" id="cursoTestimonios">
+    <div class="curso-testimonios__track" id="testimoniosTrack">
+      <article class="curso-testimonio is-active">
+        <div class="curso-testimonio__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+        <p class="curso-testimonio__quote">Llegué pensando que mi movilidad reducida me iba a dejar afuera de la parte práctica. Terminé construyendo mi propia trinchera y durmiendo ahí adentro.</p>
+        <footer class="curso-testimonio__footer">
+          <span class="curso-testimonio__name">Rodrigo Yañez</span>
+          <span class="curso-testimonio__cond">Alumno, edición junio 2026</span>
+        </footer>
+      </article>
+      <article class="curso-testimonio">
+        <div class="curso-testimonio__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+        <p class="curso-testimonio__quote">La clase de raciones me cambió la forma de armar mochila para siempre. Ahora calculo agua y comida antes de salir de casa, no en el camino.</p>
+        <footer class="curso-testimonio__footer">
+          <span class="curso-testimonio__name">Valentina Sosa</span>
+          <span class="curso-testimonio__cond">Alumna, edición mayo 2026</span>
+        </footer>
+      </article>
+      <article class="curso-testimonio">
+        <div class="curso-testimonio__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+        <p class="curso-testimonio__quote">Marina corrige en el momento, no después. Eso hace la diferencia entre un refugio que aguanta la noche y uno que se cae con el primer viento.</p>
+        <footer class="curso-testimonio__footer">
+          <span class="curso-testimonio__name">Ezequiel Torres</span>
+          <span class="curso-testimonio__cond">Alumno, edición abril 2026</span>
+        </footer>
+      </article>
+    </div>
+    <div class="curso-testimonios__controls">
+      <button class="curso-testimonios__btn" id="testimonioPrev" aria-label="Testimonio anterior">←</button>
+      <div class="curso-testimonios__dots" id="testimonioDots"></div>
+      <button class="curso-testimonios__btn" id="testimonioNext" aria-label="Testimonio siguiente">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     8. CIERRE MOTIVACIONAL
+========================================================= -->
+<section class="curso-cierre" id="cierre">
+  <div class="curso-cierre__inner">
+    <span class="eyebrow" style="color:var(--color-frost)">Cupos limitados</span>
+    <h2 class="curso-cierre__title">La montaña no espera a que estés listo.<br>Se aprende yendo.</h2>
+    <p class="curso-cierre__desc">Quedan 4 lugares para la edición de agosto 2026. Reservá tu cupo hoy y empezá a construir el refugio que te va a bancar cuando más lo necesites.</p>
+    <a href="#" class="cuspide-action-btn cuspide-action-btn--pyromountain curso-cierre__cta"><span>Reservar mi cupo ahora</span></a>
+  </div>
+</section>
+
+<!-- =========================================================
+     9. SUGERENCIAS DE OTROS CURSOS
+========================================================= -->
+<section class="curso-sugeridos">
+  <div class="curso-sugeridos__head section-copy">
+    <span class="eyebrow">Seguí entrenando</span>
+    <h2 class="display-md">Otros cursos que te pueden interesar</h2>
+  </div>
+  <div class="curso-sugeridos__grid">
+    <article class="curso-sugerido-card">
+      <div class="curso-sugerido-card__tag">Resistencia en altura</div>
+      <h3>Resistencia en Altura</h3>
+      <p>Fuerza, resistencia y movilidad adaptadas a cada tipo de capacidad, para llegar entero a los 3.000 msnm.</p>
+      <a href="#" class="curso-sugerido-card__link">Ver curso →</a>
+    </article>
+    <article class="curso-sugerido-card">
+      <div class="curso-sugerido-card__tag">Trekking</div>
+      <h3>Trekking de Glaciar</h3>
+      <p>Uso de crampones, cuerda y rescate en grietas para tu primera travesía sobre hielo.</p>
+      <a href="#" class="curso-sugerido-card__link">Ver curso →</a>
+    </article>
+    <article class="curso-sugerido-card">
+      <div class="curso-sugerido-card__tag">Escalada</div>
+      <h3>Escalada en Roca — Nivel I</h3>
+      <p>Nudos, aseguramiento y primeros largos en roca, con estaciones adaptadas para cada alumno.</p>
+      <a href="#" class="curso-sugerido-card__link">Ver curso →</a>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+<footer class="footer-cuspide">
+  <div class="footer-cuspide__grid">
+    <div class="footer-brand">
+      <div class="footer-logo">CÚSPIDE</div>
+      <p class="footer-brand__text">Expediciones de alta montaña adaptadas a cada capacidad. Formación real, sin bajar la exigencia.</p>
+      <div class="footer-contact">
+        <span class="footer-label">CONTACTO</span>
+        <span>hola@cuspide.com.ar</span>
+        <span>+54 9 294 123 4567</span>
+      </div>
+    </div>
+    <div class="footer-column">
+      <span class="footer-mobile-trigger">CURSOS</span>
+      <div class="footer-links">
+        <a href="#">Supervivencia en Montaña</a>
+        <a href="#">Resistencia en Altura</a>
+        <a href="#">Trekking de Glaciar</a>
+        <a href="#">Escalada en Roca</a>
+      </div>
+    </div>
+    <div class="footer-column">
+      <span class="footer-mobile-trigger">CÚSPIDE</span>
+      <div class="footer-links">
+        <a href="#">Nosotros</a>
+        <a href="#">Guías</a>
+        <a href="#">Accesibilidad</a>
+        <a href="#">Trabajá con nosotros</a>
+      </div>
+    </div>
+    <div class="footer-column">
+      <span class="footer-mobile-trigger">SOPORTE</span>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de cupos</a>
+        <a href="#">Seguros</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CÚSPIDE. Todos los derechos reservados.</span>
+    <div class="footer-bottom-links">
+      <a href="#">Términos</a>
+      <a href="#">Privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/curso-detalle.js"></script>
+</body>
+</html>

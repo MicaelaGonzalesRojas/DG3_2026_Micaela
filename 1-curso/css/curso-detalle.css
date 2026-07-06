@@ -1,0 +1,1011 @@
+
+/* ====================================================================
+   CÚSPIDE — Expediciones de Alta Montaña Adaptada
+   Tokens: bg void #0A0D10, rock #1C2226, alpine ice #F3F6F7,
+   titanium #8C97A0, ember #FF5A1F, frost #BFD7DE
+   Type: Anton (display) / Inter (body) / JetBrains Mono (data/eyebrows)
+   ==================================================================== */
+
+:root {
+  --color-void:        #FDF9F4; /* Crema (Fondo Principal) */
+  --color-rock:        #FDF9F4; /* Crema */
+  --color-rock-soft:   #D7E2E5; /* Celeste (Tarjetas) */
+  --color-ice:         #7E6A65; /* Marrón (Texto Base) */
+  --color-ice-dim:     #7E6A65; /* Marrón Secondary */
+  --color-titanium:    #7E6A65; 
+  --color-ember:       #FF4A18; /* Naranja Táctico (Acciones y Destacados) */
+  --color-ember-soft:  #FF4A18; 
+  --color-frost:       #D7E2E5; /* Celeste */
+  --color-mint:        #D7E2E5; 
+  --color-glacier:     #FF4A18; 
+  --color-pale:        #D7E2E5; /* Fondo de cards */
+  --color-slate:       #7E6A65; 
+  --color-coral:       #FF4A18; 
+  --color-ink:         #292020; /* Negro (Títulos de alta jerarquía) */
+
+  --font-display: 'Nippo', 'Anton', sans-serif;
+  --font-body: 'Outfit', -apple-system, sans-serif;
+
+  --maxw: 1180px;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --radius: 4px;
+
+  --ease: cubic-bezier(.16,.84,.32,1);
+  --dur-fast: .25s;
+  --dur-base: .6s;
+  --dur-slow: 1.1s;
+}
+
+/* ==========================================
+   CÚSPIDE · CUSTOM AMBER CURSOR
+========================================== */
+
+@media (min-width: 1024px) {
+
+    html,
+    body {
+        cursor: none;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    .interactive-hover {
+        cursor: none;
+    }
+
+    .cuspide-cursor {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    .cuspide-cursor__dot,
+    .cuspide-cursor__ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        will-change: transform;
+        transform: translate3d(-100px, -100px, 0);
+    }
+
+    /* Punto central */
+
+    .cuspide-cursor__dot {
+        width: 8px;
+        height: 8px;
+        background: var(--color-accent, #ff5a1f);
+        transition:
+            transform 250ms cubic-bezier(0.25, 1, 0.5, 1),
+            width 250ms cubic-bezier(0.25, 1, 0.5, 1),
+            height 250ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* Anillo */
+
+    .cuspide-cursor__ring {
+        width: 30px;
+        height: 30px;
+        border: 1.5px solid var(--color-accent, #ff5a1f);
+        transition:
+            transform 250ms cubic-bezier(0.25, 1, 0.5, 1),
+            width 250ms cubic-bezier(0.25, 1, 0.5, 1),
+            height 250ms cubic-bezier(0.25, 1, 0.5, 1),
+            opacity 250ms ease;
+    }
+
+    /* Hover */
+
+    .cuspide-cursor.is-hover .cuspide-cursor__dot {
+        width: 24px;
+        height: 24px;
+    }
+
+    .cuspide-cursor.is-hover .cuspide-cursor__ring {
+        width: 20px;
+        height: 20px;
+        opacity: 0.9;
+    }
+
+    
+
+    /* Click */
+
+    .cuspide-cursor.is-pressed .cuspide-cursor__dot {
+        transform: scale(0.85);
+    }
+
+    .cuspide-cursor.is-pressed .cuspide-cursor__ring {
+        transform: scale(0.85);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 1023px) {
+
+    .cuspide-cursor {
+        display: none !important;
+    }
+
+    html,
+    body {
+        cursor: auto;
+    }
+}
+
+/* ---------------------------------------------------------------------
+   RESET
+   --------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-void);
+  color: var(--color-ice);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; filter: grayscale(15%) contrast(105%); }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+h1, h2, h3, h4, p { margin: 0; color: var(--color-ink); }
+
+h1, h2, h3, .display-md {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  text-transform: uppercase;
+  font-weight: 00;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-weight: 500 !important;
+}
+
+p {
+  font-size: 21px;
+  line-height: 30px; /* interlinea fija en px */
+  font-weight: 300;
+}
+
+
+h2 {
+  font-weight: 500 !important;
+}
+
+h4 {
+  font-family: 'Nippo', sans-serif;
+  font-weight: 450 !important; /* mantiene el grosor que definiste */
+}
+
+/* Accesibilidad Estricta de Enfoque */
+:focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 3px;
+}
+
+.visually-hidden{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.skip-link{
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  background: var(--color-ember);
+  color: var(--color-void);
+  padding: .75rem 1.25rem;
+  z-index: 999;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+.skip-link:focus{ left: 1rem; }
+
+.mono{ font-family: 'Nippo', sans-serif }
+
+.eyebrow{
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .72rem;
+  color: var(--color-ember);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.display-md{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: .01em;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  margin-bottom: 1.5rem;
+}
+
+.pullquote{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.18;
+  color: var(--color-ice);
+  border-left: 3px solid var(--color-ember);
+  padding-left: 1.25rem;
+  margin-top: 2.5rem;
+}
+.pullquote--center{
+  border-left: none;
+  border-top: 3px solid var(--color-ember);
+  padding: 1.5rem 0 0;
+  text-align: center;
+  margin: 4rem auto 0;
+  max-width: 720px;
+}
+
+
+/* ==========================================================
+   CÚSPIDE BUTTON SYSTEM
+========================================================== */
+
+
+
+/* ==========================================================
+   BASE
+========================================================== */
+
+.cuspide-action-btn{
+    --csp-btn-radius:5px;
+
+    --csp-btn-duration:.55s;
+    position:relative;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+  margin-right: 12px; /* espacio a la derecha */
+    height:48px;
+
+    padding-inline:2rem;
+
+    overflow:hidden;
+
+    border:none;
+    border-radius:var(--csp-btn-radius);
+
+    cursor:pointer;
+    
+    font-family:var(--font-display);
+    font-size:1.05rem;
+    font-weight:500;
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+    text-decoration:none;
+
+    color: (var(--color-void));
+
+    isolation:isolate;
+
+    transition:
+    transform .25s ease,
+    color .25s ease;
+
+    will-change:transform;
+    z-index: 1; /* crea un nuevo stacking context */
+
+}
+
+/* texto */
+
+
+.cuspide-action-btn span {
+  position:relative;
+  z-index:1; /* texto siempre arriba */
+  color: var(--color-void);
+}
+
+
+
+/* ola */
+
+.cuspide-action-btn::before {
+  content:"";
+  position:absolute;
+  width:180%;
+  height:220%;
+  left:50%;
+  bottom:-220%; /* oculto por defecto */
+  transform:translateX(-50%);
+  border-radius:48%;
+  background:var(--color-ink); /* o el color que quieras */
+  transition: bottom .55s cubic-bezier(.25,1,.5,1);
+  z-index:0; /* detrás del texto */
+}
+
+/* hover */
+
+.cuspide-action-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.cuspide-action-btn:hover::before {
+  bottom:-45%; /* sube en hover */
+}
+
+/* click */
+
+.cuspide-action-btn:active{
+
+    transform:scale(.985);
+
+}
+
+.cuspide-action-btn::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--color-ink); /* color del barrido */
+  transform: translateY(100%); /* oculto abajo */
+  transition: transform .55s cubic-bezier(.25,1,.5,1);
+  z-index:-1; /* detrás del texto */
+}
+
+.cuspide-action-btn:hover::after {
+  transform: translateY(0); /* sube en hover */
+}
+/* ==========================================================
+   PYROMOUNTAIN
+========================================================== */
+
+.cuspide-action-btn--pyromountain{
+
+    background:var(--color-ember);
+
+}
+
+.cuspide-action-btn--pyromountain::before{
+
+    background:var(--color-ink);
+
+}
+
+
+
+
+/* ==========================================================
+   DARKABYSS
+========================================================== */
+
+.cuspide-action-btn--darkabyss{
+
+    background:var(--color-ink);
+
+}
+
+.cuspide-action-btn--darkabyss::before{
+
+    background:var(--color-ember);
+
+}
+
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.cuspide-action-btn:focus-visible{
+
+    outline:3px solid #ffb9a7;
+    outline-offset:5px;
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    .cuspide-action-btn,
+    .cuspide-action-btn::before{
+
+        transition:none;
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------------------
+   HEADER / NAV
+   --------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent; /* inicio totalmente transparente */
+  backdrop-filter: none;   /* sin blur al inicio */
+  border-bottom: none;     /* sin borde al inicio */
+  transition: background 450ms cubic-bezier(.25,1,.5,1),
+              backdrop-filter 450ms cubic-bezier(.25,1,.5,1),
+              border-bottom 450ms cubic-bezier(.25,1,.5,1);
+}
+
+.site-header.scrolled {
+  background: rgba(10,13,16,.82); /* sólido con opacidad */
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(140,151,160,.18);
+}
+
+.header-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-void);
+}
+
+.primary-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  font-size: .85rem;
+}
+
+.nav-list a {
+  color: #FDF9F4;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #FF9E95;
+}
+
+.nav-cta {
+  font-family: 'Montserrat', sans-serif;
+  color: #ff6b6b !important;
+  border: 1px solid #ff6b6b;
+  padding: .45rem 1rem;
+  border-radius: 2px;
+}
+
+
+/* ---------------------------------------------------------------------
+   SHARED SECTION LAYOUT
+   --------------------------------------------------------------------- */
+section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); 
+margin-top: -64px; /* compensa la altura del header */}
+.section-grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.section-copy p{ margin-bottom: 1.1rem; color: var(--color-ice-dim); }
+
+/* ====================================================================
+   CÚSPIDE — Página de Curso: Supervivencia en Montaña
+   Extiende style.css. Prefijo de componentes: .curso-*
+   ==================================================================== */
+
+body { background: var(--color-void); }
+
+/* Esta página tiene marca + 3 columnas de links (4 bloques, no 5) */
+.footer-cuspide__grid{ grid-template-columns: 2fr 1fr 1fr 1fr; }
+@media (max-width: 768px){ .footer-cuspide__grid{ grid-template-columns: 1fr; } }
+
+
+
+section.curso-hero,
+section.curso-intro,
+section.curso-detalles,
+section.curso-aprender,
+section.curso-recorrido,
+section.curso-instructor,
+section.curso-valoraciones,
+section.curso-cierre,
+section.curso-sugeridos{
+  margin-top: 0; /* anula el compensador de header del sistema global */
+}
+
+/* ---------------------------------------------------------------------
+   1. HERO
+   --------------------------------------------------------------------- */
+.curso-hero{
+  position: relative;
+  padding: 0;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.curso-hero__scene{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.curso-hero__svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.curso-hero__content{
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 7rem var(--pad) 9rem;
+  width: 100%;
+}
+
+.curso-hero__badge{
+  display: inline-block;
+  background: var(--color-ember);
+  color: var(--color-void);
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+
+.curso-hero__title{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-void);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: .95;
+  letter-spacing: -.01em;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,.25);
+}
+
+.curso-hero__subtitle{
+  color: #f3e9de;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.5;
+  font-weight: 300;
+  max-width: 560px;
+  margin-bottom: 2.25rem;
+}
+
+.curso-hero__actions{
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+/* --- Info bar (estilo tarjeta celeste como referencia) --- */
+.curso-info-bar{
+  position: relative;
+  z-index: 2;
+  background: var(--color-frost);
+}
+.curso-info-bar__inner{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.75rem var(--pad);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.curso-info-item{
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+.curso-info-item__icon{
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--color-ember);
+}
+.curso-info-item strong{
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .92rem;
+  color: var(--color-ink);
+  line-height: 1.25;
+}
+.curso-info-item span{
+  display: block;
+  font-size: .8rem;
+  color: var(--color-ice);
+}
+
+/* ---------------------------------------------------------------------
+   2. INTRODUCCIÓN
+   --------------------------------------------------------------------- */
+.curso-intro{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
+.curso-intro__grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+.curso-intro p{ color: var(--color-ice); }
+
+.curso-intro__stats{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.curso-stat{
+  background: var(--color-pale);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+}
+.curso-stat__num{
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--color-ember);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.curso-stat__label{
+  display: block;
+  font-size: .9rem;
+  color: var(--color-ink);
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------------------
+   3. INFO DEL CURSO
+   --------------------------------------------------------------------- */
+.curso-detalles{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); background: var(--color-pale); }
+.curso-detalles__head{ max-width: var(--maxw); margin: 0 auto 3rem; }
+.curso-detalles__head h2{ margin-bottom: 0; }
+.curso-detalles__grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.curso-detalle-card{
+  background: var(--color-void);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  border: 1px solid rgba(41,32,32,.08);
+}
+.curso-detalle-card__label{
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .68rem;
+  color: var(--color-ember);
+  margin-bottom: .6rem;
+}
+.curso-detalle-card__value{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: var(--color-ink);
+  margin-bottom: .6rem !important;
+}
+.curso-detalle-card__desc{
+  font-size: .92rem !important;
+  line-height: 1.5 !important;
+  color: var(--color-ice);
+  margin-bottom: 0 !important;
+}
+
+/* ---------------------------------------------------------------------
+   4. QUÉ VAS A APRENDER
+   --------------------------------------------------------------------- */
+.curso-aprender{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
+.curso-aprender__grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+.curso-aprender__media{
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: sticky;
+  top: 6rem;
+}
+.curso-aprender__media svg{ width: 100%; height: auto; display: block; }
+
+.curso-accordion{ margin-top: 2rem; border-top: 1px solid rgba(41,32,32,.12); }
+.curso-accordion__item{ border-bottom: 1px solid rgba(41,32,32,.12); }
+.curso-accordion__trigger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  text-align: left;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  color: var(--color-ink);
+}
+.curso-accordion__sign{
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  color: var(--color-ember);
+  flex-shrink: 0;
+}
+.curso-accordion__panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s var(--ease), padding .4s var(--ease);
+}
+.curso-accordion__panel p{
+  font-size: .98rem !important;
+  line-height: 1.55 !important;
+  color: var(--color-ice);
+  padding-bottom: 1.35rem;
+  margin: 0 !important;
+  max-width: 46ch;
+}
+.curso-accordion__item.is-open .curso-accordion__panel{ max-height: 220px; }
+
+/* ---------------------------------------------------------------------
+   5. RECORRIDO DEL CURSO
+   --------------------------------------------------------------------- */
+.curso-recorrido{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); background: var(--color-ink); }
+.curso-recorrido__head{ max-width: var(--maxw); margin: 0 auto 3.5rem; }
+.curso-recorrido__head h2,
+.curso-recorrido__head .eyebrow{ color: var(--color-void); }
+.curso-recorrido__head p{ color: #b7aca4; max-width: 60ch; }
+
+.curso-timeline{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.curso-timeline__item{
+  background: var(--color-ink);
+  padding: 2rem 1.75rem;
+  position: relative;
+}
+.curso-timeline__num{
+  display: inline-block;
+  font-family: var(--font-display);
+  color: var(--color-ember);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.curso-timeline__item h3{
+  color: var(--color-void);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  margin-bottom: .75rem;
+}
+.curso-timeline__item p{
+  font-size: .92rem !important;
+  line-height: 1.5 !important;
+  color: #b7aca4;
+  margin: 0 !important;
+}
+
+/* ---------------------------------------------------------------------
+   6. INSTRUCTOR
+   --------------------------------------------------------------------- */
+.curso-instructor{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
+.curso-instructor__grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: .5fr 1.5fr;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: center;
+}
+.curso-instructor__avatar svg{ width: 100%; max-width: 220px; display: block; margin: 0 auto; }
+.curso-instructor__role{
+  font-size: 1rem !important;
+  color: var(--color-ember) !important;
+  font-weight: 500 !important;
+  margin-bottom: 1.25rem !important;
+}
+.curso-instructor .pullquote{ margin-top: 2rem; }
+
+/* ---------------------------------------------------------------------
+   7. VALORACIONES
+   --------------------------------------------------------------------- */
+.curso-valoraciones{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); background: var(--color-pale); }
+.curso-valoraciones__head{ max-width: var(--maxw); margin: 0 auto 3rem; text-align: center; }
+.curso-valoraciones__head .eyebrow{ display: block; }
+.curso-valoraciones__head h2{ margin: 0 auto; max-width: 40ch; }
+
+.curso-testimonios{ max-width: 760px; margin: 0 auto; }
+.curso-testimonios__track{ position: relative; min-height: 220px; }
+.curso-testimonio{
+  display: none;
+  background: var(--color-void);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  text-align: center;
+}
+.curso-testimonio.is-active{ display: block; }
+.curso-testimonio__stars{ color: var(--color-ember); letter-spacing: .2em; margin-bottom: 1.25rem; }
+.curso-testimonio__quote{
+  font-family: var(--font-display);
+  text-transform: none;
+  font-weight: 400 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.45 !important;
+  color: var(--color-ink);
+  margin-bottom: 1.5rem !important;
+}
+.curso-testimonio__footer{ display: flex; flex-direction: column; gap: .15rem; }
+.curso-testimonio__name{ font-weight: 600; color: var(--color-ink); }
+.curso-testimonio__cond{ font-size: .8rem; color: var(--color-ice); }
+
+.curso-testimonios__controls{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.curso-testimonios__btn{
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-size: 1.1rem;
+  transition: background .25s var(--ease), color .25s var(--ease);
+}
+.curso-testimonios__btn:hover{ background: var(--color-ember); color: var(--color-void); }
+.curso-testimonios__dots{ display: flex; gap: .5rem; }
+.curso-testimonios__dots button{
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(41,32,32,.25);
+}
+.curso-testimonios__dots button.is-active{ background: var(--color-ember); }
+
+/* ---------------------------------------------------------------------
+   8. CIERRE MOTIVACIONAL
+   --------------------------------------------------------------------- */
+.curso-cierre{
+  padding: clamp(5rem, 12vh, 8rem) var(--pad);
+  background: var(--color-ink);
+  text-align: center;
+}
+.curso-cierre__inner{ max-width: 760px; margin: 0 auto; }
+.curso-cierre__title{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-void);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin: 1rem 0 1.5rem;
+}
+.curso-cierre__desc{
+  color: #cdc2ba !important;
+  max-width: 55ch;
+  margin: 0 auto 2rem !important;
+}
+.curso-cierre__cta{ margin: 0 auto; }
+
+/* ---------------------------------------------------------------------
+   9. SUGERENCIAS DE OTROS CURSOS
+   --------------------------------------------------------------------- */
+.curso-sugeridos{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
+.curso-sugeridos__head{ max-width: var(--maxw); margin: 0 auto 3rem; }
+.curso-sugeridos__head h2{ margin-bottom: 0; }
+.curso-sugeridos__grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.curso-sugerido-card{
+  background: var(--color-pale);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: transform .35s var(--ease);
+}
+.curso-sugerido-card:hover{ transform: translateY(-4px); }
+.curso-sugerido-card__tag{
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .68rem;
+  color: var(--color-ember);
+  margin-bottom: 1rem;
+}
+.curso-sugerido-card h3{
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-bottom: .75rem;
+}
+.curso-sugerido-card p{
+  font-size: .95rem !important;
+  line-height: 1.5 !important;
+  color: var(--color-ice);
+  margin-bottom: 1.25rem !important;
+}
+.curso-sugerido-card__link{
+  font-weight: 600;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-ember);
+  padding-bottom: 2px;
+}
+
+/* ---------------------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------------------- */
+@media (max-width: 920px){
+  .curso-intro__grid,
+  .curso-aprender__grid,
+  .curso-instructor__grid{ grid-template-columns: 1fr; }
+  .curso-aprender__media{ position: static; max-width: 340px; margin: 0 auto; }
+  .curso-detalles__grid,
+  .curso-timeline,
+  .curso-sugeridos__grid{ grid-template-columns: repeat(2, 1fr); }
+  .curso-info-bar__inner{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px){
+  .curso-detalles__grid,
+  .curso-timeline,
+  .curso-sugeridos__grid,
+  .curso-info-bar__inner{ grid-template-columns: 1fr; }
+  .curso-hero__actions{ flex-direction: column; }
+  .curso-hero__actions .cuspide-action-btn{ width: 100%; margin-right: 0; }
+  .curso-instructor__avatar svg{ max-width: 140px; }
+}
