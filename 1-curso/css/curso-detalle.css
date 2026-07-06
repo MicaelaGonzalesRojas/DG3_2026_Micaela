@@ -556,7 +556,7 @@ background-image: url("../assets-c/hero.png");
   z-index: 2;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 7rem var(--pad) 9rem;
+  padding: 7rem 0rem 9rem;
   width: 100%;
 }
 
