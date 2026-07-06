@@ -752,7 +752,6 @@ margin-bottom: 30px;
 
     justify-content:center;
     align-items:center;
-    
 }
 
 .csp-face-front h3{
@@ -1989,26 +1988,29 @@ margin-bottom: 30px;
     color:#2b1c14;
 }
 
-.conquistadores__controls{
-    display:flex;
-    gap:8px;
+.conquistadores__controls {
+  display: flex;
+  gap: 0px;
 }
 
-.conquistadores__btn{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:8px;
-    background:#ff5b21;
-    cursor:pointer;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    transition:.25s;
+/* Botones de navegación: usan el sistema global + ajustes locales */
+.conquistadores__btn--prev,
+.conquistadores__btn--next {
+  width: 40px;
+  height: 40px;
+  padding: 0;               /* quita padding extra del sistema global */
+  border-radius: 5px;       /* consistente con tu diseño */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;          /* asegura cursor de mano */
 }
 
-.conquistadores__btn:hover{
-    background:#ff4613;
+/* SVG dentro de los botones */
+.conquistadores__btn--prev svg,
+.conquistadores__btn--next svg {
+  width: 16px;
+  height: 16px;
 }
 
 .conquistadores__viewport{
@@ -2441,6 +2443,35 @@ margin-bottom: 30px;
   background-repeat: no-repeat;
 }
 
+/* ==========================================================
+   Controles de Expediciones (extiende sistema global)
+========================================================== */
+
+.expediciones-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.expediciones__btn--prev,
+.expediciones__btn--next {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.expediciones__btn--prev svg,
+.expediciones__btn--next svg {
+  width: 16px;
+  height: 16px;
+}
+
+
 /* desactiva las capas encima */
 .exp-bg-layer,
 .expediciones-overlay {
@@ -2620,20 +2651,23 @@ margin-bottom: 30px;
   flex-shrink: 0;
 }
 .expedicion-btn--back {
-  background: var(--color-ink);
+  display: inline-flex;        /* o block si preferís */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   font-size: 14px;
-  color: var(--color-void);
   padding: 0.6rem 0.8rem;
   border-radius: 5px;
-  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   align-self: flex-start;
+  cursor: pointer;             /* asegura el cursor de mano */
   transition: background 0.3s ease;
 }
+
 .expedicion-btn--back:hover {
-  background: var(--color-ember);
+  background: var(--color-ember); /* se activa en todo el rectángulo */
 }
+
 .expediciones-label {
   margin-top: 2rem;
   font-size: clamp(2rem,4vw,3rem);
@@ -2643,90 +2677,25 @@ margin-bottom: 30px;
 
 
 @media (max-width: 768px) {
-.expediciones-inner {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  max-width: none;     /* 👉 elimina el límite de 1400px */
-  text-align: center;
-  padding: 0;          /* 👉 quita el espacio interno que lo encierra */
-  margin: 0;           /* 👉 asegura que no haya márgenes externos */
-  box-sizing: border-box;
-}
+  .expediciones-inner {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
 
-
+  .expediciones-controls {
+    display: none;
+  }
 
   /* escenario más compacto */
   .expediciones-deck-stage {
-    height: 320px; /* abanico más pequeño */
+    height: 320px; /* más bajo para mobile */
   }
 
-  /* tamaño de las cards */
+  /* reducir proporcionalmente las cards */
   .expedicion-card {
-    width: 200px;   /* un poco más grande que 180px */
-    height: 280px;
-  }
-
-  .expedicion-photo {
-    width: 180px;
-    height: 180px;
-  }
-
-  /* FRONT */
-  .expedicion-face--front {
-    padding: 0.8rem;
-    text-align: center;
-  }
-
-  .expedicion-name {
-    font-size: 1.6rem;   /* más grande para mobile */
-    line-height: 1.1;
-    margin-bottom: 0.4rem;
-  }
-
-  .expedicion-dificultad {
-    font-size: 0.9rem;
-  }
-
-  .expedicion-duracion {
-    font-size: 0.85rem;
-  }
-
- .expedicion-photo {
-      width: 180px;
-      height: 180px;
-      margin: 0px;
-     margin-bottom: 8px;
-  }
-
-  /* BACK */
-  .expedicion-face--back {
-    padding: 1rem;
-  }
-
-  .expedicion-title--back {
-    font-size: 1.4rem;   /* título más legible */
-  }
-
-  .expedicion-text--back {
-    font-size: 0.9rem;   /* cuerpo más compacto */
-    line-height: 1.4;
-    margin-bottom: 5px;
-  }
-
-  .expedicion-list--back {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0rem 0;
-}
-  .expedicion-list--back li {
-    font-size: 0.9rem;
-    gap: 0.6rem;
-  }
-
-  .expedicion-btn--back {
-    font-size: 13px;
-    padding: 0.5rem 0.7rem;
+    transform: scale(0.65);   /* 75% del tamaño original */
+    transform-origin: center center;
   }
 }
 
@@ -2868,63 +2837,27 @@ margin-bottom: 30px;
     animation-delay:.24s;
 }
 
-
-.hero-guides__button{
-
-
-    display:inline-flex;
-
-
-    justify-content:center;
-    align-items:center;
-
-
-    padding:18px 22px;
-
-
-    background: var(--color-ember);
-
-
-    color: var(--color-void);
-
-
-    font-weight:700;
-
-
-    text-decoration:none;
-
-
-    transition:
-    transform .25s,
-    filter .25s,
-    box-shadow .25s;
-
-
-    opacity:0;
-
-
-    transform:translateY(60px);
-
-
-    animation:heroReveal .9s cubic-bezier(.16,1,.3,1) forwards;
-
-
-    animation-delay:.36s;
+.curso-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;               /* espacio entre icono y texto */
+  padding: 6px 10px;     /* más compacto que hero */
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-
-.hero-guides__button:hover{
-
-
-    transform:translateY(-4px);
-
-
-    filter:brightness(1.08);
-
-
-    box-shadow:inset 0 0 0 999px rgba(255,255,255,.06);
+/* Ícono dentro del botón */
+.curso-toggle-icon {
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
+/* Texto dentro del botón */
+.curso-cta {
+  text-transform: uppercase;
+
+}
 
 .hero-guides__image-wrapper {
   overflow: hidden;

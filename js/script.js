@@ -988,19 +988,20 @@ updateSlider();
 
 
 
-                   <!-- Parte trasera -->
-          <div class="expedicion-face expedicion-face--back">
-            <h3 class="expedicion-title--back">${exp.nombre}</h3>
-            <div class="expedicion-meta--back">
-            </div>
-            <p class="expedicion-text--back">${exp.descripcion}</p>
-            <ul class="expedicion-list--back">
-              ${exp.lugares.map(lugar => `
-                <li><span class="expedicion-circle--back"></span> ${lugar}</li>
-              `).join('')}
-            </ul>
-            <button class="expedicion-btn--back">VER MÁS</button>
-          </div>
+                  <!-- Parte trasera -->
+<div class="expedicion-face expedicion-face--back">
+  <h3 class="expedicion-title--back">${exp.nombre}</h3>
+  <div class="expedicion-meta--back"></div>
+  <p class="expedicion-text--back">${exp.descripcion}</p>
+  <ul class="expedicion-list--back">
+    ${exp.lugares.map(lugar => `
+      <li><span class="expedicion-circle--back"></span> ${lugar}</li>
+    `).join('')}
+  </ul>
+  <button class="cuspide-action-btn cuspide-action-btn--darkabyss expedicion-btn--back">
+    <span> VER MÁS </span>
+  </button>
+</div>
 
 
                 </div>
@@ -1011,6 +1012,17 @@ updateSlider();
 
     const cards =
         [...track.children];
+// Evitar que el botón trasero haga flip
+cards.forEach(card => {
+  const btn = card.querySelector(".expedicion-btn--back");
+  if (btn) {
+    btn.addEventListener("click", e => {
+      e.stopPropagation(); // evita que el click llegue al card
+      // acá podés poner la acción del botón, por ejemplo abrir modal o link
+      console.log("Botón VER MÁS presionado en:", card.dataset.index);
+    });
+  }
+});
 
     function updateDeck(){
 

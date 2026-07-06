@@ -60,82 +60,130 @@
   <!-- ======================= 1. HERO ======================= -->
 <section class="csp-summit-hero">
 
-  <!-- HERO SUPERIOR -->
-  <div class="csp-summit-hero__top">
-    <div class="csp-summit-copy">
-      <h1>
-        LA VALENTÍA SE
-        <br>
-        QUEDA CORTA
-      </h1>
+    <!-- HERO SUPERIOR -->
 
-      <button class="cuspide-action-btn cuspide-action-btn--pyromountain">
-        <span>ANOTARSE</span>
-      </button>
+    <div class="csp-summit-hero__top">
 
-      <button class="cuspide-action-btn cuspide-action-btn--darkabyss">
-        <span>ANOTARSE</span>
-      </button>
-    </div>
-  </div>
+        <div class="csp-summit-copy">
 
-  <!-- BLOQUE INFERIOR -->
-  <div class="csp-summit-hero__bottom">
+            <h1>
+                LA VALENTÍA SE
+                <br>
+                QUEDA CORTA
+            </h1>
 
-    <div class="csp-summit-info">
-      <h2>DISCIPLINA Y RESPETO</h2>
-      <p>
-        Cúspide forma a quienes deciden enfrentar
-        el terreno sin concesiones, aplicando
-        protocolos inclusivos y entrenamiento
-        especializado para cada tipo de cuerpo.
-      </p>
-    </div>
+            <button class="cuspide-action-btn cuspide-action-btn--pyromountain">
+                    <span>ANOTARSE</span>
+            </button>
 
-    <div class="csp-summit-cards">
-
-      <!-- CARD 1 -->
-      <article class="csp-flip-card" tabindex="0">
-        <div class="csp-flip-inner">
-          <div class="csp-face-front csp-orange">
-            <span>+</span>
-            <div class="csp-icon"></div>
-            <h3>TRAINING<br>ADAPTADO</h3>
-          </div>
-          <div class="csp-face-back csp-orange">
-            <span>+</span>
-            <h3>TRAINING ADAPTADO</h3>
-            <p>
-              Programas técnicos adaptados
-              para desarrollar autonomía
-              y rendimiento en montaña.
-            </p>
-          </div>
+            <button class="cuspide-action-btn cuspide-action-btn--darkabyss">
+                 <span>ANOTARSE</span>
+            </button>
         </div>
-      </article>
-
-      <!-- CARD 2 -->
-      <article class="csp-flip-card" tabindex="0">
-        <div class="csp-flip-inner">
-          <div class="csp-face-front csp-ice">
-            <span>+</span>
-            <div class="csp-icon dark"></div>
-            <h3>CONTROL<br>INTERNO</h3>
-          </div>
-          <div class="csp-face-back csp-ice">
-            <span>+</span>
-            <h3>CONTROL INTERNO</h3>
-            <p>
-              Seguimiento físico,
-              evaluación continua
-              y progresión segura.
-            </p>
-          </div>
-        </div>
-      </article>
 
     </div>
-  </div>
+
+    <!-- BLOQUE INFERIOR -->
+
+    <div class="csp-summit-hero__bottom">
+
+        <div class="csp-summit-info">
+
+            <h2>
+                DISCIPLINA Y RESPETO
+            </h2>
+
+            <p>
+                Cúspide forma a quienes deciden enfrentar
+                el terreno sin concesiones, aplicando
+                protocolos inclusivos y entrenamiento
+                especializado para cada tipo de cuerpo.
+            </p>
+
+        </div>
+
+        <div class="csp-summit-cards">
+
+            <!-- CARD 1 -->
+
+            <article class="csp-flip-card">
+
+                <div class="csp-flip-inner">
+
+                    <div class="csp-face-front csp-orange">
+
+                        <span>+</span>
+
+                        <div class="csp-icon"></div>
+
+                        <h3>
+                            TRAINING
+                            <br>
+                            ADAPTADO
+                        </h3>
+
+                    </div>
+
+                    <div class="csp-face-back csp-orange">
+
+                        <span>+</span>
+
+                        <h3>TRAINING ADAPTADO</h3>
+
+                        <p>
+                            Programas técnicos adaptados
+                            para desarrollar autonomía
+                            y rendimiento en montaña.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- CARD 2 -->
+
+            <article class="csp-flip-card">
+
+                <div class="csp-flip-inner">
+
+                    <div class="csp-face-front csp-ice">
+
+                        <span>+</span>
+
+                        <div class="csp-icon dark"></div>
+
+                        <h3>
+                            CONTROL
+                            <br>
+                            INTERNO
+                        </h3>
+
+                    </div>
+
+                    <div class="csp-face-back csp-ice">
+
+                        <span>+</span>
+
+                        <h3>CONTROL INTERNO</h3>
+
+                        <p>
+                            Seguimiento físico,
+                            evaluación continua
+                            y progresión segura.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
 </section>
 
 <!-- =====================================================
@@ -398,16 +446,31 @@
 
   <div class="expediciones-inner">
     <h2 id="expDeckTitle" class="expediciones-headline">
-      PARA LOS QUE ELIGEN LOS <br>
-      <span>DESAFÍOS REALES</span>
+      ELEGÍ LAS VERDADERAS <br>
+      <span>EXPEDICIONES</span>
     </h2>
 
     <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones" aria-live="polite">
       <div class="expediciones-deck-track" id="expDeckTrack"></div>
-    </div>
+      <div class="expediciones-controls">
+  <button
+    class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--prev"
+    aria-label="Expedición anterior">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    </svg>
+    <span> < </span>
+  </button>
 
-    <div class="expediciones-label">EXPEDICIONES</div>
-  </div>
+  <button
+    class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--next"
+    aria-label="Expedición siguiente">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    </svg>
+    <span> > </span>
+  </button>
+</div>
+
+    </div>
 
 </section>
 
@@ -420,98 +483,71 @@
         <div class="cursos-accordion">
 
             <!-- CURSO 1 -->
-            <article
-                class="curso-card is-active is-selected"
-                tabindex="0"
-                aria-haspopup="true"
-                aria-expanded="true"
-            >
-                <div class="curso-image">
-                    <img src="assets/curso1.png" alt="Perfección de prótesis">
+<article class="curso-card is-active is-selected" tabindex="0" aria-haspopup="true" aria-expanded="true">
+  <div class="curso-image">
+    <img src="assets/curso1.png" alt="Perfección de prótesis">
 
-                    <button class="curso-toggle">
-                        <span class="curso-toggle-icon">+</span>
+    <button class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
+      <span class="curso-toggle-icon">+</span>
+      <span class="curso-cta">VER MÁS</span>
+    </button>
+  </div>
 
-                        <span class="curso-cta">
-                            INFORMACIÓN
-                        </span>
-                    </button>
-                </div>
+  <div class="curso-content">
+    <div class="curso-header">
+      <h3>RESISTENCIA EN ALTURA</h3>
+      <span class="curso-duration">2 MESES</span>
+    </div>
+    <p class="curso-description">
+      Aprendé a construir refugios seguros en condiciones extremas para mantenerte protegido ante el frío
+    </p>
+  </div>
+</article>
 
-                <div class="curso-content">
-                    <div class="curso-header">
-                        <h3>RESISTENCIA EN ALTURA</h3>
-                        <span class="curso-duration">2 MESES</span>
-                    </div>
+<!-- CURSO 2 -->
+<article class="curso-card" tabindex="0" aria-haspopup="true" aria-expanded="false">
+  <div class="curso-image">
+    <img src="assets/curso2.png" alt="Comunicación en la montaña">
 
-                    <p class="curso-description">
-                        Aprendé a construir refugios seguros en condiciones extremas para mantenerte protegido ante al frío
-                    </p>
-                </div>
-            </article>
+    <button class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
+      <span class="curso-toggle-icon">+</span>
+      <span class="curso-cta">VER MÁS</span>
+    </button>
+  </div>
 
-            <!-- CURSO 2 -->
-            <article
-                class="curso-card"
-                tabindex="0"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >
-                <div class="curso-image">
-                    <img src="assets/curso2.png" alt="Comunicación en la montaña">
+  <div class="curso-content">
+    <div class="curso-header">
+      <h3>ORIENTACIÓN TÉCNICA</h3>
+      <span class="curso-duration">1 MES</span>
+    </div>
+    <p class="curso-description">
+      Domina mapas, brújula y GPS para planificar rutas seguras y liderar expediciones en alta montaña
+    </p>
+  </div>
+</article>
 
-                    <button class="curso-toggle">
-                        <span class="curso-toggle-icon">+</span>
+<!-- CURSO 3 -->
+<article class="curso-card" tabindex="0" aria-haspopup="true" aria-expanded="false">
+  <div class="curso-image">
+    <img src="assets/curso3.png" alt="Resistencia física">
 
-                        <span class="curso-cta">
-                            INFORMACIÓN
-                        </span>
-                    </button>
-                </div>
+    <button class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
+      <span class="curso-toggle-icon">+</span>
+      <span class="curso-cta">VER MÁS</span>
+    </button>
+  </div>
 
-                <div class="curso-content">
-                    <div class="curso-header">
-                        <h3>ORIENTACIÓN TÉCNICA</h3>
-                        <span class="curso-duration">1 MES</span>
-                    </div>
+  <div class="curso-content">
+    <div class="curso-header">
+      <h3>PRÓTESIS PARA MONTAÑA</h3>
+      <span class="curso-duration">3 MESES</span>
+    </div>
+    <p class="curso-description">
+      Técnicas de adaptación y reparación de prótesis para garantizar confianza y autonomía en expediciones
+    </p>
+  </div>
+</article>
 
-                    <p class="curso-description">
-                        Domina mapas, brújula y GPS para planificar rutas seguras y liderar expediciones en alta montaña
-                    </p>
-                </div>
-            </article>
-
-            <!-- CURSO 3 -->
-            <article
-                class="curso-card"
-                tabindex="0"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >
-                <div class="curso-image">
-                    <img src="assets/curso3.png" alt="Resistencia física">
-
-                    <button class="curso-toggle">
-                        <span class="curso-toggle-icon">+</span>
-
-                        <span class="curso-cta">
-                            INFORMACIÓN
-                        </span>
-                    </button>
-                </div>
-
-                <div class="curso-content">
-                    <div class="curso-header">
-                        <h3>PRÓTESIS PARA MONTAÑA
-                        </h3>
-                        <span class="curso-duration">3 MESES</span>
-                    </div>
-
-                    <p class="curso-description">
-                        Técnicas de adaptación y reparación de prótesis para garantizar confianza y autonomía en expediciones
-                    </p>
-                </div>
-            </article>
 
         </div>
     </div>
@@ -588,34 +624,17 @@
             <div class="conquistadores__controls">
 
                 <button
-                    class="conquistadores__btn conquistadores__btn--prev"
-                    aria-label="Anterior testimonio">
+  class="cuspide-action-btn cuspide-action-btn--pyromountain conquistadores__btn--prev"
+  aria-label="Anterior testimonio">
+  <span> < </span>
+</button>
 
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M15 18L9 12L15 6"
-                            stroke="white"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
+<button
+  class="cuspide-action-btn cuspide-action-btn--pyromountain conquistadores__btn--next"
+  aria-label="Siguiente testimonio">
+  <span> > </span>
+</button>
 
-                </button>
-
-                <button
-                    class="conquistadores__btn conquistadores__btn--next"
-                    aria-label="Siguiente testimonio">
-
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M9 18L15 12L9 6"
-                            stroke="white"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-
-                </button>
 
             </div>
 
