@@ -604,7 +604,8 @@ background-image: url("../assets-c/hero.png");
 .curso-info-bar {
   position: relative;
   z-index: 2;
-  background: var(--color-frost);
+  background: var(--color-void);
+  border-radius: 8px;
 }
 
 .curso-info-bar__inner {
@@ -727,7 +728,7 @@ background-image: url("../assets-c/hero.png");
 /* ---------------------------------------------------------------------
    4. QUÉ VAS A APRENDER
    --------------------------------------------------------------------- */
-.curso-aprender{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
+.curso-aprender{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); background-color: var(--color-frost);}
 .curso-aprender__grid{
   max-width: var(--maxw);
   margin: 0 auto;
