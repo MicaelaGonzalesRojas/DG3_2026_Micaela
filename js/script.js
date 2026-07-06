@@ -39,6 +39,39 @@ window.addEventListener(
   { passive:true }
 );
 
+
+
+/* ==========================================================
+   CUSPIDE BUTTONS
+========================================================== */
+
+(() => {
+
+    const buttons = document.querySelectorAll(
+        '.cuspide-action-btn'
+    );
+
+    buttons.forEach(button => {
+
+        button.addEventListener('click', () => {
+
+            if(button.dataset.toggle === "false")
+                return;
+
+            button.classList.toggle(
+                'is-cuspide-active-state'
+            );
+
+        });
+
+    });
+
+})();
+
+
+
+
+
   /* ------------------------------------------------------------------
      0. Estado de movimiento (toggle manual + preferencia de sistema)
      ------------------------------------------------------------------ */
@@ -94,20 +127,7 @@ window.addEventListener('scroll', () => {
     });
   });
 
-  /* ------------------------------------------------------------------
-carrusel
-     ------------------------------------------------------------------ */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const track = document.querySelector('.carousel-track');
-  if (!track) return;
-
-  // Duplica solo el contenido interno, no el contenedor
-  const content = track.innerHTML;
-  track.innerHTML += content;
-});
-
-  
 
 /* ==========================================
    CUSPIDE SUMMIT FLIP CARDS
@@ -285,6 +305,71 @@ if (isTouchDevice) {
         });
     });
 }
+
+/* ==========================================================
+   CÚSPIDE GLACIER SEPARATOR
+   Scroll Reveal
+========================================================== */
+
+(() => {
+
+    const separator = document.querySelector(
+        '.cuspide-glacier-separator'
+    );
+
+    if (!separator) return;
+
+    /* ----------------------------------------
+       Reduced Motion
+    ---------------------------------------- */
+
+    const reducedMotion =
+        window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+    if (reducedMotion) {
+
+        separator.classList.add('is-visible');
+
+        return;
+
+    }
+
+    /* ----------------------------------------
+       Intersection Observer
+    ---------------------------------------- */
+
+    const observer = new IntersectionObserver(
+
+        (entries, obs) => {
+
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) return;
+
+                separator.classList.add('is-visible');
+
+                obs.unobserve(entry.target);
+
+            });
+
+        },
+
+        {
+            root: null,
+
+            threshold: 0.35,
+
+            rootMargin: "0px 0px -8% 0px"
+        }
+
+    );
+
+    observer.observe(separator);
+
+})();
+
 /* ------------------------------------------------------------------
    HEROES DE LA MONTAÑA
    ------------------------------------------------------------------ */

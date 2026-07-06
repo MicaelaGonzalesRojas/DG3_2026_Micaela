@@ -24,7 +24,6 @@
 
   --font-display: 'Nippo', 'Anton', sans-serif;
   --font-body: 'Outfit', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
 
   --maxw: 1180px;
   --pad: clamp(1.25rem, 5vw, 4rem);
@@ -178,7 +177,6 @@ p {
 }
 
 
-
 h2 {
   font-weight: 500 !important;
 }
@@ -255,41 +253,180 @@ h4 {
   max-width: 720px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 2rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: .95rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  border-radius: var(--radius);
-  border: 2px solid transparent;
-  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
-}
-.btn-primary {
-  background: var(--color-ember);
-  color: var(--color-ink); /* Máximo contraste exigido WCAG AA */
-}
+
+/* ==========================================================
+   CÚSPIDE BUTTON SYSTEM
+========================================================== */
 
 
-.btn-primary:hover {
-  background: var(--color-ink);
+
+/* ==========================================================
+   BASE
+========================================================== */
+
+.cuspide-action-btn{
+    --csp-btn-radius:5px;
+
+    --csp-btn-duration:.55s;
+    position:relative;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+  margin-right: 12px; /* espacio a la derecha */
+    height:48px;
+
+    padding-inline:2rem;
+
+    overflow:hidden;
+
+    border:none;
+    border-radius:var(--csp-btn-radius);
+
+    cursor:pointer;
+    
+    font-family:var(--font-display);
+    font-size:1.05rem;
+    font-weight:500;
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+    text-decoration:none;
+
+    color: (var(--color-void));
+
+    isolation:isolate;
+
+    transition:
+    transform .25s ease,
+    color .25s ease;
+
+    will-change:transform;
+    z-index: 1; /* crea un nuevo stacking context */
+
+}
+
+/* texto */
+
+
+.cuspide-action-btn span {
+  position:relative;
+  z-index:1; /* texto siempre arriba */
   color: var(--color-void);
-  transform: translateY(-2px);
-}
-.btn-ghost {
-  background: var(--color-ink); /* fondo ink */
-  color: var(--color-void);     /* texto void */
-  border: none;                 /* opcional: elimina el borde ghost */
 }
 
-.btn-ghost:hover {
-  background: var(--color-coral); /* hover ambar */
-  color: var(--color-void);       /* mantiene contraste */
-  transform: translateY(-2px);    /* conserva el efecto de elevación */
+
+
+/* ola */
+
+.cuspide-action-btn::before {
+  content:"";
+  position:absolute;
+  width:180%;
+  height:220%;
+  left:50%;
+  bottom:-220%; /* oculto por defecto */
+  transform:translateX(-50%);
+  border-radius:48%;
+  background:var(--color-ink); /* o el color que quieras */
+  transition: bottom .55s cubic-bezier(.25,1,.5,1);
+  z-index:0; /* detrás del texto */
+}
+
+/* hover */
+
+.cuspide-action-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.cuspide-action-btn:hover::before {
+  bottom:-45%; /* sube en hover */
+}
+
+/* click */
+
+.cuspide-action-btn:active{
+
+    transform:scale(.985);
+
+}
+
+.cuspide-action-btn::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--color-ink); /* color del barrido */
+  transform: translateY(100%); /* oculto abajo */
+  transition: transform .55s cubic-bezier(.25,1,.5,1);
+  z-index:-1; /* detrás del texto */
+}
+
+.cuspide-action-btn:hover::after {
+  transform: translateY(0); /* sube en hover */
+}
+/* ==========================================================
+   PYROMOUNTAIN
+========================================================== */
+
+.cuspide-action-btn--pyromountain{
+
+    background:var(--color-ember);
+
+}
+
+.cuspide-action-btn--pyromountain::before{
+
+    background:var(--color-ink);
+
+}
+
+
+
+
+/* ==========================================================
+   DARKABYSS
+========================================================== */
+
+.cuspide-action-btn--darkabyss{
+
+    background:var(--color-ink);
+
+}
+
+.cuspide-action-btn--darkabyss::before{
+
+    background:var(--color-ember);
+
+}
+
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.cuspide-action-btn:focus-visible{
+
+    outline:3px solid #ffb9a7;
+    outline-offset:5px;
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    .cuspide-action-btn,
+    .cuspide-action-btn::before{
+
+        transition:none;
+
+    }
+
 }
 
 
@@ -761,343 +898,252 @@ margin-top: -64px; /* compensa la altura del header */}
 }
 
 }
-/* ---------------------------------------------------------------------
-  CARRUSEL
-   --------------------------------------------------------------------- */
-.carousel-line {
-  background: var(--color-ember);
-  color: var(--color-void);
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  padding: 0.4rem 0;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  position: relative;
-}
-
-.carousel-track {
-  display: inline-block;
-  white-space: nowrap;
-  animation: scrollText 25s linear infinite;
-}
-
-.carousel-track span {
-  display: inline-block;
-  padding-right: 2rem;
-}
-
-/* Animación del desplazamiento infinito */
-@keyframes scrollText {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-
-/* ---------------------------------------------------------------------
-   4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
-   --------------------------------------------------------------------- */
 /* ==========================================================
-   HEROES DE LA MONTAÑA
-   ========================================================== */
+   CÚSPIDE GLACIER SEPARATOR
+========================================================== */
 
-.heroes {
-    padding: 0rem 0 4rem;
-  background-color: var(--color-mint); /* 👉 color de fondo */
+.cuspide-glacier-separator{
+
+    --separator-bg:#3a302c;
+    --separator-white:#fdfbf8;
+    --separator-orange:#ff4b17;
+
+    position:relative;
+
+    width:100%;
+    min-height:42vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:var(--separator-bg);
+
+    padding:8rem 2rem;
+
 }
 
-/* ------------------------------------
-   HEADER
-   ------------------------------------ */
+/* ========================================= */
 
-.heroes-header {
-   
-    text-align: center;
+.cuspide-glacier-separator__wrapper{
 
-    max-width: 720px;
-   
-    margin: 0 auto 1.5rem;
+    position:relative;
+
+    width:min(1100px,100%);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
 }
 
-.heroes-header h2 {
+/* ========================================= */
 
-    margin-top: 4rem;
+.cuspide-glacier-separator__content{
 
-    font-size: clamp(2rem,4vw,3.6rem);
+    width:100%;
+
+    text-align:center;
+
 }
 
-.heroes-header p {
+/* ========================================= */
 
-    color: var(--color-ice);
+.cuspide-glacier-separator__mask-line{
 
-    line-height: 1.6;
+    overflow:hidden;
+
+    display:block;
+
 }
 
-/* ------------------------------------
-   MARQUEE
-   ------------------------------------ */
+.cuspide-glacier-separator__title{
 
-.heroes-marquee {
+    margin:0;
 
-    position: relative;
+    font-family:var(--font-display);
 
-    width: 100%;
+    font-size:clamp(2.6rem,4vw,4.8rem);
 
-    overflow: hidden;
+    font-weight:700;
 
-    isolation: isolate;
+    text-transform:uppercase;
 
-    /* Curva superior e inferior */
-    clip-path: polygon(
-        0% 10%,
-        15% 6%,
-        35% 4%,
-        50% 3%,
-        65% 4%,
-        85% 6%,
-        100% 10%,
+    letter-spacing:.04em;
 
-        100% 90%,
+    line-height:1.05;
 
-        85% 94%,
-        65% 96%,
-        50% 97%,
-        35% 96%,
-        15% 94%,
-        0% 90%
-    );
 }
 
-.heroes-track {
+/* ========================================= */
 
-    display: flex;
+.cuspide-glacier-separator__line{
 
-    gap: 16px;
+    display:inline-block;
 
-    width: max-content;
+    color:var(--separator-white);
 
-    animation:
-        heroesMarquee 40s linear infinite;
+    transform:translate3d(0,110%,0);
 
-    will-change: transform;
+    opacity:0;
+
+    will-change:transform,opacity;
+
 }
 
-.heroes-marquee:hover .heroes-track {
+.cuspide-glacier-separator__line--accent{
 
-    animation-play-state: paused;
+    color:var(--separator-orange);
+
 }
 
-.heroes-mountains {
-  position: relative;
-  transition: transform 1200ms cubic-bezier(.16,1,.3,1) 300ms;
-}
+/* ========================================= */
 
-.heroes-mountains svg {
-  display: block;
-  width: 100%;
-  height: 200px; /* ajustá según tu diseño */
-}
+.cuspide-glacier-separator.is-visible
+.cuspide-glacier-separator__mask-line:nth-child(1)
+.cuspide-glacier-separator__line{
 
-.heroes-mountains path {
-  fill: var(--color-void); /* 👉 celeste claro */
-}
+    transform:translate3d(0,0,0);
 
-
-@keyframes heroesMarquee {
-
-    from {
-
-        transform:
-        translate3d(
-            0,
-            0,
-            0
-        );
-    }
-
-    to {
-
-        transform:
-        translate3d(
-            -50%,
-            0,
-            0
-        );
-    }
-}
-
-/* ------------------------------------
-   CARD
-   ------------------------------------ */
-
-.hero-card {
-
-    position: relative;
-
-    width: 240px;
-
-    height: 420px;
-
-    flex-shrink: 0;
-
-    overflow: hidden;
-
-    cursor: pointer;
-}
-
-.hero-card img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
+    opacity:1;
 
     transition:
-        transform .6s ease,
-        filter .4s ease;
+
+    transform .9s cubic-bezier(.25,1,.5,1),
+    opacity .6s ease;
+
 }
 
-.hero-overlay {
+.cuspide-glacier-separator.is-visible
+.cuspide-glacier-separator__mask-line:nth-child(2)
+.cuspide-glacier-separator__line{
 
-    position: absolute;
+    transform:translate3d(0,0,0);
 
-    inset: 0;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            0
-        );
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 2rem;
+    opacity:1;
 
     transition:
-        background .4s ease;
+
+    transform .9s cubic-bezier(.25,1,.5,1) .18s,
+    opacity .6s ease .18s;
+
 }
 
-.hero-content {
 
-    opacity: 0;
 
-    transform:
-        translateY(20px);
+/* ========================================= */
+/* HOVER */
+/* ========================================= */
 
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
+.cuspide-glacier-separator:hover
+.cuspide-glacier-separator__line{
 
-    color: white;
+    text-shadow:
+
+    0 0 16px rgba(255,255,255,.12);
+
 }
 
-.hero-card:hover .hero-overlay {
+.cuspide-glacier-separator:hover
+.cuspide-glacier-separator__line--accent{
 
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .7
-        );
+    text-shadow:
+
+    0 0 18px rgba(255,75,23,.18);
+
 }
 
-.hero-card:hover img {
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
 
-    transform: scale(1.05);
-}
+@media (max-width:900px){
 
-.hero-card:hover .hero-content {
+    .cuspide-glacier-separator{
 
-    opacity: 1;
+        min-height:34vh;
 
-    transform:
-        translateY(0);
-}
+        padding:6rem 1.5rem;
 
-.hero-name {
-
-    font-size: 1.6rem;
-
-    font-weight: 700;
-
-    margin-bottom: .5rem;
-}
-
-.hero-condition {
-
-    opacity: .9;
-
-    margin-bottom: .4rem;
-}
-
-.hero-mountain {
-
-    font-weight: 600;
-}
-
-/* ------------------------------------
-   ACCESSIBILITY
-   ------------------------------------ */
-
-.hero-card:focus-visible {
-
-    outline:
-        3px solid
-        var(--color-ember);
-
-    outline-offset: -3px;
-}
-
-/* ------------------------------------
-   MOBILE
-   ------------------------------------ */
-
-@media(max-width:768px){
-
-    .heroes-marquee{
-
-        clip-path:none;
     }
 
-    .hero-card{
+    .cuspide-glacier-separator__title{
 
-        width:200px;
-        height:340px;
+        font-size:clamp(2rem,7vw,3.2rem);
+
     }
 
-    .heroes-track{
+}
 
-        animation-duration:30s;
+@media (max-width:768px){
+
+    .cuspide-glacier-separator{
+
+        min-height:30vh;
+
     }
-    .heroes-mountains svg {
-    height: 140px;
-  }
+
+    .cuspide-glacier-separator__title{
+
+        font-size:clamp(1.45rem,6vw,2.2rem);
+
+        line-height:1.15;
+
+    }
+
+    .cuspide-glacier-separator__corner-cross{
+
+        font-size:1.8rem;
+
+    }
+
+    .cuspide-glacier-separator__corner-cross--tl{
+
+        left:12px;
+
+    }
+
+    .cuspide-glacier-separator__corner-cross--tr{
+
+        right:12px;
+
+    }
+
+    .cuspide-glacier-separator__corner-cross--bl{
+
+        left:12px;
+
+    }
+
+    .cuspide-glacier-separator__corner-cross--br{
+
+        right:12px;
+
+    }
+
 }
 
-@media (max-width: 768px) {
-  .heroes-header p {
-    padding-inline: 1rem; /* menos aire en los costados */
-    margin: 0 auto 1rem;  /* opcional: reducir el margen inferior */
-    text-align: center;   /* mantiene el centrado */
-  }
+/* ========================================= */
+/* REDUCED MOTION */
+/* ========================================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    .cuspide-glacier-separator__line,
+    .cuspide-glacier-separator__corner-cross{
+
+        transition:none !important;
+
+        transform:none !important;
+
+        opacity:1 !important;
+
+    }
+
 }
+
 
 
 /* ---------------------------------------------------------------------
@@ -1412,6 +1458,306 @@ margin-top: -64px; /* compensa la altura del header */}
 
 }
 
+/* ---------------------------------------------------------------------
+   4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
+   --------------------------------------------------------------------- */
+/* ==========================================================
+   HEROES DE LA MONTAÑA
+   ========================================================== */
+
+.heroes {
+    padding: 0rem 0 4rem;
+  background-color: var(--color-mint); /* 👉 color de fondo */
+}
+
+/* ------------------------------------
+   HEADER
+   ------------------------------------ */
+
+.heroes-header {
+   
+    text-align: center;
+
+    max-width: 720px;
+   
+    margin: 0 auto 1.5rem;
+}
+
+.heroes-header h2 {
+
+    margin-top: 4rem;
+
+    font-size: clamp(2rem,4vw,3.6rem);
+}
+
+.heroes-header p {
+
+    color: var(--color-ice);
+
+    line-height: 1.6;
+}
+
+/* ------------------------------------
+   MARQUEE
+   ------------------------------------ */
+
+.heroes-marquee {
+
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    /* Curva superior e inferior */
+    clip-path: polygon(
+        0% 10%,
+        15% 6%,
+        35% 4%,
+        50% 3%,
+        65% 4%,
+        85% 6%,
+        100% 10%,
+
+        100% 90%,
+
+        85% 94%,
+        65% 96%,
+        50% 97%,
+        35% 96%,
+        15% 94%,
+        0% 90%
+    );
+}
+
+.heroes-track {
+
+    display: flex;
+
+    gap: 16px;
+
+    width: max-content;
+
+    animation:
+        heroesMarquee 40s linear infinite;
+
+    will-change: transform;
+}
+
+.heroes-marquee:hover .heroes-track {
+
+    animation-play-state: paused;
+}
+
+.heroes-mountains {
+  position: relative;
+  transition: transform 1200ms cubic-bezier(.16,1,.3,1) 300ms;
+}
+
+.heroes-mountains svg {
+  display: block;
+  width: 100%;
+  height: 200px; /* ajustá según tu diseño */
+}
+
+.heroes-mountains path {
+  fill: var(--color-void); /* 👉 celeste claro */
+}
+
+
+@keyframes heroesMarquee {
+
+    from {
+
+        transform:
+        translate3d(
+            0,
+            0,
+            0
+        );
+    }
+
+    to {
+
+        transform:
+        translate3d(
+            -50%,
+            0,
+            0
+        );
+    }
+}
+
+/* ------------------------------------
+   CARD
+   ------------------------------------ */
+
+.hero-card {
+
+    position: relative;
+
+    width: 240px;
+
+    height: 420px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.hero-card img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .6s ease,
+        filter .4s ease;
+}
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 2rem;
+
+    transition:
+        background .4s ease;
+}
+
+.hero-content {
+
+    opacity: 0;
+
+    transform:
+        translateY(20px);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+
+    color: white;
+}
+
+.hero-card:hover .hero-overlay {
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .7
+        );
+}
+
+.hero-card:hover img {
+
+    transform: scale(1.05);
+}
+
+.hero-card:hover .hero-content {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.hero-name {
+
+    font-size: 1.6rem;
+
+    font-weight: 700;
+
+    margin-bottom: .5rem;
+}
+
+.hero-condition {
+
+    opacity: .9;
+
+    margin-bottom: .4rem;
+}
+
+.hero-mountain {
+
+    font-weight: 600;
+}
+
+/* ------------------------------------
+   ACCESSIBILITY
+   ------------------------------------ */
+
+.hero-card:focus-visible {
+
+    outline:
+        3px solid
+        var(--color-ember);
+
+    outline-offset: -3px;
+}
+
+/* ------------------------------------
+   MOBILE
+   ------------------------------------ */
+
+@media(max-width:768px){
+
+    .heroes-marquee{
+
+        clip-path:none;
+    }
+
+    .hero-card{
+
+        width:200px;
+        height:340px;
+    }
+
+    .heroes-track{
+
+        animation-duration:30s;
+    }
+    .heroes-mountains svg {
+    height: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroes-header p {
+    padding-inline: 1rem; /* menos aire en los costados */
+    margin: 0 auto 1rem;  /* opcional: reducir el margen inferior */
+    text-align: center;   /* mantiene el centrado */
+  }
+}
+
+
 /* ====================================================================
   LA COMUNIDAD SIGUE CRECIENDO
    ==================================================================== */
@@ -1432,14 +1778,17 @@ margin-top: -64px; /* compensa la altura del header */}
   color: var(--stats-ink);
   font-family: var(--font-stats-body);
 
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 100px;
+  padding-bottom: 60px;
 
 
   display: grid;
   grid-template-columns: 40% 60%;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  align-items: start;
+  gap: clamp(2.5rem, 4vw, 5rem);
+  align-items: center;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical */
 }
 
 /* ---------------------------------------------------------------------
@@ -1447,6 +1796,7 @@ margin-top: -64px; /* compensa la altura del header */}
    --------------------------------------------------------------------- */
 .stats-manifesto {
   position: static;
+  max-width: 550px;
 }
 
 .stats-title {
@@ -1495,6 +1845,7 @@ margin-top: -64px; /* compensa la altura del header */}
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  max-width: 500px;
 }
 
 .stat {
@@ -1554,7 +1905,7 @@ margin-top: -64px; /* compensa la altura del header */}
   font-weight: 600;
   color: var(--stats-muted);
   line-height: 18px;
-  width: 200px;
+  width: 150px;
   height: 40px;
 }
 
@@ -1581,9 +1932,12 @@ margin-top: -64px; /* compensa la altura del header */}
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 340px;
+    gap: 20px;
   }
   .stat {
     padding: 20px 0;
+    max-width: 150px;
   }
 }
 
@@ -1782,7 +2136,7 @@ html[data-motion="reduced"] .digit-strip,
 
 .cursos-section {
     padding: 120px 0;
-    background: #f4f2ef;
+    background: var(--color-void) ;
 }
 
 .cursos-section .container {
@@ -1795,7 +2149,7 @@ html[data-motion="reduced"] .digit-strip,
     font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1;
     margin-bottom: 50px;
-    color: #261c1b;
+    color: var(--color-ink);
 }
 
 .cursos-accordion {
@@ -1838,11 +2192,11 @@ html[data-motion="reduced"] .digit-strip,
     flex-direction: column;
 
     overflow: hidden;
-    border-radius: 24px;
+    border-radius: 10px;
 
     cursor: pointer;
 
-    background: #d9e6e8;
+    background: var(--color-void) ;
 
     transition:
         flex 600ms cubic-bezier(0.25,1,0.5,1),
@@ -1850,7 +2204,7 @@ html[data-motion="reduced"] .digit-strip,
 }
 
 .curso-card.is-active {
-    flex: 2.8;
+    flex: 2.5;
 }
 
 /* =========================
@@ -1895,8 +2249,8 @@ html[data-motion="reduced"] .digit-strip,
     border: none;
     cursor: pointer;
 
-    background: #ff5a1f;
-    color: white;
+    background: var(--color-ember);
+    color: var(--color-void) ;
 
     height: 42px;
     width: 42px;
@@ -1945,7 +2299,7 @@ html[data-motion="reduced"] .digit-strip,
 ========================= */
 
 .curso-content {
-    background: #d9e6e8;
+    background: var(--color-frost);
     padding: 28px;
     min-height: 150px;
     overflow: hidden;
@@ -1979,8 +2333,8 @@ html[data-motion="reduced"] .digit-strip,
     transform: translateY(10px);
 
     transition:
-        opacity .3s ease,
-        transform .3s ease;
+        opacity .5s ease,
+        transform .5s ease;
 }
 
 .curso-description {
@@ -2066,20 +2420,23 @@ html[data-motion="reduced"] .digit-strip,
    --------------------------------------------------------------------- */
 .expediciones-deck {
   position: relative;
-  min-height: 100vh;
+  min-height: 100vh; /* 👉 asegura que la sección mida toda la pantalla */
   overflow: hidden;
   background: #ff4a18;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .expediciones-bg {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;   /* 👉 ocupa todo el alto del padre */
   background-image: url("assets/fitzroy.png");
-  background-size: cover;       /* ocupa todo el área */
-  background-position: center;  /* centrada */
-  background-repeat: no-repeat; /* evita repeticiones */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* desactiva las capas encima */
@@ -2112,7 +2469,7 @@ html[data-motion="reduced"] .digit-strip,
   color: #292020;
 }
 .expediciones-headline span {
-  color: white;
+  color: var(--color-void);
 }
 .expediciones-deck-stage {
   perspective: 1000px;
@@ -2388,7 +2745,7 @@ html[data-motion="reduced"] .digit-strip,
     min-height:80vh;
 
 
-    background:#fbf9f6;
+    background:var(--color-void);
 
 
     display:flex;
@@ -2440,7 +2797,7 @@ html[data-motion="reduced"] .digit-strip,
     font-weight:700;
 
 
-    color:#ff4d17;
+    color: var(--color-ember) ;
 
 
     opacity:0;
@@ -2464,7 +2821,7 @@ html[data-motion="reduced"] .digit-strip,
     line-height:.95;
 
 
-    color:#2d1d16;
+    color: var(--color-ink);
 
 
     opacity:0;
@@ -2523,10 +2880,10 @@ html[data-motion="reduced"] .digit-strip,
     padding:18px 22px;
 
 
-    background:#ff4d17;
+    background: var(--color-ember);
 
 
-    color:#fff;
+    color: var(--color-void);
 
 
     font-weight:700;
@@ -2567,26 +2924,15 @@ html[data-motion="reduced"] .digit-strip,
 }
 
 
-.hero-guides__image-wrapper{
-
-
-    overflow:hidden;
-
-
-    border-radius:10px;
-
-
-    opacity:0;
-
-
-    transform:scale(1.05);
-
-
-    animation:imageReveal .9s cubic-bezier(.16,1,.3,1) forwards;
-
-
-    animation-delay:.3s;
+.hero-guides__image-wrapper {
+  overflow: hidden;
+  border-radius: 5px;
+  opacity: 0;
+  transform: scale(1.05);
+  animation: imageReveal 1.2s ease-in-out forwards;
+  animation-delay: .1s;
 }
+
 
 
 .hero-guides__image{
@@ -2602,81 +2948,35 @@ html[data-motion="reduced"] .digit-strip,
     object-fit:cover;
 
 
-    transition:transform .8s cubic-bezier(.16,1,.3,1);
+    transition:none;
 }
 
 
 #hero-guides:hover .hero-guides__image{
 
 
-    transform:translateX(10px);
+    transform:none;
 }
-
-.escuela-mountains {
-  position: absolute;
-  bottom: 0;            /* pegado al borde inferior */
-  left: 0;
-  width: 100%;
-  height: 200px;        /* ajustá según tu diseño */
-  pointer-events: none; /* no bloquea interacción */
-}
-
-.escuela-mountains svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.escuela-mountains path {
-  fill: var(--color-ink); /* color que conecta con la siguiente sección */
-}
-
-
-
 
 @keyframes heroReveal{
-
-
     to{
-
-
         opacity:1;
-
-
         transform:translateY(0);
     }
-
-
 }
-
 
 @keyframes imageReveal{
-
-
     to{
-
-
         opacity:1;
-
-
         transform:scale(1);
     }
-
-
 }
-
 
 @media (max-width:768px){
 .heroes-mountains svg {
         height: 140px;
     }
-  .escuela-mountains {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    pointer-events: none;}
-
+  
     #hero-guides{
         min-height:auto;
     }
