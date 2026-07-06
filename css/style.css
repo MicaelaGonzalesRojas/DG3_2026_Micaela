@@ -2656,7 +2656,7 @@ margin-bottom: 30px;
 
  position: relative;   /* permite posicionar hijos absolutos */
   overflow: hidden;     /* evita que el SVG se desborde */
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 }
 
 

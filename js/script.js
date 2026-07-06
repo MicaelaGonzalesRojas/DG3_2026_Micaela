@@ -363,14 +363,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const athletes = [
     {
       image: "img/inspiration-01.jpg",
-      name: "DANA PAOLA",
+      name: "DANIEL CORDEIRO",
       disability: "35 años · Baja visión",
       location: "Monte Everest · 2003"
     },
     {
       image: "img/inspiration-02.jpg",
       name: "CARLOS MENDOZA",
-      disability: "42 años · Amputado",
+      disability: "42 años · Movilidad reducida",
       location: "Aconcagua · 2018"
     },
     {
