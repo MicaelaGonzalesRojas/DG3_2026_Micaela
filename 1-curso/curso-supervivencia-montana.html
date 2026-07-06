@@ -58,76 +58,127 @@
      1. HERO
 ========================================================= -->
 <section class="curso-hero" aria-labelledby="heroTitle">
-  <div class="curso-hero__scene" aria-hidden="true">
-    <svg class="curso-hero__svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3a2620"/>
-          <stop offset="42%" stop-color="#a85a3a"/>
-          <stop offset="70%" stop-color="#e8a86b"/>
-          <stop offset="100%" stop-color="#f6d9b8"/>
-        </linearGradient>
-        <linearGradient id="peakFar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#8a7a8f"/>
-          <stop offset="100%" stop-color="#c9b9c2"/>
-        </linearGradient>
-        <linearGradient id="peakMid" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5c4f57"/>
-          <stop offset="100%" stop-color="#9a8a8f"/>
-        </linearGradient>
-        <linearGradient id="peakNear" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#292020"/>
-          <stop offset="100%" stop-color="#4a3a38"/>
-        </linearGradient>
-      </defs>
-      <rect width="1440" height="900" fill="url(#sky)"/>
-      <circle cx="1180" cy="230" r="90" fill="#ffd9a0" opacity=".85"/>
-      <polygon points="0,560 220,360 380,520 560,300 760,540 960,340 1180,540 1440,420 1440,900 0,900" fill="url(#peakFar)" opacity=".55"/>
-      <polygon points="0,650 260,460 480,620 700,410 900,640 1150,440 1440,600 1440,900 0,900" fill="url(#peakMid)" opacity=".75"/>
-      <polygon points="0,760 180,600 340,700 540,520 720,700 940,560 1120,720 1300,600 1440,700 1440,900 0,900" fill="url(#peakNear)"/>
-      <polygon points="340,700 540,520 720,700" fill="#f6ece0" opacity=".9"/>
-      <polygon points="940,560 1120,720 1300,600" fill="#f6ece0" opacity=".8"/>
-    </svg>
-  </div>
 
+  <!-- Contenido principal -->
   <div class="curso-hero__content">
     <span class="curso-hero__badge">Curso destacado</span>
     <h1 id="heroTitle" class="curso-hero__title">Supervivencia<br>en Montaña</h1>
-    <p class="curso-hero__subtitle">Refugios, orientación y manejo de recursos en condiciones extremas. Contenido y ritmo adaptados a cada capacidad — nadie se queda al pie de la montaña.</p>
+    <p class="curso-hero__subtitle">
+      Refugios, orientación y manejo de recursos en condiciones extremas. 
+      Contenido y ritmo adaptados a cada capacidad — nadie se queda al pie de la montaña.
+    </p>
     <div class="curso-hero__actions">
       <a href="#cierre" class="cuspide-action-btn cuspide-action-btn--pyromountain"><span>Reservar mi cupo</span></a>
       <a href="#recorrido" class="cuspide-action-btn cuspide-action-btn--darkabyss"><span>Ver programa</span></a>
     </div>
   </div>
 
+  <!-- Barra de información -->
   <div class="curso-info-bar">
     <div class="curso-info-bar__inner">
+
       <div class="curso-info-item">
-        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+        </svg>
         <div>
           <strong>Nivel intermedio</strong>
           <span>Con base física previa</span>
         </div>
       </div>
+
       <div class="curso-info-item">
-        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>
+        </svg>
         <div>
           <strong>6 clases (3 semanas)</strong>
           <span>2 veces por semana</span>
         </div>
       </div>
+
       <div class="curso-info-item">
-        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>
+        </svg>
         <div>
-          <strong>Duración x clase</strong>
+          <strong>Duración por clase</strong>
           <span>5 horas de campo</span>
         </div>
       </div>
+
       <div class="curso-info-item">
-        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+        <svg class="curso-info-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/>
+          <circle cx="12" cy="9.5" r="2.3"/>
+        </svg>
         <div>
           <strong>Cerro Catedral</strong>
           <span>Bariloche, Río Negro</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     4. QUÉ VAS A APRENDER
+========================================================= -->
+<section class="curso-aprender" id="aprender">
+  <div class="curso-aprender__grid">
+    <div class="curso-aprender__media">
+      <div class="curso-aprender__media">
+  <img src="assets-c/imagen.isnpo.png" alt="Escena de montaña" />
+</div>
+
+    </div>
+    <div class="curso-aprender__copy section-copy">
+      <span class="eyebrow">Por qué es importante</span>
+      <h2 class="display-md">¿Qué vas a aprender?</h2>
+      <p>No se trata de memorizar teoría: cada habilidad se practica hasta que el cuerpo la recuerda sola, incluso con frío, cansancio y visibilidad reducida.</p>
+      <p>Al terminar, vas a poder tomar decisiones de refugio y recursos por tu cuenta en una salida de montaña, sin depender de que alguien más decida por vos.</p>
+
+      <div class="curso-accordion" id="cursoAccordion">
+        <div class="curso-accordion__item is-open">
+          <button class="curso-accordion__trigger" aria-expanded="true">
+            <span>Construcción de refugios de nieve</span>
+            <span class="curso-accordion__sign" aria-hidden="true">–</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Igloo simplificado, trinchera y quinzhee: cuándo elegir cada uno según el tiempo, la nieve disponible y la energía del grupo.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Administración de recursos</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Raciones, agua y energía calculadas para 3 días con lo que entra en una mochila, y cómo estirarlas si algo se complica.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Orientación y lectura del clima</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Mapa, brújula y señales del cielo para anticipar un cambio de tiempo antes de que te agarre expuesto.</p>
+          </div>
+        </div>
+
+        <div class="curso-accordion__item">
+          <button class="curso-accordion__trigger" aria-expanded="false">
+            <span>Primeros auxilios en altura</span>
+            <span class="curso-accordion__sign" aria-hidden="true">+</span>
+          </button>
+          <div class="curso-accordion__panel">
+            <p>Reconocimiento temprano de hipotermia y mal de altura, y protocolo de evacuación con los recursos del grupo.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -204,76 +255,6 @@
   </div>
 </section>
 
-<!-- =========================================================
-     4. QUÉ VAS A APRENDER
-========================================================= -->
-<section class="curso-aprender" id="aprender">
-  <div class="curso-aprender__grid">
-    <div class="curso-aprender__media">
-      <svg viewBox="0 0 500 620" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="snowGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#e9c39a"/>
-            <stop offset="100%" stop-color="#f4e3cc"/>
-          </linearGradient>
-        </defs>
-        <rect width="500" height="620" fill="#d7e2e5"/>
-        <polygon points="0,420 120,300 240,400 360,260 500,380 500,620 0,620" fill="url(#snowGrad)"/>
-        <path d="M120 460 q60 -70 130 0 q10 40 -10 60 q-60 30 -120 0 q-15 -25 0 -60 Z" fill="#292020"/>
-        <circle cx="380" cy="150" r="46" fill="#ff9d5c" opacity=".9"/>
-        <path d="M60 460 l30 -40 l25 40 z" fill="#7e6a65"/>
-      </svg>
-    </div>
-    <div class="curso-aprender__copy section-copy">
-      <span class="eyebrow">Por qué es importante</span>
-      <h2 class="display-md">¿Qué vas a aprender?</h2>
-      <p>No se trata de memorizar teoría: cada habilidad se practica hasta que el cuerpo la recuerda sola, incluso con frío, cansancio y visibilidad reducida.</p>
-      <p>Al terminar, vas a poder tomar decisiones de refugio y recursos por tu cuenta en una salida de montaña, sin depender de que alguien más decida por vos.</p>
-
-      <div class="curso-accordion" id="cursoAccordion">
-        <div class="curso-accordion__item is-open">
-          <button class="curso-accordion__trigger" aria-expanded="true">
-            <span>Construcción de refugios de nieve</span>
-            <span class="curso-accordion__sign" aria-hidden="true">–</span>
-          </button>
-          <div class="curso-accordion__panel">
-            <p>Igloo simplificado, trinchera y quinzhee: cuándo elegir cada uno según el tiempo, la nieve disponible y la energía del grupo.</p>
-          </div>
-        </div>
-
-        <div class="curso-accordion__item">
-          <button class="curso-accordion__trigger" aria-expanded="false">
-            <span>Administración de recursos</span>
-            <span class="curso-accordion__sign" aria-hidden="true">+</span>
-          </button>
-          <div class="curso-accordion__panel">
-            <p>Raciones, agua y energía calculadas para 3 días con lo que entra en una mochila, y cómo estirarlas si algo se complica.</p>
-          </div>
-        </div>
-
-        <div class="curso-accordion__item">
-          <button class="curso-accordion__trigger" aria-expanded="false">
-            <span>Orientación y lectura del clima</span>
-            <span class="curso-accordion__sign" aria-hidden="true">+</span>
-          </button>
-          <div class="curso-accordion__panel">
-            <p>Mapa, brújula y señales del cielo para anticipar un cambio de tiempo antes de que te agarre expuesto.</p>
-          </div>
-        </div>
-
-        <div class="curso-accordion__item">
-          <button class="curso-accordion__trigger" aria-expanded="false">
-            <span>Primeros auxilios en altura</span>
-            <span class="curso-accordion__sign" aria-hidden="true">+</span>
-          </button>
-          <div class="curso-accordion__panel">
-            <p>Reconocimiento temprano de hipotermia y mal de altura, y protocolo de evacuación con los recursos del grupo.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- =========================================================
      5. RECORRIDO DEL CURSO
@@ -396,6 +377,160 @@
     <p class="curso-cierre__desc">Quedan 4 lugares para la edición de agosto 2026. Reservá tu cupo hoy y empezá a construir el refugio que te va a bancar cuando más lo necesites.</p>
     <a href="#" class="cuspide-action-btn cuspide-action-btn--pyromountain curso-cierre__cta"><span>Reservar mi cupo ahora</span></a>
   </div>
+</section>
+
+<section class="cuspide-checkout-pricing" id="cuspide-checkout-pricing">
+
+    <div class="cuspide-checkout-pricing__container">
+
+        <!-- ENCABEZADO -->
+
+        <header class="cuspide-checkout-pricing__header">
+
+            <h2 class="cuspide-checkout-pricing__title">
+                NO LO DUDES MÁS
+            </h2>
+
+            <p class="cuspide-checkout-pricing__subtitle">
+                Ejercicios de fuerza, resistencia y movilidad, adaptados a cada tipo de discapacidad.
+                Se busca fortalecer el cuerpo.
+            </p>
+
+        </header>
+
+        <!-- TARJETAS -->
+
+        <div class="cuspide-checkout-pricing__grid">
+
+            <!-- PLAN CONTADO -->
+
+            <article class="cuspide-checkout-pricing__card cuspide-checkout-pricing__card--cream">
+
+                <div class="cuspide-checkout-pricing__pricing">
+
+                    <span class="cuspide-checkout-pricing__label">
+                        PRECIO AL CONTADO
+                    </span>
+
+                    <h3 class="cuspide-checkout-pricing__price">
+                        $800.000
+                    </h3>
+
+                    <button class="cuspide-action-btn cuspide-action-btn--darkabyss">
+                        <span> ANOTARME AHORA </span>
+                    </button>
+
+                </div>
+
+                <div class="cuspide-checkout-pricing__benefits">
+
+                    <h4>
+                        Beneficios
+                    </h4>
+
+                    <ul>
+
+                        <li>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 1
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 2
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 3
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 4
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </article>
+
+            <!-- PLAN PROMOCIONAL -->
+
+            <article class="cuspide-checkout-pricing__card cuspide-checkout-pricing__card--ice">
+
+                <div class="cuspide-checkout-pricing__pricing">
+
+                    <span class="cuspide-checkout-pricing__label">
+                        PRECIO AL CONTADO
+                    </span>
+
+                    <h3 class="cuspide-checkout-pricing__price">
+                        $800.000
+                    </h3>
+
+                    <button class="cuspide-action-btn cuspide-action-btn--darkabyss">
+                        <span> ANOTARME AHORA </span>
+                    </button>
+
+
+                </div>
+
+                <div class="cuspide-checkout-pricing__benefits">
+
+                    <h4>
+                        Beneficios
+                    </h4>
+
+                    <ul>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 1
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 2
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 3
+                        </li>
+
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 6L9 17L4 12"/>
+                            </svg>
+                            Beneficio exclusivo 4
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
 </section>
 
 <!-- =========================================================

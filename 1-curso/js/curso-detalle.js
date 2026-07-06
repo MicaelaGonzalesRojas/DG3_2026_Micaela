@@ -55,6 +55,43 @@
     });
   }
 
+/* ======================================================
+   CÚSPIDE CHECKOUT PRICING
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const pricingSection = document.querySelector(".cuspide-checkout-pricing");
+
+    if (!pricingSection) return;
+
+    const observer = new IntersectionObserver(
+
+        (entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) return;
+
+                pricingSection.classList.add("is-visible");
+
+                observer.unobserve(entry.target);
+
+            });
+
+        },
+
+        {
+            threshold: 0.25,
+            rootMargin: "0px 0px -80px 0px"
+        }
+
+    );
+
+    observer.observe(pricingSection);
+
+});
+
   /* ---------------- CARRUSEL DE TESTIMONIOS ---------------- */
   var track = document.getElementById('testimoniosTrack');
   if (track) {
