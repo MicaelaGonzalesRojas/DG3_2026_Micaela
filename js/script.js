@@ -255,56 +255,31 @@ document.addEventListener("DOMContentLoaded", () => {
         acá solo sincronizamos aria-expanded para lectores de pantalla.
      ------------------------------------------------------------------ */
 /* ==========================================
-   CUSPIDE PILLARS
+   INTERACCIÓN DE CARDS (PILLARS + HERO)
 ========================================== */
 
-const cuspidePillarCards = document.querySelectorAll(
-    ".cuspide-pillar-card"
-);
+/* ==========================================
+   HERO FLIP CARDS
+========================================== */
 
-const isTouchDevice =
-    window.matchMedia("(max-width: 768px)").matches ||
-    ("ontouchstart" in window);
+document.addEventListener("DOMContentLoaded", () => {
+  const summitCards = document.querySelectorAll(".csp-flip-card");
 
-if (isTouchDevice) {
-
-    cuspidePillarCards.forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            const expanded =
-                card.classList.contains("is-flipped");
-
-            card.classList.toggle("is-flipped");
-
-            card.setAttribute(
-                "aria-expanded",
-                expanded ? "false" : "true"
-            );
-        });
-
-        card.addEventListener("keydown", (e) => {
-
-            if (
-                e.key === "Enter" ||
-                e.key === " "
-            ) {
-
-                e.preventDefault();
-
-                const expanded =
-                    card.classList.contains("is-flipped");
-
-                card.classList.toggle("is-flipped");
-
-                card.setAttribute(
-                    "aria-expanded",
-                    expanded ? "false" : "true"
-                );
-            }
-        });
+  summitCards.forEach(card => {
+    // Click → activa el flip
+    card.addEventListener("click", () => {
+      card.classList.toggle("is-active");
     });
-}
+
+    // Teclado → Enter o Espacio también activan el flip
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        card.classList.toggle("is-active");
+      }
+    });
+  });
+});
 
 /* ==========================================================
    CÚSPIDE GLACIER SEPARATOR
