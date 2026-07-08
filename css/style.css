@@ -1884,15 +1884,17 @@ margin-bottom: 30px;
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
-*/ =======================================================
+/* =======================================================
    TESTIMONIOS PREMIUM
    ======================================================= */
 
 #conquistadores {
-background: url("../assets/fondo-test.png") no-repeat center center;
-  background-size: cover;   /* hace que la imagen cubra todo el área */
+  background: url("../assets/fondo-test.png") no-repeat center center;
+  background-size: cover;
   padding: 90px 0;
+  background-color: #111; /* fallback si la imagen no carga */
 }
+
 
 .conquistadores__container{
     width:min(1030px,92%);
@@ -2087,293 +2089,347 @@ background: url("../assets/fondo-test.png") no-repeat center center;
 /* ---------------------------------------------------------------------
    7. CURSOS
    --------------------------------------------------------------------- */
-/* ==========================================
-   ESPECIALISTAS
-========================================== */
-/* =========================
-   CURSOS
-========================= */
+.cuspide-courses-catalog {
+  --ccc-radius: 10px; /* fijo por spec: nunca 10px ni bordes rectos */
+  --ccc-gap: 10px;
+  --ccc-height: 480px;
 
-.cursos-section {
-    padding: 120px 0;
-    background: var(--color-void) ;
+  position: relative;
+  background: var(--color-void);
+  padding: clamp(64px, 9vw, 120px) var(--pad);
 }
 
-.cursos-section .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
+.cuspide-courses-catalog__inner {
+    max-width: var(--maxw); /* ancho que querés imponer */
+  margin: 0 auto;         /* centra el contenido */
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.cursos-title {
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1;
-    margin-bottom: 50px;
-    color: var(--color-ink);
+.cuspide-courses-catalog__title {
+  /* hereda font-family/uppercase/letter-spacing de la regla global
+     h1,h2,h3,.display-md + el font-weight de h2{...!important} */
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1;
+  margin-bottom: 44px;
 }
 
-.cursos-accordion {
-    display: flex;
-    gap: 16px;
-    height: 560px;
+/* --------------------------------------------------------------------------
+   Grilla / acordeón flex
+   -------------------------------------------------------------------------- */
+.cuspide-courses-catalog__grid {
+  display: flex;
+  gap: var(--ccc-gap);
+  height: var(--ccc-height);
+  width: 100%;            /* ocupa todo el ancho del inner */
+  box-sizing: border-box; /* respeta padding y border */
 }
 
-.curso-inner {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(6px);
+/* --------------------------------------------------------------------------
+   Tarjeta
+   -------------------------------------------------------------------------- */
+.cuspide-courses-catalog__card {
+  position: relative;
+  flex: 1;
+  min-width: 100px;
+  overflow: hidden;
+  border-radius: var(--ccc-radius);
+  isolation: isolate;
 
-    transition:
-        opacity 450ms ease,
-        transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
-        filter 450ms ease;
+  /* Entrada por scroll: ensamblaje desde abajo, sin efectos elásticos */
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    flex-grow var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease),
+    opacity var(--dur-base) var(--ease);
 }
 
-.curso-card.is-active .curso-inner {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
+.cuspide-courses-catalog.is-visible .cuspide-courses-catalog__card {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.curso-card.is-leaving .curso-inner {
-    opacity: 0;
-    transform: translateY(-10px);
-    filter: blur(4px);
-}
-/* =========================
-   CARD
-========================= */
+/* Stagger de 0.15s por tarjeta (CSS puro, sin depender de índices en JS) */
+.cuspide-courses-catalog.is-visible .cuspide-courses-catalog__card:nth-child(1) { transition-delay: 0s; }
+.cuspide-courses-catalog.is-visible .cuspide-courses-catalog__card:nth-child(2) { transition-delay: .15s; }
+.cuspide-courses-catalog.is-visible .cuspide-courses-catalog__card:nth-child(3) { transition-delay: .3s; }
 
-.curso-card {
-    flex: 1;
-    min-width: 180px;
-
-    display: flex;
-    flex-direction: column;
-
-    overflow: hidden;
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    background: var(--color-void) ;
-
-    transition:
-        flex 600ms cubic-bezier(0.25,1,0.5,1),
-        transform 600ms cubic-bezier(0.25,1,0.5,1);
+/* Tarjeta activa por defecto / por hover-click: crece y cede espacio a las demás */
+.cuspide-courses-catalog__card--active {
+  flex: 2.6;
 }
 
-.curso-card.is-active {
-    flex: 2.5;
+/* --------------------------------------------------------------------------
+   Imagen + Control Cromático
+   -------------------------------------------------------------------------- */
+.cuspide-courses-catalog__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transform: scale(1.01);
+  transition:
+    filter var(--dur-base) var(--ease),
+    opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
 }
 
-/* =========================
-   IMAGEN
-========================= */
-
-.curso-image {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__image {
+  filter: grayscale(0%);
+  opacity: 1;
 }
 
-.curso-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-    filter: grayscale(100%);
-
-    transition:
-        filter 600ms cubic-bezier(0.25,1,0.5,1),
-        transform 600ms cubic-bezier(0.25,1,0.5,1);
+.cuspide-courses-catalog__card:hover .cuspide-courses-catalog__image {
+  transform: scale(1.04);
 }
 
-.curso-card.is-active .curso-image img {
-    filter: grayscale(0%);
+/* Velo inferior para legibilidad del texto sobre la foto */
+.cuspide-courses-catalog__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(41, 32, 32, 0) 42%, rgba(41, 32, 32, 0.8) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.curso-card:hover .curso-image img {
-    transform: scale(1.03);
+/* --------------------------------------------------------------------------
+   Cuerpo informativo
+   -------------------------------------------------------------------------- */
+.cuspide-courses-catalog__card-body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  color: #fff;
 }
 
-/* =========================
-   BOTON SUPERIOR
-========================= */
-
-.curso-toggle {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-
-    border: none;
-    cursor: pointer;
-
-    background: var(--color-ember);
-    color: var(--color-void) ;
-
-    height: 42px;
-    width: unset;
-
-    border-radius: 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-
-    transition:
-        width 400ms cubic-bezier(0.25,1,0.5,1);
+/* Fila superior del cuerpo: título + precio.
+   Inactiva: apilados en columna (como en la referencia, tarjetas angostas).
+   Activa: en fila, precio alineado a la derecha junto al CTA. */
+.cuspide-courses-catalog__card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 
-.curso-toggle-icon {
-    font-size: 18px;
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-top {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 14px;
 }
 
-.curso-cta {
-    opacity: 0;
-    width: 0;
-
-    overflow: hidden;
-    white-space: nowrap;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    transition: opacity .3s ease;
+.cuspide-courses-catalog__card-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+  line-height: 1.05;
+  color: #fff;
 }
 
-.curso-card.is-active .curso-toggle {
-    width: 120px;
-    gap: 8px;
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-title {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  max-width: 65%;
 }
 
-.curso-card.is-active .curso-cta {
-    opacity: 1;
-    width: auto;
+.cuspide-courses-catalog__card-price {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  flex: none;
 }
 
-/* =========================
-   FRANJA INFERIOR
-========================= */
-
-.curso-content {
-    background: var(--color-frost);
-    padding: 28px;
-    min-height: 150px;
-    overflow: hidden;
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-price {
+  font-size: 1.4rem;
 }
 
-.curso-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+/* Descripción: sólo visible en la tarjeta activa */
+.cuspide-courses-catalog__card-description {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 46ch;
+  margin: 0 0 18px;
+
+  opacity: 0;
+  transform: translateY(8px);
+  max-height: none; /* eliminar animación por max-height */
+  overflow: visible;
+  transition:
+    opacity .35s var(--ease),
+    transform .35s var(--ease);
 }
 
-.curso-header h3 {
-    color: #261c1b;
-
-    font-size: clamp(1.3rem,1.5vw,2rem);
-
-    line-height: 1;
-
-    margin: 0;
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-description {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 80px;
+  transition-delay: .1s;
 }
 
-.curso-duration {
-    color: #7c6f6a;
-
-    font-size: .95rem;
-
-    white-space: nowrap;
-
-    opacity: 0;
-    transform: translateY(10px);
-
-    transition:
-        opacity .5s ease,
-        transform .5s ease;
+.cuspide-courses-catalog__card-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.curso-description {
-    margin-top: 18px;
-
-    max-width: 520px;
-
-    color: #4d4643;
-
-    line-height: 1.5;
-
-    opacity: 0;
-    transform: translateY(12px);
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
+/* --------------------------------------------------------------------------
+   CTA morfante: el indicador "+" vive en TODAS las tarjetas y se transforma
+   en el botón ".cuspide-action-btn--pyromountain" (definido en style.css,
+   sin tocar sus estilos internos) cuando la tarjeta se activa.
+   Ambos ocupan el mismo espacio y hacen cross-fade + escala.
+   -------------------------------------------------------------------------- */
+.cuspide-courses-catalog__card-cta {
+  position: relative;
+  display: inline-flex;
 }
 
-/* SOLO TITULO EN CERRADAS */
-
-.curso-card:not(.is-active) .curso-content {
-    min-height: 90px;
+.cuspide-courses-catalog__card-cta .cuspide-action-btn {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-fast) ease,
+    transform var(--dur-fast) ease;
 }
 
-.curso-card:not(.is-active) .curso-description,
-.curso-card:not(.is-active) .curso-duration {
-    display: none;
+.cuspide-courses-catalog__card-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) scale(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-ember);
+  color: var(--color-void);
+  opacity: 1;
+  cursor: pointer;
+  transition:
+    opacity var(--dur-fast) ease,
+    transform var(--dur-fast) ease,
+    background var(--dur-fast) ease;
 }
 
-/* REVEAL */
-
-.curso-card.is-active .curso-duration,
-.curso-card.is-active .curso-description {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 150ms;
+.cuspide-courses-catalog__card-indicator:hover {
+  background: var(--color-ink);
 }
 
-/* =========================
-   FOCUS
-========================= */
-
-.curso-card:focus-visible {
-    outline: 3px solid #ff5a1f;
-    outline-offset: 4px;
+.cuspide-courses-catalog__card-indicator:focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 3px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.cuspide-courses-catalog__card-indicator svg {
+  width: 16px;
+  height: 16px;
+}
 
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-cta .cuspide-action-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+   transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+  transition-delay: 0s;
+}
+
+.cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-indicator {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.5);
+  pointer-events: none;
+   transition-delay: 0s;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive táctil (< 768px)
+   El acordeón deja de tener sentido en una columna angosta: en móvil todas
+   las tarjetas se muestran ya "activadas" (color real, descripción y botón
+   visibles) apiladas una debajo de otra. El "+" se oculta por completo.
+   -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
+  .cuspide-courses-catalog__title {
+    font-size: 2rem;
+    margin-bottom: 28px;
+  }
 
-    .cursos-section .container {
-        padding: 0 20px;
-    }
+  .cuspide-courses-catalog__grid {
+    flex-direction: column;
+    height: auto;
+  }
 
-    .cursos-accordion {
-        flex-direction: column;
-        height: auto;
-    }
+  .cuspide-courses-catalog__card {
+    flex: none;
+    width: 100%;
+    height: 320px;
+  }
 
-    .curso-card {
-        flex: none;
-        height: 240px;
-    }
+  .cuspide-courses-catalog__card .cuspide-courses-catalog__image {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
 
-    .curso-card.is-active {
-        height: 420px;
-    }
+  .cuspide-courses-catalog__card .cuspide-courses-catalog__card-top {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
 
-    .curso-content {
-        min-height: auto;
-    }
+  .cuspide-courses-catalog__card .cuspide-courses-catalog__card-title {
+    font-size: 1.5rem;
+    max-width: 62%;
+  }
 
-    .curso-description {
-        display: block;
-    }
+  .cuspide-courses-catalog__card .cuspide-courses-catalog__card-price {
+    font-size: 1.3rem;
+  }
+
+  .cuspide-courses-catalog__card .cuspide-courses-catalog__card-description {
+    opacity: 1;
+    max-height: 90px;
+    font-size: 13px;
+  }
+
+  .cuspide-courses-catalog__card-indicator {
+    display: none;
+  }
+
+  .cuspide-courses-catalog__card-cta .cuspide-action-btn {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-courses-catalog__card,
+  .cuspide-courses-catalog__image,
+  .cuspide-courses-catalog__card-description,
+  .cuspide-courses-catalog__card-cta .cuspide-action-btn,
+  .cuspide-courses-catalog__card-indicator {
+    transition: none !important;
+  }
 }
 
 
@@ -2408,14 +2464,27 @@ background: url("../assets/fondo-test.png") no-repeat center center;
    Controles de Expediciones (extiende sistema global)
 ========================================================== */
 
-.expediciones-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+.expediciones-deck-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.expediciones__btn {
+  width: 48px;
+  height: 48px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  z-index: 10;
 }
 
 .expediciones__btn--prev,
 .expediciones__btn--next {
+  flex-shrink: 0;
   width: 42px;
   height: 42px;
   padding: 0;
@@ -2644,7 +2713,8 @@ background: url("../assets/fondo-test.png") no-repeat center center;
     max-width: none;
   }
 
-  .expediciones-controls {
+  .expediciones__btn--prev,
+  .expediciones__btn--next {
     display: none;
   }
 

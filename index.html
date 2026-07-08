@@ -541,25 +541,23 @@
       <span>EXPEDICIONES</span>
     </h2>
 
-    <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones" aria-live="polite">
-      <div class="expediciones-deck-track" id="expDeckTrack"></div>
-      <div class="expediciones-controls">
-  <button
-    class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--prev"
-    aria-label="Expedición anterior">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-    </svg>
-    <span> < </span>
-  </button>
+    <div class="expediciones-deck-row">
 
-  <button
-    class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--next"
-    aria-label="Expedición siguiente">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-    </svg>
-    <span> > </span>
-  </button>
-</div>
+      <button
+        class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--prev"
+        aria-label="Expedición anterior">
+        <span> < </span>
+      </button>
+
+      <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones" aria-live="polite">
+        <div class="expediciones-deck-track" id="expDeckTrack"></div>
+      </div>
+
+      <button
+        class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--next"
+        aria-label="Expedición siguiente">
+        <span> > </span>
+      </button>
 
     </div>
 
@@ -567,84 +565,115 @@
 
 
   <!-- ======================= 7. CURSOS ======================= -->
-<section id="cursos" class="cursos-section">
-    <div class="container">
-        <h2 class="cursos-title">CURSOS</h2>
+<section class="cuspide-courses-catalog">
+  <div class="cuspide-courses-catalog__inner">
 
-        <div class="cursos-accordion">
+    <h2 class="cuspide-courses-catalog__title">Nuestros Cursos</h2>
 
-            <!-- CURSO 1 -->
-<article class="curso-card is-active is-selected" tabindex="0" aria-haspopup="true" aria-expanded="true">
-  <div class="curso-image">
-    <img src="assets/curso1.png" alt="Perfección de prótesis">
+    <div class="cuspide-courses-catalog__grid">
 
-    <button onclick="window.location.href='1-curso/curso-supervivencia-montana.html'" 
-            class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
-      <span class="curso-toggle-icon">+</span>
-      <span class="curso-cta">VER MÁS</span>
-    </button>
-  </div>
+      <!-- Tarjeta 1 — activa por defecto -->
+      <article class="cuspide-courses-catalog__card cuspide-courses-catalog__card--active" aria-expanded="true">
+        <img
+          class="cuspide-courses-catalog__image"
+          src="assets/curso1.png"
+          alt="Guía construyendo refugio de nieve en alta montaña">
 
-  <div class="curso-content">
-    <div class="curso-header">
-      <h3>RESISTENCIA EN ALTURA</h3>
-      <span class="curso-duration"> <h3>$800.000</h3></span>
-    </div>
-    <p class="curso-description">
-      Aprendé a construir refugios seguros en condiciones extremas para mantenerte protegido ante el frío
-    </p>
-  </div>
-</article>
+        <div class="cuspide-courses-catalog__card-body">
+          <div class="cuspide-courses-catalog__card-top">
+            <h3 class="cuspide-courses-catalog__card-title">Resistencia en Altura</h3>
+            <span class="cuspide-courses-catalog__card-price">$800.000</span>
+          </div>
 
-<!-- CURSO 2 -->
-<article class="curso-card" tabindex="0" aria-haspopup="true" aria-expanded="false">
-  <div class="curso-image">
-    <img src="assets/curso2.png" alt="Comunicación en la montaña">
+          <p class="cuspide-courses-catalog__card-description">
+            Aprendé a construir refugios seguros en condiciones extremas
+            para mantenerte protegido ante el frío.
+          </p>
 
-    <button class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
-      <span class="curso-toggle-icon">+</span>
-      <span class="curso-cta">VER MÁS</span>
-    </button>
-  </div>
-
-  <div class="curso-content">
-    <div class="curso-header">
-      <h3>ORIENTACIÓN TÉCNICA</h3>
-      <span class="curso-duration"> <h3>$600.000</h3></span>
-    </div>
-    <p class="curso-description">
-      Domina mapas, brújula y GPS para planificar rutas seguras y liderar expediciones en alta montaña
-    </p>
-  </div>
-</article>
-
-<!-- CURSO 3 -->
-<article class="curso-card" tabindex="0" aria-haspopup="true" aria-expanded="false">
-  <div class="curso-image">
-    <img src="assets/curso3.png" alt="Resistencia física">
-
-    <button class="cuspide-action-btn cuspide-action-btn--pyromountain curso-toggle">
-      <span class="curso-toggle-icon">+</span>
-      <span class="curso-cta">VER MÁS</span>
-    </button>
-  </div>
-
-  <div class="curso-content">
-    <div class="curso-header">
-      <h3>PRÓTESIS PARA MONTAÑA</h3>
-      <span class="curso-duration"> <h3>$700.000</h3></span>
-    </div>
-    <p class="curso-description">
-      Técnicas de adaptación y reparación de prótesis para garantizar confianza y autonomía en expediciones
-    </p>
-  </div>
-</article>
-
-
+          <div class="cuspide-courses-catalog__card-footer">
+            <div class="cuspide-courses-catalog__card-cta">
+              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
+                <span>Ver programa</span>
+              </button>
+              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </article>
 
+      <!-- Tarjeta 2 -->
+      <article class="cuspide-courses-catalog__card" aria-expanded="false">
+        <img
+          class="cuspide-courses-catalog__image"
+          src="assets/curso2.png"
+          alt="Guía practicando orientación técnica sobre hielo">
+
+        <div class="cuspide-courses-catalog__card-body">
+          <div class="cuspide-courses-catalog__card-top">
+            <h3 class="cuspide-courses-catalog__card-title">Orientación Técnica</h3>
+            <span class="cuspide-courses-catalog__card-price">$600.000</span>
+          </div>
+
+          <p class="cuspide-courses-catalog__card-description">
+            Dominá la lectura del terreno, mapas y navegación con GPS
+            en condiciones de baja visibilidad.
+          </p>
+
+          <div class="cuspide-courses-catalog__card-footer">
+            <div class="cuspide-courses-catalog__card-cta">
+              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
+                <span>Ver programa</span>
+              </button>
+              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tarjeta 3 -->
+      <article class="cuspide-courses-catalog__card" aria-expanded="false">
+        <img
+          class="cuspide-courses-catalog__image"
+          src="assets/curso3.png"
+          alt="Guía con equipo especializado en travesía de montaña">
+
+        <div class="cuspide-courses-catalog__card-body">
+          <div class="cuspide-courses-catalog__card-top">
+            <h3 class="cuspide-courses-catalog__card-title">Prótesis de Montaña</h3>
+            <span class="cuspide-courses-catalog__card-price">$700.000</span>
+          </div>
+
+          <p class="cuspide-courses-catalog__card-description">
+            Equipamiento y técnica adaptada para travesías de montaña
+            con prótesis, junto a guías especializados.
+          </p>
+
+          <div class="cuspide-courses-catalog__card-footer">
+            <div class="cuspide-courses-catalog__card-cta">
+              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
+                <span>Ver programa</span>
+              </button>
+              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
 
 <!-- ======================= ESCUELA ======================= -->
 <section
@@ -857,6 +886,7 @@
 </section>
 
 
+  <!-- ======================= 6. TESTIMONIOS ======================= -->
   <!-- ======================= 6. TESTIMONIOS ======================= -->
 <section id="conquistadores" class="conquistadores">
 

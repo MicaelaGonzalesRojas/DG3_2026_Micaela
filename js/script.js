@@ -613,142 +613,451 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ------------------------------------------------------------------
      7. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
-const cursoCards = document.querySelectorAll(".curso-card");
+(function () {
+  'use strict';
 
-let selectedCard =
-    document.querySelector(".curso-card.is-selected") ||
-    cursoCards[0];
+  const SECTION_SELECTOR = '.cuspide-courses-catalog';
+  const CARD_SELECTOR = '.cuspide-courses-catalog__card';
+  const INDICATOR_SELECTOR = '.cuspide-courses-catalog__card-indicator';
+  const ACTIVE_CLASS = 'cuspide-courses-catalog__card--active';
 
-function activateCard(card) {
+  function initSection(section) {
+    const cards = Array.from(section.querySelectorAll(CARD_SELECTOR));
+    if (!cards.length) return;
 
-    cursoCards.forEach(item => {
+    /* ---------------------------------------------------------------
+       1) Animación de entrada por scroll (Intersection Observer)
+       --------------------------------------------------------------- */
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-        item.classList.remove("is-active");
+    revealObserver.observe(section);
 
-        item.setAttribute(
-            "aria-expanded",
-            "false"
+    /* ---------------------------------------------------------------
+       2) Activación exclusiva por el botón "+"
+       --------------------------------------------------------------- */
+    function setActive(card) {
+      cards.forEach((c) => {
+        const isTarget = c === card;
+        c.classList.toggle(ACTIVE_CLASS, isTarget);
+        c.setAttribute('aria-expanded', String(isTarget));
+      });
+    }
+
+    cards.forEach((card) => {
+      const indicator = card.querySelector(INDICATOR_SELECTOR);
+      if (!indicator) return;
+
+      indicator.addEventListener('click', (event) => {
+        // Evita que el click "suba" y dispare cualquier handler de la tarjeta
+        event.stopPropagation();
+        setActive(card);
+      });
+    });
+  }
+
+  function init() {
+    document.querySelectorAll(SECTION_SELECTOR).forEach(initSection);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+
+/* ------------------------------------------------------------------
+     9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
+        de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
+        turnan el rol de "actual" para lograr un crossfade real sin
+        flash ni recarga visible.
+     ------------------------------------------------------------------ */
+(() => {
+
+    const track =
+        document.getElementById(
+            'expDeckTrack'
+        );
+
+    if(!track) return;
+
+    const backgrounds =
+        document.querySelectorAll(
+            '.exp-bg-layer'
+        );
+
+    const expediciones = [
+      {
+        nombre: 'FITZ ROY',
+        dificultad: 'DIFICULTAD ALTA',
+        duracion: '1 SEMANA',
+        fondo: 'assets/fitzroy-act.png',
+        descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
+        altura: '105 M',
+        lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
+      },
+      {
+        nombre: 'TRONADOR',
+        dificultad: 'DIFICULTAD EXTREMA',
+        duracion: '8 SEMANAS',
+        fondo: 'assets/tronador-act.png',
+        descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
+        altura: '71 M',
+        lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
+      },
+      {
+        nombre: 'TORRE',
+        dificultad: 'DIFICULTAD MEDIA',
+        duracion: '10 DÍAS',
+        fondo: 'assets/torre-act.png',
+        descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son icre.',
+        altura: '75 M',
+        lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
+      },
+      {
+        nombre: 'ACONCAGUA',
+        dificultad: 'DIFICULTAD MEDIA',
+        duracion: '2 SEMANAS',
+        fondo: 'assets/aconcagua-act.png',
+        descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
+        altura: '71 M',
+        lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
+      },
+      {
+        nombre: 'SAN VALENTÍN',
+        dificultad: 'DIFICULTAD EXTREMA',
+        duracion: '3 SEMANAS',
+        fondo: 'assets/sanvalentin-act.png',
+        descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
+        altura: '85 M',
+        lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
+      }
+    ];
+
+
+    let active = 0;
+    let bgIndex = 0;
+
+    expediciones.forEach((exp,index)=>{
+
+        track.insertAdjacentHTML(
+            'beforeend',
+            `
+            <article
+                class="expedicion-card"
+                data-index="${index}"
+                aria-label="${exp.nombre}"
+            >
+                <div class="expedicion-card-inner">
+
+                   <div class="expedicion-face expedicion-face--front">
+                          <figure class="expedicion-photo">
+                          <img src="${exp.fondo}" alt="${exp.nombre}">
+                          </figure>
+
+                          <h3 class="expedicion-name">${exp.nombre}</h3>
+
+                          <div class="expedicion-meta">
+                          <span class="expedicion-dificultad">${exp.dificultad}</span> – ${exp.altura}
+                          <br>
+                          <span class="expedicion-duracion">DURACIÓN: ${exp.duracion}</span>
+                          </div>
+                   </div>
+
+
+
+                  <!-- Parte trasera -->
+<div class="expedicion-face expedicion-face--back">
+  <h3 class="expedicion-title--back">${exp.nombre}</h3>
+  <div class="expedicion-meta--back"></div>
+  <p class="expedicion-text--back">${exp.descripcion}</p>
+  <ul class="expedicion-list--back">
+    ${exp.lugares.map(lugar => `
+      <li><span class="expedicion-circle--back"></span> ${lugar}</li>
+    `).join('')}
+  </ul>
+  <button class="cuspide-action-btn cuspide-action-btn--darkabyss expedicion-btn--back">
+    <span> VER MÁS </span>
+  </button>
+</div>
+
+
+                </div>
+            </article>
+            `
         );
     });
 
-    card.classList.add("is-active");
+    const cards =
+        [...track.children];
+// Evitar que el botón trasero haga flip
+cards.forEach(card => {
+  const btn = card.querySelector(".expedicion-btn--back");
+  if (btn) {
+    btn.addEventListener("click", e => {
+      e.stopPropagation(); // evita que el click llegue al card
+      // acá podés poner la acción del botón, por ejemplo abrir modal o link
+      console.log("Botón VER MÁS presionado en:", card.dataset.index);
+    });
+  }
+});
 
-    card.setAttribute(
-        "aria-expanded",
-        "true"
+    function updateDeck(){
+
+    const len = cards.length;
+
+    cards.forEach((card,index)=>{
+
+        // distancia con signo (camino más corto) respecto a la activa,
+        // así ninguna carta "salta" al lado contrario del abanico.
+        let offset = index - active;
+
+        offset = ((offset % len) + len) % len; // normaliza a 0..len-1
+
+        if(offset > len / 2){
+            offset -= len; // pasa al rango -2..2 (para len=5)
+        }
+
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        let rotateZ = 0;
+        let rotateY = 0;
+        let scale = 1;
+
+        switch(offset){
+
+            case 0:
+
+                x = 0;
+                y = 0;
+                z = 120;
+
+                rotateZ = 0;
+                rotateY = 0;
+
+                scale = 1;
+
+            break;
+
+            case 1:
+
+                x = 115;
+                y = 18;
+                z = 40;
+
+                rotateZ = 12;
+                rotateY = -4;
+
+                scale = .94;
+
+            break;
+
+            case 2:
+
+                x = 190;
+                y = 40;
+                z = -20;
+
+                rotateZ = 20;
+                rotateY = -8;
+
+                scale = .88;
+
+            break;
+
+            case -1:
+
+                x = -115;
+                y = 18;
+                z = 40;
+
+                rotateZ = -12;
+                rotateY = 4;
+
+                scale = .94;
+
+            break;
+
+            case -2:
+
+                x = -190;
+                y = 40;
+                z = -20;
+
+                rotateZ = -20;
+                rotateY = 8;
+
+                scale = .88;
+
+            break;
+        }
+
+        card.style.zIndex =
+            100 - Math.abs(offset);
+
+        card.style.transform = `
+            translate3d(
+                calc(-50% + ${x}px),
+                calc(-50% + ${y}px),
+                ${z}px
+            )
+            rotateZ(${rotateZ}deg)
+            rotateY(${rotateY}deg)
+            scale(${scale})
+        `;
+    });
+
+    swapBackground(
+        expediciones[active].fondo
     );
 }
-function activateCard(card) {
 
-    const current =
-        document.querySelector(".curso-card.is-active");
+    function swapBackground(src){
 
-    if (current === card) return;
+        const current =
+            backgrounds[bgIndex];
 
-    if (current) {
+        bgIndex =
+            bgIndex === 0 ? 1 : 0;
 
-        current.classList.add("is-leaving");
+        const next =
+            backgrounds[bgIndex];
 
-        setTimeout(() => {
+        next.style.backgroundImage =
+            `url(${src})`;
 
-            current.classList.remove(
-                "is-active",
-                "is-leaving"
-            );
+        next.classList.add(
+            'is-active'
+        );
 
-            current.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            card.classList.add("is-active");
-
-            card.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-        }, 180);
-
-    } else {
-
-        card.classList.add("is-active");
-
-        card.setAttribute(
-            "aria-expanded",
-            "true"
+        current.classList.remove(
+            'is-active'
         );
     }
-}
-/* ---------- Hover ---------- */
 
-cursoCards.forEach(card => {
+    function nextCard(){
 
-    card.addEventListener("mouseenter", () => {
+        active =
+            (active + 1)
+            % cards.length;
 
-        if (window.innerWidth < 768) return;
+        updateDeck();
+    }
 
-        if (selectedCard) return;
+    function prevCard(){
 
-        activateCard(card);
-    });
+        active =
+            (active - 1 + cards.length)
+            % cards.length;
 
-    card.addEventListener("mouseleave", () => {
+        updateDeck();
+    }
 
-        if (window.innerWidth < 768) return;
+    // ------------------------------------------------------------------
+    // Botones prev/next (antes no tenían listener conectado)
+    // ------------------------------------------------------------------
+    const nextBtn = document.querySelector(".expediciones__btn--next");
+    const prevBtn = document.querySelector(".expediciones__btn--prev");
 
-        if (selectedCard) return;
+    if(nextBtn){
+        nextBtn.addEventListener("click", nextCard);
+    }
 
-        activateCard(cursoCards[0]);
-    });
+    if(prevBtn){
+        prevBtn.addEventListener("click", prevCard);
+    }
 
+    updateDeck();
+
+    let startX = 0;
+
+track.addEventListener("pointerdown", e => {
+  startX = e.clientX;
 });
 
-/* ---------- Click ---------- */
+track.addEventListener("pointerup", e => {
+  const delta = e.clientX - startX;
 
-cursoCards.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        cursoCards.forEach(item =>
-            item.classList.remove("is-selected")
-        );
-
-        card.classList.add("is-selected");
-
-        selectedCard = card;
-
-        activateCard(card);
-    });
-
-});
-
-/* ---------- Teclado ---------- */
-
-cursoCards.forEach(card => {
-
-    card.addEventListener("keydown", e => {
-
-        if (
-            e.key === "Enter" ||
-            e.key === " "
-        ) {
-
-            e.preventDefault();
-
-            card.click();
+  // arrastrar hacia la izquierda → avanza (siguiente)
+  // arrastrar hacia la derecha  → retrocede (anterior)
+  if (delta < -50) {
+    nextCard();
+  } else if (delta > 50) {
+    prevCard();
+  }
         }
+    );
+
+    document.addEventListener(
+        'keydown',
+        e => {
+
+            // Si el foco está en un <button> (p.ej. prev/next luego de
+            // clickearlo), el propio botón ya dispara su "click" nativo
+            // con Enter/Espacio. Sin este corte, ese mismo Enter también
+            // caía en este listener y flippeaba cards[active] justo
+            // cuando "active" recién había cambiado por el click del
+            // botón (la carta todavía en tránsito hacia el centro) →
+            // terminaba viéndose flippeada una carta que no era la
+            // del medio.
+            if(e.target.closest('button')) return;
+
+            if(e.key === 'ArrowRight')
+                nextCard();
+
+            if(e.key === 'ArrowLeft')
+                prevCard();
+
+            if(e.key === 'Enter'){
+
+                cards[active]
+                .classList.toggle(
+                    'is-flipped'
+                );
+            }
+        }
+    );
+
+    cards.forEach(card=>{
+
+        card.addEventListener(
+            'click',
+            () => {
+
+                if(
+                    Number(
+                        card.dataset.index
+                    ) === active
+                ){
+                    card.classList.toggle(
+                        'is-flipped'
+                    );
+                }
+            }
+        );
     });
 
-});
-
-/* ---------- Inicial ---------- */
-
-activateCard(selectedCard);
+})();
 
 
-
-
+  /* ------------------------------------------------------------------
+     8. Testimonios — carrusel con fundido, controles y puntos accesibles
+     ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------
+     8. Testimonios — carrusel con fundido, controles y puntos accesibles
+     ------------------------------------------------------------------ */
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
@@ -902,357 +1211,6 @@ updateSlider();
     );
 
     observer.observe(section);
-
-})();
-
-  /* ------------------------------------------------------------------
-     9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
-        de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
-        turnan el rol de "actual" para lograr un crossfade real sin
-        flash ni recarga visible.
-     ------------------------------------------------------------------ */
-/* ==========================================================
-   EXPEDICIONES SELECTOR
-   ========================================================== */
-
-/* ------------------------------------------------------------------
-   EXPEDICIONES DECK 3D
-   ------------------------------------------------------------------ */
-
-(() => {
-
-    const track =
-        document.getElementById(
-            'expDeckTrack'
-        );
-
-    if(!track) return;
-
-    const backgrounds =
-        document.querySelectorAll(
-            '.exp-bg-layer'
-        );
-
-    const expediciones = [
-      {
-        nombre: 'FITZ ROY',
-        dificultad: 'DIFICULTAD ALTA',
-        duracion: '1 SEMANA',
-        fondo: 'assets/fitzroy-act.png',
-        descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
-        altura: '105 M',
-        lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
-      },
-      {
-        nombre: 'TRONADOR',
-        dificultad: 'DIFICULTAD EXTREMA',
-        duracion: '8 SEMANAS',
-        fondo: 'assets/tronador-act.png',
-        descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
-        altura: '71 M',
-        lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
-      },
-      {
-        nombre: 'TORRE',
-        dificultad: 'DIFICULTAD MEDIA',
-        duracion: '10 DÍAS',
-        fondo: 'assets/torre-act.png',
-        descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son icre.',
-        altura: '75 M',
-        lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
-      },
-      {
-        nombre: 'ACONCAGUA',
-        dificultad: 'DIFICULTAD MEDIA',
-        duracion: '2 SEMANAS',
-        fondo: 'assets/aconcagua-act.png',
-        descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
-        altura: '71 M',
-        lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
-      },
-      {
-        nombre: 'SAN VALENTÍN',
-        dificultad: 'DIFICULTAD EXTREMA',
-        duracion: '3 SEMANAS',
-        fondo: 'assets/sanvalentin-act.png',
-        descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
-        altura: '85 M',
-        lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
-      }
-    ];
-
-
-    let active = 0;
-    let bgIndex = 0;
-
-    expediciones.forEach((exp,index)=>{
-
-        track.insertAdjacentHTML(
-            'beforeend',
-            `
-            <article
-                class="expedicion-card"
-                data-index="${index}"
-                aria-label="${exp.nombre}"
-            >
-                <div class="expedicion-card-inner">
-
-                   <div class="expedicion-face expedicion-face--front">
-                          <figure class="expedicion-photo">
-                          <img src="${exp.fondo}" alt="${exp.nombre}">
-                          </figure>
-
-                          <h3 class="expedicion-name">${exp.nombre}</h3>
-
-                          <div class="expedicion-meta">
-                          <span class="expedicion-dificultad">${exp.dificultad}</span> – ${exp.altura}
-                          <br>
-                          <span class="expedicion-duracion">DURACIÓN: ${exp.duracion}</span>
-                          </div>
-                   </div>
-
-
-
-                  <!-- Parte trasera -->
-<div class="expedicion-face expedicion-face--back">
-  <h3 class="expedicion-title--back">${exp.nombre}</h3>
-  <div class="expedicion-meta--back"></div>
-  <p class="expedicion-text--back">${exp.descripcion}</p>
-  <ul class="expedicion-list--back">
-    ${exp.lugares.map(lugar => `
-      <li><span class="expedicion-circle--back"></span> ${lugar}</li>
-    `).join('')}
-  </ul>
-  <button class="cuspide-action-btn cuspide-action-btn--darkabyss expedicion-btn--back">
-    <span> VER MÁS </span>
-  </button>
-</div>
-
-
-                </div>
-            </article>
-            `
-        );
-    });
-
-    const cards =
-        [...track.children];
-// Evitar que el botón trasero haga flip
-cards.forEach(card => {
-  const btn = card.querySelector(".expedicion-btn--back");
-  if (btn) {
-    btn.addEventListener("click", e => {
-      e.stopPropagation(); // evita que el click llegue al card
-      // acá podés poner la acción del botón, por ejemplo abrir modal o link
-      console.log("Botón VER MÁS presionado en:", card.dataset.index);
-    });
-  }
-});
-
-    function updateDeck(){
-
-    cards.forEach((card,index)=>{
-
-        let offset = index - active;
-
-        if(offset < 0){
-            offset += cards.length;
-        }
-
-        let x = 0;
-        let y = 0;
-        let z = 0;
-        let rotateZ = 0;
-        let rotateY = 0;
-        let scale = 1;
-
-        switch(offset){
-
-            case 0:
-
-                x = 0;
-                y = 0;
-                z = 120;
-
-                rotateZ = 0;
-                rotateY = 0;
-
-                scale = 1;
-
-            break;
-
-            case 1:
-
-                x = 115;
-                y = 18;
-                z = 40;
-
-                rotateZ = 12;
-                rotateY = -4;
-
-                scale = .94;
-
-            break;
-
-            case 2:
-
-                x = 190;
-                y = 40;
-                z = -20;
-
-                rotateZ = 20;
-                rotateY = -8;
-
-                scale = .88;
-
-            break;
-
-            case 3:
-
-                x = -190;
-                y = 40;
-                z = -20;
-
-                rotateZ = -20;
-                rotateY = 8;
-
-                scale = .88;
-
-            break;
-
-            case 4:
-
-                x = -115;
-                y = 18;
-                z = 40;
-
-                rotateZ = -12;
-                rotateY = 4;
-
-                scale = .94;
-
-            break;
-        }
-
-        card.style.zIndex =
-            100 - Math.abs(offset);
-
-        card.style.transform = `
-            translate3d(
-                calc(-50% + ${x}px),
-                calc(-50% + ${y}px),
-                ${z}px
-            )
-            rotateZ(${rotateZ}deg)
-            rotateY(${rotateY}deg)
-            scale(${scale})
-        `;
-    });
-
-    swapBackground(
-        expediciones[active].fondo
-    );
-}
-
-    function swapBackground(src){
-
-        const current =
-            backgrounds[bgIndex];
-
-        bgIndex =
-            bgIndex === 0 ? 1 : 0;
-
-        const next =
-            backgrounds[bgIndex];
-
-        next.style.backgroundImage =
-            `url(${src})`;
-
-        next.classList.add(
-            'is-active'
-        );
-
-        current.classList.remove(
-            'is-active'
-        );
-    }
-
-    function nextCard(){
-
-        active =
-            (active + 1)
-            % cards.length;
-
-        updateDeck();
-    }
-
-    updateDeck();
-
-    let startX = 0;
-
-track.addEventListener("pointerdown", e => {
-  startX = e.clientX;
-});
-
-track.addEventListener("pointerup", e => {
-  const delta = e.clientX - startX;
-
-  if (delta > 50) {
-    // swipe derecha → siguiente
-    active = (active + 1) % cards.length;
-    updateDeck();
-  } else if (delta < -50) {
-    // swipe izquierda → anterior
-    active = (active - 1 + cards.length) % cards.length;
-    updateDeck();
-  }
-        }
-    );
-
-    document.addEventListener(
-        'keydown',
-        e => {
-
-            if(e.key === 'ArrowRight')
-                nextCard();
-
-            if(e.key === 'ArrowLeft'){
-
-                active =
-                    (active - 1 + cards.length)
-                    % cards.length;
-
-                updateDeck();
-            }
-
-            if(e.key === 'Enter'){
-
-                cards[active]
-                .classList.toggle(
-                    'is-flipped'
-                );
-            }
-        }
-    );
-
-    cards.forEach(card=>{
-
-        card.addEventListener(
-            'click',
-            () => {
-
-                if(
-                    Number(
-                        card.dataset.index
-                    ) === active
-                ){
-                    card.classList.toggle(
-                        'is-flipped'
-                    );
-                }
-            }
-        );
-    });
 
 })();
 
