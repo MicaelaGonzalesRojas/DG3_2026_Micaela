@@ -647,65 +647,100 @@
 
 
 <!-- ======================= ESCUELA ======================= -->
-<section id="hero-guides" class="hero-guides">
+<section
+  class="cuspide-academy-launch"
+  id="escuela-guias"
+  aria-labelledby="academy-title"
+>
 
-  <div class="hero-guides__container">
+  <!-- ── COLUMNA IZQUIERDA: manifiesto tipográfico ─────────────────── -->
+  <div class="cuspide-academy-launch__info">
 
-    <div class="hero-guides__content">
+    <span class="cuspide-academy-launch__eyebrow" aria-label="Próximamente, Abril 2027">
+      Próximamente &mdash; Abril 2027
+    </span>
 
-      <div class="hero-guides__reveal">
-        <span class="hero-guides__eyebrow">
-          PRÓXIMAMENTE
-        </span>
-      </div>
+    <h2 id="academy-title" class="cuspide-academy-launch__title">
+      Escuela de Guías
+    </h2>
 
-      <div class="hero-guides__reveal">
-        <h2 class="hero-guides__title">
-          ESCUELA DE GUÍAS
-        </h2>
-      </div>
+    <p>
+      Una certificación técnica de alto rendimiento para guías que
+      quieren liderar expediciones con personas ciegas y con prótesis
+      en condiciones de alta montaña real.
+    </p>
 
-      <div class="hero-guides__reveal">
-        <p class="hero-guides__text">
-          A inicios de 2027 traeremos la escuela de guías Cúspide, donde enseñaremos:
-        </p>
-        <p class="hero-guides__text">
-          + Rescate en grietas
-        </p>
-        </p>
-         <p class="hero-guides__text">
-          + Comunicación efectiva en la montaña
-        </p>
-         <p class="hero-guides__text">
-          + Primeros auxilios
-        
-      </div>
+    <ul class="cuspide-academy-launch__features" aria-label="Contenidos del programa">
+      <li>
+        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p> Técnica de guiado verbal para escalada ciega </p>
+      </li>
+      <li>
+        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p> Rescate de emergencia en grietas </p>
+      </li>
+      <li>
+        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p> Primeros auxilios  </p>
+      </li>
+    </ul>
 
-      <button
-      class="cuspide-action-btn cuspide-action-btn--pyromountain">
-      <span>RECIBIR NOTIFIACIONES</span>
-      </button>
+    <!-- Usa la clase global existente + el modificador pyromountain -->
+   <button class="cuspide-action-btn cuspide-action-btn--pyromountain escuela">
+  <span>RECIBIR NOVEDADES</span>
+</button>
 
-    </div>
-
-    <div class="hero-guides__media">
-      <div class="hero-guides__image-wrapper">
-        <img
-          src="assets/escuela.png"
-          alt="Equipo de guías en la nieve"
-          class="hero-guides__image">
-      </div>
-    </div>
+    
 
   </div>
 
-  <!-- Montañas como fondo al pie -->
-  <div class="escuela-mountains">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path
-        d="M0 230L120 120L260 290L390 210L520 290L760 230L920 290L1080 250L1220 150L1290 250L1440 160V320H0Z"/>
-    </svg>
-  </div>
+  <!-- ── COLUMNA DERECHA: ecosistema de imágenes con parallax ─────── -->
+  <div
+    class="cuspide-academy-launch__visual-space"
+    role="img"
+    aria-label="Guías y montañistas de Cúspide en distintas expediciones de alta montaña adaptada en la Patagonia."
+  >
+
+    <!-- Capa trasera: mosaico de miniaturas (se mueve MÁS en hover) -->
+    <div class="cuspide-academy-launch__layer--background" aria-hidden="true">
+
+      <!-- Cada miniatura lleva --stagger-i para la animación escalonada -->
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:0; --tx:-2%;  --ty:3%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:1; --tx:68%; --ty:0%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:2; --tx:-4%; --ty:42%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:3; --tx:72%; --ty:40%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:4; --tx:5%;  --ty:76%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:5; --tx:66%; --ty:74%"
+           src="assets/escuela.png" alt="">
+      <img class="cuspide-academy-launch__thumb" style="--stagger-i:6; --tx:30%; --ty:-4%"
+           src="assets/escuela.png" alt="">
+
+    </div>
+
+    <!-- Capa delantera: imagen principal (se mueve MENOS y en sentido opuesto) -->
+    <div class="cuspide-academy-launch__layer--foreground" aria-hidden="true">
+      <img
+        class="cuspide-academy-launch__main-img"
+        src="assets/escuela.png"
+        alt=""
+      >
+    </div>
+
+  </div><!-- /.visual-space -->
 
 </section>
 
@@ -1033,6 +1068,7 @@
                     </footer>
 
                 </article>
+                
 
             </div>
 

@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0 }
   );
   revealTargets.forEach((el) => revealObserver.observe(el));
 
@@ -745,6 +745,13 @@ cursoCards.forEach(card => {
 /* ---------- Inicial ---------- */
 
 activateCard(selectedCard);
+
+
+
+
+  /* ------------------------------------------------------------------
+     8. Testimonios — carrusel con fundido, controles y puntos accesibles
+     ------------------------------------------------------------------ */
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
@@ -777,17 +784,22 @@ function getMaxIndex() {
 }
 
 function updateSlider() {
+  const maxIndex = getMaxIndex();
 
-    currentIndex = Math.max(
-        0,
-        Math.min(currentIndex, getMaxIndex())
-    );
+  currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
 
-    previousTranslate = -(currentIndex * getStep());
+  // calcular el translate
+  previousTranslate = -(currentIndex * getStep());
 
-    track.style.transform = `translateX(${previousTranslate}px)`;
+  // límite: no mover más allá del final del track
+  const maxTranslate = -(cards.length * getStep() - viewport.offsetWidth);
+  if (previousTranslate < maxTranslate) {
+    previousTranslate = maxTranslate;
+  }
 
+  track.style.transform = `translateX(${previousTranslate}px)`;
 }
+
 
 nextBtn.addEventListener("click", () => {
 
@@ -855,6 +867,44 @@ track.addEventListener("pointercancel", stopDragging);
 window.addEventListener("resize", updateSlider);
 
 updateSlider();
+
+/* ------------------------------------------------------------------
+   Animación de entrada al scroll (fade + slide-up con stagger)
+   ------------------------------------------------------------------ */
+(function initConquistadoresReveal() {
+
+    const section = document.getElementById("conquistadores");
+    if (!section) return;
+
+    const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const motionOff =
+        document.documentElement.dataset.motion === "reduced";
+
+    // si el usuario prefiere movimiento reducido, no animamos nada:
+    // el contenido queda visible de entrada.
+    if (prefersReduced || motionOff) return;
+
+    section.classList.add("conquistadores--will-animate");
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    section.classList.add("is-visible");
+                    observer.unobserve(section);
+                }
+            });
+        },
+        { threshold: 0.2 }
+    );
+
+    observer.observe(section);
+
+})();
+
   /* ------------------------------------------------------------------
      9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
         de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
@@ -1210,35 +1260,183 @@ track.addEventListener("pointerup", e => {
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS
 ========================================== */
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
+  'use strict';
 
-    const section = document.querySelector("#hero-guides");
+  /* ── Elementos ─────────────────────────────────────── */
+  var section     = document.querySelector('.cuspide-academy-launch');
+  if (!section) return;
 
-    const observer = new IntersectionObserver(
+  var info        = section.querySelector('.cuspide-academy-launch__info');
+  var thumbs      = section.querySelectorAll('.cuspide-academy-launch__thumb');
+  var mainImg     = section.querySelector('.cuspide-academy-launch__main-img');
+  var visualSpace = section.querySelector('.cuspide-academy-launch__visual-space');
+  var bgLayer     = section.querySelector('.cuspide-academy-launch__layer--background');
+  var fgLayer     = section.querySelector('.cuspide-academy-launch__layer--foreground');
 
-        entries => {
+  /* ── Detectar preferencia de movimiento reducido ────── */
+  function motionIsReduced() {
+    var htmlReduced = document.documentElement.getAttribute('data-motion') === 'reduced';
+    var osReduced   = typeof window.matchMedia === 'function'
+                      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return htmlReduced || osReduced;
+  }
 
-            entries.forEach(entry => {
+  /* ── Detectar dispositivo táctil / sin puntero fino ── */
+  function isTouchDevice() {
+    var noFinePointer = typeof window.matchMedia === 'function'
+                        && window.matchMedia('(pointer: coarse)').matches;
+    var narrowScreen = window.innerWidth < 768;
+    return noFinePointer || narrowScreen;
+  }
 
-                if(entry.isIntersecting){
+  /* ══════════════════════════════════════════════════════
+     1. SCROLL REVEAL con IntersectionObserver
+     ══════════════════════════════════════════════════════
+     Si el usuario prefiere no tener movimiento, se marca
+     todo como visible inmediatamente sin transición.
+  */
+  function revealAll() {
+    if (info)    info.classList.add('is-visible');
+    if (mainImg) mainImg.classList.add('is-visible');
+    thumbs.forEach(function (t) { t.classList.add('is-visible'); });
+  }
 
-                    section.classList.add("is-visible");
+  if (motionIsReduced()) {
+    /* Sin animación: estado final visible desde el inicio */
+    revealAll();
+  } else if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
 
-                }
+          /* 1a. Bloque de texto: fade + slide elástico */
+          if (info) info.classList.add('is-visible');
 
-            });
+          /* 1b. Miniaturas: entrada escalonada (el CSS usa --stagger-i) */
+          thumbs.forEach(function (thumb) {
+            thumb.classList.add('is-visible');
+          });
 
-        },
+          /* 1c. Imagen principal: se asienta con retardo (ver CSS transition-delay) */
+          if (mainImg) mainImg.classList.add('is-visible');
 
-        {
-            threshold:0.25
-        }
-
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.2 }
     );
-
     observer.observe(section);
+  } else {
+    /* Fallback sin soporte */
+    revealAll();
+  }
 
-});
+  /* ══════════════════════════════════════════════════════
+     2. PARALLAX 2D — mousemove (solo desktop, sin reduced-motion)
+
+     Factor de desplazamiento:
+       BG: ±18px (miniaturas traseras — se mueven MÁS)
+       FG: ± 8px (imagen frontal — se mueve MENOS y en opuesto)
+
+     Solo se usan translateX / translateY.
+     Cero perspectivas, cero rotaciones 3D.
+  ══════════════════════════════════════════════════════ */
+  var BG_FACTOR = 18; /* px máximos de desplazamiento del fondo */
+  var FG_FACTOR =  8; /* px máximos de desplazamiento del frente */
+
+  var rafPending = false;
+  var latestDx = 0;
+  var latestDy = 0;
+
+  function applyParallax() {
+    if (bgLayer) {
+      bgLayer.style.transform =
+        'translateX(' + (latestDx * BG_FACTOR).toFixed(2) + 'px) ' +
+        'translateY(' + (latestDy * BG_FACTOR).toFixed(2) + 'px)';
+    }
+    if (fgLayer) {
+      fgLayer.style.transform =
+        /* Dirección opuesta al BG, menor magnitud */
+        'translateX(' + (-latestDx * FG_FACTOR).toFixed(2) + 'px) ' +
+        'translateY(' + (-latestDy * FG_FACTOR).toFixed(2) + 'px)';
+    }
+    rafPending = false;
+  }
+
+  function onMouseMove(e) {
+    var rect = visualSpace.getBoundingClientRect();
+    var cx   = rect.left + rect.width  / 2;
+    var cy   = rect.top  + rect.height / 2;
+
+    /* Normalizar a rango -1 … 1 relativo al centro del contenedor */
+    latestDx = (e.clientX - cx) / (rect.width  / 2);
+    latestDy = (e.clientY - cy) / (rect.height / 2);
+
+    /* Clamp para no salirse del rango */
+    latestDx = Math.max(-1, Math.min(1, latestDx));
+    latestDy = Math.max(-1, Math.min(1, latestDy));
+
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(applyParallax);
+    }
+  }
+
+  function resetParallax() {
+    latestDx = 0;
+    latestDy = 0;
+    if (bgLayer) bgLayer.style.transform = '';
+    if (fgLayer) fgLayer.style.transform = '';
+  }
+
+  function attachParallax() {
+    if (!visualSpace) return;
+    if (motionIsReduced() || isTouchDevice()) return; /* guardia doble */
+
+    visualSpace.addEventListener('mousemove', onMouseMove, { passive: true });
+    visualSpace.addEventListener('mouseleave', resetParallax);
+  }
+
+  function detachParallax() {
+    if (!visualSpace) return;
+    visualSpace.removeEventListener('mousemove', onMouseMove);
+    visualSpace.removeEventListener('mouseleave', resetParallax);
+    resetParallax();
+  }
+
+  attachParallax();
+
+  /* ── Re-evaluar parallax al cambiar el tamaño de ventana ── */
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (motionIsReduced() || isTouchDevice()) {
+        detachParallax();
+      } else {
+        attachParallax();
+      }
+    }, 250);
+  });
+
+  /* ── Reaccionar al toggle manual de movimiento del sitio ── */
+  var motionToggleBtn = document.getElementById('motionToggle');
+  if (motionToggleBtn) {
+    motionToggleBtn.addEventListener('click', function () {
+      /* El toggle ya mutó data-motion antes de que llegue el evento */
+      setTimeout(function () {
+        if (motionIsReduced()) {
+          detachParallax();
+        } else {
+          attachParallax();
+        }
+      }, 50);
+    });
+  }
+
+})();
 
 
   /* ------------------------------------------------------------------

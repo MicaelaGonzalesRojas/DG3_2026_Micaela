@@ -1077,7 +1077,7 @@ margin-bottom: 30px;
 
     text-align: center;
 
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
 }
 
 .metodologia-header h2 {
@@ -1207,7 +1207,7 @@ margin-bottom: 30px;
 
     flex-direction: column;
 
-    gap: 12rem;
+    gap: 4rem;
 }
 
 .metodo-step {
@@ -1329,7 +1329,7 @@ margin-bottom: 30px;
     align-items: flex-start;   /* alinea parte superior */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 3rem;   
+    gap: 0rem;   
   }
 
   .metodo-step {
@@ -1339,7 +1339,7 @@ margin-bottom: 30px;
     align-items: center;
     text-align: center;
     scroll-snap-align: center;
-    gap: 2rem;
+    gap: 0rem;
   }
 
   .metodo-step img {
@@ -1508,19 +1508,14 @@ margin-bottom: 30px;
         0 22px 40px rgba(0,0,0,.18);
 }
 
-.cuspide-global-inspiration__thumb-card.is-active{
-
-    filter:grayscale(0);
-
-    opacity:1;
-
-    border-color:#ff4f18;
-
-    transform:scale(1.04);
-
-    box-shadow:
-        0 24px 44px rgba(0,0,0,.18);
+.cuspide-global-inspiration__thumb-card.is-active {
+    filter: grayscale(0);
+    opacity: 1;
+    border-color: #ff4f18;
+    transform: scale(1.04);
+    box-shadow: 0 24px 44px rgba(0,0,0,.18);
 }
+
 
 .cuspide-global-inspiration__thumb-card img{
 
@@ -1889,21 +1884,20 @@ margin-bottom: 30px;
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS — fade carousel
    --------------------------------------------------------------------- */
-
-/* =======================================================
+*/ =======================================================
    TESTIMONIOS PREMIUM
    ======================================================= */
 
 #conquistadores {
-  background: url("../assets/fondo-test.png") no-repeat center center;
+background: url("../assets/fondo-test.png") no-repeat center center;
   background-size: cover;   /* hace que la imagen cubra todo el área */
   padding: 90px 0;
 }
 
-
 .conquistadores__container{
-    width:min(1150px,92%);
+    width:min(1030px,92%);
     margin:auto;
+    
 }
 
 .conquistadores__header{
@@ -1912,6 +1906,36 @@ margin-bottom: 30px;
     align-items:center;
     margin-bottom:40px;
 }
+
+/* ------------------------------------------------------------------
+   ANIMACIÓN DE ENTRADA (scroll reveal)
+   Se activa vía JS agregando la clase .is-visible al <section>
+   cuando entra en viewport. La clase .conquistadores--will-animate
+   solo se agrega si el navegador permite animaciones (JS + motion OK),
+   así el contenido nunca queda oculto si JS falla o si el usuario
+   prefiere movimiento reducido.
+   ------------------------------------------------------------------ */
+
+.conquistadores--will-animate .conquistadores__header,
+.conquistadores--will-animate .conquistadores__card{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity .7s cubic-bezier(.16,1,.3,1),
+                transform .7s cubic-bezier(.16,1,.3,1);
+}
+
+.conquistadores--will-animate.is-visible .conquistadores__header,
+.conquistadores--will-animate.is-visible .conquistadores__card{
+    opacity:1;
+    transform:none;
+}
+
+/* stagger entre tarjetas */
+.conquistadores--will-animate .conquistadores__card:nth-child(1){ transition-delay:.05s; }
+.conquistadores--will-animate .conquistadores__card:nth-child(2){ transition-delay:.15s; }
+.conquistadores--will-animate .conquistadores__card:nth-child(3){ transition-delay:.25s; }
+.conquistadores--will-animate .conquistadores__card:nth-child(4){ transition-delay:.35s; }
+.conquistadores--will-animate .conquistadores__card:nth-child(5){ transition-delay:.45s; }
 
 .conquistadores__title{
     font-size:42px;
@@ -1989,9 +2013,8 @@ margin-bottom: 30px;
 }
 
 .conquistadores__blockquote p{
-    margin-top:8px;
-    line-height:1.8;
-    color:#32261e;
+    line-height:1.2;
+    color: var(--color-ink);
 }
 
 .conquistadores__footer{
@@ -2056,6 +2079,7 @@ margin-bottom: 30px;
     scroll-snap-align: center;     /* centra cada card al hacer scroll */
   }
 }
+
 
 
 
@@ -2189,7 +2213,7 @@ margin-bottom: 30px;
     color: var(--color-void) ;
 
     height: 42px;
-    width: 42px;
+    width: unset;
 
     border-radius: 12px;
 
@@ -2351,6 +2375,10 @@ margin-bottom: 30px;
         display: block;
     }
 }
+
+
+
+
 /* ---------------------------------------------------------------------
    EXPEDICIONES — tarjetas como pestañas + panel de imagen dinámico
    --------------------------------------------------------------------- */
@@ -2358,6 +2386,7 @@ margin-bottom: 30px;
   position: relative;
   min-height: 100vh; /* 👉 asegura que la sección mida toda la pantalla */
   overflow: hidden;
+      padding: 1rem var(--pad);
   background: #ff4a18;
   display: flex;
   align-items: center;
@@ -2428,9 +2457,9 @@ margin-bottom: 30px;
   padding: 4rem;
 }
 .expediciones-headline {
-  margin-bottom: 6rem;
-  font-size: clamp(2.5rem,5vw,5.5rem);
-  line-height: 1.2;
+  margin-bottom: 2rem;
+  font-size: 55px;
+  line-height: 1;
   color: #292020;
 }
 .expediciones-headline span {
@@ -2636,268 +2665,247 @@ margin-bottom: 30px;
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS
 ========================================== */
+/* ════════════════════════════════════════════════════════
+   1. SECCIÓN BASE
+   ════════════════════════════════════════════════════════ */
+.cuspide-academy-launch {
+  --acad-cream  : var(--color-void,   #FDF9F4);
+  --acad-black  : var(--color-ink,    #292020);
+  --acad-brown  : var(--color-ice,    #7E6A65);
+  --acad-orange : var(--color-ember,  #FF4A18);
+  --acad-ice    : var(--color-rock-soft, #D7E2E5);
 
-/* ===========================================
-   HERO GUIDES
-=========================================== */
+  --acad-ease          : cubic-bezier(.16, .84, .32, 1);
+  --acad-ease-elastic  : cubic-bezier(.34, 1.56, .64, 1);
+  --acad-ease-parallax : cubic-bezier(.25, 1, .5, 1);
 
-#hero-guides{
+  display: grid;
+  grid-template-columns: 45% 55%;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
 
+  width: 100%;
+  min-height: 100vh;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  background: var(--acad-cream);
+  box-sizing: border-box;
+  overflow: hidden; /* contiene el spill del parallax */
+}
 
-    width:100%;
-    min-height:80vh;
+/* ════════════════════════════════════════════════════════
+   2. COLUMNA IZQUIERDA — manifiesto tipográfico
+   ════════════════════════════════════════════════════════ */
+.cuspide-academy-launch__info {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2rem);
+  max-width: 580px;
 
+  /* Scroll reveal: estado inicial oculto */
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity .9s var(--acad-ease-elastic),
+    transform .9s var(--acad-ease-elastic);
+}
+.cuspide-academy-launch__info.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  gap: 0.5rem;
+}
 
-    background:var(--color-void);
+/* Antetítulo (eyebrow) */
+.cuspide-academy-launch__eyebrow {
+  display: inline-block;
+  font-family: var(--font-display, 'Nippo', sans-serif);
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--acad-orange);
+}
 
+/* Título masivo */
+.cuspide-academy-launch__title {
+  font-family: var(--font-display, 'Nippo', sans-serif);
+  font-size: 65px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: .95;
+  letter-spacing: -.03em;
+  color: var(--acad-black);
+  margin: 0;
+}
 
-    display:flex;
-    align-items:center;
+/* Lista táctica con checks vectoriales */
+.cuspide-academy-launch__features {
+  list-style: none;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+.cuspide-academy-launch__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-size: clamp(.9rem, 1.2vw, 1rem);
+  line-height: 1.5;
+  color: var(--acad-brown);
+}
 
- position: relative;   /* permite posicionar hijos absolutos */
-  overflow: hidden;     /* evita que el SVG se desborde */
-  padding-bottom: 100px;
+/* Ícono SVG check */
+.cuspide-academy-launch__check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: .12em;
+  color: var(--acad-orange);
+}
+.cuspide-action-btn.escuela {
+  align-self: flex-start;  /* se alinea al inicio y no se estira */
+  width: auto;             /* ocupa solo lo necesario */
+  min-width: unset;
 }
 
 
-.hero-guides__container{
 
 
-    width:min(1200px,92%);
-    margin:auto;
-
-
-    display:grid;
-    grid-template-columns:1fr 1.1fr;
-    gap:70px;
-    align-items:center;
+/* ════════════════════════════════════════════════════════
+   3. COLUMNA DERECHA — visual space + capas de imágenes
+   ════════════════════════════════════════════════════════ */
+.cuspide-academy-launch__visual-space {
+  position: relative;
+  width: 100%;
+  /* La altura se define por el contenido + aspect ratio */
+aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes con transform no causen scroll */
+  overflow: visible;
 }
 
-
-.hero-guides__content{
-
-
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
+/* ── Capa trasera: mosaico de miniaturas ── */
+.cuspide-academy-launch__layer--background {
+  position: absolute;
+  inset: 0;
+  /* La transición suave del parallax en hover */
+  transition: transform .4s var(--acad-ease-parallax);
+  will-change: transform;
 }
 
+.cuspide-academy-launch__thumb {
+  position: absolute;
+  /* --tx y --ty los define el HTML para cada miniatura */
+  left: var(--tx, 0%);
+  top:  var(--ty, 0%);
+  width: clamp(110px, 13vw, 155px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: grayscale(15%) contrast(105%);
 
-.hero-guides__reveal{
-
-
-    overflow:hidden;
+  /* Scroll reveal: estado inicial */
+  opacity: 0;
+  transform: scale(.82);
+  /* El delay es por índice (--stagger-i): cada thumb entra escalonado */
+  transition:
+    opacity   .7s var(--acad-ease-elastic) calc(var(--stagger-i, 0) * 90ms),
+    transform .7s var(--acad-ease-elastic) calc(var(--stagger-i, 0) * 90ms);
+}
+.cuspide-academy-launch__thumb.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
-
-.hero-guides__eyebrow{
-
-
-    display:block;
-
-
-    font-size:3.2rem;
-    font-weight:700;
-
-
-    color: var(--color-ember) ;
-
-
-    opacity:0;
-
-
-    transform:translateY(60px);
-
-
-    animation:heroReveal .9s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-
-.hero-guides__title{
-
-
-
-
-    font-size:3.2rem;
-
-
-    line-height:.95;
-
-
-    color: var(--color-ink);
-
-
-    opacity:0;
-
-
-    transform:translateY(60px);
-
-
-    animation:heroReveal .9s cubic-bezier(.16,1,.3,1) forwards;
-
-
-    animation-delay:.12s;
-}
-
-
-.hero-guides__text{
-
-
-    max-width:470px;
-
-
-    margin:22px 0;
-
-
-
-
-    line-height:1.35;
-
-
-    color:#55433a;
-
-
-    opacity:0;
-
-
-    transform:translateY(60px);
-
-
-    animation:heroReveal .9s cubic-bezier(.16,1,.3,1) forwards;
-
-
-    animation-delay:.24s;
-}
-
-.curso-toggle {
-  display: inline-flex;
+/* ── Capa delantera: imagen principal ── */
+.cuspide-academy-launch__layer--foreground {
+  position: absolute;
+  inset: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;               /* espacio entre icono y texto */
-  padding: 6px 10px;     /* más compacto que hero */
-  border-radius: 6px;
-  cursor: pointer;
+  pointer-events: none;
+
+  /* Transición suave del parallax en hover (más lenta = peso visual) */
+  transition: transform .5s var(--acad-ease-parallax);
+  will-change: transform;
 }
 
-/* Ícono dentro del botón */
-.curso-toggle-icon {
-  font-size: 1.2rem;
-  line-height: 1;
-}
+.cuspide-academy-launch__main-img {
+ width: clamp(260px, 55%, 520px); /* más ancha */
+  aspect-ratio: 16 / 13;            /* formato panorámico */
+  object-fit: cover;
+  border-radius: 10px;
+  filter: grayscale(15%) contrast(105%);
+  box-shadow:
+    0 20px 60px rgba(41, 32, 32, .18),
+    0  8px 20px rgba(41, 32, 32, .12);
 
-/* Texto dentro del botón */
-.curso-cta {
-  text-transform: uppercase;
-
-}
-
-.hero-guides__image-wrapper {
-  overflow: hidden;
-  border-radius: 5px;
+  /* Scroll reveal: estado inicial */
   opacity: 0;
-  transform: scale(1.05);
-  animation: imageReveal 1.2s ease-in-out forwards;
-  animation-delay: .1s;
+  transform: scale(.9) translateY(16px);
+  /* Entra con retardo para asentarse DESPUÉS de las miniaturas */
+  transition:
+    opacity   .9s var(--acad-ease-elastic) .55s,
+    transform .9s var(--acad-ease-elastic) .55s;
+}
+.cuspide-academy-launch__main-img.is-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
-
-
-.hero-guides__image{
-
-
-    width:100%;
-    height:100%;
-
-
-    display:block;
-
-
-    object-fit:cover;
-
-
-    transition:none;
+/* ════════════════════════════════════════════════════════
+   4. ACCESIBILIDAD RADICAL — reduced-motion
+   El código JS también comprueba data-motion="reduced".
+   Esta regla cubre la preferencia de sistema operativo.
+   ════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-academy-launch__info,
+  .cuspide-academy-launch__thumb,
+  .cuspide-academy-launch__main-img {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .cuspide-academy-launch__layer--background,
+  .cuspide-academy-launch__layer--foreground {
+    transition: none !important;
+  }
 }
 
+/* ════════════════════════════════════════════════════════
+   5. RESPONSIVE — Mobile (< 768px)
+   Single column: visual arriba, info abajo.
+   Parallax desactivado por el propio JS en táctil.
+   ════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cuspide-academy-launch {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
+    padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 2rem);
+    gap: 3rem;
+  }
 
-#hero-guides:hover .hero-guides__image{
+  /* Visual al tope en mobile */
+  .cuspide-academy-launch__visual-space {
+    order: -1;
+    aspect-ratio: 1 / .75;
+  }
 
+  /* En mobile las miniaturas se hacen más chicas */
+  .cuspide-academy-launch__thumb {
+    width: clamp(80px, 22vw, 115px);
+  }
 
-    transform:none;
-}
+  .cuspide-academy-launch__title {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
 
-@keyframes heroReveal{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes imageReveal{
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-@media (max-width:768px){
-.heroes-mountains svg {
-        height: 140px;
-    }
-  
-    #hero-guides{
-        min-height:auto;
-    }
-
-
-    .hero-guides__container{
-
-
-        grid-template-columns:1fr;
-        gap:40px;
-    }
-
-
-    .hero-guides__media{
-
-
-        order:1;
-    }
-
-
-    .hero-guides__content{
-
-
-        order:2;
-    }
-
-
-    .hero-guides__image-wrapper{
-
-
-        height:320px;
-    }
-
-    
-
-    .hero-guides__title{
-
-
-        font-size:30px;
-    }
-
-
-    .hero-guides__eyebrow{
-        font-size:30px;
-    }
-
-
-    .hero-guides__text{
-
-
-        font-size:1.35rem;
-    }
-
-
+  .cuspide-academy-launch__info {
+    max-width: 100%;
+  }
 }
 
 
