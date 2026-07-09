@@ -3425,18 +3425,17 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
   font-family: var(--font-body);
 }
 
-.footer-cuspide__grid{
-
-    display:grid;
-
-    grid-template-columns:
-        2fr
-        1fr
-        1fr
-        1fr
-        1fr;
-
-    gap:4rem;
+/* --------------------------------------------------------------------------
+   Wrapper simétrico: identidad + 3 columnas
+   -------------------------------------------------------------------------- */
+.cuspide-terminal-footer__wrapper {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) repeat(3, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+  padding-bottom: clamp(48px, 6vw, 72px);
+  border-bottom: 1px solid var(--ctf-hairline);
 }
 
 /* --------------------------------------------------------------------------
