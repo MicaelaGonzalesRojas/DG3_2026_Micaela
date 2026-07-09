@@ -1068,7 +1068,7 @@ margin-bottom: 30px;
 
 .metodologia-scroll {
 
-    padding: 5rem var(--pad) 10rem; /* más espacio abajo */
+    padding: 5rem var(--pad) 0rem; /* más espacio abajo */
 
     background: var(--color-void);
 }
@@ -2096,7 +2096,7 @@ margin-bottom: 30px;
 
   position: relative;
   background: var(--color-void);
-  padding: clamp(64px, 9vw, 120px) var(--pad);
+  padding: clamp(64px, 9vw, 100px) var(--pad);
 }
 
 .cuspide-courses-catalog__inner {
@@ -2109,9 +2109,9 @@ margin-bottom: 30px;
 .cuspide-courses-catalog__title {
   /* hereda font-family/uppercase/letter-spacing de la regla global
      h1,h2,h3,.display-md + el font-weight de h2{...!important} */
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-size: 50px;
   line-height: 1;
-  margin-bottom: 44px;
+  margin-bottom: 28px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2607,32 +2607,6 @@ margin-bottom: 30px;
   display: block;
   border-radius: 5px;
 }
-.expedicion-dificultad {
-  color: var(--color-ember);
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.expedicion-duracion {
-  color: var(--color-slate);
-}
-.expedicion-face--back {
-  transform: rotateY(180deg);
-  background: var(--color-void);
-  border: 2px solid var(--color-ember);
-  border-radius: 10px;
-  box-shadow: 0 25px 50px rgba(0,0,0,.15);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-top: 2rem;
-  padding-right: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-  color: var(--color-ink);
-  font-family: var(--font-body);
-}
 .expedicion-name {
   font-size: 2rem;
   line-height: .95;
@@ -2649,53 +2623,149 @@ margin-bottom: 30px;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
-.expedicion-title--back {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  margin-bottom: 0rem;
-}
-.expedicion-text--back {
-  font-size: 17px;
-  font-weight: 300;
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-.expedicion-list--back {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
-}
-.expedicion-list--back li {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 0.4rem;
-  font-size: 17px;
-  font-weight: 300;
-}
-.expedicion-circle--back {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--color-slate);
-  flex-shrink: 0;
-}
-.expedicion-btn--back {
-  display: inline-flex;        /* o block si preferís */
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  font-size: 14px;
-  padding: 0.6rem 0.8rem;
-  border-radius: 5px;
+.expedicion-dificultad {
+  color: var(--color-ember);
+  font-weight: 600;
   text-transform: uppercase;
-  align-self: flex-start;
-  cursor: pointer;             /* asegura el cursor de mano */
-  transition: background 0.3s ease;
+}
+.expedicion-duracion {
+  color: var(--color-slate);
+}
+.expedicion-face--back {
+  transform: rotateY(180deg);
+  background: var(--color-void);
+  border: 2px solid var(--color-ember);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0,0,0,.15);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 1.75rem;
+  color: var(--color-ink);
+  font-family: var(--font-body);
 }
 
-.expedicion-btn--back:hover {
-  background: var(--color-ember); /* se activa en todo el rectángulo */
+.expedicion-back-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.expedicion-title--back {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.expedicion-location--back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+  margin: 0 0 .35rem;
+}
+
+.expedicion-location-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--color-slate);
+}
+
+.expedicion-text--back {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.expedicion-back-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Fila de metadatos: Duración / Altitud / Nivel, separados por divisores */
+.expedicion-meta--back {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding-top: .9rem;
+  border-top: 1px solid rgba(41, 32, 32, .12);
+}
+
+.expedicion-meta--back li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-right: 1rem;
+  border-right: 1px solid rgba(41, 32, 32, .12);
+}
+
+.expedicion-meta--back li:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.expedicion-meta-label {
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+
+.expedicion-meta-value {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Fila inferior: precio total + botón "Ver más" */
+.expedicion-back-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.expedicion-precio--back {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.expedicion-precio-label {
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+
+.expedicion-precio-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-ember);
+}
+
+/* El botón "Ver más" usa .cuspide-action-btn .cuspide-action-btn--darkabyss
+   ya definidos en style.css — no se tocan su color, padding ni su
+   comportamiento nativo. Sólo se evita que se estire dentro del footer. */
+.expedicion-btn--back {
+  flex-shrink: 0;
 }
 
 .expediciones-label {
@@ -2756,7 +2826,11 @@ margin-bottom: 30px;
 
   width: 100%;
   min-height: 100vh;
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  padding-top:    15px;   /* arriba */
+  padding-bottom: 48px;   /* abajo */
+  padding-right:  165px;   /* costado derecho */
+  padding-left:   165px;   /* costado izquierdo */
+  
   background: var(--acad-cream);
   box-sizing: border-box;
   overflow: hidden; /* contiene el spill del parallax */
@@ -2798,7 +2872,7 @@ margin-bottom: 30px;
 /* Título masivo */
 .cuspide-academy-launch__title {
   font-family: var(--font-display, 'Nippo', sans-serif);
-  font-size: 65px;
+  font-size: 52px;
   font-weight: 700;
   text-transform: uppercase;
   line-height: .95;
@@ -2906,7 +2980,7 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
  width: clamp(260px, 55%, 520px); /* más ancha */
   aspect-ratio: 16 / 13;            /* formato panorámico */
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
   filter: grayscale(15%) contrast(105%);
   box-shadow:
     0 20px 60px rgba(41, 32, 32, .18),
@@ -3714,7 +3788,6 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
     transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
   }
   .nav-list.is-open{ opacity: 1; transform: none; pointer-events: auto; }
-  .motion-toggle span#motionToggleLabel{ display: none; }
 }
 
 @media (max-width: 540px){

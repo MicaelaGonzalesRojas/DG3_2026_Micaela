@@ -73,7 +73,11 @@ window.addEventListener(
 
 
   /* ------------------------------------------------------------------
-     0. Estado de movimiento (toggle manual + preferencia de sistema)
+     0. Estado de movimiento (opcional: toggle manual si existe en el
+        DOM + preferencia de sistema). El botón fue retirado del header,
+        así que esto ahora sigue automáticamente prefers-reduced-motion;
+        si en el futuro se reincorpora un botón con id="motionToggle"
+        y span#motionToggleLabel, vuelve a funcionar sin tocar más código.
      ------------------------------------------------------------------ */
   const prefersReducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const motionToggle = document.getElementById('motionToggle');
@@ -83,15 +87,18 @@ window.addEventListener(
   function applyMotionState() {
     const reduced = manualOverride !== null ? manualOverride : prefersReducedQuery.matches;
     root.setAttribute('data-motion', reduced ? 'reduced' : 'full');
-    motionToggle.setAttribute('aria-pressed', String(reduced));
-    motionLabel.textContent = reduced ? 'Reanudar movimiento' : 'Pausar movimiento';
+
+    if (motionToggle) motionToggle.setAttribute('aria-pressed', String(reduced));
+    if (motionLabel) motionLabel.textContent = reduced ? 'Reanudar movimiento' : 'Pausar movimiento';
   }
 
-  motionToggle.addEventListener('click', () => {
-    const currentlyReduced = root.getAttribute('data-motion') === 'reduced';
-    manualOverride = !currentlyReduced;
-    applyMotionState();
-  });
+  if (motionToggle) {
+    motionToggle.addEventListener('click', () => {
+      const currentlyReduced = root.getAttribute('data-motion') === 'reduced';
+      manualOverride = !currentlyReduced;
+      applyMotionState();
+    });
+  }
   prefersReducedQuery.addEventListener('change', () => {
     if (manualOverride === null) applyMotionState();
   });
@@ -677,7 +684,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
-/* ------------------------------------------------------------------
+ /* ------------------------------------------------------------------
      9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
         de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
         turnan el rol de "actual" para lograr un crossfade real sin
@@ -705,6 +712,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fondo: 'assets/fitzroy-act.png',
         descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
         altura: '105 M',
+        ubicacion: 'SANTA CRUZ, ARGENTINA',
+        precio: '$800.000',
         lugares: ['Laguna de los Tres', 'Campamento Poincenot', 'Cumbre Fitz Roy']
       },
       {
@@ -714,6 +723,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fondo: 'assets/tronador-act.png',
         descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
         altura: '71 M',
+        ubicacion: 'RÍO NEGRO, ARGENTINA',
+        precio: '$1.450.000',
         lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
       },
       {
@@ -723,6 +734,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fondo: 'assets/torre-act.png',
         descripcion: 'El ascenso progresivo y el ritmo con el que se aprende son icre.',
         altura: '75 M',
+        ubicacion: 'SANTA CRUZ, ARGENTINA',
+        precio: '$650.000',
         lugares: ['Base del Torre', 'Campamento Niponino', 'Cumbre Sur']
       },
       {
@@ -732,6 +745,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fondo: 'assets/aconcagua-act.png',
         descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
         altura: '71 M',
+        ubicacion: 'MENDOZA, ARGENTINA',
+        precio: '$950.000',
         lugares: ['Campamento Base', 'Glaciar Horcones', 'Cumbre Principal']
       },
       {
@@ -741,6 +756,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fondo: 'assets/sanvalentin-act.png',
         descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
         altura: '85 M',
+        ubicacion: 'AYSÉN, CHILE',
+        precio: '$1.100.000',
         lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
       }
     ];
@@ -779,17 +796,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
                   <!-- Parte trasera -->
 <div class="expedicion-face expedicion-face--back">
-  <h3 class="expedicion-title--back">${exp.nombre}</h3>
-  <div class="expedicion-meta--back"></div>
-  <p class="expedicion-text--back">${exp.descripcion}</p>
-  <ul class="expedicion-list--back">
-    ${exp.lugares.map(lugar => `
-      <li><span class="expedicion-circle--back"></span> ${lugar}</li>
-    `).join('')}
-  </ul>
-  <button class="cuspide-action-btn cuspide-action-btn--darkabyss expedicion-btn--back">
-    <span> VER MÁS </span>
-  </button>
+  <div class="expedicion-back-top">
+    <h3 class="expedicion-title--back">${exp.nombre}</h3>
+
+    <p class="expedicion-location--back">
+      <svg class="expedicion-location-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 21s-7-7.2-7-12a7 7 0 1 1 14 0c0 4.8-7 12-7 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="9" r="2.3" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      ${exp.ubicacion}
+    </p>
+
+    <p class="expedicion-text--back">${exp.descripcion}</p>
+  </div>
+
+  <div class="expedicion-back-bottom">
+    <ul class="expedicion-meta--back">
+      <li>
+        <span class="expedicion-meta-label">Duración</span>
+        <span class="expedicion-meta-value">${exp.duracion}</span>
+      </li>
+      <li>
+        <span class="expedicion-meta-label">Altitud</span>
+        <span class="expedicion-meta-value">${exp.altura}</span>
+      </li>
+      <li>
+        <span class="expedicion-meta-label">Nivel</span>
+        <span class="expedicion-meta-value">${exp.dificultad.replace('DIFICULTAD ', '')}</span>
+      </li>
+    </ul>
+
+    <div class="expedicion-back-footer">
+      <div class="expedicion-precio--back">
+        <span class="expedicion-precio-label">Precio total</span>
+        <span class="expedicion-precio-value">${exp.precio}</span>
+      </div>
+
+      <button class="cuspide-action-btn cuspide-action-btn--darkabyss expedicion-btn--back">
+        <span>Ver más</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 
@@ -1003,16 +1050,6 @@ track.addEventListener("pointerup", e => {
     document.addEventListener(
         'keydown',
         e => {
-
-            // Si el foco está en un <button> (p.ej. prev/next luego de
-            // clickearlo), el propio botón ya dispara su "click" nativo
-            // con Enter/Espacio. Sin este corte, ese mismo Enter también
-            // caía en este listener y flippeaba cards[active] justo
-            // cuando "active" recién había cambiado por el click del
-            // botón (la carta todavía en tránsito hacia el centro) →
-            // terminaba viéndose flippeada una carta que no era la
-            // del medio.
-            if(e.target.closest('button')) return;
 
             if(e.key === 'ArrowRight')
                 nextCard();
@@ -1592,3 +1629,4 @@ document
     );
 });
 });
+
