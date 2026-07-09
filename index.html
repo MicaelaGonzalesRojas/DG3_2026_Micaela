@@ -409,112 +409,60 @@
 </section>
 
   <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
-<section
-    id="cuspide-global-inspiration"
-    class="cuspide-global-inspiration">
+<section class="cuspide-heroes-showcase" id="heroes" aria-labelledby="heroes-title">
+  <div class="cuspide-heroes-showcase__inner">
 
-    <div class="cuspide-global-inspiration__container">
+    <div class="cuspide-heroes-showcase__stage">
 
-        <!-- COLUMNA IZQUIERDA -->
+      <!-- Título: vive en la celda superior de la columna de miniaturas,
+           el main-frame arranca a esta misma altura (estructura de la ref.) -->
+      <h2 class="cuspide-heroes-showcase__title" id="heroes-title">
+        Hay que ver para<em>Creer</em>
+      </h2>
 
-        <div class="cuspide-global-inspiration__content">
-            <h2 class="cuspide-global-inspiration__title">
-                INSPIRADOS POR TODO EL MUNDO
-            </h2>
+      <!-- Miniaturas (izquierda, debajo del título) -->
+      <div class="cuspide-heroes-showcase__gallery" role="tablist" aria-label="Selector de héroes">
+        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="0"></div>
+        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="1"></div>
+        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="2"></div>
+      </div>
 
-            <p class="cuspide-global-inspiration__text">
-                Ellos demostraron que el verdadero límite nunca estuvo
-                en el cuerpo.
-            </p>
+      <!-- Imagen principal a color (centro) -->
+      <div class="cuspide-heroes-showcase__main-frame" data-slot="main"></div>
 
-            <p class="cuspide-global-inspiration__text">
-                Cada expedición abre un camino para quienes vienen
-                detrás. Sus historias hoy inspiran a cientos de nuevos
-                montañistas.
-            </p>
-
-            <div class="cuspide-global-inspiration__thumb-grid">
-
-                <button
-                    class="cuspide-global-inspiration__thumb-card is-active"
-                    data-index="0">
-
-                    <img
-                        src="assets/heroeh.png"
-                        alt="Dana Paola">
-
-                </button>
-
-                <button
-                    class="cuspide-global-inspiration__thumb-card"
-                    data-index="1">
-
-                    <img
-                        src="assets/heroe-3.jpg"
-                        alt="Carlos Mendoza">
-
-                </button>
-
-                <button
-                    class="cuspide-global-inspiration__thumb-card"
-                    data-index="2">
-
-                    <img
-                        src="assets/heroe-2.jpg"
-                        alt="Lucía Torres">
-
-                </button>
-
-            </div>
-
+      <!-- Biografía (derecha) -->
+      <div class="cuspide-heroes-showcase__bio-slate">
+        <div class="cuspide-heroes-showcase__bio-content" id="heroes-bio">
+          <h3 class="cuspide-heroes-showcase__name" data-bio="name"></h3>
+          <p class="cuspide-heroes-showcase__desc" data-bio="desc"></p>
+          <ul class="cuspide-heroes-showcase__tags">
+            <li class="cuspide-heroes-showcase__tag">
+              <span class="cuspide-heroes-showcase__tag-icon">→</span>
+              <span data-bio="disability"></span>
+            </li>
+            <li class="cuspide-heroes-showcase__tag cuspide-heroes-showcase__tag--accent">
+              <span class="cuspide-heroes-showcase__tag-icon">⛰</span>
+              <span data-bio="summit"></span>
+            </li>
+          </ul>
         </div>
 
-        <!-- COLUMNA DERECHA -->
-
-        <aside class="cuspide-global-inspiration__display-showcase">
-
-            <div class="cuspide-global-inspiration__image-frame">
-
-                <img
-                    id="cuspideGlobalImage"
-                    class="cuspide-global-inspiration__hero-image"
-                    src="assets/heroeh.png"
-                    alt="Dana Paola">
-
-            </div>
-
-            <div class="cuspide-global-inspiration__info">
-
-                <h3
-                    id="cuspideGlobalName"
-                    class="cuspide-global-inspiration__name">
-
-                    DANIEL CORDEIRO
-
-                </h3>
-
-                <p
-                    id="cuspideGlobalDisability"
-                    class="cuspide-global-inspiration__disability">
-
-                    65 años · Baja visión
-
-                </p>
-
-                <span
-                    id="cuspideGlobalLocation"
-                    class="cuspide-global-inspiration__location">
-
-                    Monte Everest · 2003
-
-                </span>
-
-            </div>
-
-        </aside>
+        <button
+          type="button"
+          class="cuspide-action-btn cuspide-action-btn--pyromountain cuspide-heroes-showcase__next"
+          id="heroes-next"
+          aria-label="Ver siguiente héroe">
+          <span>&gt;</span>
+        </button>
+      </div>
 
     </div>
 
+    <!-- Pool oculto: aquí descansan las tarjetas que quedaron fuera de la
+         ventana visible mientras rota la cola circular infinita -->
+    <div class="cuspide-heroes-showcase__pool" id="heroes-pool" aria-hidden="true"></div>
+
+  </div>
 </section>
 
 

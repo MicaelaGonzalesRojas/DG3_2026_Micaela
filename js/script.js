@@ -355,109 +355,345 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ------------------------------------------------------------------
    HEROES DE LA MONTAÑA
    ------------------------------------------------------------------ */
-/* ==========================================================
-   CÚSPIDE GLOBAL INSPIRATION
-========================================================== */
+(() => {
+  'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
+  const SECTION_SELECTOR = '.cuspide-heroes-showcase';
+  const ROTATE_MS = 650; // debe ser >= --dur-base para el cleanup
 
-  const section = document.querySelector(".cuspide-global-inspiration");
-  if (!section) return;
-
-  /* ==========================================
-     DATOS
-  ========================================== */
-  const athletes = [
+  /* -------------------------------------------------------------------
+     1. DATOS
+     ----------------------------------------------------------------- */
+  const HEROES = [
     {
-      image: "img/inspiration-01.jpg",
-      name: "DANIEL CORDEIRO",
-      disability: "35 años · Baja visión",
-      location: "Monte Everest · 2003"
+      id: 'hector-valvid',
+      name: 'Hector Valvid',
+      desc: 'Ejercicios de fuerza, resistencia y movilidad, adaptados a cada tipo de discapacidad. Se busca fortalecer el cuerpo antes de cada ascenso.',
+      disability: 'Ceguera completa',
+      summit: 'Monte Everest',
+      img: 'assets/heroe-1.jpg',
     },
     {
-      image: "img/inspiration-02.jpg",
-      name: "CARLOS MENDOZA",
-      disability: "42 años · Movilidad reducida",
-      location: "Aconcagua · 2018"
+      id: 'marina-fos',
+      name: 'Marina Fos',
+      desc: 'Rutinas de cardio en altitud y trabajo de equilibrio adaptado, diseñadas junto a su equipo médico y guías de montaña certificados.',
+      disability: 'Amputación transtibial',
+      summit: 'Aconcagua',
+      img: 'assets/heroe-2.jpg',
     },
     {
-      image: "img/inspiration-03.jpg",
-      name: "LUCÍA TORRES",
-      disability: "31 años · Movilidad reducida",
-      location: "Kilimanjaro · 2021"
-    }
+      id: 'diego-serra',
+      name: 'Diego Serra',
+      desc: 'Entrenamiento de tren superior y técnica de trineo adaptado para nieve profunda, con foco en resistencia cardiovascular.',
+      disability: 'Lesión medular T6',
+      summit: 'Kilimanjaro',
+      img: 'assets/heroe-3.jpg',
+    },
+    {
+      id: 'lucia-andrade',
+      name: 'Lucía Andrade',
+      desc: 'Programa de propiocepción y fuerza funcional, adaptado para terrenos irregulares y descensos técnicos de alta exigencia.',
+      disability: 'Baja visión progresiva',
+      summit: 'Denali',
+      img: 'assets/heroe-4.jpg',
+    },
+    {
+      id: 'bruno-castex',
+      name: 'Bruno Castex',
+      desc: 'Trabajo de estabilidad de core y respiración en altura, con simulacros de descompresión progresiva antes de cada expedición.',
+      disability: 'Amputación de brazo',
+      summit: 'Elbrus',
+      img: 'assets/per5.jpg',
+    },
+    {
+      id: 'sofia-ibarra',
+      name: 'Sofía Ibarra',
+      desc: 'Entrenamiento funcional de piernas y coordinación en hielo, con foco en autonomía total durante el ascenso final.',
+      disability: 'Parálisis parcial de piernas',
+      summit: 'Vinson Massif',
+      img: 'assets/heroe-4.jpg',
+    },
   ];
 
-  /* ==========================================
-     ELEMENTOS
-  ========================================== */
-  const thumbs = document.querySelectorAll(".cuspide-global-inspiration__thumb-card");
-  const heroImage = document.getElementById("cuspideGlobalImage");
-  const heroName = document.getElementById("cuspideGlobalName");
-  const heroDisability = document.getElementById("cuspideGlobalDisability");
-  const heroLocation = document.getElementById("cuspideGlobalLocation");
+  /* -------------------------------------------------------------------
+     2. INICIALIZACIÓN POR INSTANCIA
+     ----------------------------------------------------------------- */
+  document.querySelectorAll(SECTION_SELECTOR).forEach(initHeroesShowcase);
 
-  /* ==========================================
-     SCROLL REVEAL (asegura visibilidad)
-  ========================================== */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      section.classList.add("is-visible");
-      observer.disconnect();
+  function initHeroesShowcase(section) {
+    const gallery    = section.querySelector('.cuspide-heroes-showcase__gallery');
+    const thumbSlots = Array.from(section.querySelectorAll('.cuspide-heroes-showcase__thumb-slot'));
+    const mainFrame  = section.querySelector('.cuspide-heroes-showcase__main-frame');
+    const bioContent = section.querySelector('.cuspide-heroes-showcase__bio-content');
+    const nextBtn    = section.querySelector('.cuspide-heroes-showcase__next');
+    const pool       = section.querySelector('.cuspide-heroes-showcase__pool');
+
+    const bioFields = {
+      name: bioContent.querySelector('[data-bio="name"]'),
+      desc: bioContent.querySelector('[data-bio="desc"]'),
+      disability: bioContent.querySelector('[data-bio="disability"]'),
+      summit: bioContent.querySelector('[data-bio="summit"]'),
+    };
+
+    if (!mainFrame || thumbSlots.length === 0 || !pool) return;
+
+    const N = HEROES.length;
+    const WINDOW_SIZE = 1 + thumbSlots.length; // main + miniaturas
+
+    const prefersReducedMotion = () =>
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let start = 0;        // índice del héroe actualmente en "main"
+    let isAnimating = false;
+
+    /* ---------------------------------------------------------------
+       3. TARJETAS — un nodo físico persistente por héroe
+       --------------------------------------------------------------- */
+    const cardsById = new Map();
+
+    HEROES.forEach((hero) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'cuspide-heroes-showcase__card cuspide-heroes-showcase__card--thumb';
+      card.setAttribute('role', 'tab');
+      card.setAttribute('aria-label', `Ver a ${hero.name}`);
+      card.dataset.heroId = hero.id;
+      card.tabIndex = -1;
+
+      const img = document.createElement('img');
+      img.className = 'cuspide-heroes-showcase__card-img';
+      img.src = hero.img;
+      img.alt = hero.name;
+      img.loading = 'lazy';
+      img.draggable = false;
+
+      card.appendChild(img);
+      card.addEventListener('click', () => selectHero(hero.id));
+
+      cardsById.set(hero.id, card);
+      pool.appendChild(card); // arrancan todas en el pool
     });
-  }, { threshold: 0.25 });
 
-  observer.observe(section);
+    /* ---------------------------------------------------------------
+       4. HELPERS DE VENTANA CIRCULAR
+       --------------------------------------------------------------- */
+    function windowIds(fromStart) {
+      const ids = [];
+      for (let i = 0; i < WINDOW_SIZE; i++) {
+        ids.push(HEROES[(fromStart + i) % N].id);
+      }
+      return ids; // [mainId, thumb0Id, thumb1Id, thumb2Id]
+    }
 
-  // fallback: mostrar siempre si no hay animación
-  section.classList.add("is-visible");
+    function slotElFor(i) {
+      return i === 0 ? mainFrame : thumbSlots[i - 1];
+    }
 
-  /* ==========================================
-     CAMBIO DE CASO
-  ========================================== */
-  function changeAthlete(index) {
-    const athlete = athletes[index];
+    function assignSlotRole(card, i) {
+      const isMain = i === 0;
+      card.className =
+        'cuspide-heroes-showcase__card ' +
+        (isMain ? 'cuspide-heroes-showcase__card--main' : 'cuspide-heroes-showcase__card--thumb');
+      card.setAttribute('aria-selected', String(isMain));
+      card.tabIndex = isMain ? -1 : 0;
+    }
 
-    heroImage.classList.add("is-changing");
+    /* ---------------------------------------------------------------
+       5. MONTAJE INICIAL (sin animar)
+       --------------------------------------------------------------- */
+    function mountInitial() {
+      const ids = windowIds(start);
+      ids.forEach((id, i) => {
+        const card = cardsById.get(id);
+        assignSlotRole(card, i);
+        slotElFor(i).appendChild(card);
+      });
+      writeBio(HEROES[start]);
+      // El botón nunca se deshabilita: el carrusel es circular/infinito.
+    }
 
-    setTimeout(() => {
-      heroImage.src = athlete.image;
-      heroImage.alt = athlete.name;
-      heroName.textContent = athlete.name;
-      heroDisability.textContent = athlete.disability;
-      heroLocation.textContent = athlete.location;
+    /* ---------------------------------------------------------------
+       6. ROTACIÓN — única operación del carrusel
+       --------------------------------------------------------------- */
+    function rotate(steps) {
+      if (isAnimating || steps === 0) return;
+      isAnimating = true;
+
+      const reduced = prefersReducedMotion();
+      const oldIds = windowIds(start);
+      const newStart = ((start + steps) % N + N) % N;
+      const newIds = windowIds(newStart);
+
+      const persisting = newIds.filter((id) => oldIds.includes(id));
+      const entering    = newIds.filter((id) => !oldIds.includes(id));
+      const exiting     = oldIds.filter((id) => !newIds.includes(id));
+
+      // FIRST: posiciones actuales de las tarjetas que van a persistir
+      const firstRects = new Map();
+      persisting.forEach((id) => {
+        firstRects.set(id, cardsById.get(id).getBoundingClientRect());
+      });
+
+      start = newStart;
+
+      // LAST: mover cada tarjeta de newIds a su slot definitivo (salto de layout)
+      newIds.forEach((id, i) => {
+        const card = cardsById.get(id);
+        assignSlotRole(card, i);
+        slotElFor(i).appendChild(card);
+      });
+
+      updateBio(HEROES[newStart], { animate: !reduced });
+
+      if (reduced) {
+        exiting.forEach((id) => pool.appendChild(cardsById.get(id)));
+        isAnimating = false;
+        return;
+      }
+
+      // INVERT + PLAY para las persistentes
+      persisting.forEach((id) => {
+        const card = cardsById.get(id);
+        const last = card.getBoundingClientRect();
+        flipInvert(card, firstRects.get(id), last);
+      });
+
+      // Estado inicial (sin transición) para las que entran
+      entering.forEach((id) => {
+        const card = cardsById.get(id);
+        card.style.transition = 'none';
+        card.classList.add('is-entering');
+      });
+
+      // Las que salen: se animan desde donde están ahora mismo
+      exiting.forEach((id) => {
+        cardsById.get(id).classList.add('is-exiting');
+      });
+
+      // Forzar reflow para que el estado "FIRST" quede pintado
+      void section.offsetHeight;
 
       requestAnimationFrame(() => {
-        heroImage.classList.remove("is-changing");
+        requestAnimationFrame(() => {
+          persisting.forEach((id) => flipPlay(cardsById.get(id)));
+          entering.forEach((id) => {
+            const card = cardsById.get(id);
+            card.style.transition = '';
+            card.classList.remove('is-entering');
+          });
+        });
       });
-    }, 180);
-  }
 
-  /* ==========================================
-     EVENTOS
-  ========================================== */
-  thumbs.forEach(button => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index);
+      setTimeout(() => {
+        persisting.forEach((id) => {
+          const card = cardsById.get(id);
+          card.style.transition = '';
+          card.style.transform = '';
+        });
+        exiting.forEach((id) => {
+          const card = cardsById.get(id);
+          card.classList.remove('is-exiting');
+          card.style.transition = '';
+          card.style.transform = '';
+          pool.appendChild(card);
+        });
+        isAnimating = false;
+      }, ROTATE_MS);
+    }
 
-      thumbs.forEach(item => item.classList.remove("is-active"));
-      button.classList.add("is-active");
+    function flipInvert(el, firstRect, lastRect) {
+      const dx = firstRect.left - lastRect.left;
+      const dy = firstRect.top - lastRect.top;
+      const sx = firstRect.width / lastRect.width;
+      const sy = firstRect.height / lastRect.height;
 
-      changeAthlete(index);
+      el.style.transition = 'none';
+      el.style.transformOrigin = 'top left';
+      el.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+    }
+
+    function flipPlay(el) {
+      el.style.transition = 'transform .6s cubic-bezier(.16,.84,.32,1)';
+      el.style.transform = 'none';
+    }
+
+    /* ---------------------------------------------------------------
+       7. SELECCIÓN — click en miniatura, siempre rota hacia adelante
+       --------------------------------------------------------------- */
+    function selectHero(heroId) {
+      if (isAnimating) return;
+      const heroGlobalIndex = HEROES.findIndex((h) => h.id === heroId);
+      if (heroGlobalIndex === -1) return;
+
+      const offset = ((heroGlobalIndex - start) % N + N) % N;
+      if (offset === 0) return; // ya es la principal
+      rotate(offset);
+    }
+
+    /* ---------------------------------------------------------------
+       8. BIO — cross-fade puro de opacidad (sin reflow de texto)
+       --------------------------------------------------------------- */
+    let bioTimer = null;
+
+    function updateBio(hero, { animate }) {
+      if (!animate) {
+        writeBio(hero);
+        return;
+      }
+      clearTimeout(bioTimer);
+      bioContent.classList.add('is-fading');
+      bioTimer = setTimeout(() => {
+        writeBio(hero);
+        bioContent.classList.remove('is-fading');
+      }, 220);
+    }
+
+    function writeBio(hero) {
+      bioFields.name.textContent = hero.name;
+      bioFields.desc.textContent = hero.desc;
+      bioFields.disability.textContent = hero.disability;
+      bioFields.summit.textContent = hero.summit;
+    }
+
+    /* ---------------------------------------------------------------
+       9. BOTÓN ">" — avanza un paso, circular / infinito
+       --------------------------------------------------------------- */
+    nextBtn.addEventListener('click', () => rotate(1));
+
+    /* ---------------------------------------------------------------
+       10. TECLADO — accesibilidad sobre las miniaturas
+       --------------------------------------------------------------- */
+    gallery.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const card = e.target.closest('.cuspide-heroes-showcase__card--thumb');
+      if (!card) return;
+      e.preventDefault();
+      selectHero(card.dataset.heroId);
     });
-  });
 
-  /* ==========================================
-     INICIALIZACIÓN (primer atleta activo)
-  ========================================== */
-  if (thumbs.length > 0) {
-    thumbs[0].classList.add("is-active");
-    changeAthlete(0);
+    /* ---------------------------------------------------------------
+       11. ENTRADA POR SCROLL (IntersectionObserver)
+       --------------------------------------------------------------- */
+    mountInitial();
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              section.classList.add('is-visible');
+              io.unobserve(section);
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      io.observe(section);
+    } else {
+      section.classList.add('is-visible');
+    }
   }
-
-});
-
+})();
  
 /**
  * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"

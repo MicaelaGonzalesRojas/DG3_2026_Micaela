@@ -8,16 +8,16 @@
 :root {
   --color-void:        #FDF9F4; /* Crema (Fondo Principal) */
   --color-rock:        #FDF9F4; /* Crema */
-  --color-rock-soft:   #D7E2E5; /* Celeste (Tarjetas) */
+  --color-rock-soft:   #D7EDEE; /* Celeste (Tarjetas) */
   --color-ice:         #7E6A65; /* Marrón (Texto Base) */
   --color-ice-dim:     #7E6A65; /* Marrón Secondary */
   --color-titanium:    #7E6A65; 
   --color-ember:       #FF4A18; /* Naranja Táctico (Acciones y Destacados) */
   --color-ember-soft:  #FF4A18; 
-  --color-frost:       #D7E2E5; /* Celeste */
+  --color-frost:       #D7EDEE; /* Celeste */
   --color-mint:        #D7E2E5; 
   --color-glacier:     #FF4A18; 
-  --color-pale:        #D7E2E5; /* Fondo de cards */
+  --color-pale:        #D7EDEE; /* Fondo de cards */
   --color-slate:       #7E6A65; 
   --color-coral:       #FF4A18; 
   --color-ink:         #292020; /* Negro (Títulos de alta jerarquía) */
@@ -275,9 +275,9 @@ h4 {
     justify-content:center;
 
   margin-right: 12px; /* espacio a la derecha */
-    height:48px;
+    height:42px;
 
-    padding-inline:2rem;
+    padding-inline:1rem;
 
     overflow:hidden;
 
@@ -1067,10 +1067,10 @@ margin-bottom: 30px;
    --------------------------------------------------------------------- */
 
 .metodologia-scroll {
-
-    padding: 5rem var(--pad) 0rem; /* más espacio abajo */
-
-    background: var(--color-void);
+  position: relative;
+  padding: 5rem var(--pad) 0;
+  background: var(--color-void);
+  overflow: visible;
 }
 
 .metodologia-header {
@@ -1097,7 +1097,13 @@ margin-bottom: 30px;
 
     gap: 4rem;
 }
+.metodologia-scroll {
+  position: relative;
+  padding: 5rem var(--pad) 0;
+  background: linear-gradient(to bottom, var(--color-void) 70%, var(--color-frost) 100%);
 
+  overflow: visible;
+}
 /* -------------------------------- */
 
 .metodologia-timeline {
@@ -1377,313 +1383,344 @@ margin-bottom: 30px;
 /* ---------------------------------------------------------------------
    4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
    --------------------------------------------------------------------- */
-/* ==========================================================
-   CÚSPIDE GLOBAL INSPIRATION
-========================================================== */
 
-.cuspide-global-inspiration{
-
-    padding:120px 0;
-    background:#fbf9f6;
-    overflow:hidden;
+.cuspide-heroes-showcase {
+  position: relative;
+  background: var(--color-rock-soft);
+  padding: clamp(64px, 9vw, 128px) var(--pad);
+  overflow: hidden;
 }
-
-.cuspide-global-inspiration__container{
-
-    width:min(1180px,92%);
-    margin:0 auto;
-
-    display:grid;
-    grid-template-columns:520px 1fr;
-    gap:90px;
-    align-items:center;
+ 
+.cuspide-heroes-showcase__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
 }
-
-/*==========================================================
-  COLUMNA IZQUIERDA
-==========================================================*/
-
-.cuspide-global-inspiration__content {
-  opacity: 1; /* antes no estaba */
-  transform: none; /* quita el desplazamiento inicial */
+ 
+/* ---------------------------------------------------------------------
+   STAGE — grid maestro: fila 1 = título | fila 2 = miniaturas
+   columna 1 = título+miniaturas, columna 2 = main, columna 3 = bio.
+   El main-frame y el bio-slate ocupan AMBAS filas, arrancando a la
+   misma altura que el título (estructura exacta de la referencia).
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__stage {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(320px, 1.15fr) minmax(260px, 340px);
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(20px, 3vw, 40px);
+  row-gap: 20rem;
+  align-items: stretch;
 }
-
-.cuspide-global-inspiration.is-visible
-.cuspide-global-inspiration__content{
-
-    opacity:1;
-    transform:none;
+ 
+/* ---------------------------------------------------------------------
+   TÍTULO — vive en la celda superior de la columna de miniaturas
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__title {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  align-self: end;
+ 
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  color: var(--color-ink);
+  margin: 0;
+ 
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--dur-slow) var(--ease),
+              transform var(--dur-slow) var(--ease);
 }
-
-.cuspide-global-inspiration__eyebrow{
-
-    display:block;
-
-    margin-bottom:14px;
-
-    color:#ff4f18;
-
-    font-size:.95rem;
-    font-weight:700;
-    letter-spacing:.25em;
-
-    text-transform:uppercase;
+ 
+.cuspide-heroes-showcase__title em {
+  display: block;
+  font-style: normal;
+  color: var(--color-ember);
 }
-
-.cuspide-global-inspiration__title{
-
-    margin:0;
-
-    color:#2d221d;
-
-    font-size:2rem;
-    line-height:.92;
-    font-weight:900;
-    text-transform:uppercase;
-}
-
-.cuspide-global-inspiration__text{
-
-    margin:30px 0 0;
-
-    max-width:440px;
-
-    color:#5b4b42;
-
-    font-size:1.2rem;
-    line-height:1.7;
-}
-
-/*==========================================================
-  MINIATURAS
-==========================================================*/
-
-.cuspide-global-inspiration__thumb-grid{
-
-    display:flex;
-    gap:18px;
-
-    margin-top:50px;
-}
-
-.cuspide-global-inspiration__thumb-card{
-
-    width:112px;
-    height:112px;
-
-    border:none;
-    padding:0;
-
-    border-radius:5px;
-
-    overflow:hidden;
-
-    cursor:pointer;
-
-    background:none;
-
-    filter:grayscale(100%);
-    opacity:.55;
-
-    box-shadow:
-        0 12px 28px rgba(0,0,0,.10);
-
-    transition:
-        transform .35s cubic-bezier(.16,1,.3,1),
-        box-shadow .35s,
-        filter .35s,
-        opacity .35s,
-        border-color .35s;
-
-    border:3px solid transparent;
-
-    will-change:transform,filter;
-}
-
-.cuspide-global-inspiration__thumb-card:hover{
-
-    transform:translateY(-6px) scale(1.03);
-
-    box-shadow:
-        0 22px 40px rgba(0,0,0,.18);
-}
-
-.cuspide-global-inspiration__thumb-card.is-active {
-    filter: grayscale(0);
-    opacity: 1;
-    border-color: #ff4f18;
-    transform: scale(1.04);
-    box-shadow: 0 24px 44px rgba(0,0,0,.18);
-}
-
-
-.cuspide-global-inspiration__thumb-card img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-}
-
-/*==========================================================
-  TARJETA DERECHA
-==========================================================*/
-
-.cuspide-global-inspiration__display-showcase {
+ 
+.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__title {
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
-
-.cuspide-global-inspiration.is-visible
-.cuspide-global-inspiration__display-showcase{
-
-    opacity:1;
-    transform:none;
+ 
+/* ---------------------------------------------------------------------
+   GALERÍA DE MINIATURAS (fila 2 de la columna izquierda)
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__gallery {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: start;
 }
-
-.cuspide-global-inspiration__image-frame{
-
-    overflow:hidden;
- border-radius: 5px;
-    background:#ddd;
-}
-
-.cuspide-global-inspiration__hero-image {
+ 
+.cuspide-heroes-showcase__thumb-slot {
+  position: relative;
   width: 100%;
-  max-height: 480px;     /* controla el alto máximo */
-  aspect-ratio: 3/4;     /* más vertical */
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+}
+ 
+/* Entrada escalonada (staggered) de las miniaturas */
+.cuspide-heroes-showcase__thumb-slot {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--dur-base) var(--ease),
+              transform var(--dur-base) var(--ease);
+}
+.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(1) { transition-delay: .05s; }
+.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(2) { transition-delay: .15s; }
+.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(3) { transition-delay: .25s; }
+.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
+/* ---------------------------------------------------------------------
+   TARJETA DE HÉROE (nodo físico que viaja entre slots vía FLIP)
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: var(--color-ink);
+  transform-origin: top left;
+  will-change: transform, opacity;
+  /* Base de transición para los estados entering/exiting. El FLIP de las
+     tarjetas persistentes sobreescribe esto puntualmente vía inline style. */
+  transition: transform var(--dur-base) var(--ease),
+              opacity var(--dur-base) var(--ease);
+}
+ 
+.cuspide-heroes-showcase__card--thumb {
+  cursor: pointer;
+}
+ 
+.cuspide-heroes-showcase__card--main {
+  cursor: default;
+}
+ 
+.cuspide-heroes-showcase__card-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 12px;   /* suaviza los bordes */
-  transition: opacity .35s ease, transform .35s ease;
+  filter: grayscale(100%) contrast(105%);
+  transition: filter var(--dur-base) var(--ease);
+  will-change: transform, opacity;
 }
-
-
-.cuspide-global-inspiration__hero-image.is-changing{
-
-    opacity:0;
-
-    transform:scale(.98);
+ 
+.cuspide-heroes-showcase__card--main .cuspide-heroes-showcase__card-img {
+  filter: grayscale(0%) contrast(102%);
 }
-
-.cuspide-global-inspiration__info{
-
-    padding:22px 26px;
- border-radius: 5px;
-
-    background:#dceef2;
+ 
+.cuspide-heroes-showcase__card--thumb:hover .cuspide-heroes-showcase__card-img,
+.cuspide-heroes-showcase__card--thumb:focus-visible .cuspide-heroes-showcase__card-img {
+  filter: grayscale(55%) contrast(108%);
 }
-
-.cuspide-global-inspiration__name{
-
-    margin:0;
-
-    color:#2d221d;
-
-    font-size:1.35rem;
-    font-weight:800;
-
-    text-transform:uppercase;
+ 
+.cuspide-heroes-showcase__card--thumb:focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 3px;
 }
-
-.cuspide-global-inspiration__disability{
-
-    color:#5d4a42;
-
-    font-size:1rem;
+ 
+/* Tarjetas que entran/salen de la ventana visible circular (no son las
+   que hacen FLIP puro entre slots ya existentes, sino las que aparecen/
+   desaparecen de la cola al rotar). Heredan la transición de .card;
+   sólo transform + opacity. */
+.cuspide-heroes-showcase__card.is-entering {
+  transform: translateX(-45%) scale(.85);
+  opacity: 0;
 }
-
-.cuspide-global-inspiration__location{
-
-    color:#74655d;
-
-    font-size:.95rem;
+ 
+.cuspide-heroes-showcase__card.is-exiting {
+  transform: translateX(45%) scale(.85);
+  opacity: 0;
+  pointer-events: none;
 }
-
-/*==========================================================
-  RESPONSIVE
-==========================================================*/
-
-@media(max-width:900px){
-
-    .cuspide-global-inspiration__container{
-
-        gap:50px;
-
-        grid-template-columns:1fr;
-    }
-
+ 
+/* Pool oculto: guarda las tarjetas que no están en la ventana visible
+   de 4 posiciones (main + 3 miniaturas) mientras dura la cola circular. */
+.cuspide-heroes-showcase__pool {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
-
-@media(max-width:768px){
-
-    .cuspide-global-inspiration{
-
-        padding:80px 0;
-    }
-
-    .cuspide-global-inspiration__container{
-
-        display:flex;
-        flex-direction:column;
-        gap:35px;
-    }
-
-    /* Orden solicitado:
-       Miniaturas
-       Foto
-       Texto */
-
-    .cuspide-global-inspiration__thumb-grid{
-
-        order:1;
-
-        overflow-x:auto;
-
-        margin-top:35px;
-
-        padding-bottom:8px;
-
-        scrollbar-width:none;
-
-        -webkit-overflow-scrolling:touch;
-    }
-
-    .cuspide-global-inspiration__thumb-grid::-webkit-scrollbar{
-
-        display:none;
-    }
-
-    .cuspide-global-inspiration__display-showcase{
-
-        order:2;
-
-        width:100%;
-    }
-
-    .cuspide-global-inspiration__content{
-
-        order:3;
-    }
-
-    .cuspide-global-inspiration__thumb-card{
-
-        flex:0 0 100px;
-        height:100px;
-    }
-
-    .cuspide-global-inspiration__title{
-
-        font-size:3rem;
-    }
-
-    .cuspide-global-inspiration__text{
-
-        font-size:1.05rem;
-    }
-
+ 
+/* ---------------------------------------------------------------------
+   MAIN FRAME (imagen central activa, a color)
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__main-frame {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 420px;
+  background: transparent;
+  box-shadow: 0 24px 48px -20px rgba(41, 32, 32, 0.35);
+}
+ 
+/* ---------------------------------------------------------------------
+   BIO SLATE (columna derecha)
+   --------------------------------------------------------------------- */
+.cuspide-heroes-showcase__bio-slate {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 14px;
+}
+ 
+.cuspide-heroes-showcase__bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 1;
+  transition: opacity var(--dur-fast) ease;
+}
+ 
+.cuspide-heroes-showcase__bio-content.is-fading {
+  opacity: 0;
+}
+ 
+.cuspide-heroes-showcase__name {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  color: var(--color-ink);
+  letter-spacing: 0.01em;
+}
+ 
+.cuspide-heroes-showcase__desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--color-ice);
+  max-width: 34ch;
+}
+ 
+.cuspide-heroes-showcase__tags {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+ 
+.cuspide-heroes-showcase__tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-ice);
+}
+ 
+.cuspide-heroes-showcase__tag--accent {
+  color: var(--color-ember);
+}
+ 
+.cuspide-heroes-showcase__tag-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+ 
+/* Botón de navegación: reutiliza .cuspide-action-btn / --pyromountain
+   ya definidas en style.css. Sólo ajustamos layout (icon-button),
+   sin redefinir su tema visual interno. */
+.cuspide-heroes-showcase__next {
+  width: 48px;
+  height: 48px;
+  padding-inline: 0;
+  margin-right: 0;
+  margin-top: 8px;
+  font-size: 1.3rem;
+}
+ 
+/* ---------------------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .cuspide-heroes-showcase__stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+ 
+  .cuspide-heroes-showcase__title {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    order: 1;
+    align-self: auto;
+  }
+ 
+  .cuspide-heroes-showcase__main-frame {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    order: 2;
+    min-height: 320px;
+  }
+ 
+  .cuspide-heroes-showcase__gallery {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    order: 3;
+  }
+ 
+  .cuspide-heroes-showcase__bio-slate {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+    order: 4;
+    align-self: start;
+  }
+ 
+  .cuspide-heroes-showcase__thumb-slot {
+    aspect-ratio: 1 / 1;
+  }
+}
+ 
+@media (max-width: 540px) {
+  .cuspide-heroes-showcase__gallery {
+    gap: 8px;
+  }
+}
+ 
+/* ---------------------------------------------------------------------
+   ACCESIBILIDAD — prefers-reduced-motion
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-heroes-showcase__title,
+  .cuspide-heroes-showcase__thumb-slot,
+  .cuspide-heroes-showcase__card,
+  .cuspide-heroes-showcase__card-img,
+  .cuspide-heroes-showcase__bio-content {
+    transition: none !important;
+    transform: none !important;
+  }
+ 
+  .cuspide-heroes-showcase__title,
+  .cuspide-heroes-showcase__thumb-slot {
+    opacity: 1 !important;
+  }
 }
 
 /* ====================================================================
@@ -2640,9 +2677,12 @@ margin-bottom: 30px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 1.2rem;
   align-items: stretch;
-  padding: 1.75rem;
+  padding-left: 1.45rem;
+  padding-right: 1.45rem;
+  padding-top: 2rem;
+  padding-bottom: 0.8rem;
   color: var(--color-ink);
   font-family: var(--font-body);
 }
@@ -2670,7 +2710,6 @@ margin-bottom: 30px;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--color-slate);
-  margin: 0 0 .35rem;
 }
 
 .expedicion-location-icon {
@@ -2727,7 +2766,7 @@ margin-bottom: 30px;
 }
 
 .expedicion-meta-value {
-  font-size: .95rem;
+  font-size: 12px;
   font-weight: 600;
   color: var(--color-ink);
 }
@@ -2756,7 +2795,7 @@ margin-bottom: 30px;
 
 .expedicion-precio-value {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: 600;
   color: var(--color-ember);
 }
@@ -2766,6 +2805,7 @@ margin-bottom: 30px;
    comportamiento nativo. Sólo se evita que se estire dentro del footer. */
 .expedicion-btn--back {
   flex-shrink: 0;
+  font-size: 14px;
 }
 
 .expediciones-label {
