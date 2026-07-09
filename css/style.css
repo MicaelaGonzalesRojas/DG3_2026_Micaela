@@ -3413,15 +3413,16 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
 /* ---------------------------------------------------------------------
    FOOTER
    --------------------------------------------------------------------- */
-.footer-cuspide{
+.cuspide-terminal-footer {
+  --ctf-ink: #0d0d0d; /* negro tinta profundo, más oscuro que --color-ink (#292020) */
+  --ctf-text-soft: rgba(253, 249, 244, 0.56);
+  --ctf-text-title: rgba(253, 249, 244, 0.4);
+  --ctf-hairline: rgba(253, 249, 244, 0.1);
 
-    background:#292020;
-
-    color:#ECE8E4;
-
-    padding:clamp(4rem,8vw,7rem) var(--section-padding) 2rem;
-
-    margin-top:0rem;
+  position: relative;
+  background: var(--ctf-ink);
+  padding: clamp(56px, 7vw, 96px) var(--pad) 0;
+  font-family: var(--font-body);
 }
 
 .footer-cuspide__grid{
@@ -3438,306 +3439,207 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
     gap:4rem;
 }
 
-/* ------------------- */
-/* BRAND */
-/* ------------------- */
+/* --------------------------------------------------------------------------
+   Bloque de identidad
+   -------------------------------------------------------------------------- */
+.cuspide-terminal-footer__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
 
-.footer-logo{
-
-    font-size:2.5rem;
-
-    font-weight:900;
-
-    margin-bottom:1.5rem;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
 }
 
-.footer-brand__text{
-
-    color:#b7bbb8;
-
-    line-height:1.8;
-
-    max-width:320px;
-
-    margin-bottom:2rem;
+.cuspide-terminal-footer.is-visible .cuspide-terminal-footer__identity {
+  opacity: 1;
 }
 
-.footer-contact{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:.5rem;
-
-    margin-bottom:2rem;
+.cuspide-terminal-footer__logo {
+  height: 34px;
+  width: auto;
 }
 
-.footer-label{
-
-    color:#7d8580;
-
-    font-size:.75rem;
-
-    letter-spacing:.15em;
+.cuspide-terminal-footer__tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--ctf-text-soft);
+  max-width: 32ch;
+  margin: 0;
 }
 
-/* ------------------- */
-/* MAGNETIC CTA */
-/* ------------------- */
-
-.footer-magnetic-btn{
-
-    width:220px;
-
-    height:60px;
-
-    border:none;
-
-    border-radius:999px;
-
-    background:var(--color-accent);
-
-    color:#fff;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:
-        transform .35s cubic-bezier(.22,1,.36,1);
+/* El botón "Expediciones 2027" usa .cuspide-action-btn .cuspide-action-btn--pyromountain
+   ya definidas en style.css — no se tocan ni redefinen aquí. */
+.cuspide-terminal-footer__cta {
+  margin-top: 4px;
 }
 
-.footer-magnetic-btn:focus-visible{
-
-    outline:3px solid #fff;
-
-    outline-offset:4px;
+.cuspide-terminal-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
 }
 
-/* ------------------- */
-/* SOCIALS */
-/* ------------------- */
-
-.footer-socials{
-
-    display:flex;
-
-    gap:1rem;
-
-    margin-top:2rem;
+.cuspide-terminal-footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(253, 249, 244, 0.06);
+  color: var(--ctf-text-soft);
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    transform var(--dur-fast) ease;
 }
 
-.footer-socials a{
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:999px;
-
-    padding:.8rem 1.2rem;
+.cuspide-terminal-footer__social-link svg {
+  width: 16px;
+  height: 16px;
 }
 
-/* ------------------- */
-/* COLUMNS */
-/* ------------------- */
-
-.footer-column{
-
-    display:flex;
-
-    flex-direction:column;
+.cuspide-terminal-footer__social-link:hover {
+  background: var(--color-ember);
+  color: var(--color-void);
+  transform: translateY(-2px);
 }
 
-.footer-mobile-trigger{
-
-    background:none;
-
-    border:none;
-
-    color:#8f9791;
-
-    text-align:left;
-
-    font-size:.8rem;
-
-    letter-spacing:.12em;
-
-    margin-bottom:1.5rem;
-
-    font-weight:700;
-
-    pointer-events:none;
+.cuspide-terminal-footer__social-link:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
 }
 
-.footer-links{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:.9rem;
+/* --------------------------------------------------------------------------
+   Columnas de navegación
+   -------------------------------------------------------------------------- */
+.cuspide-terminal-footer__nav-column {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
 }
 
-.footer-links a{
-
-    color:#fff;
-
-    text-decoration:none;
-
-    position:relative;
-
-    width:max-content;
-
-    transition:
-        transform .3s ease,
-        color .3s ease;
+.cuspide-terminal-footer.is-visible .cuspide-terminal-footer__nav-column {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.footer-links a::after{
+/* Stagger de 0.1s por columna (CSS puro, según orden de aparición) */
+.cuspide-terminal-footer.is-visible .cuspide-terminal-footer__nav-column:nth-of-type(1) { transition-delay: 0s;   }
+.cuspide-terminal-footer.is-visible .cuspide-terminal-footer__nav-column:nth-of-type(2) { transition-delay: .1s;  }
+.cuspide-terminal-footer.is-visible .cuspide-terminal-footer__nav-column:nth-of-type(3) { transition-delay: .2s;  }
 
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    right:0;
-    bottom:-4px;
-
-    height:2px;
-
-    background:var(--color-accent);
-
-    transform:scaleX(0);
-
-    transform-origin:center;
-
-    transition:transform .3s ease;
+.cuspide-terminal-footer__nav-title {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ctf-text-title);
+  margin: 0 0 20px;
 }
 
-.footer-links a:hover{
-
-    transform:translateX(2px);
+.cuspide-terminal-footer__link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
 }
 
-.footer-links a:hover::after{
-
-    transform:scaleX(1);
+.cuspide-terminal-footer__link {
+  display: inline-block;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--ctf-text-soft);
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s;
 }
 
-.footer-links a:focus-visible{
-
-    outline:2px solid var(--color-accent);
-
-    outline-offset:4px;
+.cuspide-terminal-footer__link:hover,
+.cuspide-terminal-footer__link:focus-visible {
+  color: var(--color-ember);
+  transform: translateX(4px);
 }
 
-/* ------------------- */
-/* BOTTOM */
-/* ------------------- */
-
-.footer-bottom{
-
-    margin-top:4rem;
-
-    padding-top:2rem;
-
-    border-top:1px solid rgba(255,255,255,.08);
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:2rem;
-
-    flex-wrap:wrap;
+.cuspide-terminal-footer__link:focus-visible {
+  outline: none;
+  text-decoration: underline;
 }
 
-.footer-bottom-links{
-
-    display:flex;
-
-    gap:2rem;
-
-    flex-wrap:wrap;
+/* --------------------------------------------------------------------------
+   Zócalo de derechos
+   -------------------------------------------------------------------------- */
+.cuspide-terminal-footer__sub-base {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 22px 0;
+  text-align: center;
 }
 
-.footer-bottom-links a{
-
-    color:#cfd3d0;
-
-    text-decoration:none;
+.cuspide-terminal-footer__sub-base p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ctf-text-title);
+  letter-spacing: 0.02em;
 }
 
-/* ------------------- */
-/* MOBILE */
-/* ------------------- */
+/* --------------------------------------------------------------------------
+   Responsive táctil (< 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .cuspide-terminal-footer {
+    padding: 48px 20px 0;
+  }
 
-@media (max-width:768px){
+  .cuspide-terminal-footer__wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
 
-    .footer-cuspide__grid{
+  .cuspide-terminal-footer__identity {
+    align-items: center;
+  }
 
-        grid-template-columns:1fr;
-    }
+  .cuspide-terminal-footer__tagline {
+    max-width: 38ch;
+  }
 
-    .footer-brand{
+  .cuspide-terminal-footer__nav-column {
+    text-align: center;
+  }
 
-        text-align:center;
-    }
+  .cuspide-terminal-footer__nav-title {
+    margin-bottom: 16px;
+  }
 
-    .footer-brand__text{
+  .cuspide-terminal-footer__link:hover,
+  .cuspide-terminal-footer__link:focus-visible {
+    transform: none; /* el desplazamiento horizontal no aplica en columna centrada */
+  }
 
-        margin-inline:auto;
-    }
-
-    .footer-magnetic-btn{
-
-        margin-inline:auto;
-    }
-
-    .footer-socials{
-
-        justify-content:center;
-    }
-
-    .footer-mobile-trigger{
-
-        pointer-events:auto;
-
-        width:100%;
-
-        cursor:pointer;
-
-        padding:1rem 0;
-
-        border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .footer-links{
-
-        max-height:0;
-
-        overflow:hidden;
-
-        transition:max-height .3s ease;
-    }
-
-    .footer-column.active .footer-links{
-
-        max-height:500px;
-    }
-
-    .footer-bottom{
-
-        text-align:center;
-
-        justify-content:center;
-    }
-
-    .footer-bottom-links{
-
-        justify-content:center;
-    }
+  .cuspide-terminal-footer__sub-base {
+    padding: 18px 0 28px;
+  }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-terminal-footer__identity,
+  .cuspide-terminal-footer__nav-column,
+  .cuspide-terminal-footer__link,
+  .cuspide-terminal-footer__social-link {
+    transition: none !important;
+  }
+}
+
 /* ---------------------------------------------------------------------
    SCROLL REVEALS (generic)
    --------------------------------------------------------------------- */

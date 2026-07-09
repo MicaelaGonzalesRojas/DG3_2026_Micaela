@@ -1434,6 +1434,48 @@ updateSlider();
 })();
 
 
+/**
+ * CUSPIDE — Sección FOOTER (Terminal Footer)
+ * -----------------------------------------------------------------------
+ * Intersection Observer: dispara la animación de entrada en cascada
+ * (identidad con fade, columnas con stagger de 0.1s vía CSS nth-of-type)
+ * una sola vez, cuando el footer alcanza la base de la pantalla.
+ * -----------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  const SECTION_SELECTOR = '.cuspide-terminal-footer';
+
+  function initFooter(footer) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            footer.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealObserver.observe(footer);
+  }
+
+  function init() {
+    document.querySelectorAll(SECTION_SELECTOR).forEach(initFooter);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+
   /* ------------------------------------------------------------------
      11. Formulario de contacto (Campamento Base)
          NOTA: esto es un envío simulado en el cliente. Reemplazar el

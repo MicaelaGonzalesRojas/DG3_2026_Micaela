@@ -1167,137 +1167,88 @@
 
 
 <!-- ======================= FOOTER ======================= -->
-<footer class="footer-cuspide" role="contentinfo">
+<footer class="cuspide-terminal-footer">
+  <div class="cuspide-terminal-footer__wrapper">
 
-    <div class="footer-cuspide__grid">
+    <!-- Bloque de identidad -->
+    <div class="cuspide-terminal-footer__identity">
+      <svg class="cuspide-terminal-footer__logo" viewBox="0 0 220 60" fill="none" role="img" aria-label="Cúspide">
+        <path d="M14 46L34 14L44 30L54 14L74 46" stroke="#FDF9F4" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="88" y="40" font-family="'Nippo','Anton',sans-serif" font-size="30" fill="#FDF9F4" letter-spacing="0.5">CÚSPIDE</text>
+      </svg>
 
-        <!-- IDENTIDAD -->
+      <p class="cuspide-terminal-footer__tagline">
+        Formamos guías de montaña con el criterio y la exigencia técnica
+        de quienes ya pisaron la cima. Sin atajos.
+      </p>
 
-        <div class="footer-brand">
+      <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain cuspide-terminal-footer__cta">
+        <span>Expediciones 2027</span>
+      </button>
 
-            <div class="footer-logo">
-                CÚSPIDE
-            </div>
-
-            <p class="footer-brand__text">
-                La montaña no premia excusas.
-                Premia preparación, disciplina
-                y la capacidad de avanzar cuando
-                todos los demás se detienen.
-            </p>
-
-            <div class="footer-contact">
-
-                <span class="footer-label">
-                    CONTACT
-                </span>
-
-                <a href="mailto:info@cuspide.org">
-                    info@cuspide.org
-                </a>
-
-                <a href="tel:+541140001111">
-                    +54 11 4000 1111
-                </a>
-
-            </div>
-
-        </div>
-
-        <!-- SERVICES -->
-
-        <div class="footer-column">
-
-            <button class="footer-mobile-trigger">
-                SERVICES
-            </button>
-
-            <div class="footer-links">
-
-                <a href="#">All services</a>
-                <a href="#">Web Design & Dev</a>
-                <a href="#">Fundraising Strategy</a>
-                <a href="#">CRM Consulting</a>
-                <a href="#">Salesforce NPSP</a>
-                <a href="#">Landing Pages</a>
-                <a href="#">Analytics & Reporting</a>
-                <a href="#">Automations</a>
-                <a href="#">Creative & Branding</a>
-
-            </div>
-
-        </div>
-
-        <!-- RESOURCES -->
-
-        <div class="footer-column">
-
-            <button class="footer-mobile-trigger">
-                RESOURCES
-            </button>
-
-            <div class="footer-links">
-
-                <a href="#">All resources</a>
-                <a href="#">Insights</a>
-                <a href="#">Google Ad Grants guide</a>
-                <a href="#">Website redesign guide</a>
-
-            </div>
-
-        </div>
-
-        <!-- WORK -->
-
-        <div class="footer-column">
-
-            <button class="footer-mobile-trigger">
-                WORK
-            </button>
-
-            <div class="footer-links">
-
-                <a href="#">Case studies</a>
-                <a href="#">Testimonials</a>
-
-            </div>
-
-        </div>
-
-        <!-- COMPANY -->
-
-        <div class="footer-column">
-
-            <button class="footer-mobile-trigger">
-                COMPANY
-            </button>
-
-            <div class="footer-links">
-
-                <a href="#">About us</a>
-                <a href="#">Institutional website risk review</a>
-                <a href="#">Partnerships</a>
-                <a href="#">Careers</a>
-                <a href="#">Who we serve</a>
-                <a href="#">Work with us</a>
-
-            </div>
-
-        </div>
-
+      <div class="cuspide-terminal-footer__social">
+        <a class="cuspide-terminal-footer__social-link" href="#" aria-label="Instagram de Cúspide">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/>
+          </svg>
+        </a>
+        <a class="cuspide-terminal-footer__social-link" href="#" aria-label="Pinterest de Cúspide">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 20c.6-2 1.3-4.8 1.9-7.3M12 3.5c4.5 0 7 2.6 7 6.2 0 4-2.2 7-5.6 7-1.2 0-2.3-.6-2.7-1.4 0 0-.6 2.4-.8 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+        <a class="cuspide-terminal-footer__social-link" href="#" aria-label="WhatsApp de Cúspide">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 17l-1.4 3.4L9.2 19A8 8 0 1 0 5 15.6L7 17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M9.3 9.6c.2-.5.6-1.6 1.1-1.6.4 0 .8 0 1 .1.2.1.4.1.5.5.2.5.5 1.6.5 1.7.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.4 1 1.6 2.1 2.2.3.2.5.2.7 0 .2-.2.7-.8.9-1.1.2-.2.3-.2.6-.1.3.1 1.7.8 2 .9.3.1.5.2.5.3.1.5-.1 1.3-.5 1.7-.5.5-1.6.9-2.7.5-2.1-.6-3.9-2.2-5.3-4.1-.5-.7-1.1-1.6-1-2.6Z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
     </div>
 
-    <div class="footer-bottom">
+    <!-- Columna 1: Navegación -->
+    <nav class="cuspide-terminal-footer__nav-column" aria-label="Navegación principal">
+      <h3 class="cuspide-terminal-footer__nav-title">Navegación</h3>
+      <ul class="cuspide-terminal-footer__link-list">
+        <li><a class="cuspide-terminal-footer__link" href="#inicio">Inicio</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#formacion">Formación</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#proceso">Proceso</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#expediciones">Expediciones</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#programas">Programas</a></li>
+      </ul>
+    </nav>
 
-        <span>
-            © 2026 CÚSPIDE. All rights reserved.
-        </span>
+    <!-- Columna 2: Cursos de élite -->
+    <nav class="cuspide-terminal-footer__nav-column" aria-label="Cursos de élite">
+      <h3 class="cuspide-terminal-footer__nav-title">Cursos de Élite</h3>
+      <ul class="cuspide-terminal-footer__link-list">
+        <li><a class="cuspide-terminal-footer__link" href="#resistencia-en-altura">Resistencia en Altura</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#orientacion-tecnica">Orientación Técnica</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#protesis-de-montana">Prótesis de Montaña</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#escuela-de-guias">Escuela de Guías</a></li>
+      </ul>
+    </nav>
 
-    </div>
+    <!-- Columna 3: Información y soporte -->
+    <nav class="cuspide-terminal-footer__nav-column" aria-label="Información y soporte">
+      <h3 class="cuspide-terminal-footer__nav-title">Información</h3>
+      <ul class="cuspide-terminal-footer__link-list">
+        <li><a class="cuspide-terminal-footer__link" href="#preguntas-frecuentes">Preguntas Frecuentes</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#terminos-y-condiciones">Términos y Condiciones</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#certificaciones-tecnicas">Certificaciones Técnicas</a></li>
+        <li><a class="cuspide-terminal-footer__link" href="#contacto">Contacto Directo</a></li>
+      </ul>
+    </nav>
 
+  </div>
+
+  <div class="cuspide-terminal-footer__sub-base">
+    <p>&copy; 2026 Cúspide — Todos los derechos reservados</p>
+  </div>
 </footer>
-
-<div class="visually-hidden" id="liveRegion" role="status" aria-live="polite"></div>
 
 <script src="js/script.js"></script>
 </body>
