@@ -28,32 +28,63 @@
   }
 
   /* ---------------- ACCORDION: ¿QUÉ VAS A APRENDER? ---------------- */
-  var accordion = document.getElementById('cursoAccordion');
-  if (accordion) {
-    var items = accordion.querySelectorAll('.curso-accordion__item');
-    items.forEach(function (item) {
-      var trigger = item.querySelector('.curso-accordion__trigger');
-      var sign = item.querySelector('.curso-accordion__sign');
+/* ===============================
+   REVEAL
+================================== */
 
-      trigger.addEventListener('click', function () {
-        var isOpen = item.classList.contains('is-open');
+const revealObserver = new IntersectionObserver((entries)=>{
 
-        // cerrar todos
-        items.forEach(function (other) {
-          other.classList.remove('is-open');
-          other.querySelector('.curso-accordion__trigger').setAttribute('aria-expanded', 'false');
-          other.querySelector('.curso-accordion__sign').textContent = '+';
-        });
+    entries.forEach(entry=>{
 
-        // abrir el clickeado si estaba cerrado
-        if (!isOpen) {
-          item.classList.add('is-open');
-          trigger.setAttribute('aria-expanded', 'true');
-          sign.textContent = '–';
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
         }
-      });
+
     });
-  }
+
+},{
+    threshold:0.2
+});
+
+document
+.querySelectorAll(".reveal-media, .reveal-content")
+.forEach(el=>revealObserver.observe(el));
+
+
+/* ===============================
+   CLASE ACTIVA
+================================== */
+
+const lessonBlocks = document.querySelectorAll(
+".cuspide-class-schedule__lesson-block"
+);
+
+const lessonObserver = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            lessonBlocks.forEach(item=>{
+
+                item.classList.remove("active");
+
+            });
+
+            entry.target.classList.add("active");
+
+        }
+
+    });
+
+},{
+    rootMargin:"-45% 0px -45% 0px",
+    threshold:0
+});
+
+lessonBlocks.forEach(block=>lessonObserver.observe(block));
 
 /* ======================================================
    CÚSPIDE CHECKOUT PRICING
@@ -89,6 +120,307 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     observer.observe(pricingSection);
+
+});
+
+
+
+const breaker = document.querySelector(".cuspide-course-breaker");
+
+if(breaker){
+
+    const title = breaker.querySelector(".cuspide-course-breaker__manifesto");
+    const pills = breaker.querySelectorAll(".cuspide-course-breaker__spec-pill");
+
+    const observer = new IntersectionObserver(entries=>{
+
+        if(entries[0].isIntersecting){
+
+            title.classList.add("is-visible");
+
+            pills.forEach((pill,index)=>{
+
+                setTimeout(()=>{
+
+                    pill.classList.add("is-visible");
+
+                },index*90);
+
+            });
+
+            observer.disconnect();
+
+        }
+
+    },{
+        threshold:.25
+    });
+
+    observer.observe(breaker);
+
+}
+
+ /* ──────────────────────────────────────────────────────────────────
+     INFOO
+  ────────────────────────────────────────────────────────────────── */
+const painSection = document.querySelector(".cuspide-pain-agitation");
+
+if(painSection){
+
+    const image = painSection.querySelector(".cuspide-pain-agitation__frame");
+    const content = painSection.querySelector(".cuspide-pain-agitation__content");
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                image.classList.add("is-visible");
+                content.classList.add("is-visible");
+
+            }
+
+        });
+
+    },{
+
+        threshold:0.25
+
+    });
+
+    observer.observe(painSection);
+
+}
+
+
+
+(function cuspideSyllabusInit() {
+
+  'use strict';
+
+  /* ──────────────────────────────────────────────────────────────────
+     0. Referencias DOM
+  ────────────────────────────────────────────────────────────────── */
+  var section  = document.getElementById('cuspide-syllabus-immersion');
+  if (!section) return; // sale limpiamente si la sección no está
+
+  var title    = section.querySelector('.cuspide-syllabus-immersion__title');
+  var cards    = Array.from(section.querySelectorAll('.cuspide-syllabus-immersion__card'));
+  var bgLayers = Array.from(section.querySelectorAll('.cuspide-syllabus-immersion__bg-layer'));
+
+  /* ──────────────────────────────────────────────────────────────────
+     1. Activación de tarjeta + cambio de fondo
+        Solo opacity y transform — sin recálculo de layout.
+  ────────────────────────────────────────────────────────────────── */
+  function activateCard(targetCard) {
+    var cardId = targetCard.dataset.card;
+    var btn    = targetCard.querySelector('.cuspide-syllabus-immersion__card-btn');
+
+    // Desactiva todas las tarjetas y sus botones aria
+    cards.forEach(function(card) {
+      card.classList.remove('is-active');
+      var b = card.querySelector('.cuspide-syllabus-immersion__card-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+
+    // Activa la tarjeta seleccionada
+    targetCard.classList.add('is-active');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+
+    // Cambia la capa de fondo: solo opacity (GPU-only)
+    bgLayers.forEach(function(layer) {
+      layer.classList.remove('is-active');
+    });
+    var targetLayer = section.querySelector(
+      '.cuspide-syllabus-immersion__bg-layer[data-card="' + cardId + '"]'
+    );
+    if (targetLayer) {
+      targetLayer.classList.add('is-active');
+    } else {
+      // Fallback a capa base si no hay imagen específica
+      var baseLayer = section.querySelector(
+        '.cuspide-syllabus-immersion__bg-layer[data-card="0"]'
+      );
+      if (baseLayer) baseLayer.classList.add('is-active');
+    }
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     2. Detección de mobile (< 768px)
+        Usamos matchMedia para no leer el DOM en cada evento.
+  ────────────────────────────────────────────────────────────────── */
+  var mobileQuery = window.matchMedia('(max-width: 768px)');
+
+  /* ──────────────────────────────────────────────────────────────────
+     3. Listeners por tarjeta
+        Desktop: mouseenter activa la tarjeta
+        Mobile:  click/tap activa la tarjeta (hover no existe)
+        El listener de mouseenter queda registrado siempre, pero
+        el check de mobileQuery.matches lo hace inoperante en mobile.
+  ────────────────────────────────────────────────────────────────── */
+  cards.forEach(function(card) {
+
+    // DESKTOP — hover
+    card.addEventListener('mouseenter', function() {
+      if (!mobileQuery.matches) {
+        activateCard(card);
+      }
+    });
+
+    // MOBILE + accesibilidad de teclado — click/tap
+    var btn = card.querySelector('.cuspide-syllabus-immersion__card-btn');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        // En mobile siempre activa por tap.
+        // En desktop: el click es accesible por teclado (Enter/Space).
+        activateCard(card);
+      });
+    }
+
+  });
+
+  /* Cuando se sale del deck entero (desktop), no hace nada —
+     la última tarjeta activada permanece activa (UX más estable). */
+
+  /* ──────────────────────────────────────────────────────────────────
+     4. IntersectionObserver — Reveal de entrada
+        El título y las tarjetas entran desde abajo al llegar
+        a la viewport. Stagger manual por índice (sin transition-delay
+        en CSS — la diferencia de tiempo la pone el JS).
+        Solo opacity + transform (GPU).
+  ────────────────────────────────────────────────────────────────── */
+  if ('IntersectionObserver' in window) {
+
+    /* 4a. Título */
+    var titleObserver = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            titleObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    if (title) titleObserver.observe(title);
+
+    /* 4b. Tarjetas — stagger por índice via setTimeout (NO transition-delay) */
+    var deckObserver = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+
+          var deckEl = entry.target; // el __deck completo
+          deckObserver.unobserve(deckEl);
+
+          cards.forEach(function(card, i) {
+            // Stagger: cada tarjeta entra 60ms después de la anterior
+            setTimeout(function() {
+              card.classList.add('is-entered');
+            }, i * 60);
+          });
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    var deck = section.querySelector('.cuspide-syllabus-immersion__deck');
+    if (deck) deckObserver.observe(deck);
+
+  } else {
+    /* Fallback sin IntersectionObserver: todo visible de inmediato */
+    if (title) title.classList.add('is-visible');
+    cards.forEach(function(card) { card.classList.add('is-entered'); });
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     5. prefers-reduced-motion — si está activo, mostramos todo
+        inmediatamente sin animaciones de entrada.
+  ────────────────────────────────────────────────────────────────── */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches) {
+    if (title) title.classList.add('is-visible');
+    cards.forEach(function(card) { card.classList.add('is-entered'); });
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     6. Estado inicial: tarjeta 1 activa al cargar
+  ────────────────────────────────────────────────────────────────── */
+  var defaultCard = section.querySelector('.cuspide-syllabus-immersion__card[data-card="1"]');
+  if (defaultCard) activateCard(defaultCard);
+
+})(); // fin cuspideSyllabusInit
+
+
+/*==========================================================
+  CÚSPIDE INSTRUCTOR SPOTLIGHT
+==========================================================*/
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const spotlight = document.querySelector(
+        ".cuspide-instructor-spotlight"
+    );
+
+    if (!spotlight) return;
+
+    const observer = new IntersectionObserver(
+
+        (entries) => {
+
+            entries.forEach((entry) => {
+
+                if (!entry.isIntersecting) return;
+
+                spotlight.classList.add("is-visible");
+
+                observer.unobserve(entry.target);
+
+            });
+
+        },
+
+        {
+            threshold: 0.25
+        }
+
+    );
+
+    observer.observe(spotlight);
+
+    /*=========================================
+      TAP PARA MÓVILES
+    =========================================*/
+
+    const frame = spotlight.querySelector(
+        ".cuspide-instructor-spotlight__frame"
+    );
+
+    if (!frame) return;
+
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+    function enableTouchOverlay() {
+
+        if (!mediaQuery.matches) return;
+
+        frame.addEventListener("click", function () {
+
+            frame.classList.toggle("is-touch-active");
+
+        });
+
+    }
+
+    enableTouchOverlay();
+
+    mediaQuery.addEventListener("change", () => {
+
+        frame.classList.remove("is-touch-active");
+
+    });
 
 });
 
@@ -334,6 +666,7 @@ document
         }
     );
 });
+
 
 })();
 

@@ -623,13 +623,6 @@ background-image: url("../assets-c/hero.png");
   gap: .85rem;
 }
 
-.curso-info-item__icon {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  color: var(--color-ember);
-}
-
 .curso-info-item strong {
   display: block;
   font-family: var(--font-body);
@@ -645,43 +638,762 @@ background-image: url("../assets-c/hero.png");
   color: var(--color-ice);
 }
 
+
+/*======================================================
+COURSE BREAKER
+======================================================*/
+/*=========================================
+COURSE BREAKER
+=========================================*/
+
+.cuspide-course-breaker{
+
+    background:var(--color-cream);
+
+    padding:110px 0;
+
+}
+
+.cuspide-course-breaker__wrapper{
+
+    width:min(1180px,90%);
+    margin:auto;
+
+}
+
+.cuspide-course-breaker__manifesto{
+
+    max-width:920px;
+
+    margin:0 auto 65px;
+
+    text-align:center;
+
+    opacity:0;
+    transform:translateY(25px);
+
+    transition:.8s cubic-bezier(.16,1,.3,1);
+
+}
+
+.cuspide-course-breaker__manifesto.is-visible{
+    margin: 0 auto 35px;
+  
+    opacity:1;
+    transform:none;
+
+}
+
+.cuspide-course-breaker__manifesto h2{
+
+    line-height:1.18;
+
+    text-transform:uppercase;
+
+    font-size:clamp(2rem,4vw,3rem);
+
+}
+
+.cuspide-course-breaker__manifesto span{
+
+    color:var(--color-primary);
+
+}
+
+.cuspide-course-breaker__specs-grid{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+
+}
+
+.cuspide-course-breaker__spec-pill{
+
+    background:white;
+
+    border-radius:14px;
+
+    min-height:90px;
+
+    padding:18px 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    box-shadow:
+    0 4px 14px rgba(0,0,0,.04),
+    0 1px 3px rgba(0,0,0,.03);
+
+    opacity:0;
+    transform:translateY(18px);
+
+    transition:
+    transform .35s ease,
+    opacity .45s ease,
+    box-shadow .35s ease;
+
+    will-change:transform,opacity;
+
+}
+
+.curso-info-item__icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--color-ember);
+}
+
+.cuspide-course-breaker__spec-pill.is-visible{
+
+    opacity:1;
+    transform:none;
+
+}
+
+.cuspide-course-breaker__spec-pill:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,.06),
+    0 2px 6px rgba(0,0,0,.03);
+
+}
+
+.cuspide-course-breaker__spec-icon{
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:var(--color-primary);
+
+    font-size:1rem;
+
+    flex-shrink:0;
+
+    transition:.3s;
+
+}
+
+.cuspide-course-breaker__spec-pill:hover
+.cuspide-course-breaker__spec-icon{
+
+    transform:scale(1.08);
+
+}
+
+.cuspide-course-breaker__spec-pill strong{
+
+    display:block;
+
+    margin-bottom:4px;
+
+    font-size:.95rem;
+
+}
+
+.cuspide-course-breaker__spec-pill small{
+
+    display:block;
+
+    color:#777;
+
+    line-height:1.45;
+
+    font-size:.82rem;
+
+}
+
+/*=========================*/
+
+@media(max-width:900px){
+
+.cuspide-course-breaker__specs-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.cuspide-course-breaker{
+
+padding:80px 0;
+
+}
+
+.cuspide-course-breaker__manifesto{
+
+margin-bottom:45px;
+
+}
+
+.cuspide-course-breaker__specs-grid{
+
+grid-template-columns:1fr;
+
+max-width:450px;
+
+}
+
+}
+/*====================================================
+    CURSO INFO
+====================================================*/
+
+.cuspide-pain-agitation{
+    padding:120px 0;
+    background:var(--color-cream);
+}
+
+.cuspide-pain-agitation__wrapper{
+
+    width:min(1180px,90%);
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:90px;
+    align-items:center;
+}
+
+.cuspide-pain-agitation__frame{
+
+    opacity:0;
+    transform:translateY(40px) rotate(-8deg);
+
+    transition:
+    transform .9s cubic-bezier(.16,1,.3,1),
+    opacity .9s;
+
+    will-change:transform,opacity;
+}
+
+.cuspide-pain-agitation__frame.is-visible{
+
+    opacity:1;
+    transform:translateY(0) rotate(-4deg);
+}
+
+.cuspide-pain-agitation__frame img{
+
+    width:100%;
+    display:block;
+
+    border-radius:8px;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.15);
+}
+
+.cuspide-pain-agitation__content h2,
+.cuspide-pain-agitation__content p,
+.cuspide-pain-agitation__bullet-list li{
+
+    opacity:0;
+
+    transform:translateY(18px);
+
+    transition:
+    opacity .7s ease,
+    transform .7s ease;
+
+    will-change:transform,opacity;
+}
+
+.cuspide-pain-agitation__content.is-visible h2,
+.cuspide-pain-agitation__content.is-visible p,
+.cuspide-pain-agitation__content.is-visible li{
+
+    opacity:1;
+    transform:none;
+}
+
+.cuspide-pain-agitation__content h2{
+    transition-delay:.1s;
+}
+
+.cuspide-pain-agitation__content p{
+    transition-delay:.25s;
+}
+
+.cuspide-pain-agitation__content li:nth-child(1){transition-delay:.40s;}
+.cuspide-pain-agitation__content li:nth-child(2){transition-delay:.55s;}
+.cuspide-pain-agitation__content li:nth-child(3){transition-delay:.70s;}
+.cuspide-pain-agitation__content li:nth-child(4){transition-delay:.85s;}
+.cuspide-pain-agitation__content li:nth-child(5){transition-delay:1s;}
+
+.cuspide-pain-agitation__content h2{
+
+    margin-bottom:28px;
+}
+
+.cuspide-pain-agitation__content p{
+
+    margin-bottom:24px;
+
+    line-height:1.8;
+}
+
+.cuspide-pain-agitation__bullet-list{
+
+    padding-left:20px;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.cuspide-pain-agitation__bullet-list li{
+
+    line-height:1.6;
+}
+
+/*==============================
+MOBILE
+==============================*/
+
+@media(max-width:768px){
+
+.cuspide-pain-agitation{
+
+padding:80px 0;
+
+}
+
+.cuspide-pain-agitation__wrapper{
+
+grid-template-columns:1fr;
+gap:50px;
+
+}
+
+.cuspide-pain-agitation__content{
+
+order:1;
+
+}
+
+.cuspide-pain-agitation__frame{
+
+order:2;
+
+transform:none;
+
+}
+
+.cuspide-pain-agitation__frame.is-visible{
+
+transform:none;
+
+}
+
+}
+
+/*==============================
+Reduced Motion
+==============================*/
+
+@media(prefers-reduced-motion:reduce){
+
+.cuspide-pain-agitation__frame,
+.cuspide-pain-agitation__content h2,
+.cuspide-pain-agitation__content p,
+.cuspide-pain-agitation__bullet-list li{
+
+transition:none;
+transform:none;
+
+}
+
+}
+
+
+
 /* ---------------------------------------------------------------------
    2. INTRODUCCIÓN
    --------------------------------------------------------------------- */
-.curso-intro{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
-.curso-intro__grid{
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: clamp(2rem, 6vw, 4.5rem);
-  align-items: start;
+ 
+/* ── Variables locales ────────────────────────────────────────────── */
+.cuspide-syllabus-immersion {
+  --syl-dur:          0.42s;
+  --syl-ease:         cubic-bezier(.16, .84, .32, 1);
+  --syl-card-h:       110px;   /* altura compacta (solo nro + título)   */
+  --syl-card-h-hover: 210px;   /* altura expandida (+ descripción)      */
 }
-.curso-intro p{ color: var(--color-ice); }
-
-.curso-intro__stats{
+ 
+/* ====================================================================
+   1. SECCIÓN BASE
+   ==================================================================== */
+.cuspide-syllabus-immersion {
+  position: relative;
+  min-height: 680px;
+  height: 680px;
+  overflow: hidden;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  background-color: var(--color-ink);
 }
-.curso-stat{
-  background: var(--color-pale);
-  border-radius: var(--radius);
-  padding: 1.5rem 1.75rem;
+ 
+/* ====================================================================
+   2. CAPAS DE FONDO — solo opacity (GPU)
+   ==================================================================== */
+.cuspide-syllabus-immersion__bg-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
-.curso-stat__num{
+ 
+.cuspide-syllabus-immersion__bg-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity var(--syl-dur) var(--syl-ease);
+}
+ 
+.cuspide-syllabus-immersion__bg-layer.is-active {
+  opacity: 1;
+}
+ 
+.cuspide-syllabus-immersion__bg-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: grayscale(0%) contrast(100%) brightness(0.72);
   display: block;
+}
+ 
+.cuspide-syllabus-immersion__bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 8, 8, 0.05) 0%,
+    rgba(10, 8, 8, 0.38) 50%,
+    rgba(10, 8, 8, 0.78) 100%
+  );
+}
+ 
+/* ====================================================================
+   3. INNER
+   Título arriba-izquierda (justify-content: space-between),
+   deck pegado al fondo.
+   ==================================================================== */
+.cuspide-syllabus-immersion__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  max-width: calc(var(--maxw) + var(--pad) * 2);
+  margin: 0 auto;
+  box-sizing: border-box;
+ 
+  display: flex;
+  flex-direction: column;
+  /* título arriba, deck abajo */
+  justify-content: space-between;
+  padding: clamp(2.5rem, 5vw, 3.5rem) var(--pad) clamp(2rem, 4vw, 2.8rem);
+}
+ 
+/* ====================================================================
+   4. TÍTULO — arriba a la izquierda, grande, blanco
+   ==================================================================== */
+.cuspide-syllabus-immersion__title {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-weight: 700;
+  font-size: 60px;
+  text-transform: uppercase;
+  letter-spacing: -.025em;
+  line-height: .93;
+  color: #ffffff;
+  margin: 0;
+  /* Máximo la mitad del ancho para no tapar la foto */
+  max-width: 70%;
+ 
+  /* Reveal de entrada */
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+  transition: opacity var(--syl-dur) var(--syl-ease),
+              transform var(--syl-dur) var(--syl-ease);
+}
+ 
+.cuspide-syllabus-immersion__title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
+/* ====================================================================
+   5. DECK — fila en el fondo, cards de igual ancho, alineadas abajo
+   ==================================================================== */
+.cuspide-syllabus-immersion__deck {
+  display: flex;
+  align-items: flex-end;   /* todas parten del mismo borde inferior     */
+  gap: .7rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Altura fija = altura expandida. Las cards compactas quedan
+     "pegadas abajo" gracias a align-items: flex-end.
+     La sección nunca cambia de tamaño. */
+  height: var(--syl-card-h-hover);
+  overflow: visible;
+}
+ 
+/* ====================================================================
+   6. TARJETA — estado base (compacta)
+   ==================================================================== */
+.cuspide-syllabus-immersion__card {
+  flex: 1 1 0;          /* todas iguales, se reparten el espacio        */
+  min-width: 0;
+ 
+  /* Altura compacta por defecto */
+  height: var(--syl-card-h);
+ 
+  will-change: height, opacity;
+  transition: height  var(--syl-dur) var(--syl-ease),
+              opacity var(--syl-dur) var(--syl-ease);
+ 
+  /* Reveal de entrada */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity   var(--syl-dur) var(--syl-ease),
+              transform var(--syl-dur) var(--syl-ease),
+              height    var(--syl-dur) var(--syl-ease);
+}
+ 
+.cuspide-syllabus-immersion__card.is-entered {
+  opacity: 1;
+  transform: translateY(0);
+  
+}
+ 
+/* Tarjeta activa/hover: crece verticalmente */
+.cuspide-syllabus-immersion__card.is-active,
+.cuspide-syllabus-immersion__card:hover {
+  height: var(--syl-card-h-hover);
+}
+ 
+/* ── Botón contenedor ── */
+.cuspide-syllabus-immersion__card-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* número, título y desc pegados abajo   */
+  padding: 1rem 1.1rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;            /* recorta la desc cuando la card es baja */
+ 
+  background: rgba(253, 249, 244, 0.11);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 6px;
+  border: 1px solid rgba(253, 249, 244, 0.16);
+ 
+  will-change: background, border-color;
+  transition: background   var(--syl-dur) var(--syl-ease),
+              border-color var(--syl-dur) var(--syl-ease);
+}
+ 
+.cuspide-syllabus-immersion__card.is-active
+.cuspide-syllabus-immersion__card-btn,
+.cuspide-syllabus-immersion__card:hover
+.cuspide-syllabus-immersion__card-btn {
+   background-color: var(--color-void);
+  border-color: rgba(253, 249, 244, 0.32);
+}
+ 
+.cuspide-syllabus-immersion__card-btn:focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 3px;
+}
+ 
+/* ── Header: número (izq) + "+" (der) ── */
+.cuspide-syllabus-immersion__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .45rem;
+}
+ 
+.cuspide-syllabus-immersion__card-num {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
   color: var(--color-ember);
   line-height: 1;
-  margin-bottom: .5rem;
 }
-.curso-stat__label{
-  display: block;
-  font-size: .9rem;
-  color: var(--color-ink);
-  line-height: 1.35;
+ 
+.cuspide-syllabus-immersion__card-toggle-icon {
+  font-family: var(--font-mono);
+  font-size: .95rem;
+  line-height: 1;
+  color: rgba(253, 249, 244, 0.65);
+  will-change: transform, color;
+  transition: transform var(--syl-dur) var(--syl-ease),
+              color     var(--syl-dur) var(--syl-ease);
+}
+ 
+/* Hover/activa: "+" rota 45° → "×" y toma color ember */
+.cuspide-syllabus-immersion__card.is-active
+.cuspide-syllabus-immersion__card-toggle-icon,
+.cuspide-syllabus-immersion__card:hover
+.cuspide-syllabus-immersion__card-toggle-icon {
+  transform: rotate(45deg);
+  color: var(--color-ember);
+}
+ 
+/* ── Título de la tarjeta ── */
+.cuspide-syllabus-immersion__card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(.88rem, 1.4vw, 1.15rem);
+  text-transform: uppercase;
+  letter-spacing: .005em;
+  line-height: 1.18;
+  color:var(--color-ink);
+  margin: 0;
+}
+ 
+/* ── Descripción: oculta con opacity cuando la card es compacta.
+   El recorte físico lo hace overflow:hidden del __card-btn;
+   opacity hace la transición suave sin reflow adicional.        ── */
+.cuspide-syllabus-immersion__card-desc {
+  font-family: var(--font-body);
+  font-size: clamp(.75rem, 1.1vw, .88rem);
+  line-height: 1.5;
+  color:var(--color-ink);
+  margin: .6rem 0 0;
+ 
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  transition: opacity var(--syl-dur) var(--syl-ease);
+ 
+  /* Clamp para que no desborde si el texto es largo */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+ 
+.cuspide-syllabus-immersion__card.is-active
+.cuspide-syllabus-immersion__card-desc,
+.cuspide-syllabus-immersion__card:hover
+.cuspide-syllabus-immersion__card-desc {
+  opacity: 1;
+  pointer-events: auto;
+}
+ 
+/* ====================================================================
+   7. PREFERS-REDUCED-MOTION
+   ==================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .cuspide-syllabus-immersion__title,
+  .cuspide-syllabus-immersion__card,
+  .cuspide-syllabus-immersion__card-toggle-icon {
+    transform: none !important;
+    transition: opacity var(--syl-dur) linear;
+    will-change: opacity;
+  }
+  .cuspide-syllabus-immersion__card {
+    height: var(--syl-card-h-hover) !important; /* siempre expandidas */
+  }
+  .cuspide-syllabus-immersion__card-desc {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+ 
+/* ====================================================================
+   8. RESPONSIVE — mobile < 768px
+   ==================================================================== */
+@media (max-width: 768px) {
+ 
+  .cuspide-syllabus-immersion {
+    height: auto;
+    min-height: 100svh;
+  }
+ 
+  .cuspide-syllabus-immersion__title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    max-width: 100%;
+  }
+ 
+  /* Columna vertical en mobile */
+  .cuspide-syllabus-immersion__deck {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: .5rem;
+    overflow: visible;
+    padding-bottom: 1rem;
+  }
+ 
+  .cuspide-syllabus-immersion__card {
+    flex: none;
+    /* En mobile la tarjeta compacta tiene altura auto */
+    height: auto;
+    min-height: var(--syl-card-h);
+  }
+ 
+  /* En mobile tap activa; no hay hover — la descripción
+     usa max-height para expandirse suavemente */
+  .cuspide-syllabus-immersion__card-btn {
+    height: auto;
+    min-height: var(--syl-card-h);
+  }
+ 
+  .cuspide-syllabus-immersion__card-desc {
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity    var(--syl-dur) var(--syl-ease),
+                max-height var(--syl-dur) var(--syl-ease);
+  }
+ 
+  .cuspide-syllabus-immersion__card.is-active
+  .cuspide-syllabus-immersion__card-desc {
+    max-height: 180px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+ 
+  /* Sin hover en mobile */
+  .cuspide-syllabus-immersion__card:hover {
+    height: auto;
+  }
+  .cuspide-syllabus-immersion__card:hover
+  .cuspide-syllabus-immersion__card-desc {
+    opacity: 0;
+    max-height: 0;
+  }
+  .cuspide-syllabus-immersion__card.is-active:hover
+  .cuspide-syllabus-immersion__card-desc {
+    opacity: 1;
+    max-height: 180px;
+  }
 }
 
 /* ---------------------------------------------------------------------
@@ -728,58 +1440,189 @@ background-image: url("../assets-c/hero.png");
 /* ---------------------------------------------------------------------
    4. QUÉ VAS A APRENDER
    --------------------------------------------------------------------- */
-.curso-aprender{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); background-color: var(--color-frost);}
-.curso-aprender__grid{
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: clamp(2rem, 6vw, 4.5rem);
-  align-items: start;
+.cuspide-class-schedule{
+
+    padding:140px 0;
+    background:var(--color-background);
 }
-.curso-aprender__media{
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: sticky;
-  top: 6rem;
+
+.cuspide-class-schedule__wrapper{
+
+    width:min(1180px,92%);
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:45% 55%;
+    gap:90px;
+
+    align-items:start;
+}
+
+.cuspide-class-schedule__sticky-media{
+
+    position: sticky;
+
+    top: 120px;
+
+    align-self: start;
+
+    transform: none;
+
+    opacity: 0;
+
+    transition:
+        opacity .8s cubic-bezier(.22,1,.36,1),
+        transform .8s cubic-bezier(.22,1,.36,1);
+
+    will-change: transform, opacity;
+}
+
+.cuspide-class-schedule__sticky-media.show{
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.cuspide-class-schedule__sticky-media img{
+
+    width:100%;
+    border-radius:16px;
+    display:block;
+}
+
+.cuspide-class-schedule__timeline-content{
+
+    opacity:0;
+    transform:translateY(40px);
+
+    transition:.8s ease;
+
+    will-change:transform,opacity;
+}
+
+.cuspide-class-schedule__timeline-content.show{
+
+    opacity:1;
+    transform:none;
+}
+
+.cuspide-class-schedule__timeline-content h2{
+
+    margin-bottom:22px;
+}
+
+.cuspide-class-schedule__timeline-content .intro{
+
+    margin-bottom:45px;
+
+    max-width:560px;
+
+    line-height:1.8;
+}
+
+.cuspide-class-schedule__lesson-block{
+
+    position: relative;
+
+    padding: 30px 0;
+
+    border-top: 1px solid rgba(0,0,0,.08);
+
+    opacity: .55;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+}
+
+.cuspide-class-schedule__lesson-block:first-of-type{
+
+    border-top: none;
 }
 
 
-.curso-accordion{ margin-top: 2rem; border-top: 1px solid rgba(41,32,32,.12); }
-.curso-accordion__item{ border-bottom: 1px solid rgba(41,32,32,.12); }
-.curso-accordion__trigger{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.35rem 0;
-  text-align: left;
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 1.05rem;
-  color: var(--color-ink);
+.cuspide-class-schedule__lesson-title{
+
+    color: var(--color-text);
+
+    transition: color .35s ease;
+   font-weight: 500;
+    will-change: color;
 }
-.curso-accordion__sign{
-  font-family: var(--font-body);
-  font-size: 1.3rem;
-  color: var(--color-ember);
-  flex-shrink: 0;
+
+
+.cuspide-class-schedule__lesson-block.active{
+
+    opacity: 1;
 }
-.curso-accordion__panel{
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .4s var(--ease), padding .4s var(--ease);
+
+
+.cuspide-class-schedule__lesson-block.active::before{
+
+    content: "";
+
+    position: absolute;
+
+    left: -20px;
+
+    top: 34px;
+
+    width: 4px;
+
+    height: 24px;
+
+    border-radius: 999px;
+
+    background: var(--color-primary);
 }
-.curso-accordion__panel p{
-  font-size: .98rem !important;
-  line-height: 1.55 !important;
-  color: var(--color-ice);
-  padding-bottom: 1.35rem;
-  margin: 0 !important;
-  max-width: 46ch;
+
+.cuspide-class-schedule__lesson-block.active
+.cuspide-class-schedule__lesson-title{
+
+    color:var(--color-ember);
 }
-.curso-accordion__item.is-open .curso-accordion__panel{ max-height: 220px; }
+
+.cuspide-class-schedule__lesson-block p{
+
+    margin-top:12px;
+
+    line-height:1.7;
+}
+
+@media(max-width:768px){
+
+.cuspide-class-schedule{
+
+padding:90px 0;
+
+}
+
+.cuspide-class-schedule__wrapper{
+
+grid-template-columns:1fr;
+
+gap:50px;
+
+}
+
+.cuspide-class-schedule__sticky-media{
+
+position:relative;
+
+top:auto;
+
+transform:none;
+
+}
+
+.cuspide-class-schedule__sticky-media.show{
+
+transform:none;
+
+}
+
+}
 
 /* ---------------------------------------------------------------------
    5. RECORRIDO DEL CURSO
@@ -832,30 +1675,363 @@ background-image: url("../assets-c/hero.png");
 /* ---------------------------------------------------------------------
    6. INSTRUCTOR
    --------------------------------------------------------------------- */
-.curso-instructor{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
-.curso-instructor__grid{
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: .5fr 1.5fr;
-  gap: clamp(2rem, 6vw, 4.5rem);
-  align-items: center;
-}
-.curso-instructor__avatar img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
+/*==========================================================
+  CÚSPIDE INSTRUCTOR SPOTLIGHT
+==========================================================*/
+
+.cuspide-instructor-spotlight{
+
+    background:#fbf9f6;
+
+    padding:130px 0;
+
+    overflow:hidden;
 }
 
-.curso-instructor__role{
-  font-size: 1rem !important;
-  color: var(--color-ember) !important;
-  font-weight: 500 !important;
-  margin-bottom: 1rem !important;
+.cuspide-instructor-spotlight__wrapper{
+
+    width:min(1280px,92%);
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:430px minmax(0,1fr);
+
+    gap:90px;
+
+    align-items:center;
 }
-.curso-instructor .pullquote{ margin-top: 1rem; }
+
+/*==========================================================
+  BIO
+==========================================================*/
+
+.cuspide-instructor-spotlight__bio{
+
+    opacity:0;
+
+    transform:translateX(-60px);
+
+    transition:
+        transform .8s cubic-bezier(.16,1,.3,1),
+        opacity .8s;
+
+    will-change:transform,opacity;
+}
+
+.cuspide-instructor-spotlight.is-visible
+.cuspide-instructor-spotlight__bio{
+
+    opacity:1;
+
+    transform:none;
+}
+
+.cuspide-instructor-spotlight__label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#ff4d18;
+
+    font-size:1.05rem;
+
+    font-weight:700;
+
+    letter-spacing:.05em;
+
+    text-transform:uppercase;
+}
+
+.cuspide-instructor-spotlight__title{
+
+    margin:0;
+
+    color:#2d221d;
+
+    font-size:55px;
+
+    line-height:.88;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+}
+
+/*==========================================================
+  RATING
+==========================================================*/
+
+.cuspide-instructor-spotlight__rating{
+
+    margin:10px 0 10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.cuspide-instructor-spotlight__stars{
+
+    font-size:2rem;
+
+    color:#ff4d18;
+
+    letter-spacing:2px;
+
+    line-height:1;
+}
+
+.cuspide-instructor-spotlight__stars span{
+
+    color:#cfcfcf;
+}
+
+.cuspide-instructor-spotlight__students{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#3b302b;
+
+    font-size:1.2rem;
+}
+
+.cuspide-instructor-spotlight__students svg{
+
+    flex-shrink:0;
+}
+
+/*==========================================================
+  TEXTO
+==========================================================*/
+
+.cuspide-instructor-spotlight__bio p{
+    margin:0 0 10px;
+    color:#5f5149;
+    line-height:1.65;
+}
+
+/*==========================================================
+  FRAME
+==========================================================*/
+
+.cuspide-instructor-spotlight__frame{
+
+    position:relative;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+        transform .8s cubic-bezier(.16,1,.3,1),
+        opacity .8s;
+
+    will-change:transform,opacity;
+}
+
+.cuspide-instructor-spotlight.is-visible
+.cuspide-instructor-spotlight__frame{
+
+    opacity:1;
+
+    transform:none;
+}
+
+.cuspide-instructor-spotlight__frame img{
+
+    display:block;
+
+    width:100%;
+
+    aspect-ratio:16/10;
+
+    object-fit:cover;
+
+    transition:
+        transform .8s cubic-bezier(.16,1,.3,1);
+
+    will-change:transform;
+}
+
+/*==========================================================
+  OVERLAY
+==========================================================*/
+
+.cuspide-instructor-spotlight__overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    padding:42px;
+
+    opacity:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.45) 38%,
+            rgba(0,0,0,.08) 100%
+        );
+
+    transition:
+        opacity .8s cubic-bezier(.16,1,.3,1);
+
+    will-change:opacity;
+}
+
+.cuspide-instructor-spotlight__quote{
+
+    margin:0;
+
+    max-width:620px;
+
+    color:#fff;
+
+    font-size:2.15rem;
+
+    line-height:1.28;
+
+    font-weight:700;
+}
+
+.cuspide-instructor-spotlight__quote-mark{
+
+    color:#ff4d18;
+}
+
+/*==========================================================
+  HOVER
+==========================================================*/
+
+.cuspide-instructor-spotlight__frame:hover img{
+
+    transform:scale(1.04);
+}
+
+.cuspide-instructor-spotlight__frame:hover
+.cuspide-instructor-spotlight__overlay{
+
+    opacity:1;
+}
+
+/*==========================================================
+  REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion:reduce){
+
+    .cuspide-instructor-spotlight *{
+
+        transition:none !important;
+
+        animation:none !important;
+
+        transform:none !important;
+    }
+
+}
+
+/*==========================================================
+  TABLET
+==========================================================*/
+
+@media(max-width:1100px){
+
+    .cuspide-instructor-spotlight__wrapper{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+    }
+
+    .cuspide-instructor-spotlight__title{
+
+        font-size:4rem;
+    }
+
+}
+
+/*==========================================================
+  MOBILE
+==========================================================*/
+
+@media(max-width:768px){
+
+    .cuspide-instructor-spotlight{
+
+        padding:90px 0;
+    }
+
+    .cuspide-instructor-spotlight__wrapper{
+
+        gap:45px;
+    }
+
+    .cuspide-instructor-spotlight__bio{
+
+        order:1;
+
+        transform:none;
+
+        opacity:1;
+    }
+
+    .cuspide-instructor-spotlight__frame{
+
+        order:2;
+
+        transform:none;
+
+        opacity:1;
+    }
+
+    .cuspide-instructor-spotlight__title{
+
+        font-size:3rem;
+    }
+
+    .cuspide-instructor-spotlight__bio p{
+
+        font-size:1.05rem;
+    }
+
+    .cuspide-instructor-spotlight__quote{
+
+        font-size:1.45rem;
+    }
+
+    /* Hover desactivado */
+
+    .cuspide-instructor-spotlight__overlay{
+
+        opacity:1;
+    }
+
+    .cuspide-instructor-spotlight__frame img{
+
+        transform:none !important;
+    }
+
+}
 
 /* ---------------------------------------------------------------------
    7. VALORACIONES
