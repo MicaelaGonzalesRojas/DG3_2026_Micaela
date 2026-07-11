@@ -292,65 +292,85 @@ document.addEventListener("DOMContentLoaded", () => {
    CÚSPIDE GLACIER SEPARATOR
    Scroll Reveal
 ========================================================== */
+/*==================================
+HOME INTRO
+==================================*/
 
-(() => {
+const homeIntro = document.querySelector(".cuspide-home-intro");
 
-    const separator = document.querySelector(
-        '.cuspide-glacier-separator'
-    );
+if(homeIntro){
 
-    if (!separator) return;
+let hasPlayed=false;
 
-    /* ----------------------------------------
-       Reduced Motion
-    ---------------------------------------- */
+const observer = new IntersectionObserver((entries)=>{
 
-    const reducedMotion =
-        window.matchMedia(
-            '(prefers-reduced-motion: reduce)'
-        ).matches;
+entries.forEach(entry=>{
 
-    if (reducedMotion) {
+if(entry.isIntersecting && !hasPlayed){
 
-        separator.classList.add('is-visible');
+hasPlayed=true;
 
-        return;
+homeIntro.classList.add("is-visible");
 
-    }
+animateCounters();
 
-    /* ----------------------------------------
-       Intersection Observer
-    ---------------------------------------- */
+}
 
-    const observer = new IntersectionObserver(
+});
 
-        (entries, obs) => {
+},{
+threshold:.35
+});
 
-            entries.forEach(entry => {
+observer.observe(homeIntro);
 
-                if (!entry.isIntersecting) return;
+}
 
-                separator.classList.add('is-visible');
+/*==================================
+COUNTERS
+==================================*/
 
-                obs.unobserve(entry.target);
+function animateCounters(){
 
-            });
+const counters=document.querySelectorAll(".counter");
 
-        },
+counters.forEach(counter=>{
 
-        {
-            root: null,
+const target=Number(counter.dataset.target);
 
-            threshold: 0.35,
+const prefix=counter.dataset.prefix || "";
 
-            rootMargin: "0px 0px -8% 0px"
-        }
+const duration=1800;
 
-    );
+const start=performance.now();
 
-    observer.observe(separator);
+function update(now){
 
-})();
+const progress=Math.min((now-start)/duration,1);
+
+const eased=1-Math.pow(1-progress,3);
+
+const value=Math.floor(eased*target);
+
+counter.textContent=prefix+value;
+
+if(progress<1){
+
+requestAnimationFrame(update);
+
+}else{
+
+counter.textContent=prefix+target;
+
+}
+
+}
+
+requestAnimationFrame(update);
+
+});
+
+}
 
 /* ------------------------------------------------------------------
    HEROES DE LA MONTAÑA
