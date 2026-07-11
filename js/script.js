@@ -265,33 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
    INTERACCIÓN DE CARDS (PILLARS + HERO)
 ========================================== */
 
-/* ==========================================
-   HERO FLIP CARDS
-========================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const summitCards = document.querySelectorAll(".csp-flip-card");
-
-  summitCards.forEach(card => {
-    // Click → activa el flip
-    card.addEventListener("click", () => {
-      card.classList.toggle("is-active");
-    });
-
-    // Teclado → Enter o Espacio también activan el flip
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        card.classList.toggle("is-active");
-      }
-    });
-  });
-});
-
-/* ==========================================================
-   CÚSPIDE GLACIER SEPARATOR
-   Scroll Reveal
-========================================================== */
 /*==================================
 HOME INTRO
 ==================================*/
@@ -715,62 +688,6 @@ requestAnimationFrame(update);
   }
 })();
  
-/**
- * Componente: Estadísticas de Autoridad — "La comunidad sigue subiendo"
- */
-(function () {
-  'use strict';
-
-  var section = document.querySelector('.stats-block');
-  if (!section) return;
-
-  var title = section.querySelector('.stats-title');
-  var digitWindows = section.querySelectorAll('.digit-window');
-
-  var prefersReducedMotion =
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Paso 1: estado de "pre-giro" (solo si hay movimiento permitido).
-  if (!prefersReducedMotion) {
-    digitWindows.forEach(function (win) {
-      var strip = win.querySelector('.digit-strip');
-      if (strip) strip.style.setProperty('--target-digit', '0');
-    });
-  }
-
-  function reveal() {
-    if (title) title.classList.add('is-visible');
-    digitWindows.forEach(function (win) {
-      var strip = win.querySelector('.digit-strip');
-      var target = win.getAttribute('data-digit');
-      if (strip && target !== null) {
-        strip.style.setProperty('--target-digit', target);
-      }
-    });
-  }
-
-  // Paso 2 / 3: disparo único al entrar en viewport.
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            reveal();
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.35 }
-    );
-    observer.observe(section);
-  } else {
-    // Sin soporte de IntersectionObserver: revelar de inmediato.
-    reveal();
-  }
-  
-})();
-
 
 
 /* ------------------------------------------------------------------
@@ -876,13 +793,17 @@ requestAnimationFrame(update);
   /* ------------------------------------------------------------------
      7. Cursos — cada tarjeta se expande de forma independiente
      ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------
+     7. Cursos — activación por click en la card entera O en el botón "+"
+     ------------------------------------------------------------------ */
 (function () {
   'use strict';
 
-  const SECTION_SELECTOR = '.cuspide-courses-catalog';
-  const CARD_SELECTOR = '.cuspide-courses-catalog__card';
+  const SECTION_SELECTOR   = '.cuspide-courses-catalog';
+  const CARD_SELECTOR      = '.cuspide-courses-catalog__card';
   const INDICATOR_SELECTOR = '.cuspide-courses-catalog__card-indicator';
-  const ACTIVE_CLASS = 'cuspide-courses-catalog__card--active';
+  const CTA_SELECTOR       = '.cuspide-action-btn';
+  const ACTIVE_CLASS       = 'cuspide-courses-catalog__card--active';
 
   function initSection(section) {
     const cards = Array.from(section.querySelectorAll(CARD_SELECTOR));
@@ -902,11 +823,10 @@ requestAnimationFrame(update);
       },
       { threshold: 0.2 }
     );
-
     revealObserver.observe(section);
 
     /* ---------------------------------------------------------------
-       2) Activación exclusiva por el botón "+"
+       2) Activación exclusiva: activa una tarjeta, desactiva el resto
        --------------------------------------------------------------- */
     function setActive(card) {
       cards.forEach((c) => {
@@ -916,15 +836,39 @@ requestAnimationFrame(update);
       });
     }
 
+    /* ---------------------------------------------------------------
+       3) Listeners de click
+          · Click en la card entera → activa
+          · Click en el botón "+" → activa (stopPropagation para no
+            disparar ambos handlers a la vez)
+          · Click en el botón "Ver programa" (CTA) → NO activa/desactiva,
+            deja seguir la navegación normalmente (stopPropagation)
+       --------------------------------------------------------------- */
     cards.forEach((card) => {
-      const indicator = card.querySelector(INDICATOR_SELECTOR);
-      if (!indicator) return;
 
-      indicator.addEventListener('click', (event) => {
-        // Evita que el click "suba" y dispare cualquier handler de la tarjeta
-        event.stopPropagation();
+      /* Click en la card completa */
+      card.addEventListener('click', () => {
         setActive(card);
       });
+
+      /* Click en el "+" — ya lo maneja el handler de la card,
+         pero stopPropagation evita doble disparo si hay bubbling */
+      const indicator = card.querySelector(INDICATOR_SELECTOR);
+      if (indicator) {
+        indicator.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setActive(card);
+        });
+      }
+
+      /* Click en "Ver programa" — deja navegar sin cambiar el estado */
+      const cta = card.querySelector(CTA_SELECTOR);
+      if (cta) {
+        cta.addEventListener('click', (e) => {
+          e.stopPropagation();
+          /* La navegación del <a href> sigue su curso normalmente */
+        });
+      }
     });
   }
 

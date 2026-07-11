@@ -157,16 +157,26 @@
                     JUNTOS
                 </h2>
 
-                <p>
-                    Creemos que la montaña es un espacio para todas las personas.
-                    Nuestros programas
-                    priorizan la seguridad, el entrenamiento progresivo y la inclusión.
-                </p>
+                  <!-- Texto para desktop -->
+  <p class="intro-text intro-text--desktop">
+    Creemos que la montaña es un espacio para todas las personas.
+    Nuestros programas priorizan la seguridad, el entrenamiento progresivo y la inclusión.
+  </p>
 
-                <p>
-                    Más que preparar una expedición, buscamos construir confianza,
-                    autonomía y experiencias que puedan disfrutarse sin límites.
-                </p>
+  <!-- Texto alternativo para mobile -->
+  <p class="intro-text intro-text--mobile">
+    La montaña no es para todos, pero si hay valentía.
+  </p>
+
+                <p class="intro-text intro-text--desktop">
+  Más que preparar una expedición, buscamos construir confianza,
+  autonomía y experiencias que puedan disfrutarse sin límites.
+</p>
+
+<p class="intro-text intro-text--mobile">
+  Buscamos confianza y experiencias sin límites.
+</p>
+
 
             </div>
 
@@ -464,6 +474,7 @@
 
 
   <!-- ======================= 7. CURSOS ======================= -->
+  <!-- ======================= 7. CURSOS ======================= -->
 <section class="cuspide-courses-catalog">
   <div class="cuspide-courses-catalog__inner">
 
@@ -480,8 +491,9 @@
 
         <div class="cuspide-courses-catalog__card-body">
           <div class="cuspide-courses-catalog__card-top">
-            <h3 class="cuspide-courses-catalog__card-title">Resistencia en Altura</h3>
+            <!-- Precio ARRIBA, título ABAJO — fiel al boceto -->
             <span class="cuspide-courses-catalog__card-price">$800.000</span>
+            <h3 class="cuspide-courses-catalog__card-title">Resistencia en Altura</h3>
           </div>
 
           <p class="cuspide-courses-catalog__card-description">
@@ -491,15 +503,19 @@
 
           <div class="cuspide-courses-catalog__card-footer">
             <div class="cuspide-courses-catalog__card-cta">
-              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
-               <a href="1-curso/curso-supervivencia-montana.html" 
-   class="cuspide-action-btn cuspide-action-btn--pyromountain">
-  <span>Ver programa</span>
-</a>
+              <!-- Link directo, sin <button> anidado -->
+              <a
+                href="1-curso/curso-supervivencia-montana.html"
+                class="cuspide-action-btn cuspide-action-btn--pyromountain"
+              >
+                <span>Ver programa</span>
+              </a>
 
-
-              </button>
-              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+              <button
+                type="button"
+                class="cuspide-courses-catalog__card-indicator"
+                aria-label="Ver este curso"
+              >
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
                 </svg>
@@ -518,8 +534,8 @@
 
         <div class="cuspide-courses-catalog__card-body">
           <div class="cuspide-courses-catalog__card-top">
-            <h3 class="cuspide-courses-catalog__card-title">Orientación Técnica</h3>
             <span class="cuspide-courses-catalog__card-price">$600.000</span>
+            <h3 class="cuspide-courses-catalog__card-title">Orientación Técnica</h3>
           </div>
 
           <p class="cuspide-courses-catalog__card-description">
@@ -529,10 +545,17 @@
 
           <div class="cuspide-courses-catalog__card-footer">
             <div class="cuspide-courses-catalog__card-cta">
-              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
+              <a
+                href="#"
+                class="cuspide-action-btn cuspide-action-btn--pyromountain"
+              >
                 <span>Ver programa</span>
-              </button>
-              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+              </a>
+              <button
+                type="button"
+                class="cuspide-courses-catalog__card-indicator"
+                aria-label="Ver este curso"
+              >
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
                 </svg>
@@ -551,8 +574,8 @@
 
         <div class="cuspide-courses-catalog__card-body">
           <div class="cuspide-courses-catalog__card-top">
-            <h3 class="cuspide-courses-catalog__card-title">Prótesis de Montaña</h3>
             <span class="cuspide-courses-catalog__card-price">$700.000</span>
+            <h3 class="cuspide-courses-catalog__card-title">Prótesis de Montaña</h3>
           </div>
 
           <p class="cuspide-courses-catalog__card-description">
@@ -562,10 +585,17 @@
 
           <div class="cuspide-courses-catalog__card-footer">
             <div class="cuspide-courses-catalog__card-cta">
-              <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
+              <a
+                href="#"
+                class="cuspide-action-btn cuspide-action-btn--pyromountain"
+              >
                 <span>Ver programa</span>
-              </button>
-              <button type="button" class="cuspide-courses-catalog__card-indicator" aria-label="Ver este curso">
+              </a>
+              <button
+                type="button"
+                class="cuspide-courses-catalog__card-indicator"
+                aria-label="Ver este curso"
+              >
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
                 </svg>
@@ -578,6 +608,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ======================= ESCUELA ======================= -->
 <section
@@ -597,35 +628,48 @@
       Escuela de Guías
     </h2>
 
-    <p>
-      Una certificación técnica de alto rendimiento para guías que
-      quieren liderar expediciones con personas ciegas y con prótesis
-      en condiciones de alta montaña real.
-    </p>
+    <p class="academy-text academy-text--desktop">
+  Una certificación técnica de alto rendimiento para guías que
+  quieren liderar expediciones con personas ciegas y con prótesis
+  en condiciones de alta montaña real.
+</p>
+
+<!-- Texto alternativo para mobile -->
+<p class="academy-text academy-text--mobile">
+  Formación intensiva para guías inclusivos en alta montaña.
+</p>
 
     <ul class="cuspide-academy-launch__features" aria-label="Contenidos del programa">
-      <li>
-        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
-          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <p> Técnica de guiado verbal para escalada ciega </p>
-      </li>
-      <li>
-        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
-          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <p> Rescate de emergencia en grietas </p>
-      </li>
-      <li>
-        <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
-          <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <p> Primeros auxilios  </p>
-      </li>
-    </ul>
+  <li>
+    <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+      <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <!-- Texto para desktop -->
+    <p class="academy-feature academy-feature--desktop">Técnica de guiado verbal para escalada ciega</p>
+    <!-- Texto alternativo para mobile -->
+    <p class="academy-feature academy-feature--mobile">Guiado verbal inclusivo</p>
+  </li>
+
+  <li>
+    <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+      <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="academy-feature academy-feature--desktop">Rescate de emergencia en grietas</p>
+    <p class="academy-feature academy-feature--mobile">Rescate en grietas</p>
+  </li>
+
+  <li>
+    <svg class="cuspide-academy-launch__check" aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+      <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="academy-feature academy-feature--desktop">Primeros auxilios</p>
+    <p class="academy-feature academy-feature--mobile">Auxilios básicos</p>
+  </li>
+</ul>
+
 
     <!-- Usa la clase global existente + el modificador pyromountain -->
    <button class="cuspide-action-btn cuspide-action-btn--pyromountain escuela">
