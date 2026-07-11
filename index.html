@@ -220,7 +220,7 @@
                     aria-current="step"
                 >
                     <span></span>
-                    ETAPA 01
+                    <em class="timeline-node__label">ETAPA 01</em>
                 </button>
 
                 <button
@@ -228,7 +228,7 @@
                     data-step="1"
                 >
                     <span></span>
-                    ETAPA 02
+                    <em class="timeline-node__label">ETAPA 02</em>
                 </button>
 
                 <button
@@ -236,7 +236,7 @@
                     data-step="2"
                 >
                     <span></span>
-                    ETAPA 03
+                    <em class="timeline-node__label">ETAPA 03</em>
                 </button>
 
                 <button
@@ -244,14 +244,14 @@
                     data-step="3"
                 >
                     <span></span>
-                    ETAPA 04
+                    <em class="timeline-node__label">ETAPA 04</em>
                 </button>
 
             </div>
 
         </aside>
 
-        <div class="metodologia-content">
+        <div class="metodologia-content" id="metodologiaContent">
 
             <article
                 class="metodo-step"
@@ -263,18 +263,23 @@
                     alt="Evaluación física"
                 >
 
-                <div>
+                <div class="metodo-step__text">
 
                     <h3>
                         EVALUACIÓN FÍSICA
                     </h3>
 
-                    <p>
-                        Ejercicios de fuerza, resistencia y movilidad,
-                        adaptados a cada tipo de discapacidad.
-                        Se busca fortalecer el cuerpo para tolerar
-                        el estrés del entorno.
-                    </p>
+                    <p class="metodo-desc metodo-desc--desktop">
+      Ejercicios de fuerza, resistencia y movilidad,
+      adaptados a cada tipo de discapacidad.
+      Se busca fortalecer el cuerpo para tolerar
+      el estrés del entorno.
+    </p>
+
+    <!-- Texto corto (mobile) -->
+    <p class="metodo-desc metodo-desc--mobile">
+      Fuerza y movilidad adaptadas.
+    </p>
 
                 </div>
 
@@ -290,19 +295,22 @@
                     alt="Entrenamiento base"
                 >
 
-                <div>
+                <div class="metodo-step__text">
 
                     <h3>
                         ENTRENAMIENTO BASE
                     </h3>
 
-                    <p>
+                    <p class="metodo-desc metodo-desc--desktop">
                         Despliegue de resistencia cardiovascular
                         y optimización biomecánica.
                         Sometemos los sistemas adaptativos
                         a simulaciones críticas previas al ascenso.
                     </p>
-
+<!-- Texto corto (mobile) -->
+    <p class="metodo-desc metodo-desc--mobile">
+      Fuerza y movilidad adaptadas.
+    </p>
                 </div>
 
             </article>
@@ -317,20 +325,23 @@
                     alt="Táctica de altura"
                 >
 
-                <div>
+                <div class="metodo-step__text">
 
                     <h3>
                         TACTICA DE ALTURA
                     </h3>
 
-                    <p>
+                    <p class="metodo-desc metodo-desc--desktop">
                         Planificación de rutas verticales
                         y gestión de oxígeno en ambientes
                         de hipoxia controlada.
                         Automatización de decisiones
                         bajo fatiga extrema.
                     </p>
-
+<!-- Texto corto (mobile) -->
+    <p class="metodo-desc metodo-desc--mobile">
+      Fuerza y movilidad adaptadas.
+    </p>
                 </div>
 
             </article>
@@ -345,29 +356,44 @@
                     alt="Asalto final"
                 >
 
-                <div>
+                <div class="metodo-step__text">
 
                     <h3>
                         ASALTO FINAL
                     </h3>
 
-                    <p>
+                    <p class="metodo-desc metodo-desc--desktop">
                         Ejecución técnica autónoma
                         en la cumbre elegida.
                         El momento donde la preparación rigurosa
                         anula por completo cualquier margen de error.
                     </p>
-
+<!-- Texto corto (mobile) -->
+    <p class="metodo-desc metodo-desc--mobile">
+      Fuerza y movilidad adaptadas.
+    </p>
                 </div>
 
             </article>
 
         </div>
 
+        <!-- Sólo mobile: hint de swipe + panel de texto fijo, único,
+             actualizado por JS según la imagen centrada en el scroll. -->
+        <p class="metodologia-swipe-hint" id="metodologiaSwipeHint">
+            Swipea las imágenes
+        </p>
+
+        <div class="metodologia-mobile-info" id="metodologiaMobileInfo" aria-live="polite">
+            <h3 class="metodologia-mobile-info__title" id="metodologiaMobileTitle"></h3>
+            <p class="metodologia-mobile-info__desc" id="metodologiaMobileDesc"></p>
+        </div>
+
     </div>
 
     
 </section>
+
 
   <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
 <section class="cuspide-heroes-showcase" id="heroes" aria-labelledby="heroes-title">
@@ -452,25 +478,15 @@
 
     <div class="expediciones-deck-row">
 
-      <button
-        class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--prev"
-        aria-label="Expedición anterior">
-        <span> < </span>
-      </button>
-
-      <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones" aria-live="polite">
+      <div class="expediciones-deck-stage" tabindex="0" aria-label="Selector de expediciones. Usá las flechas del teclado o arrastrá para navegar, Enter para ver el detalle." aria-live="polite">
         <div class="expediciones-deck-track" id="expDeckTrack"></div>
       </div>
 
-      <button
-        class="cuspide-action-btn cuspide-action-btn--darkabyss expediciones__btn--next"
-        aria-label="Expedición siguiente">
-        <span> > </span>
-      </button>
-
     </div>
+  </div>
 
 </section>
+
 
 
   <!-- ======================= 7. CURSOS ======================= -->

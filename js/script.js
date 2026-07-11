@@ -695,8 +695,6 @@ requestAnimationFrame(update);
      ------------------------------------------------------------------ */
 (() => {
 
-   
-    
     const sections =
         document.querySelectorAll(
             '.metodo-step'
@@ -715,7 +713,27 @@ requestAnimationFrame(update);
     const total =
         nodes.length - 1;
 
-    const observer =
+    /* ------------------------------------------------------------------
+       Datos de cada etapa, leídos una sola vez desde el DOM existente
+       (h3 + p dentro de cada .metodo-step). Única fuente de verdad,
+       usada tanto por el desktop (ya renderizado) como por el panel
+       fijo de mobile.
+       ------------------------------------------------------------------ */
+    const steps = Array.from(sections).map((section, i) => {
+        const h3 = section.querySelector('.metodo-step__text h3');
+        const p  = section.querySelector('.metodo-step__text p');
+        return {
+            index: i,
+            number: String(i + 1).padStart(2, '0'),
+            title: h3 ? h3.textContent.trim() : '',
+            desc: p ? p.textContent.trim().replace(/\s+/g, ' ') : '',
+        };
+    });
+
+    /* ------------------------------------------------------------------
+       DESKTOP — accordion vertical con fade-in por scroll (sin cambios)
+       ------------------------------------------------------------------ */
+    const desktopObserver =
         new IntersectionObserver(
 
             entries => {
@@ -781,10 +799,105 @@ requestAnimationFrame(update);
 
         );
 
-    sections.forEach(section => {
+    /* ------------------------------------------------------------------
+       MOBILE — scroll horizontal nativo de imágenes + panel de texto
+       fijo, actualizado con una transición limpia (fade + micro-slide).
+       ------------------------------------------------------------------ */
+    const mobileContent  = document.getElementById('metodologiaContent');
+    const mobileInfo     = document.getElementById('metodologiaMobileInfo');
+    const mobileTitle    = document.getElementById('metodologiaMobileTitle');
+    const mobileDesc     = document.getElementById('metodologiaMobileDesc');
 
-        observer.observe(section);
-    });
+    let mobileObserver = null;
+    let activeMobileIndex = -1;
+    let switchTimer = null;
+
+    function writeMobileStep(index) {
+        const step = steps[index];
+        if (!step) return;
+        mobileTitle.textContent = `${step.number} - ${step.title}`;
+        mobileDesc.textContent = step.desc;
+    }
+
+    function setActiveNode(index) {
+        nodes.forEach(node => {
+            node.classList.remove('is-active');
+            node.removeAttribute('aria-current');
+        });
+        if (nodes[index]) {
+            nodes[index].classList.add('is-active');
+            nodes[index].setAttribute('aria-current', 'step');
+        }
+    }
+
+    function goToMobileStep(index, { animate }) {
+        if (index === activeMobileIndex) return;
+        activeMobileIndex = index;
+        setActiveNode(index);
+
+        if (!animate) {
+            writeMobileStep(index);
+            return;
+        }
+
+        clearTimeout(switchTimer);
+        mobileInfo.classList.add('is-switching');
+        switchTimer = setTimeout(() => {
+            writeMobileStep(index);
+            mobileInfo.classList.remove('is-switching');
+        }, 220);
+    }
+
+    function initMobileObserver() {
+        if (mobileObserver || !mobileContent) return;
+
+        mobileObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const index = Number(entry.target.dataset.step);
+                    goToMobileStep(index, { animate: true });
+                });
+            },
+            {
+                root: mobileContent,
+                threshold: 0.6,
+            }
+        );
+
+        sections.forEach(section => mobileObserver.observe(section));
+
+        // Estado inicial sin animación (evita un fade innecesario al cargar)
+        activeMobileIndex = -1;
+        goToMobileStep(0, { animate: false });
+    }
+
+    function teardownMobileObserver() {
+        if (!mobileObserver) return;
+        mobileObserver.disconnect();
+        mobileObserver = null;
+    }
+
+    const mql = window.matchMedia('(max-width: 768px)');
+
+    function syncMode(isMobile) {
+        if (isMobile) {
+            desktopObserver.disconnect();
+            initMobileObserver();
+        } else {
+            teardownMobileObserver();
+            sections.forEach(section => desktopObserver.observe(section));
+        }
+    }
+
+    syncMode(mql.matches);
+
+    if (mql.addEventListener) {
+        mql.addEventListener('change', e => syncMode(e.matches));
+    } else if (mql.addListener) {
+        // Safari viejo
+        mql.addListener(e => syncMode(e.matches));
+    }
 
 })();
 
@@ -1213,18 +1326,11 @@ cards.forEach(card => {
     }
 
     // ------------------------------------------------------------------
-    // Botones prev/next (antes no tenían listener conectado)
+    // Los botones prev/next se eliminaron del HTML: la navegación queda
+    // cubierta por drag/swipe (pointerdown/up más abajo) y por teclado
+    // (← → sobre el stage). nextCard()/prevCard() siguen existiendo tal
+    // cual, sólo que ahora los dispara exclusivamente esa interacción.
     // ------------------------------------------------------------------
-    const nextBtn = document.querySelector(".expediciones__btn--next");
-    const prevBtn = document.querySelector(".expediciones__btn--prev");
-
-    if(nextBtn){
-        nextBtn.addEventListener("click", nextCard);
-    }
-
-    if(prevBtn){
-        prevBtn.addEventListener("click", prevCard);
-    }
 
     updateDeck();
 
@@ -1267,21 +1373,34 @@ track.addEventListener("pointerup", e => {
         }
     );
 
+    // ------------------------------------------------------------------
+    // Click sobre una card:
+    //  - si NO es la activa -> la centra (primera presión = elegirla)
+    //  - si YA es la activa -> se da vuelta mostrando el reverso
+    //    (segunda presión sobre la misma = ver detalle)
+    // Ninguna interacción anterior (drag, teclado) se modificó.
+    // ------------------------------------------------------------------
     cards.forEach(card=>{
 
         card.addEventListener(
             'click',
             () => {
 
-                if(
+                const index =
                     Number(
                         card.dataset.index
-                    ) === active
-                ){
-                    card.classList.toggle(
-                        'is-flipped'
                     );
+
+                if(index !== active){
+
+                    active = index;
+                    updateDeck();
+                    return;
                 }
+
+                card.classList.toggle(
+                    'is-flipped'
+                );
             }
         );
     });
