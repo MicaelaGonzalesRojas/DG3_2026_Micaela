@@ -152,7 +152,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-img { max-width: 100%; display: block; filter: grayscale(15%) contrast(105%); }
+img { display: block; filter: grayscale(15%) contrast(105%); }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
@@ -522,14 +522,14 @@ margin-top: 0px; /* compensa la altura del header */}
 /* ==================================================
    CUSPIDE SUMMIT HERO
 ================================================== */
-
 .csp-summit-hero {
     margin-top: -64px; /* compensa la altura del header */
-  background-image: url("../assets/hero-large.png");
-  background-size: 100%; /* 👉 ajusta la imagen completa */
-  background-repeat: no-repeat;
-  height: 710px; /* ajustá el valor según tu diseño */
-}
+    min-height: 100vh; /* ocupa todo el alto visible del monitor */
+    background-image: url("../assets/hero-large.png");
+    background-size: cover; /* mantiene proporción y cubre toda la sección */
+    background-position: center top; /* centra la imagen en la parte superior */
+    background-repeat: no-repeat;
+  }
 
 .csp-summit-hero h1 {
   font-size: 3rem;          /* ajustá según tu diseño */
@@ -605,230 +605,6 @@ margin-bottom: 30px;
 }
 
 /* ==================================================
-   BLOQUE INFERIOR
-================================================== */
-
-.csp-summit-hero__bottom{
-
-    min-height:40vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-
-    gap:24px;
-    padding-top: 168px;
-    padding-inline:40px;
-    padding-bottom:100px;
-}
-
-/* ==================================================
-   CARD BLANCA
-================================================== */
-
-.csp-summit-info{
-
-    width:320px;
-    height: 340px;
-
-    background:var(--color-void);
-
-    border-radius:5px;
-
-    padding:32px;
-}
-
-.csp-summit-info h2{
-
-    color:var(--color-ink);
-
-    font-size:26px;
-    line-height:1;
-    text-transform:uppercase;
-}
-
-.csp-summit-info p{
-
-    margin-top:15px;
-
-    color:#4f4843;
-
-    line-height:1.2;
-}
-
-/* ==================================================
-   CONTENEDOR CARDS
-================================================== */
-
-.csp-summit-cards{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:16px;
-}
-
-/* ==================================================
-   CARD FLIP
-================================================== */
-
-.csp-flip-card{
-
-    width:280px;
-    height:160px;
-
-    perspective:1200px;
-
-    cursor:pointer;
-}
-
-.csp-flip-inner{
-
-    width:100%;
-    height:100%;
-
-    position:relative;
-
-    transform-style:preserve-3d;
-
-    transition:
-    transform .65s cubic-bezier(.4,0,.2,1);
-}
-
-.csp-flip-card.is-active .csp-flip-inner{
-    transform:rotateY(180deg);
-}
-
-/* ==================================================
-   CARAS
-================================================== */
-
-.csp-face-front,
-.csp-face-back{
-
-    position:absolute;
-    inset:0;
-
-    border-radius:18px;
-
-    padding:20px;
-
-    backface-visibility:hidden;
-
-    display:flex;
-    flex-direction:column;
-}
-
-.csp-face-back{
-    transform:rotateY(180deg);
-}
-
-/* ==================================================
-   NARANJA
-================================================== */
-
-.csp-orange{
-    background:var(--color-ember);
-    color:var(--color-void);
-        border-radius:5px;
-
-}
-
-/* ==================================================
-   CELESTE
-================================================== */
-
-.csp-ice{
-    background: var(--color-frost);
-    color:var(--color-ink);
-        border-radius:5px;
-
-}
-
-/* ==================================================
-   FRONT
-================================================== */
-
-.csp-face-front{
-
-    justify-content:center;
-    align-items:center;
-}
-
-.csp-face-front h3{
-
-    margin-top:16px;
-
-    text-align:center;
-
-    font-size:1rem;
-    line-height:1.2;
-}
-
-.csp-face-front span{
-
-    position:absolute;
-
-    top:12px;
-    right:16px;
-
-    font-size:1rem;
-}
-
-/* ==================================================
-   BACK
-================================================== */
-
-.csp-face-back h3{
-
-    font-size:1rem;
-
-    margin-bottom:14px;
-
-    text-transform:uppercase;
-}
-
-.csp-face-back p{
-
-    font-size:.9rem;
-    line-height:1.7;
-}
-
-.csp-face-back span{
-
-    position:absolute;
-
-    top:12px;
-    right:16px;
-}
-
-/* ==================================================
-   ICONO
-================================================== */
-
-.csp-icon{
-
-    width:58px;
-    height:58px;
-
-    border-radius:50%;
-
-    border:4px solid white;
-}
-
-.csp-icon.dark{
-    border-color:#2c1c14;
-}
-
-/* ==================================================
-   HOVER VISUAL
-================================================== */
-
-.csp-flip-card:hover{
-    transform:translateY(-4px);
-}
-
-/* ==================================================
    MOBILE
 ================================================== */
 
@@ -871,9 +647,13 @@ margin-bottom: 30px;
 
   }
  
-  .csp-summit-hero {
-    padding-bottom: 60px; /* opcional: menos espacio abajo */
-    background-image: url("../assets/hero-mobile.png"); /* 👉 tu PNG específico */
+.csp-summit-hero {
+    min-height: 100vh; /* ocupa toda la altura visible del dispositivo */
+    padding-bottom: 60px;
+    background-image: url("../assets/hero-mobile.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
 .csp-summit-hero__top {
@@ -2530,9 +2310,9 @@ transform:none;
    --------------------------------------------------------------------- */
 .expediciones-deck {
   position: relative;
-  min-height: 100vh; /* 👉 asegura que la sección mida toda la pantalla */
+  min-height: 100vh; /* ocupa toda la altura de la ventana */
   overflow: hidden;
-      padding: 1rem var(--pad);
+  padding: 1rem var(--pad);
   background: #ff4a18;
   display: flex;
   align-items: center;
@@ -2543,12 +2323,14 @@ transform:none;
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;   /* 👉 ocupa todo el alto del padre */
+  height: 100%;
+
   background-image: url("assets/fitzroy.png");
-  background-size: cover;
-  background-position: center;
+  background-size: auto 100%;   /* 👉 ajusta la imagen al alto */
+  background-position: center;  /* centra la imagen */
   background-repeat: no-repeat;
 }
+
 
 /* ==========================================================
    Controles de Expediciones (extiende sistema global)
@@ -2878,21 +2660,44 @@ transform:none;
 
   .expediciones__btn--prev,
   .expediciones__btn--next {
-    display: none;
+    display: none; /* si no querés los botones en mobile */
   }
 
-  /* escenario más compacto */
-  .expediciones-deck-stage {
+ .expediciones-deck-stage {
     height: 320px; /* más bajo para mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 👉 centra el abanico */
   }
 
-  /* reducir proporcionalmente las cards */
   .expedicion-card {
-    transform: scale(0.65);   /* 75% del tamaño original */
+    transform: scale(0.55);   /* más pequeñas (55% del tamaño original) */
     transform-origin: center center;
+    top: 50%;
+    left: 50%;
+  }
+.expediciones-deck-row {
+    display: flex;              /* más simple en mobile */
+    flex-direction: column;     /* botones y carrusel uno debajo del otro */
+    align-items: center;        /* 👉 centra todo horizontalmente */
+    justify-content: center;    /* 👉 centra verticalmente */
+    gap: 1rem;
+    padding: 0;
+  }
+
+
+ }
+@media (max-width: 768px) {
+  .expediciones-bg {
+    background-size: auto 100%; /* en mobile se adapta al alto */
   }
 }
 
+@media (min-width: 769px) {
+  .expediciones-bg {
+    background-size: cover;     /* en desktop cubre todo */
+  }
+}
 
 
 /* ==========================================
