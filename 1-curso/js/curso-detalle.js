@@ -494,6 +494,76 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   
+/*====================================
+
+MAS CURSOS
+
+====================================*/
+
+(function cuspideCrossSellInit() {
+
+  'use strict';
+
+  var section = document.getElementById('cuspide-cross-sell');
+  if (!section) return;
+
+  var title = section.querySelector('.cuspide-cross-sell__title');
+  var cards = Array.from(section.querySelectorAll('.cuspide-cross-sell__card'));
+
+  /* Respeta preferencia de movimiento reducido:
+     marca todo visible de inmediato sin transición */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches) {
+    if (title) title.classList.add('is-visible');
+    cards.forEach(function(card) { card.classList.add('is-visible'); });
+    return; /* no registra observers */
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    /* Fallback para navegadores sin soporte */
+    if (title) title.classList.add('is-visible');
+    cards.forEach(function(card) { card.classList.add('is-visible'); });
+    return;
+  }
+
+  /* ── 1. Observer del título ──────────────────────────────────── */
+  var titleObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        titleObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  if (title) titleObserver.observe(title);
+
+  /* ── 2. Observer de las tarjetas — aparecen simultáneas ─────── */
+  /* Observamos el grid completo: cuando entra en viewport,
+     las dos tarjetas reciben is-visible al mismo tiempo.
+     Sin stagger — el brief pide "simultáneas". */
+  var grid = section.querySelector('.cuspide-cross-sell__grid');
+
+  var gridObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        cards.forEach(function(card) {
+          card.classList.add('is-visible');
+        });
+        gridObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  if (grid) gridObserver.observe(grid);
+
+})();
+
+
 /* ==========================================
    CÚSPIDE · CUSTOM CURSOR
 ========================================== */

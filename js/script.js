@@ -1718,21 +1718,91 @@ updateSlider();
          bloque marcado por la integración real (fetch a tu backend,
          servicio de email transaccional, Google Sheets, CRM, etc.).
      ------------------------------------------------------------------ */
-const summitForm = document.getElementById("summitForm");
-const formSuccess = document.getElementById("formSuccess");
+/*=========================================
+CONVERSION ZONE
+=========================================*/
 
-summitForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // 👈 esta línea evita que el formulario se envíe y cambie de página
+const conversionSection = document.querySelector(".cuspide-conversion-zone");
 
-  formSuccess.classList.add("show");
+if(conversionSection){
 
-  summitForm.reset();
+const observer = new IntersectionObserver((entries)=>{
 
-  setTimeout(() => {
-    formSuccess.classList.remove("show");
-  }, 5000);
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+conversionSection.classList.add("is-visible");
+
+const fields = conversionSection.querySelectorAll(".cuspide-field");
+
+fields.forEach((field,index)=>{
+
+field.style.transitionDelay=`${index*80}ms`;
+
 });
 
+}
+
+});
+
+},{
+threshold:.25
+});
+
+observer.observe(conversionSection);
+
+}
+
+/*=========================================
+VALIDACIÓN
+=========================================*/
+
+const form=document.querySelector(".cuspide-conversion-zone__form-block");
+
+if(form){
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const email=form.querySelector('input[type="email"]');
+
+const name=form.querySelector('input[type="text"]');
+
+let valid=true;
+
+[email,name].forEach(field=>{
+
+field.classList.remove("is-error");
+
+if(!field.value.trim()){
+
+field.classList.add("is-error");
+valid=false;
+
+}
+
+});
+
+const regex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(email.value && !regex.test(email.value)){
+
+email.classList.add("is-error");
+valid=false;
+
+}
+
+if(valid){
+
+form.reset();
+
+}
+
+});
+
+}
 
 /* ==========================================
    CÚSPIDE · CUSTOM CURSOR

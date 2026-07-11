@@ -2118,13 +2118,16 @@ transform:none;
    CÚSPIDE CHECKOUT PRICING
 ====================================================== */
 
-.cuspide-checkout-pricing{
+.cuspide-checkout-pricing {
+  width: 100%;
+  padding: 110px 0;
+  overflow: hidden;
 
-    width:100%;
-    background:#ff4d17;
-    padding:110px 0;
-    overflow:hidden;
+  /* Fondo con imagen + color de respaldo */
+background: url("../assets-c/naranja.png") no-repeat center center;
+  background-size: cover; /* hace que la imagen cubra todo el área */
 }
+
 
 .cuspide-checkout-pricing__container{
 
@@ -2436,50 +2439,267 @@ transform:none;
 /* ---------------------------------------------------------------------
    9. SUGERENCIAS DE OTROS CURSOS
    --------------------------------------------------------------------- */
-.curso-sugeridos{ padding: clamp(4rem, 9vh, 6.5rem) var(--pad); }
-.curso-sugeridos__head{ max-width: var(--maxw); margin: 0 auto 3rem; }
-.curso-sugeridos__head h2{ margin-bottom: 0; }
-.curso-sugeridos__grid{
+/* ── Variables locales ────────────────────────────────────────────── */
+.cuspide-cross-sell {
+  --cs-dur:       0.46s;
+  --cs-ease:      cubic-bezier(.16, .84, .32, 1);
+  --cs-radius:    16px;
+  --cs-card-h:    clamp(340px, 44vw, 520px);
+}
+
+/* ====================================================================
+   1. SECCIÓN BASE — fondo crema
+   ==================================================================== */
+.cuspide-cross-sell {
+background: url("../assets-c/nar-mont.png") no-repeat center center;
+  padding: clamp(3.5rem, 8vh, 6rem) var(--pad);
+  padding-top: 16rem;
+}
+
+/* ====================================================================
+   2. TÍTULO — centrado, display bold, reveal con fade-in
+   ==================================================================== */
+.cuspide-cross-sell__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 45px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--color-void);
+  text-align: center;
+  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+
+  /* Estado inicial para reveal */
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity var(--cs-dur) var(--cs-ease);
+}
+
+.cuspide-cross-sell__title.is-visible {
+  opacity: 1;
+}
+
+/* ====================================================================
+   3. GRID — 2 columnas iguales
+   ==================================================================== */
+.cuspide-cross-sell__grid {
   max-width: var(--maxw);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
-.curso-sugerido-card{
-  background: var(--color-pale);
-  border-radius: var(--radius);
-  padding: 2rem;
-  transition: transform .35s var(--ease);
+
+/* ====================================================================
+   4. TARJETA — contenedor con imagen full-bleed + overlay inferior
+   ==================================================================== */
+.cuspide-cross-sell__card {
+  position: relative;
+  height: var(--cs-card-h);
+  border-radius: 10px;
+  overflow: hidden;           /* recorta zoom y overlay al border-radius */
+  cursor: pointer;
+  display: block;
+
+  /* Estado inicial para reveal (emerge desde abajo) */
+  opacity: 0;
+  transform: translateY(36px);
+  will-change: transform, opacity;
+  transition: opacity   var(--cs-dur) var(--cs-ease),
+              transform var(--cs-dur) var(--cs-ease);
 }
-.curso-sugerido-card:hover{ transform: translateY(-4px); }
-.curso-sugerido-card__tag{
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-size: .68rem;
-  color: var(--color-ember);
-  margin-bottom: 1rem;
+
+.cuspide-cross-sell__card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-.curso-sugerido-card h3{
+
+.cuspide-cross-sell__card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+
+  will-change: transform;
+  transition: transform 0.8s ease-in-out; /* más largo y con easing suave */
+}
+
+
+.cuspide-cross-sell__card:hover
+.cuspide-cross-sell__card-img {
+  transform: scale(1.05);
+}
+/* Estado base: color */
+.cuspide-cross-sell__card-img { filter: grayscale(0);
+  filter: grayscale(0);
+  transition: filter 0.6s ease; /* duración y curva de transición */
+}
+
+/* Grid con hover activo → todas a gris */
+.cuspide-cross-sell__grid:has(.cuspide-cross-sell__card:hover)
+.cuspide-cross-sell__card-img { filter: grayscale(1); }
+
+/* La hovered → vuelve a color */
+.cuspide-cross-sell__grid:has(.cuspide-cross-sell__card:hover)
+.cuspide-cross-sell__card:hover
+.cuspide-cross-sell__card-img { filter: grayscale(0); }
+/* ====================================================================
+   5. OVERLAY — degradado inferior + info textual
+   ==================================================================== */
+.cuspide-cross-sell__card-overlay {
+  position: absolute;
+  inset: 0;
+  /* Degradado: transparente arriba, oscuro en el tercio inferior */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.90) 0%,
+    rgba(0, 0, 0, 0.55) 38%,
+    rgba(0, 0, 0, 0.08) 70%,
+    rgba(0, 0, 0, 0)    100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+  gap: .55rem;
+}
+
+/* ── Fila: título + precio en la misma línea ── */
+.cuspide-cross-sell__card-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.cuspide-cross-sell__card-name {
   font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 2vw, 1.35rem);
   text-transform: uppercase;
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: .75rem;
+  letter-spacing: .01em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
 }
-.curso-sugerido-card p{
-  font-size: .95rem !important;
-  line-height: 1.5 !important;
-  color: var(--color-ice);
-  margin-bottom: 1.25rem !important;
-}
-.curso-sugerido-card__link{
+
+.cuspide-cross-sell__card-price {
+  font-family: var(--font-mono);
+  font-size: clamp(.8rem, 1.3vw, 1rem);
   font-weight: 600;
-  color: var(--color-ink);
-  border-bottom: 2px solid var(--color-ember);
-  padding-bottom: 2px;
+  letter-spacing: .04em;
+  color: #ffffff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
+
+/* ── Descripción ── */
+.cuspide-cross-sell__card-desc {
+  font-family: var(--font-body);
+  font-size: clamp(.8rem, 1.2vw, .92rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .80);
+  margin: 0;
+  /* Máximo 2 líneas para mantener las tarjetas consistentes */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ====================================================================
+   6. BOTÓN CTA — elévación en hover de la tarjeta padre
+      Reutiliza .cuspide-action-btn--pyromountain del sitio global;
+      acá solo añadimos el comportamiento de hover de elevación.
+   ==================================================================== */
+.cuspide-cross-sell__card-cta {
+  /* Elevación vertical: transform solo, GPU */
+  will-change: transform;
+  transition: transform var(--cs-dur) var(--cs-ease);
+  align-self: flex-start;   /* no estira el botón al ancho completo    */
+}
+
+.cuspide-cross-sell__card:hover
+.cuspide-cross-sell__card-cta {
+  transform: translateY(-4px);
+}
+
+
+/* ====================================================================
+   7. PREFERS-REDUCED-MOTION
+   ==================================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  .cuspide-cross-sell__title,
+  .cuspide-cross-sell__card,
+  .cuspide-cross-sell__card-img,
+  .cuspide-cross-sell__card-cta {
+    transform: none !important;
+    will-change: opacity;
+    transition: opacity var(--cs-dur) linear;
+  }
+
+  /* Sin reveal de entrada — todo visible desde el principio */
+  .cuspide-cross-sell__title,
+  .cuspide-cross-sell__card {
+    opacity: 1;
+  }
+}
+
+/* ====================================================================
+   8. RESPONSIVE — mobile < 768px: columna única centrada
+   ==================================================================== */
+@media (max-width: 768px) {
+
+  .cuspide-cross-sell {
+    padding: clamp(2.5rem, 6vh, 4rem) var(--pad);
+  }
+
+  .cuspide-cross-sell__title {
+    font-size: clamp(1.3rem, 6vw, 1.7rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .cuspide-cross-sell__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 480px; /* centra la columna en pantallas medianas */
+  }
+
+  .cuspide-cross-sell__card {
+    height: clamp(280px, 70vw, 380px);
+  }
+
+  /* Sin hover en móvil — desactivamos el zoom */
+  .cuspide-cross-sell__card:hover
+  .cuspide-cross-sell__card-img {
+    transform: none;
+  }
+
+  /* El botón no se eleva en móvil (no hay hover táctil real) */
+  .cuspide-cross-sell__card:hover
+  .cuspide-cross-sell__card-cta {
+    transform: none;
+  }
+
+  .cuspide-cross-sell__card-name {
+    font-size: clamp(1rem, 5vw, 1.3rem);
+  }
+
+  .cuspide-cross-sell__card-price {
+    font-size: .85rem;
+  }
+
+  .cuspide-cross-sell__card-desc {
+    font-size: .88rem;
+    -webkit-line-clamp: 3; /* una línea más en móvil */
+  }
+}
+
 
 /* ---------------------------------------------------------------------
    RESPONSIVE
