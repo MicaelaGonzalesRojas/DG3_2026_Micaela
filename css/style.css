@@ -382,7 +382,9 @@ h4 {
     background:var(--color-ink);
 
 }
-
+.cuspide-action-btn--pyromountain {
+    margin-top: 0px !important;
+}
 
 
 
@@ -1149,26 +1151,19 @@ transform:none;
 }
 
 /* Panel de texto único + hint de swipe: sólo existen visualmente en mobile */
+/* Panel de texto único + hint de swipe: sólo existen visualmente en mobile */
 .metodologia-swipe-hint,
 .metodologia-mobile-info {
   display: none;
 }
+
 /* Por defecto, ocultamos el texto mobile */
 .metodo-desc--mobile {
   display: none;
 }
-.metodo-step__text {
-  display: none;
-}
-
-
 
 /* =======================================================================
    MOBILE (< 768px)
-   Las imágenes son un scroll-snap NATIVO horizontal (sin JS moviéndolas,
-   sin fade in/out). El texto es un único panel fijo debajo, que un
-   IntersectionObserver actualiza con una transición limpia de opacidad
-   cuando cambia la imagen centrada.
    ======================================================================= */
   /* En mobile, ocultamos el desktop y mostramos el mobile */
 .metodo-desc--mobile { display: none; }
@@ -1176,6 +1171,10 @@ transform:none;
 @media (max-width: 768px) {
   .metodo-desc--desktop { display: none; }
   .metodo-desc--mobile { display: block; }
+
+    .metodo-step__text {
+    display: none;
+  }
 }
 
 
@@ -1693,33 +1692,35 @@ transform:none;
 }
 
 /* ---------------------------------------------------------------------
-   6. TESTIMONIOS — fade carousel
+   6. TESTIMONIOS ("Conquistadores") — scroll infinito, pausable, arrastrable
    --------------------------------------------------------------------- */
 /* =======================================================
    TESTIMONIOS PREMIUM
    ======================================================= */
-
+ 
 #conquistadores {
-  background: url("../assets/fondo.png") no-repeat center center;
+  background: url("../assets/fondo-mon.png") no-repeat center center;
   background-size: cover;
   padding: 90px 0;
+  padding-bottom: 240px;
   background-color: #111; /* fallback si la imagen no carga */
 }
-
-
+ 
+ 
 .conquistadores__container{
     width:min(1030px,92%);
     margin:auto;
-    
+ 
 }
-
+ 
 .conquistadores__header{
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
+    text-align:center;
     margin-bottom:40px;
 }
-
+ 
 /* ------------------------------------------------------------------
    ANIMACIÓN DE ENTRADA (scroll reveal)
    Se activa vía JS agregando la clase .is-visible al <section>
@@ -1727,82 +1728,66 @@ transform:none;
    solo se agrega si el navegador permite animaciones (JS + motion OK),
    así el contenido nunca queda oculto si JS falla o si el usuario
    prefiere movimiento reducido.
+   Los clones (.conquistadores__card--clone) quedan afuera: son
+   puramente visuales para el loop y no deben nacer invisibles.
    ------------------------------------------------------------------ */
-
+ 
 .conquistadores--will-animate .conquistadores__header,
-.conquistadores--will-animate .conquistadores__card{
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone){
     opacity:0;
     transform:translateY(40px);
     transition:opacity .7s cubic-bezier(.16,1,.3,1),
                 transform .7s cubic-bezier(.16,1,.3,1);
 }
-
+ 
 .conquistadores--will-animate.is-visible .conquistadores__header,
-.conquistadores--will-animate.is-visible .conquistadores__card{
+.conquistadores--will-animate.is-visible .conquistadores__card:not(.conquistadores__card--clone){
     opacity:1;
     transform:none;
 }
-
-/* stagger entre tarjetas */
-.conquistadores--will-animate .conquistadores__card:nth-child(1){ transition-delay:.05s; }
-.conquistadores--will-animate .conquistadores__card:nth-child(2){ transition-delay:.15s; }
-.conquistadores--will-animate .conquistadores__card:nth-child(3){ transition-delay:.25s; }
-.conquistadores--will-animate .conquistadores__card:nth-child(4){ transition-delay:.35s; }
-.conquistadores--will-animate .conquistadores__card:nth-child(5){ transition-delay:.45s; }
-
+ 
+/* stagger entre tarjetas reales (los clones no tienen delay: no lo necesitan) */
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone):nth-child(1){ transition-delay:.05s; }
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone):nth-child(2){ transition-delay:.15s; }
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone):nth-child(3){ transition-delay:.25s; }
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone):nth-child(4){ transition-delay:.35s; }
+.conquistadores--will-animate .conquistadores__card:not(.conquistadores__card--clone):nth-child(5){ transition-delay:.45s; }
+ 
 .conquistadores__title{
     font-size:42px;
     font-weight:900;
     letter-spacing:.05em;
     color:#2b1c14;
 }
-
-.conquistadores__controls {
-  display: flex;
-  gap: 0px;
-}
-
-/* Botones de navegación: usan el sistema global + ajustes locales */
-.conquistadores__btn--prev,
-.conquistadores__btn--next {
-  width: 40px;
-  height: 40px;
-  padding: 0;               /* quita padding extra del sistema global */
-  border-radius: 5px;       /* consistente con tu diseño */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;          /* asegura cursor de mano */
-}
-
-/* SVG dentro de los botones */
-.conquistadores__btn--prev svg,
-.conquistadores__btn--next svg {
-  width: 16px;
-  height: 16px;
-}
-
+ 
 .conquistadores__viewport{
-    width:100%;
-    max-width:1008px; /* 320*3 + 24*2 */
-      margin: 0 auto;     /* centra horizontalmente */
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     overflow:hidden;
+    cursor:grab;
+    outline-offset: 6px;
+    touch-action: pan-y; /* deja el scroll vertical de la página libre,
+                            pero cede el gesto horizontal a nuestro JS */
 }
-
+ 
+.conquistadores__viewport:focus-visible{
+    outline: 2px solid var(--color-ember, #ff4a18);
+}
+ 
+.conquistadores__viewport.dragging{
+    cursor:grabbing;
+}
+ 
 .conquistadores__track{
     display:flex;
-    gap:24px;
+    gap:16px;
+    padding: 0 24px;
     will-change:transform;
-    transition:transform .5s cubic-bezier(.16,1,.3,1);
     user-select:none;
-    cursor:grab;
 }
-
-.conquistadores__track.dragging{
-    cursor:grabbing;
-    transition:none;
-}
-
+ 
 .conquistadores__card{
     flex:0 0 320px;
     min-height:255px;
@@ -1814,87 +1799,84 @@ transform:none;
     flex-direction:column;
     justify-content:space-between;
 }
-
+ 
 .conquistadores__blockquote{
     margin:0;
 }
-
+ 
 .conquistadores__quote{
     font-size:74px;
     color:#c4d7da;
     line-height:1;
 }
-
+ 
 .conquistadores__blockquote p{
     line-height:1.2;
     color: var(--color-ink);
 }
-
+ 
 .conquistadores__footer{
     display:flex;
     align-items:center;
     gap:14px;
     margin-top:30px;
 }
-
+ 
 .conquistadores__avatar{
     width:48px;
     height:48px;
     border-radius:50%;
     object-fit:cover;
+    pointer-events:none; /* evita que el navegador intente arrastrar la <img> nativa */
 }
-
+ 
 .conquistadores__name{
     display:block;
     font-size:14px;
     letter-spacing:.04em;
 }
-
+ 
 .conquistadores__condition{
     font-size:13px;
     color:#777;
 }
-
+ 
 @media (max-width: 768px) {
-  .conquistadores__controls {
-    display: none;
+ 
+  .conquistadores__title {
+    font-size: 35px;
+    font-weight: 900;
+    letter-spacing: .05em;
+    color: #2b1c14;
   }
-.conquistadores__title {
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: .05em;
-  color: #2b1c14;
-  flex: 1;              /* ocupa todo el espacio disponible */
-  text-align: center;   /* centra el texto */
-}
-
-  .conquistadores__viewport {
-    width: 100%;
-    overflow-x: auto;              /* permite scroll horizontal */
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory; /* snap en cada card */
+ 
+  .conquistadores__card{
+    flex: 0 0 min(230px, 66vw);
+    min-height: 190px;
+    padding: 20px;
   }
-
-  .conquistadores__viewport::-webkit-scrollbar {
-    display: none;
+ 
+  .conquistadores__quote{
+    font-size: 52px;
   }
-
-  .conquistadores__track {
-    display: flex;
-    gap: 24px;                     /* espacio entre cards */
-    transform: none !important;
-    transition: none;
-    padding: 0 16px;               /* aire lateral */
+ 
+  .conquistadores__blockquote p{
+    font-size: 14px;
   }
-
-  .conquistadores__card {
-    flex: 0 0 100%;                 /* cada card ocupa ~82% del viewport */
-    scroll-snap-align: center;     /* centra cada card al hacer scroll */
+ 
+  .conquistadores__avatar{
+    width: 40px;
+    height: 40px;
   }
 }
-
-
-
+ 
+@media (prefers-reduced-motion: reduce) {
+  .conquistadores__track{
+    /* con movimiento reducido, JS no arranca el auto-scroll (ver test.js);
+     esta regla es sólo un resguardo extra si algo lo dispara igual. */
+    transition:none !important;
+  }
+}
 
 
 /* ---------------------------------------------------------------------
@@ -1942,7 +1924,7 @@ transform:none;
   flex: 1;
   min-width: 100px;
   overflow: hidden;
-  border-radius: var(--ccc-radius);
+  border-radius: 8px;
   isolation: isolate;
   cursor: pointer;   /* toda la card es clickeable */
  
@@ -2034,7 +2016,7 @@ transform:none;
 .cuspide-courses-catalog__card-price {
   font-family: var(--font-display);
   font-size: .95rem;
-  font-weight: 500;
+  font-weight: 400;
   color: #fff;
   white-space: nowrap;
   line-height: 1;
@@ -2042,6 +2024,7 @@ transform:none;
  
 .cuspide-courses-catalog__card--active .cuspide-courses-catalog__card-price {
   font-size: 1.1rem;
+  font-weight: 400;
 }
  
 /* Título — grande y debajo del precio */
@@ -2162,10 +2145,12 @@ transform:none;
    Card 1 (Resistencia en Altura) más alta; las otras dos iguales y más bajas.
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .cuspide-courses-catalog__title {
-    font-size: 2rem;
-    margin-bottom: 28px;
-  }
+ .cuspide-courses-catalog__title {
+  font-size: 40px;
+  margin-bottom: 28px;
+  text-align: center; /* 👉 centra el texto horizontalmente */
+}
+
  
   .cuspide-courses-catalog__grid {
     flex-direction: column;
@@ -2176,12 +2161,12 @@ transform:none;
   .cuspide-courses-catalog__card {
     flex: none;
     width: 100%;
-    height: 340px;
+    height: 440px;
   }
  
   /* Card 1 (Resistencia en Altura) — más alta que las demás */
   .cuspide-courses-catalog__card:nth-child(1) {
-    height: 460px;
+    height: 580px;
   }
  
   /* En mobile todas a color */
@@ -2196,11 +2181,11 @@ transform:none;
   }
  
   .cuspide-courses-catalog__card .cuspide-courses-catalog__card-price {
-    font-size: 1rem;
+    font-size: 26px;
   }
  
   .cuspide-courses-catalog__card .cuspide-courses-catalog__card-title {
-    font-size: 1.4rem;
+    font-size: 1.75rem;
   }
  
   /* Card 1 en mobile: tipografía más grande al ser la destacada */
@@ -2209,27 +2194,42 @@ transform:none;
   }
  
   .cuspide-courses-catalog__card:nth-child(1) .cuspide-courses-catalog__card-price {
-    font-size: 1.1rem;
+    font-size: 26px;
   }
  
   /* Descripción visible en las 3 cards */
   .cuspide-courses-catalog__card .cuspide-courses-catalog__card-description {
     opacity: 1;
     transform: translateY(0);
-    font-size: 13px;
+    font-size: 21px;
+      line-height: 1.3; /* 👉 interlinea fija */
   }
  
   .cuspide-courses-catalog__card-indicator {
     display: none;
   }
  
-  .cuspide-courses-catalog__card-cta .cuspide-action-btn {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-  }
+.cuspide-courses-catalog__card-cta {
+    position: relative;
+    display: flex;       /* 👉 ahora ocupa todo el ancho disponible */
+    width: 100%;         /* 👉 asegura que el contenedor se estire */
 }
- 
+ .cuspide-courses-catalog__card-cta .cuspide-action-btn {
+  width: 100%;          /* 👉 ocupa todo el ancho */
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.cuspide-courses-catalog__card-footer {
+  display: flex;
+  justify-content: stretch; /* o directamente quitar justify-content */
+  align-items: stretch;   /* 👉 hace que los hijos ocupen todo el ancho */
+}
+}
+
+
+
 @media (prefers-reduced-motion: reduce) {
   .cuspide-courses-catalog__card,
   .cuspide-courses-catalog__image,
@@ -2313,14 +2313,68 @@ transform:none;
   font-size: 55px;
   line-height: 1;
   color: #292020;
+
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s cubic-bezier(.16,.84,.32,1),
+              transform .8s cubic-bezier(.16,.84,.32,1);
+  will-change: transform, opacity;
 }
 .expediciones-headline span {
   color: var(--color-void);
 }
+
+/* El stage/track completo entra como bloque (translateY + opacity).
+   Es un ancestro que el JS nunca toca, así que compone sin problema
+   con el transform inline que updateDeck() escribe en cada card. */
 .expediciones-deck-stage {
   perspective: 1000px;
   height: 420px;
   position: relative;
+
+  opacity: 0;
+  transform: translateY(46px);
+  transition: opacity .9s cubic-bezier(.16,.84,.32,1) .08s,
+              transform .9s cubic-bezier(.16,.84,.32,1) .08s;
+  will-change: transform, opacity;
+}
+
+/* Encima del movimiento del bloque, cada card suma su propio fade
+   escalonado (sólo opacity: nunca transform, para no pisar el
+   posicionamiento del abanico que escribe el JS). */
+.expedicion-card {
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(.16,.84,.32,1),
+              opacity .6s cubic-bezier(.16,.84,.32,1);
+}
+.expediciones-deck-track > .expedicion-card:nth-child(1) { transition-delay: 0ms, .18s; }
+.expediciones-deck-track > .expedicion-card:nth-child(2) { transition-delay: 0ms, .24s; }
+.expediciones-deck-track > .expedicion-card:nth-child(3) { transition-delay: 0ms, .30s; }
+.expediciones-deck-track > .expedicion-card:nth-child(4) { transition-delay: 0ms, .36s; }
+.expediciones-deck-track > .expedicion-card:nth-child(5) { transition-delay: 0ms, .42s; }
+
+.expediciones-deck.is-visible .expediciones-headline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.expediciones-deck.is-visible .expediciones-deck-stage {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.expediciones-deck.is-visible .expedicion-card {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expediciones-headline,
+  .expediciones-deck-stage,
+  .expedicion-card {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 .expediciones-deck-track {
   width: 100%;
@@ -2575,6 +2629,23 @@ transform:none;
   font-family: var(--font-display);
 }
 
+/* Por defecto mostramos desktop y ocultamos mobile */
+.expediciones-headline--mobile {
+  display: none;
+}
+
+/* En mobile invertimos */
+@media (max-width: 768px) {
+  .expediciones-headline--desktop {
+    display: none;
+  }
+  .expediciones-headline--mobile {
+    display: block;
+    font-size: 24px;
+    padding-bottom: 40px;
+    line-height: 1.2;
+  }
+}
 
 @media (max-width: 768px) {
   .expediciones-inner {
@@ -2597,10 +2668,15 @@ transform:none;
      escala TODO el abanico (cards + separación entre ellas) de forma
      pareja sin interferir con el cálculo de posiciones. */
   .expediciones-deck-track {
-    transform: scale(.58);
+    transform: scale(.74);
     transform-origin: center center;
   }
-
+.expediciones-deck.is-visible .expediciones-headline {
+    opacity: 1;
+    transform: translateY(0);
+    font-size: 40px;
+    padding-bottom: 65px;
+}
   .expediciones-deck-row {
     display: flex;
     flex-direction: column;
@@ -2622,7 +2698,6 @@ transform:none;
     background-size: cover;     /* en desktop cubre todo */
   }
 }
-
 
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS
@@ -2937,7 +3012,7 @@ CONVERSION ZONE
 =========================================*/
 
 .cuspide-conversion-zone {
-  background: linear-gradient(to bottom, #362D28 45%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, #311706 45%, #271001 100%);
   color: white;
   padding: 120px 0;
 }
@@ -2978,25 +3053,11 @@ CONVERSION ZONE
 
 }
 
-.cuspide-section-tag{
-
-    display:inline-block;
-
-    margin-bottom:18px;
-
-    color:var(--primary-color);
-
-    font-weight:700;
-    letter-spacing:.15em;
-    font-size:.78rem;
-
-}
-
 .cuspide-conversion-zone h2{
 
     margin-bottom:24px;
     font-size:clamp(2.4rem,4vw,4rem);
-    color: var(--color-ember);
+    color: var(--color-void);
     line-height:.95;
 
 }
@@ -3008,13 +3069,8 @@ CONVERSION ZONE
 }
 
 .cuspide-conversion-zone p{
-
     color:#d8d3cf;
-
     max-width:480px;
-
-    line-height:1.8;
-
 }
 
 /*======================================
@@ -3023,7 +3079,7 @@ CHECKBOX
 
 .cuspide-conversion-zone__checkbox-group{
 
-    margin-top:45px;
+    margin-top:25px;
 
     display:flex;
     flex-direction:column;
@@ -3114,7 +3170,7 @@ FORM
 
     display:flex;
     flex-direction:column;
-    gap:22px;
+    gap:14px;
 
 }
 
@@ -3141,13 +3197,13 @@ FORM
 
     display:block;
 
-    margin-bottom:8px;
+    margin-bottom:4px;
 
-    font-size:.75rem;
+    font-size:12px;
 
     letter-spacing:.08em;
 
-    font-weight:700;
+    font-weight:300;
 
     color:#ffffff;
 
@@ -3161,13 +3217,13 @@ FORM
 
     border-radius:8px;
 
-    background:#edf2f4;
+    background:#69574b;
 
-    padding:18px;
-
+    padding:12px;
+   
     font-size:1rem;
-
-    color:#2b211f;
+font-family: var(--font-body); /* 👉 Outfit aplicada */
+    color:var(--color-void);
 
     transition:
     box-shadow .3s,
@@ -3186,7 +3242,7 @@ textarea.cuspide-conversion-zone__input-field{
 
     outline:none;
 
-    box-shadow:0 0 0 3px rgba(255,94,31,.25);
+    box-shadow:0 0 0 1px var(--color-ember);
 
 }
 
@@ -3239,7 +3295,7 @@ gap:60px;
   --ctf-hairline: rgba(253, 249, 244, 0.1);
 
   position: relative;
-  background: var(--ctf-ink);
+  background: #271001;
   padding: clamp(56px, 7vw, 96px) var(--pad) 0;
   font-family: var(--font-body);
 }

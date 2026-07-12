@@ -183,7 +183,7 @@
 
             <div class="cuspide-home-intro__frame">
 
-                <img src="assets/escalador-hielo.jpg"
+                <img src="assets/fondo.png"
                     alt="Expedición inclusiva">
 
             </div>
@@ -394,65 +394,6 @@
     
 </section>
 
-
-  <!-- ======================= 4. HÉROES DE LA MONTAÑA ======================= -->
-<section class="cuspide-heroes-showcase" id="heroes" aria-labelledby="heroes-title">
-  <div class="cuspide-heroes-showcase__inner">
-
-    <div class="cuspide-heroes-showcase__stage">
-
-      <!-- Título: vive en la celda superior de la columna de miniaturas,
-           el main-frame arranca a esta misma altura (estructura de la ref.) -->
-      <h2 class="cuspide-heroes-showcase__title" id="heroes-title">
-        Hay que ver para<em>Creer</em>
-      </h2>
-
-      <!-- Miniaturas (izquierda, debajo del título) -->
-      <div class="cuspide-heroes-showcase__gallery" role="tablist" aria-label="Selector de héroes">
-        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="0"></div>
-        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="1"></div>
-        <div class="cuspide-heroes-showcase__thumb-slot" data-slot-index="2"></div>
-      </div>
-
-      <!-- Imagen principal a color (centro) -->
-      <div class="cuspide-heroes-showcase__main-frame" data-slot="main"></div>
-
-      <!-- Biografía (derecha) -->
-      <div class="cuspide-heroes-showcase__bio-slate">
-        <div class="cuspide-heroes-showcase__bio-content" id="heroes-bio">
-          <h3 class="cuspide-heroes-showcase__name" data-bio="name"></h3>
-          <p class="cuspide-heroes-showcase__desc" data-bio="desc"></p>
-          <ul class="cuspide-heroes-showcase__tags">
-            <li class="cuspide-heroes-showcase__tag">
-              <span class="cuspide-heroes-showcase__tag-icon">→</span>
-              <span data-bio="disability"></span>
-            </li>
-            <li class="cuspide-heroes-showcase__tag cuspide-heroes-showcase__tag--accent">
-              <span class="cuspide-heroes-showcase__tag-icon">⛰</span>
-              <span data-bio="summit"></span>
-            </li>
-          </ul>
-        </div>
-
-        <button
-          type="button"
-          class="cuspide-action-btn cuspide-action-btn--pyromountain cuspide-heroes-showcase__next"
-          id="heroes-next"
-          aria-label="Ver siguiente héroe">
-          <span>&gt;</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Pool oculto: aquí descansan las tarjetas que quedaron fuera de la
-         ventana visible mientras rota la cola circular infinita -->
-    <div class="cuspide-heroes-showcase__pool" id="heroes-pool" aria-hidden="true"></div>
-
-  </div>
-</section>
-
-
   <!-- ======================= 8. EXPEDICIONES (tabs + panel dinámico) ======================= -->
 <section class="expediciones-deck" aria-labelledby="expDeckTitle">
 
@@ -471,10 +412,16 @@
   <div class="expediciones-overlay"></div>
 
   <div class="expediciones-inner">
-    <h2 id="expDeckTitle" class="expediciones-headline">
-      ELEGÍ LAS VERDADERAS <br>
-      <span>EXPEDICIONES</span>
-    </h2>
+    <h2 id="expDeckTitle" class="expediciones-headline expediciones-headline--desktop">
+  ELEGÍ LAS VERDADERAS <br>
+  <span>EXPEDICIONES</span>
+</h2>
+
+<h2 id="expDeckTitleMob" class="expediciones-headline expediciones-headline--mobile">
+  EXPEDICIONES
+  <span>REALES</span>
+</h2>
+
 
     <div class="expediciones-deck-row">
 
@@ -739,7 +686,6 @@
 
 
   <!-- ======================= 6. TESTIMONIOS ======================= -->
-  <!-- ======================= 6. TESTIMONIOS ======================= -->
 <section id="conquistadores" class="conquistadores">
 
     <div class="conquistadores__container">
@@ -750,28 +696,15 @@
                 CONQUISTADORES
             </h2>
 
-            <div class="conquistadores__controls">
-
-                <button
-  class="cuspide-action-btn cuspide-action-btn--pyromountain conquistadores__btn--prev"
-  aria-label="Anterior testimonio">
-  <span> < </span>
-</button>
-
-<button
-  class="cuspide-action-btn cuspide-action-btn--pyromountain conquistadores__btn--next"
-  aria-label="Siguiente testimonio">
-  <span> > </span>
-</button>
-
-
-            </div>
-
         </div>
 
-        <div class="conquistadores__viewport">
+        <div
+            class="conquistadores__viewport"
+            tabindex="0"
+            role="group"
+            aria-label="Testimonios de Cúspide. Click para pausar o reanudar, arrastrá para adelantar.">
 
-            <div class="conquistadores__track">
+            <div class="conquistadores__track" id="conquistadoresTrack">
 
                 <!-- CARD 1 -->
                 <article class="conquistadores__card">
@@ -950,13 +883,194 @@
                     </footer>
 
                 </article>
-                
+
+                <!-- ===================================================
+                     CLON del set completo, para el loop infinito.
+                     No debe animarse en la entrada ni leerse por
+                     lectores de pantalla: es puramente visual.
+                     JS calcula el ancho de UN set (mitad del track)
+                     y hace el wrap-around cuando lo cruza.
+                     =================================================== -->
+
+                <!-- CARD 1 (clon) -->
+                <article class="conquistadores__card conquistadores__card--clone" aria-hidden="true">
+
+                    <blockquote class="conquistadores__blockquote">
+
+                        <span class="conquistadores__quote">“</span>
+
+                        <p>
+                            Aquí no hay concesiones ni compasión.
+                            Lo que se gana no es una foto en la cima,
+                            es la certeza.
+                        </p>
+
+                    </blockquote>
+
+                    <footer class="conquistadores__footer">
+
+                        <img class="conquistadores__avatar" src="assets/per1.jpg" alt="">
+
+                        <div>
+
+                            <strong class="conquistadores__name">
+                                HECTOR AGUIRRE
+                            </strong>
+
+                            <span class="conquistadores__condition">
+                                Baja visión
+                            </span>
+
+                        </div>
+
+                    </footer>
+
+                </article>
+
+                <!-- CARD 2 (clon) -->
+                <article class="conquistadores__card conquistadores__card--clone" aria-hidden="true">
+
+                    <blockquote class="conquistadores__blockquote">
+
+                        <span class="conquistadores__quote">“</span>
+
+                        <p>
+                            Aquí no hay concesiones ni compasión.
+                            Lo que se gana no es una foto en la cima,
+                            es la certeza.
+                        </p>
+
+                    </blockquote>
+
+                    <footer class="conquistadores__footer">
+
+                        <img class="conquistadores__avatar" src="assets/per2.jpg" alt="">
+
+                        <div>
+
+                            <strong class="conquistadores__name">
+                                HECTOR AGUIRRE
+                            </strong>
+
+                            <span class="conquistadores__condition">
+                                Baja visión
+                            </span>
+
+                        </div>
+
+                    </footer>
+
+                </article>
+
+                <!-- CARD 3 (clon) -->
+                <article class="conquistadores__card conquistadores__card--clone" aria-hidden="true">
+
+                    <blockquote class="conquistadores__blockquote">
+
+                        <span class="conquistadores__quote">“</span>
+
+                        <p>
+                            Aquí no hay concesiones ni compasión.
+                            Lo que se gana no es una foto en la cima,
+                            es la certeza.
+                        </p>
+
+                    </blockquote>
+
+                    <footer class="conquistadores__footer">
+
+                        <img class="conquistadores__avatar" src="assets/per3.jpg" alt="">
+
+                        <div>
+
+                            <strong class="conquistadores__name">
+                                HECTOR AGUIRRE
+                            </strong>
+
+                            <span class="conquistadores__condition">
+                                Baja visión
+                            </span>
+
+                        </div>
+
+                    </footer>
+
+                </article>
+
+                <!-- CARD 4 (clon) -->
+                <article class="conquistadores__card conquistadores__card--clone" aria-hidden="true">
+
+                    <blockquote class="conquistadores__blockquote">
+
+                        <span class="conquistadores__quote">“</span>
+
+                        <p>
+                            Aquí no hay concesiones ni compasión.
+                            Lo que se gana no es una foto en la cima,
+                            es la certeza.
+                        </p>
+
+                    </blockquote>
+
+                    <footer class="conquistadores__footer">
+
+                        <img class="conquistadores__avatar" src="assets/per4.jpg" alt="">
+
+                        <div>
+
+                            <strong class="conquistadores__name">
+                                HECTOR AGUIRRE
+                            </strong>
+
+                            <span class="conquistadores__condition">
+                                Baja visión
+                            </span>
+
+                        </div>
+
+                    </footer>
+
+                </article>
+
+                <!-- CARD 5 (clon) -->
+                <article class="conquistadores__card conquistadores__card--clone" aria-hidden="true">
+
+                    <blockquote class="conquistadores__blockquote">
+
+                        <span class="conquistadores__quote">“</span>
+
+                        <p>
+                            Aquí no hay concesiones ni compasión.
+                            Lo que se gana no es una foto en la cima,
+                            es la certeza.
+                        </p>
+
+                    </blockquote>
+
+                    <footer class="conquistadores__footer">
+
+                        <img class="conquistadores__avatar" src="assets/per5.jpg" alt="">
+
+                        <div>
+
+                            <strong class="conquistadores__name">
+                                HECTOR AGUIRRE
+                            </strong>
+
+                            <span class="conquistadores__condition">
+                                Baja visión
+                            </span>
+
+                        </div>
+
+                    </footer>
+
+                </article>
 
             </div>
 
         </div>
 
-        
     </div>
 
 </section>
@@ -964,72 +1078,43 @@
 
   <!-- ======================= 10. CAMPAMENTO BASE ======================= -->
 <section class="cuspide-conversion-zone" id="contacto">
-
     <div class="cuspide-conversion-zone__wrapper">
-
         <!-- IZQUIERDA -->
-
         <div class="cuspide-conversion-zone__pitch">
-
-            <span class="cuspide-section-tag">
-                CURSOS INCLUSIVOS
-            </span>
-
             <h2>
                 EMPEZÁ TU
                 <span>PRÓXIMA CUMBRE</span>
             </h2>
-
             <p>
                 Cada montaña comienza con una decisión.
                 Contanos cuáles son tus objetivos y te ayudaremos
                 a encontrar el entrenamiento que mejor se adapte a vos.
             </p>
-
             <div class="cuspide-conversion-zone__checkbox-group">
-
                 <label class="cuspide-checkbox">
-
                     <input type="checkbox">
-
                     <span class="cuspide-checkbox__mark"></span>
-
                     <span class="cuspide-checkbox__text">
                         Quiero prepararme físicamente.
                     </span>
-
                 </label>
-
                 <label class="cuspide-checkbox">
-
                     <input type="checkbox">
-
                     <span class="cuspide-checkbox__mark"></span>
-
                     <span class="cuspide-checkbox__text">
                         Busco un entrenamiento adaptado.
                     </span>
-
                 </label>
-
                 <label class="cuspide-checkbox">
-
                     <input type="checkbox">
-
                     <span class="cuspide-checkbox__mark"></span>
-
                     <span class="cuspide-checkbox__text">
                         Quiero conocer el próximo curso disponible.
                     </span>
-
                 </label>
-
             </div>
-
         </div>
-
         <!-- DERECHA -->
-
         <form class="cuspide-conversion-zone__form-block" novalidate>
 
             <div class="cuspide-field">
@@ -1075,7 +1160,7 @@
 
             <button type="button" class="cuspide-action-btn cuspide-action-btn--pyromountain">
 
-                ELEGIR MI PRÓXIMA CUMBRE
+                <span> ELEGIR MI PRÓXIMA CUMBRE </span>
 
             </button>
 

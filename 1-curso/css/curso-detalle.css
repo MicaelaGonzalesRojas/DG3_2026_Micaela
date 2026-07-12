@@ -1440,6 +1440,9 @@ transform:none;
 /* ---------------------------------------------------------------------
    4. QUÉ VAS A APRENDER
    --------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+   4. QUÉ VAS A APRENDER
+   --------------------------------------------------------------------- */
 .cuspide-class-schedule{
 
     padding:140px 0;
@@ -1471,8 +1474,8 @@ transform:none;
     opacity: 0;
 
     transition:
-        opacity .8s cubic-bezier(.22,1,.36,1),
-        transform .8s cubic-bezier(.22,1,.36,1);
+        opacity 1.2s cubic-bezier(.22,1,.36,1),
+        transform 1.2s cubic-bezier(.22,1,.36,1);
 
     will-change: transform, opacity;
 }
@@ -1496,7 +1499,7 @@ transform:none;
     opacity:0;
     transform:translateY(40px);
 
-    transition:.8s ease;
+    transition:1.2s ease;
 
     will-change:transform,opacity;
 }
@@ -1544,7 +1547,7 @@ transform:none;
 
 .cuspide-class-schedule__lesson-title{
 
-    color: var(--color-text);
+    color: #fff;
 
     transition: color .35s ease;
    font-weight: 500;
@@ -1588,6 +1591,15 @@ transform:none;
     margin-top:12px;
 
     line-height:1.7;
+
+    color: #fff;
+
+    transition: color .35s ease;
+}
+
+.cuspide-class-schedule__lesson-block.active p{
+
+    color: var(--color-text);
 }
 
 @media(max-width:768px){
@@ -1614,16 +1626,23 @@ top:auto;
 
 transform:none;
 
+opacity: 1;
+
+transition: none;
+
 }
 
 .cuspide-class-schedule__sticky-media.show{
 
 transform:none;
 
-}
+opacity: 1;
+
+transition: none;
 
 }
 
+}
 /* ---------------------------------------------------------------------
    5. RECORRIDO DEL CURSO
    --------------------------------------------------------------------- */

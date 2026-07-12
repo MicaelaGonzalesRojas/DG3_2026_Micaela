@@ -997,7 +997,7 @@ requestAnimationFrame(update);
 })();
 
 
- /* ------------------------------------------------------------------
+/* ------------------------------------------------------------------
      9. Expediciones — patrón de pestañas (tabs) accesible + crossfade
         de imagen. Dos <img> superpuestas (#expImageA / #expImageB) se
         turnan el rol de "actual" para lograr un crossfade real sin
@@ -1011,6 +1011,34 @@ requestAnimationFrame(update);
         );
 
     if(!track) return;
+
+    // ------------------------------------------------------------------
+    // Animación de entrada: al entrar la sección en pantalla, se agrega
+    // 'is-visible' (dispara el CSS: headline, stage y stagger de cards).
+    // Se dispara una sola vez.
+    // ------------------------------------------------------------------
+    const deckSection =
+        document.querySelector('.expediciones-deck');
+
+    if(deckSection && 'IntersectionObserver' in window){
+
+        const revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if(!entry.isIntersecting) return;
+                    deckSection.classList.add('is-visible');
+                    revealObserver.unobserve(deckSection);
+                });
+            },
+            { threshold: 0.25 }
+        );
+
+        revealObserver.observe(deckSection);
+
+    } else if(deckSection){
+        // sin soporte de IntersectionObserver: se muestra directamente
+        deckSection.classList.add('is-visible');
+    }
 
     const backgrounds =
         document.querySelectorAll(
@@ -1406,168 +1434,194 @@ track.addEventListener("pointerup", e => {
     });
 
 })();
-
-
   /* ------------------------------------------------------------------
      8. Testimonios — carrusel con fundido, controles y puntos accesibles
      ------------------------------------------------------------------ */
+
+(function () {
+  'use strict';
+ 
+  const SECTION_ID = 'conquistadores';
+  const SPEED_PX_PER_SEC = 45;
+  const CLICK_THRESHOLD_PX = 6; // por debajo de esto, se considera "click" y no "drag"
+ 
   /* ------------------------------------------------------------------
-     8. Testimonios — carrusel con fundido, controles y puntos accesibles
+     Animación de entrada (una sola vez)
      ------------------------------------------------------------------ */
-  /* ------------------------------------------------------------------
-     8. Testimonios — carrusel con fundido, controles y puntos accesibles
-     ------------------------------------------------------------------ */
-  /* ------------------------------------------------------------------
-     8. Testimonios — carrusel con fundido, controles y puntos accesibles
-     ------------------------------------------------------------------ */
-const viewport = document.querySelector(".conquistadores__viewport");
-const track = document.querySelector(".conquistadores__track");
-
-const cards = [...document.querySelectorAll(".conquistadores__card")];
-
-const nextBtn = document.querySelector(".conquistadores__btn--next");
-const prevBtn = document.querySelector(".conquistadores__btn--prev");
-
-let currentIndex = 0;
-
-let startX = 0;
-let currentTranslate = 0;
-let previousTranslate = 0;
-let dragging = false;
-
-const GAP = 24;
-
-function getStep() {
-    return cards[0].offsetWidth + GAP;
-}
-
-function getMaxIndex() {
-    return Math.max(
-        0,
-        cards.length - Math.floor(viewport.offsetWidth / getStep())
-    );
-}
-
-function updateSlider() {
-  const maxIndex = getMaxIndex();
-
-  currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
-
-  // calcular el translate
-  previousTranslate = -(currentIndex * getStep());
-
-  // límite: no mover más allá del final del track
-  const maxTranslate = -(cards.length * getStep() - viewport.offsetWidth);
-  if (previousTranslate < maxTranslate) {
-    previousTranslate = maxTranslate;
-  }
-
-  track.style.transform = `translateX(${previousTranslate}px)`;
-}
-
-
-nextBtn.addEventListener("click", () => {
-
-    currentIndex++;
-
-    updateSlider();
-
-});
-
-prevBtn.addEventListener("click", () => {
-
-    currentIndex--;
-
-    updateSlider();
-
-});
-
-track.addEventListener("pointerdown", (e) => {
-
-    if (window.innerWidth < 768) return;
-
-    dragging = true;
-
-    startX = e.clientX;
-
-    currentTranslate = previousTranslate;
-
-    track.classList.add("dragging");
-
-    track.setPointerCapture(e.pointerId);
-
-});
-
-track.addEventListener("pointermove", (e) => {
-
-    if (!dragging) return;
-
-    const delta = e.clientX - startX;
-
-    track.style.transform = `translateX(${currentTranslate + delta}px)`;
-
-});
-
-function stopDragging(e) {
-
-    if (!dragging) return;
-
-    dragging = false;
-
-    track.classList.remove("dragging");
-
-    const delta = e.clientX - startX;
-
-    currentTranslate += delta;
-
-    currentIndex = Math.round(Math.abs(currentTranslate) / getStep());
-
-    updateSlider();
-
-}
-
-track.addEventListener("pointerup", stopDragging);
-track.addEventListener("pointercancel", stopDragging);
-
-window.addEventListener("resize", updateSlider);
-
-updateSlider();
-
-/* ------------------------------------------------------------------
-   Animación de entrada al scroll (fade + slide-up con stagger)
-   ------------------------------------------------------------------ */
-(function initConquistadoresReveal() {
-
-    const section = document.getElementById("conquistadores");
-    if (!section) return;
-
+  function initReveal(section) {
     const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+      '(prefers-reduced-motion: reduce)'
     ).matches;
-
-    const motionOff =
-        document.documentElement.dataset.motion === "reduced";
-
-    // si el usuario prefiere movimiento reducido, no animamos nada:
-    // el contenido queda visible de entrada.
+ 
+    const motionOff = document.documentElement.dataset.motion === 'reduced';
+ 
     if (prefersReduced || motionOff) return;
-
-    section.classList.add("conquistadores--will-animate");
-
+ 
+    section.classList.add('conquistadores--will-animate');
+ 
     const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    section.classList.add("is-visible");
-                    observer.unobserve(section);
-                }
-            });
-        },
-        { threshold: 0.2 }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible');
+            observer.unobserve(section);
+          }
+        });
+      },
+      { threshold: 0.2 }
     );
-
+ 
     observer.observe(section);
-
+  }
+ 
+  /* ------------------------------------------------------------------
+     Scroll infinito + pausa por click + control por drag/swipe
+     ------------------------------------------------------------------ */
+  function initInfiniteScroll(section) {
+    const viewport = section.querySelector('.conquistadores__viewport');
+    const track = section.querySelector('.conquistadores__track');
+ 
+    if (!viewport || !track) return;
+ 
+    const reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+ 
+    let singleSetWidth = 0;
+    let position = 0;
+    let paused = false;
+    let dragging = false;
+    let moved = false;
+    let dragStartX = 0;
+    let dragStartPosition = 0;
+    let lastTimestamp = null;
+    let rafId = null;
+ 
+    function measure() {
+      // El track tiene el set real + su clon → la mitad es un set completo.
+      singleSetWidth = track.scrollWidth / 2;
+    }
+ 
+    function wrap() {
+      if (singleSetWidth <= 0) return;
+      if (position >= singleSetWidth) position -= singleSetWidth;
+      if (position < 0) position += singleSetWidth;
+    }
+ 
+    function render() {
+      track.style.transform = `translateX(${-position}px)`;
+    }
+ 
+    function tick(timestamp) {
+      if (lastTimestamp === null) lastTimestamp = timestamp;
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+ 
+      if (!paused && !dragging && !reducedQuery.matches) {
+        position += (SPEED_PX_PER_SEC * delta) / 1000;
+        wrap();
+        render();
+      }
+ 
+      rafId = requestAnimationFrame(tick);
+    }
+ 
+    function start() {
+      if (rafId !== null) return;
+      lastTimestamp = null;
+      rafId = requestAnimationFrame(tick);
+    }
+ 
+    function stop() {
+      if (rafId === null) return;
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+ 
+    /* -------------------- Drag / swipe -------------------- */
+    function onPointerDown(event) {
+      dragging = true;
+      moved = false;
+      dragStartX = event.clientX;
+      dragStartPosition = position;
+      viewport.classList.add('dragging');
+      viewport.setPointerCapture(event.pointerId);
+    }
+ 
+    function onPointerMove(event) {
+      if (!dragging) return;
+ 
+      const delta = event.clientX - dragStartX;
+      if (Math.abs(delta) > CLICK_THRESHOLD_PX) moved = true;
+ 
+      position = dragStartPosition - delta;
+      wrap();
+      render();
+    }
+ 
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove('dragging');
+ 
+      if (!moved) {
+        // Tap sin desplazamiento real → toggle de pausa
+        paused = !paused;
+        viewport.setAttribute('aria-pressed', String(paused));
+      }
+    }
+ 
+    viewport.addEventListener('pointerdown', onPointerDown);
+    viewport.addEventListener('pointermove', onPointerMove);
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+ 
+    // Evita que el navegador intente iniciar un drag-select de texto/imagen
+    viewport.addEventListener('dragstart', (e) => e.preventDefault());
+ 
+    /* -------------------- Teclado (accesibilidad) -------------------- */
+    viewport.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        paused = !paused;
+        viewport.setAttribute('aria-pressed', String(paused));
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        position += 80;
+        wrap();
+        render();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        position -= 80;
+        wrap();
+        render();
+      }
+    });
+ 
+    /* -------------------- Medición / resize -------------------- */
+    const resizeObserver = new ResizeObserver(() => {
+      measure();
+      wrap();
+      render();
+    });
+ 
+    resizeObserver.observe(track);
+    measure();
+    render();
+    start();
+  }
+ 
+  function init() {
+    const section = document.getElementById(SECTION_ID);
+    if (!section) return;
+ 
+    initReveal(section);
+    initInfiniteScroll(section);
+  }
+ 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 
 
