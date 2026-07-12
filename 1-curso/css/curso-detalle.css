@@ -432,35 +432,48 @@ h4 {
 
 
 /* ---------------------------------------------------------------------
-   HEADER / NAV
+   HEADER / NAV — rectángulo flotante con auto-hide en scroll
    --------------------------------------------------------------------- */
+
+/* Cápsula exterior: fija, transparente, sólo da el "aire" (gap) desde
+   los bordes. pointer-events:none para que el margen transparente no
+   bloquee clicks sobre lo que hay detrás; se reactiva en .header-inner. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: transparent; /* inicio totalmente transparente */
-  backdrop-filter: none;   /* sin blur al inicio */
-  border-bottom: none;     /* sin borde al inicio */
-  transition: background 450ms cubic-bezier(.25,1,.5,1),
-              backdrop-filter 450ms cubic-bezier(.25,1,.5,1),
-              border-bottom 450ms cubic-bezier(.25,1,.5,1);
+  padding: 14px var(--pad) 0;
+  pointer-events: none;
+
+  transition: transform 450ms cubic-bezier(.25,1,.5,1);
+  will-change: transform;
 }
 
-.site-header.scrolled {
-  background: rgba(10,13,16,.82); /* sólido con opacidad */
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(140,151,160,.18);
+/* Se esconde al bajar, reaparece al subir (clase controlada por JS) */
+.site-header.header--hidden {
+  transform: translateY(-130%);
 }
 
+/* El rectángulo flotante: sólido desde el inicio, sin fade-in por scroll */
 .header-inner {
+  position: relative;
+  pointer-events: auto;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 var(--pad);
-  height: 64px;
+  height: 60px;
+  padding: 0 1.5rem;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+
+  background: rgba(10,13,16,.82);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(140,151,160,.18);
+  box-shadow: 0 12px 32px rgba(0,0,0,.28);
 }
 
 .brand {
@@ -468,6 +481,7 @@ h4 {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--color-void);
+  white-space: nowrap;
 }
 
 .primary-nav {
@@ -484,7 +498,7 @@ h4 {
 }
 
 .nav-list a {
-  color: #FDF9F4;
+  color: var(--color-void);
   transition: color 0.3s ease;
 }
 
@@ -499,6 +513,111 @@ h4 {
   padding: .45rem 1rem;
   border-radius: 2px;
 }
+
+/* Hamburguesa (con animación a "X" al abrir) */
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* oculto en desktop */
+  padding: 8px;
+}
+
+.nav-toggle-bar {
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  display: block;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.nav-toggle-bar::before { top: -7px; }
+.nav-toggle-bar::after { top: 7px; }
+
+/* Estado abierto: las 3 barras forman una X */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header-inner {
+    height: 56px;
+    padding: 0 1rem;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .primary-nav {
+    flex: none;
+  }
+
+  /* El menú cuelga del propio rectángulo (position:relative en .header-inner),
+     así siempre queda pegado justo debajo, sin importar el gap superior. */
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+    background: rgba(10,13,16,.95);
+    backdrop-filter: blur(12px);
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(260px, 74vw);
+    border-radius: 16px;
+    border: 1px solid rgba(140,151,160,.18);
+    box-shadow: 0 16px 36px rgba(0,0,0,.32);
+
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-list.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .header-inner,
+  .nav-list,
+  .nav-toggle-bar,
+  .nav-toggle-bar::before,
+  .nav-toggle-bar::after {
+    transition: none !important;
+  }
+}
+
+
 
 
 /* ---------------------------------------------------------------------

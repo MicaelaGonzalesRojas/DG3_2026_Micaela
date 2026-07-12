@@ -433,35 +433,48 @@ h4 {
 
 
 /* ---------------------------------------------------------------------
-   HEADER / NAV
+   HEADER / NAV — rectángulo flotante con auto-hide en scroll
    --------------------------------------------------------------------- */
+
+/* Cápsula exterior: fija, transparente, sólo da el "aire" (gap) desde
+   los bordes. pointer-events:none para que el margen transparente no
+   bloquee clicks sobre lo que hay detrás; se reactiva en .header-inner. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: transparent; /* inicio totalmente transparente */
-  backdrop-filter: none;   /* sin blur al inicio */
-  border-bottom: none;     /* sin borde al inicio */
-  transition: background 450ms cubic-bezier(.25,1,.5,1),
-              backdrop-filter 450ms cubic-bezier(.25,1,.5,1),
-              border-bottom 450ms cubic-bezier(.25,1,.5,1);
+  padding: 14px var(--pad) 0;
+  pointer-events: none;
+
+  transition: transform 450ms cubic-bezier(.25,1,.5,1);
+  will-change: transform;
 }
 
-.site-header.scrolled {
-  background: rgba(10,13,16,.82); /* sólido con opacidad */
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(140,151,160,.18);
+/* Se esconde al bajar, reaparece al subir (clase controlada por JS) */
+.site-header.header--hidden {
+  transform: translateY(-130%);
 }
 
+/* El rectángulo flotante: sólido desde el inicio, sin fade-in por scroll */
 .header-inner {
+  position: relative;
+  pointer-events: auto;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 var(--pad);
-  height: 64px;
+  height: 60px;
+  padding: 0 1.5rem;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+
+  background: rgba(10,13,16,.82);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(140,151,160,.18);
+  box-shadow: 0 12px 32px rgba(0,0,0,.28);
 }
 
 .brand {
@@ -469,6 +482,7 @@ h4 {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--color-void);
+  white-space: nowrap;
 }
 
 .primary-nav {
@@ -485,7 +499,7 @@ h4 {
 }
 
 .nav-list a {
-  color: #FDF9F4;
+  color: var(--color-void);
   transition: color 0.3s ease;
 }
 
@@ -499,6 +513,109 @@ h4 {
   border: 1px solid #ff6b6b;
   padding: .45rem 1rem;
   border-radius: 2px;
+}
+
+/* Hamburguesa (con animación a "X" al abrir) */
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* oculto en desktop */
+  padding: 8px;
+}
+
+.nav-toggle-bar {
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  display: block;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.nav-toggle-bar::before { top: -7px; }
+.nav-toggle-bar::after { top: 7px; }
+
+/* Estado abierto: las 3 barras forman una X */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header-inner {
+    height: 56px;
+    padding: 0 1rem;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .primary-nav {
+    flex: none;
+  }
+
+  /* El menú cuelga del propio rectángulo (position:relative en .header-inner),
+     así siempre queda pegado justo debajo, sin importar el gap superior. */
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+    background: rgba(10,13,16,.95);
+    backdrop-filter: blur(12px);
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(260px, 74vw);
+    border-radius: 16px;
+    border: 1px solid rgba(140,151,160,.18);
+    box-shadow: 0 16px 36px rgba(0,0,0,.32);
+
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-list.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .header-inner,
+  .nav-list,
+  .nav-toggle-bar,
+  .nav-toggle-bar::before,
+  .nav-toggle-bar::after {
+    transition: none !important;
+  }
 }
 
 
@@ -525,7 +642,7 @@ margin-top: 0px; /* compensa la altura del header */}
    CUSPIDE SUMMIT HERO
 ================================================== */
 .csp-summit-hero {
-    margin-top: -64px; /* compensa la altura del header */
+    margin-top: 0px; /* compensa la altura del header */
     min-height: 100vh; /* ocupa todo el alto visible del monitor */
     background-image: url("../assets/hero-large.png");
     background-size: cover; /* mantiene proporción y cubre toda la sección */
@@ -917,7 +1034,6 @@ transform:none;
 }
 
 }
-
 /* ---------------------------------------------------------------------
    5. PROCESO — timeline accordion
    --------------------------------------------------------------------- */
@@ -973,6 +1089,8 @@ transform:none;
 
 .timeline-track {
 
+    --dot-size: 12px;
+
     position: relative;
 
     display: flex;
@@ -981,7 +1099,7 @@ transform:none;
 
     gap: 2.5rem;
 
-    padding-left: 1rem;
+    padding-left: 0;
 }
 
 .timeline-track::before {
@@ -990,30 +1108,34 @@ transform:none;
 
     position: absolute;
 
-    left: 8px;
+    left: calc(var(--dot-size) / 2);
 
-    top: 8px;
+    top: calc(var(--dot-size) / 2);
 
     width: 2px;
 
-    height: calc(100% - 16px);
+    height: calc(100% - var(--dot-size));
 
     background: rgba(0,0,0,.18);
+
+    transform: translateX(-50%);
 }
 
 .timeline-progress {
 
     position: absolute;
 
-    left: 8px;
+    left: calc(var(--dot-size) / 2);
 
-    top: 8px;
+    top: calc(var(--dot-size) / 2);
 
     width: 2px;
 
     height: 0;
 
     background: var(--color-ember);
+
+    transform: translateX(-50%);
 
     transition:
         height .45s ease;
@@ -1042,8 +1164,9 @@ transform:none;
 
 .timeline-node span {
 
-    width: 12px;
-    height: 12px;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    flex: none;
 
     border-radius: 50%;
 
@@ -1189,21 +1312,29 @@ transform:none;
     position: static;
     transform: none;
     height: auto;
-    padding: 0 0 1.75rem;
+    padding: 0 var(--pad) 1.75rem;
   }
 
   .timeline-track {
+    --dot-size: 10px;
+    --dot-size-active: 13px;
+
     position: relative;
+
     flex-direction: row;
+
     align-items: center;
-    justify-content: center;
+
+    justify-content: space-between;
+
     gap: 1.75rem;
+
     padding-left: 0;
   }
 
   .timeline-track::before {
-    left: 6px;
-    right: 6px;
+    left: calc(var(--dot-size) / 2);
+    right: calc(var(--dot-size) / 2);
     top: 50%;
     width: auto;
     height: 2px;
@@ -1224,13 +1355,13 @@ transform:none;
   }
 
   .timeline-node span {
-    width: 10px;
-    height: 10px;
+    width: var(--dot-size);
+    height: var(--dot-size);
   }
 
   .timeline-node.is-active span {
-    width: 13px;
-    height: 13px;
+    width: var(--dot-size-active);
+    height: var(--dot-size-active);
     transform: none;
   }
 
@@ -1319,349 +1450,6 @@ transform:none;
     font-weight: 300;
     color: rgba(0,0,0,.72);
     max-width: 46ch;
-  }
-}
-
-/* ---------------------------------------------------------------------
-   4. HÉROES DE LA MONTAÑA — carrusel marquee infinito y accesible
-   --------------------------------------------------------------------- */
-
-.cuspide-heroes-showcase {
-  position: relative;
-  background: url("../assets/fondo.png") no-repeat center center;
-  padding: clamp(64px, 9vw, 128px) var(--pad);
-  overflow: hidden;
-}
- 
-.cuspide-heroes-showcase__inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
- 
-/* ---------------------------------------------------------------------
-   STAGE — grid maestro: fila 1 = título | fila 2 = miniaturas
-   columna 1 = título+miniaturas, columna 2 = main, columna 3 = bio.
-   El main-frame y el bio-slate ocupan AMBAS filas, arrancando a la
-   misma altura que el título (estructura exacta de la referencia).
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__stage {
-  display: grid;
-  grid-template-columns: minmax(220px, 300px) minmax(320px, 1.15fr) minmax(260px, 340px);
-  grid-template-rows: auto 1fr;
-  column-gap: clamp(20px, 3vw, 40px);
-  row-gap: 20rem;
-  align-items: stretch;
-}
- 
-/* ---------------------------------------------------------------------
-   TÍTULO — vive en la celda superior de la columna de miniaturas
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__title {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  align-self: end;
- 
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: 0.01em;
-  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
-  color: var(--color-ink);
-  margin: 0;
- 
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity var(--dur-slow) var(--ease),
-              transform var(--dur-slow) var(--ease);
-}
- 
-.cuspide-heroes-showcase__title em {
-  display: block;
-  font-style: normal;
-  color: var(--color-ember);
-}
- 
-.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__title {
-  opacity: 1;
-  transform: translateY(0);
-}
- 
-/* ---------------------------------------------------------------------
-   GALERÍA DE MINIATURAS (fila 2 de la columna izquierda)
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__gallery {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  align-self: start;
-}
- 
-.cuspide-heroes-showcase__thumb-slot {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 16px;
-  overflow: hidden;
-  background: transparent;
-}
- 
-/* Entrada escalonada (staggered) de las miniaturas */
-.cuspide-heroes-showcase__thumb-slot {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity var(--dur-base) var(--ease),
-              transform var(--dur-base) var(--ease);
-}
-.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(1) { transition-delay: .05s; }
-.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(2) { transition-delay: .15s; }
-.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot:nth-of-type(3) { transition-delay: .25s; }
-.cuspide-heroes-showcase.is-visible .cuspide-heroes-showcase__thumb-slot {
-  opacity: 1;
-  transform: translateY(0);
-}
- 
-/* ---------------------------------------------------------------------
-   TARJETA DE HÉROE (nodo físico que viaja entre slots vía FLIP)
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__card {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  margin: 0;
-  border-radius: inherit;
-  overflow: hidden;
-  background: var(--color-ink);
-  transform-origin: top left;
-  will-change: transform, opacity;
-  /* Base de transición para los estados entering/exiting. El FLIP de las
-     tarjetas persistentes sobreescribe esto puntualmente vía inline style. */
-  transition: transform var(--dur-base) var(--ease),
-              opacity var(--dur-base) var(--ease);
-}
- 
-.cuspide-heroes-showcase__card--thumb {
-  cursor: pointer;
-}
- 
-.cuspide-heroes-showcase__card--main {
-  cursor: default;
-}
- 
-.cuspide-heroes-showcase__card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: grayscale(100%) contrast(105%);
-  transition: filter var(--dur-base) var(--ease);
-  will-change: transform, opacity;
-}
- 
-.cuspide-heroes-showcase__card--main .cuspide-heroes-showcase__card-img {
-  filter: grayscale(0%) contrast(102%);
-}
- 
-.cuspide-heroes-showcase__card--thumb:hover .cuspide-heroes-showcase__card-img,
-.cuspide-heroes-showcase__card--thumb:focus-visible .cuspide-heroes-showcase__card-img {
-  filter: grayscale(55%) contrast(108%);
-}
- 
-.cuspide-heroes-showcase__card--thumb:focus-visible {
-  outline: 3px solid var(--color-ember);
-  outline-offset: 3px;
-}
- 
-/* Tarjetas que entran/salen de la ventana visible circular (no son las
-   que hacen FLIP puro entre slots ya existentes, sino las que aparecen/
-   desaparecen de la cola al rotar). Heredan la transición de .card;
-   sólo transform + opacity. */
-.cuspide-heroes-showcase__card.is-entering {
-  transform: translateX(-45%) scale(.85);
-  opacity: 0;
-}
- 
-.cuspide-heroes-showcase__card.is-exiting {
-  transform: translateX(45%) scale(.85);
-  opacity: 0;
-  pointer-events: none;
-}
- 
-/* Pool oculto: guarda las tarjetas que no están en la ventana visible
-   de 4 posiciones (main + 3 miniaturas) mientras dura la cola circular. */
-.cuspide-heroes-showcase__pool {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
- 
-/* ---------------------------------------------------------------------
-   MAIN FRAME (imagen central activa, a color)
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__main-frame {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  min-height: 420px;
-  background: transparent;
-  box-shadow: 0 24px 48px -20px rgba(41, 32, 32, 0.35);
-}
- 
-/* ---------------------------------------------------------------------
-   BIO SLATE (columna derecha)
-   --------------------------------------------------------------------- */
-.cuspide-heroes-showcase__bio-slate {
-  grid-column: 3 / 4;
-  grid-row: 1 / 3;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  gap: 14px;
-}
- 
-.cuspide-heroes-showcase__bio-content {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  opacity: 1;
-  transition: opacity var(--dur-fast) ease;
-}
- 
-.cuspide-heroes-showcase__bio-content.is-fading {
-  opacity: 0;
-}
- 
-.cuspide-heroes-showcase__name {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  color: var(--color-ink);
-  letter-spacing: 0.01em;
-}
- 
-.cuspide-heroes-showcase__desc {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.55;
-  font-weight: 300;
-  color: var(--color-ice);
-  max-width: 34ch;
-}
- 
-.cuspide-heroes-showcase__tags {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  list-style: none;
-  margin: 4px 0 0;
-  padding: 0;
-}
- 
-.cuspide-heroes-showcase__tag {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--color-ice);
-}
- 
-.cuspide-heroes-showcase__tag--accent {
-  color: var(--color-ember);
-}
- 
-.cuspide-heroes-showcase__tag-icon {
-  font-size: 13px;
-  line-height: 1;
-}
- 
-/* Botón de navegación: reutiliza .cuspide-action-btn / --pyromountain
-   ya definidas en style.css. Sólo ajustamos layout (icon-button),
-   sin redefinir su tema visual interno. */
-.cuspide-heroes-showcase__next {
-  width: 48px;
-  height: 48px;
-  padding-inline: 0;
-  margin-right: 0;
-  margin-top: 8px;
-  font-size: 1.3rem;
-}
- 
-/* ---------------------------------------------------------------------
-   RESPONSIVE
-   --------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .cuspide-heroes-showcase__stage {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-  }
- 
-  .cuspide-heroes-showcase__title {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    order: 1;
-    align-self: auto;
-  }
- 
-  .cuspide-heroes-showcase__main-frame {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    order: 2;
-    min-height: 320px;
-  }
- 
-  .cuspide-heroes-showcase__gallery {
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-    order: 3;
-  }
- 
-  .cuspide-heroes-showcase__bio-slate {
-    grid-column: 1 / 2;
-    grid-row: 4 / 5;
-    order: 4;
-    align-self: start;
-  }
- 
-  .cuspide-heroes-showcase__thumb-slot {
-    aspect-ratio: 1 / 1;
-  }
-}
- 
-@media (max-width: 540px) {
-  .cuspide-heroes-showcase__gallery {
-    gap: 8px;
-  }
-}
- 
-/* ---------------------------------------------------------------------
-   ACCESIBILIDAD — prefers-reduced-motion
-   --------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .cuspide-heroes-showcase__title,
-  .cuspide-heroes-showcase__thumb-slot,
-  .cuspide-heroes-showcase__card,
-  .cuspide-heroes-showcase__card-img,
-  .cuspide-heroes-showcase__bio-content {
-    transition: none !important;
-    transform: none !important;
-  }
- 
-  .cuspide-heroes-showcase__title,
-  .cuspide-heroes-showcase__thumb-slot {
-    opacity: 1 !important;
   }
 }
 
@@ -2355,7 +2143,7 @@ transform:none;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  touch-action: none;
+  touch-action: pan-y; /* deja el scroll vertical libre; el swipe horizontal lo sigue manejando el JS */
 }
 .expedicion-card {
   position:absolute;
@@ -2622,6 +2410,12 @@ transform:none;
 }
 
 @media (max-width: 768px) {
+  .expediciones-deck {
+    min-height: auto;
+    padding-top: 3rem;
+    padding-bottom: 7rem;
+  }
+
   .expediciones-inner {
     padding: 0;
     margin: 0;
@@ -2672,7 +2466,6 @@ transform:none;
     background-size: cover;     /* en desktop cubre todo */
   }
 }
-
 /* ==========================================
    CÚSPIDE · ESCUELA DE GUÍAS
 ========================================== */

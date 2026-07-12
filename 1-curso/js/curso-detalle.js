@@ -8,24 +8,83 @@
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) document.documentElement.setAttribute('data-motion', 'reduced');
 
-  /* ---------------- HEADER ON SCROLL ---------------- */
-  var header = document.getElementById('siteHeader');
-  function onScrollHeader() {
-    if (!header) return;
-    if (window.scrollY > 12) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
-  }
-  window.addEventListener('scroll', onScrollHeader, { passive: true });
-  onScrollHeader();
+/* ---------------------------------------------------------------------
+   HEADER — fondo al scrollear + auto-hide (baja=oculta, sube=reaparece)
+   --------------------------------------------------------------------- */
+const header = document.querySelector('.site-header');
 
-  /* ---------------- MOBILE NAV TOGGLE (si existiera botón) ---------------- */
-  var navList = document.getElementById('navList');
-  var navToggle = document.querySelector('.nav-toggle');
-  if (navToggle && navList) {
-    navToggle.addEventListener('click', function () {
-      navList.classList.toggle('is-open');
-    });
+const HIDE_THRESHOLD = 120;    // no se esconde hasta pasar este scroll
+const HIDE_DISTANCE = 180;     // px continuos hacia abajo que "aguanta" visible antes de esconderse
+const DELTA = 6;               // ignora micro-scrolls (evita parpadeo)
+
+let lastScrollY = window.scrollY;
+let downAccum = 0; // distancia acumulada bajando de forma continua
+let ticking = false;
+
+function updateHeader() {
+  const currentY = window.scrollY;
+
+  const navOpen = navList.classList.contains('is-open');
+  const diff = currentY - lastScrollY;
+
+  if (currentY <= HIDE_THRESHOLD) {
+    downAccum = 0; // cerca del top siempre arranca "fresco"
   }
+
+  if (!navOpen && Math.abs(diff) > DELTA) {
+    if (diff > 0) {
+      // bajando: acumula distancia, recién se esconde al pasar el colchón
+      downAccum += diff;
+
+      if (currentY > HIDE_THRESHOLD && downAccum > HIDE_DISTANCE) {
+        header.classList.add('header--hidden');
+      }
+    } else {
+      // subiendo: reaparece al toque y resetea el colchón
+      downAccum = 0;
+      header.classList.remove('header--hidden');
+    }
+
+    lastScrollY = currentY;
+  }
+
+  ticking = false;
+}
+
+window.addEventListener(
+  'scroll',
+  () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateHeader);
+    }
+  },
+  { passive: true }
+);
+
+/* Toggle menú mobile */
+const navToggle = document.getElementById('navToggle');
+const navList = document.getElementById('navList');
+
+navToggle.addEventListener('click', () => {
+  const open = navList.classList.toggle('is-open');
+  navToggle.setAttribute('aria-expanded', String(open));
+
+  // Con el menú abierto, el header nunca debe esconderse a mitad de la interacción
+  if (open) {
+    header.classList.remove('header--hidden');
+  }
+});
+
+navList.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navList.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Estado inicial correcto si la página ya carga scrolleada
+updateHeader();
 
   /* ---------------- ACCORDION: ¿QUÉ VAS A APRENDER? ---------------- */
 /* ===============================
@@ -85,6 +144,12 @@ const lessonObserver = new IntersectionObserver((entries)=>{
 });
 
 lessonBlocks.forEach(block=>lessonObserver.observe(block));
+
+
+
+
+
+
 
 /* ======================================================
    CÚSPIDE CHECKOUT PRICING

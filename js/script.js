@@ -72,68 +72,83 @@ window.addEventListener(
 
 
 
-  /* ------------------------------------------------------------------
-     0. Estado de movimiento (opcional: toggle manual si existe en el
-        DOM + preferencia de sistema). El botón fue retirado del header,
-        así que esto ahora sigue automáticamente prefers-reduced-motion;
-        si en el futuro se reincorpora un botón con id="motionToggle"
-        y span#motionToggleLabel, vuelve a funcionar sin tocar más código.
-     ------------------------------------------------------------------ */
-  const prefersReducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const motionToggle = document.getElementById('motionToggle');
-  const motionLabel = document.getElementById('motionToggleLabel');
-  let manualOverride = null; // null = seguir al sistema | true = forzar reducido | false = forzar completo
-
-  function applyMotionState() {
-    const reduced = manualOverride !== null ? manualOverride : prefersReducedQuery.matches;
-    root.setAttribute('data-motion', reduced ? 'reduced' : 'full');
-
-    if (motionToggle) motionToggle.setAttribute('aria-pressed', String(reduced));
-    if (motionLabel) motionLabel.textContent = reduced ? 'Reanudar movimiento' : 'Pausar movimiento';
-  }
-
-  if (motionToggle) {
-    motionToggle.addEventListener('click', () => {
-      const currentlyReduced = root.getAttribute('data-motion') === 'reduced';
-      manualOverride = !currentlyReduced;
-      applyMotionState();
-    });
-  }
-  prefersReducedQuery.addEventListener('change', () => {
-    if (manualOverride === null) applyMotionState();
-  });
-  applyMotionState();
-
-  function motionIsReduced() {
-    return root.getAttribute('data-motion') === 'reduced';
-  }
+/* ---------------------------------------------------------------------
+   HEADER — fondo al scrollear + auto-hide (baja=oculta, sube=reaparece)
+   --------------------------------------------------------------------- */
 const header = document.querySelector('.site-header');
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
+const HIDE_THRESHOLD = 120;    // no se esconde hasta pasar este scroll
+const HIDE_DISTANCE = 180;     // px continuos hacia abajo que "aguanta" visible antes de esconderse
+const DELTA = 6;               // ignora micro-scrolls (evita parpadeo)
+
+let lastScrollY = window.scrollY;
+let downAccum = 0; // distancia acumulada bajando de forma continua
+let ticking = false;
+
+function updateHeader() {
+  const currentY = window.scrollY;
+
+  const navOpen = navList.classList.contains('is-open');
+  const diff = currentY - lastScrollY;
+
+  if (currentY <= HIDE_THRESHOLD) {
+    downAccum = 0; // cerca del top siempre arranca "fresco"
+  }
+
+  if (!navOpen && Math.abs(diff) > DELTA) {
+    if (diff > 0) {
+      // bajando: acumula distancia, recién se esconde al pasar el colchón
+      downAccum += diff;
+
+      if (currentY > HIDE_THRESHOLD && downAccum > HIDE_DISTANCE) {
+        header.classList.add('header--hidden');
+      }
+    } else {
+      // subiendo: reaparece al toque y resetea el colchón
+      downAccum = 0;
+      header.classList.remove('header--hidden');
+    }
+
+    lastScrollY = currentY;
+  }
+
+  ticking = false;
+}
+
+window.addEventListener(
+  'scroll',
+  () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateHeader);
+    }
+  },
+  { passive: true }
+);
+
+/* Toggle menú mobile */
+const navToggle = document.getElementById('navToggle');
+const navList = document.getElementById('navList');
+
+navToggle.addEventListener('click', () => {
+  const open = navList.classList.toggle('is-open');
+  navToggle.setAttribute('aria-expanded', String(open));
+
+  // Con el menú abierto, el header nunca debe esconderse a mitad de la interacción
+  if (open) {
+    header.classList.remove('header--hidden');
   }
 });
 
-
-  /* ------------------------------------------------------------------
-     1. Menú móvil
-     ------------------------------------------------------------------ */
-  const navToggle = document.getElementById('navToggle');
-  const navList = document.getElementById('navList');
-  navToggle.addEventListener('click', () => {
-    const open = navList.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(open));
+navList.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navList.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
   });
-  navList.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      navList.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
+});
 
+// Estado inicial correcto si la página ya carga scrolleada
+updateHeader();
 
 
 /* ==========================================
