@@ -4633,7 +4633,7 @@ transform:none;
 
     border-radius: 50%;
 
-    background: var(--color-text);
+    background: var(--color-ember);
 }
 
 .cuspide-class-schedule__lesson-body{
@@ -4665,7 +4665,7 @@ transform:none;
     font-weight: 500;
     text-transform: uppercase;
     line-height: 1.15;
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-size: 18px;
 }
 
 .cuspide-class-schedule__lesson-block p{
@@ -4675,6 +4675,7 @@ font-size: 18px;
 line-height: 1.5;
     color: var(--color-text);
     opacity: .72;
+    max-width: 480px;
 }
 
 @media(max-width:768px){
