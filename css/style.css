@@ -3647,11 +3647,11 @@ COURSE BREAKER
 
 .cuspide-course-breaker__spec-pill{
 
-    background:white;
+    background:var(--color-frost);
 
-    border-radius:16px;
+    border-radius: 8px;
 
-    min-height:190px;
+    min-height:auto;
 
     padding:34px 18px 28px;
 
@@ -3714,7 +3714,7 @@ COURSE BREAKER
     align-items:center;
     justify-content:center;
 
-    background:rgba(0,0,0,.045);
+    background:var(--color-void);
 
     margin:0 auto 18px;
 
@@ -4140,7 +4140,7 @@ transform:none;
   cursor: pointer;
   overflow: hidden;            /* recorta la desc cuando la card es baja */
  
-  background: rgba(253, 249, 244, 0.11);
+  background: rgba(255, 254, 252, 0.701);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 6px;
@@ -4203,10 +4203,9 @@ transform:none;
 /* ── Título de la tarjeta ── */
 .cuspide-syllabus-immersion__card-title {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(.88rem, 1.4vw, 1.15rem);
   text-transform: uppercase;
-  letter-spacing: .005em;
   line-height: 1.18;
   color:var(--color-ink);
   margin: 0;
@@ -4359,6 +4358,23 @@ transform:none;
     opacity: 1;
     grid-template-rows: 1fr;
   }
+  .cuspide-syllabus-immersion__card-desc {
+    font-size: 18px;
+    line-height: 1.5;
+
+}
+.cuspide-syllabus-immersion__card-num {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--color-ember);
+  line-height: 1;
+}
+.cuspide-syllabus-immersion__card-title {
+    font-size: 20px;
+    line-height: 1.18;
+}
 }
 
 /* ---------------------------------------------------------------------
@@ -4477,12 +4493,8 @@ transform:none;
 }
 
 .cuspide-class-schedule__timeline-content .intro{
-
     margin-bottom:45px;
-
     max-width:560px;
-
-    line-height:1.8;
 }
 
 .cuspide-class-schedule__timeline{
@@ -4594,7 +4606,7 @@ transform:none;
     margin: 0 0 .5rem;
 
     color: var(--color-text);
-    font-weight: 800;
+    font-weight: 500;
     text-transform: uppercase;
     line-height: 1.15;
     font-size: clamp(1.05rem, 2vw, 1.35rem);
@@ -4603,9 +4615,8 @@ transform:none;
 .cuspide-class-schedule__lesson-block p{
 
     margin: 0;
-
-    line-height: 1.7;
-
+font-size: 18px;
+line-height: 1.5;
     color: var(--color-text);
     opacity: .72;
 }
@@ -4639,7 +4650,10 @@ opacity: 1;
 transition: none;
 
 }
-
+.cuspide-class-schedule__timeline-content .intro{
+    margin-bottom:45px;
+    max-width:auto;
+}
 .cuspide-class-schedule__sticky-media.show{
 
 transform:none;
@@ -4845,7 +4859,6 @@ transition: none;
 .cuspide-instructor-spotlight__bio p{
     margin:0 0 10px;
     color:#5f5149;
-    line-height:1.65;
 }
 
 /*==========================================================
@@ -5034,7 +5047,7 @@ transition: none;
 
     .cuspide-instructor-spotlight__title{
 
-        font-size:35px;
+        font-size:28px;
     }
 
     .cuspide-instructor-spotlight__quote{
