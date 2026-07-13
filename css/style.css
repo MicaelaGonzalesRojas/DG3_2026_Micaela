@@ -35,6 +35,12 @@
   --dur-slow: 1.1s;
 }
 
+.brand {
+   font-family: 'WDXL Lubrifont JP N', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2rem; /* ajusta el valor según lo que quieras */
+}
+
 
 /* ==========================================
    CÚSPIDE · CUSTOM AMBER CURSOR
