@@ -465,7 +465,7 @@ h4 {
   margin: 0 auto;
   height: 60px;
   padding: 0 1.5rem;
-  border-radius: 16px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3387,7 +3387,7 @@ section.curso-sugeridos{
    1. HERO
    --------------------------------------------------------------------- */
 .curso-hero {
-background-image: url("../assets-c/hero.png");
+background-image: url("../assets/hero.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -3467,7 +3467,7 @@ background-image: url("../assets-c/hero.png");
 }
 
 .curso-hero__subtitle {
-  color: #f3e9de;
+  color: var(--color-void);
   font-size: 25px;
   line-height: 1.5;
   font-weight: 300;
@@ -3768,7 +3768,9 @@ padding-top:80px;
 margin-bottom:45px;
 
 }
-
+.cuspide-course-breaker__manifesto h2 {
+    font-size: 28px;
+}
 .cuspide-course-breaker__specs-grid{
 
 max-width:380px;
@@ -4467,7 +4469,7 @@ transform:none;
 .cuspide-class-schedule__sticky-media img{
 
     width:100%;
-    border-radius:16px;
+    border-radius:8px;
     display:block;
 }
 
@@ -5020,7 +5022,8 @@ transition: none;
 
     .cuspide-instructor-spotlight{
 
-        padding:90px 0;
+        padding:28px 0;
+
     }
 
     .cuspide-instructor-spotlight__wrapper{
@@ -5098,8 +5101,8 @@ height: 400px;
   overflow: hidden;
 
   /* Fondo con imagen + color de respaldo */
-background: url("../assets-c/naranja.png") no-repeat center center;
-  background-size: cover; /* hace que la imagen cubra todo el área */
+background: url("../assets/naranja.png") no-repeat center center;
+background-size: cover;
 }
 
 
@@ -5262,12 +5265,12 @@ margin: 0 auto 40px;
 
     display:block;
 
-    margin:0 0 26px;
+    margin:0 0 8px;
 
     color:#6b5d54;
 
     font-size:.88rem;
-    font-weight:600;
+    font-weight:400;
 }
 
 /* Tu botón existente */
@@ -5318,7 +5321,6 @@ margin: 0 auto 40px;
 .cuspide-checkout-pricing__benefits li{
 
     display:flex;
-    align-items:center;
     gap:10px;
 
     color:#4a403a;
@@ -5410,8 +5412,6 @@ margin: 0 auto 40px;
     }
 
 }
-
-
 /* ---------------------------------------------------------------------
    9. SUGERENCIAS DE OTROS CURSOS
    --------------------------------------------------------------------- */
@@ -5427,7 +5427,7 @@ margin: 0 auto 40px;
    1. SECCIÓN BASE — fondo crema
    ==================================================================== */
 .cuspide-cross-sell {
-background: url("../assets-c/nar-mont.png") no-repeat center center;
+background: url("../assets/nar-mont.png") no-repeat center center;
   padding: clamp(3.5rem, 8vh, 6rem) var(--pad);
   padding-top: 16rem;
 }
@@ -5447,12 +5447,15 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
 
   /* Estado inicial para reveal */
   opacity: 0;
-  will-change: opacity;
-  transition: opacity var(--cs-dur) var(--cs-ease);
+  transform: translateY(18px);
+  will-change: transform, opacity;
+  transition: opacity   var(--cs-dur) var(--cs-ease),
+              transform var(--cs-dur) var(--cs-ease);
 }
 
 .cuspide-cross-sell__title.is-visible {
   opacity: 1;
+  transform: none;
 }
 
 /* ====================================================================
@@ -5472,22 +5475,30 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
 .cuspide-cross-sell__card {
   position: relative;
   height: var(--cs-card-h);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;           /* recorta zoom y overlay al border-radius */
   cursor: pointer;
   display: block;
 
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+
   /* Estado inicial para reveal (emerge desde abajo) */
   opacity: 0;
   transform: translateY(36px);
-  will-change: transform, opacity;
-  transition: opacity   var(--cs-dur) var(--cs-ease),
-              transform var(--cs-dur) var(--cs-ease);
+  will-change: transform, opacity, box-shadow;
+  transition: opacity    var(--cs-dur) var(--cs-ease),
+              transform  var(--cs-dur) var(--cs-ease),
+              box-shadow var(--cs-dur) var(--cs-ease);
 }
 
 .cuspide-cross-sell__card.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.cuspide-cross-sell__card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 48px rgba(0, 0, 0, .28);
 }
 
 .cuspide-cross-sell__card-img {
@@ -5504,13 +5515,9 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
 }
 
 
-.cuspide-cross-sell__card:hover
-.cuspide-cross-sell__card-img {
-  transform: scale(1.05);
-}
 /* Estado base: color */
 .cuspide-cross-sell__card-img { filter: grayscale(0);
-  filter: grayscale(0);
+  filter: none;
   transition: filter 0.6s ease; /* duración y curva de transición */
 }
 
@@ -5544,17 +5551,11 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
   gap: .55rem;
 }
 
-/* ── Fila: título + precio en la misma línea ── */
-.cuspide-cross-sell__card-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .75rem;
-}
+/* ── Precio: chip pequeño arriba del título ── */
 
 .cuspide-cross-sell__card-name {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(1rem, 2vw, 1.35rem);
   text-transform: uppercase;
   letter-spacing: .01em;
@@ -5565,19 +5566,20 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
 
 .cuspide-cross-sell__card-price {
   font-family: var(--font-mono);
-  font-size: clamp(.8rem, 1.3vw, 1rem);
+  font-size: clamp(.72rem, 1.1vw, .82rem);
   font-weight: 600;
-  letter-spacing: .04em;
-  color: #ffffff;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-ember);
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 /* ── Descripción ── */
 .cuspide-cross-sell__card-desc {
   font-family: var(--font-body);
-  font-size: clamp(.8rem, 1.2vw, .92rem);
+  font-size: 18px;
   line-height: 1.5;
+  font-weight: 200;
   color: rgba(255, 255, 255, .80);
   margin: 0;
   /* Máximo 2 líneas para mantener las tarjetas consistentes */
@@ -5593,10 +5595,12 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
       acá solo añadimos el comportamiento de hover de elevación.
    ==================================================================== */
 .cuspide-cross-sell__card-cta {
-  /* Elevación vertical: transform solo, GPU */
+  /* Ancho automático en desktop — no estira el botón al 100% */
+  align-self: flex-start;
+  width: auto;
+
   will-change: transform;
   transition: transform var(--cs-dur) var(--cs-ease);
-  align-self: flex-start;   /* no estira el botón al ancho completo    */
 }
 
 .cuspide-cross-sell__card:hover
@@ -5645,9 +5649,20 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
     gap: 1rem;
     max-width: 480px; /* centra la columna en pantallas medianas */
   }
-
+.cuspide-cross-sell__card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: 400px;
+}
   .cuspide-cross-sell__card {
     height: clamp(280px, 70vw, 380px);
+  }
+
+  /* En mobile el botón sí ocupa todo el ancho */
+  .cuspide-cross-sell__card-cta {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
   }
 
   /* Sin hover en móvil — desactivamos el zoom */
@@ -5663,15 +5678,15 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
   }
 
   .cuspide-cross-sell__card-name {
-    font-size: clamp(1rem, 5vw, 1.3rem);
+    font-size: 20px;
   }
 
   .cuspide-cross-sell__card-price {
-    font-size: .85rem;
+    font-size: 18px;
   }
 
   .cuspide-cross-sell__card-desc {
-    font-size: .88rem;
+    font-size: 18px;
     -webkit-line-clamp: 3; /* una línea más en móvil */
   }
 }
@@ -5700,9 +5715,6 @@ background: url("../assets-c/nar-mont.png") no-repeat center center;
   .curso-hero__actions .cuspide-action-btn{ width: 100%; margin-right: 0; }
   .curso-instructor__avatar svg{ max-width: 140px; }
 }
-
-
-
 
 /* ---------------------------------------------------------------------
    FOOTER
