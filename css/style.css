@@ -3557,7 +3557,15 @@ background-image: url("../assets/1hero-curso.png");
    Todo el contenido queda anclado abajo a la izquierda.
    ==================================================================== */
 @media (max-width: 768px) {
+.curso-hero {
+background-image: url("../assets/1hero-curso-mob.png");
 
+    min-height: 100vh; /* ocupa todo el alto visible del monitor */
+
+    background-size: cover; /* mantiene proporción y cubre toda la sección */
+    background-position: center top; /* centra la imagen en la parte superior */
+    background-repeat: no-repeat;
+}
   .curso-hero {
     min-height: 100svh;
     display: flex;
