@@ -5447,7 +5447,7 @@ margin: 0 auto 40px;
 
     .cuspide-checkout-pricing__header{
 
-        margin-bottom:50px;
+        margin-bottom:60px;
     }
 
     .cuspide-checkout-pricing__title{
@@ -5754,7 +5754,7 @@ background-size: cover;
    1. SECCIÓN BASE — fondo crema
    ==================================================================== */
 .cuspide-cross-sell {
-background: url("../assets/nar-mont.png") no-repeat center center;
+background: url("../assets/2fondo-degrade.png") no-repeat center center;
   padding: clamp(3.5rem, 8vh, 6rem) var(--pad);
   padding-top: 16rem;
 }
@@ -5940,7 +5940,11 @@ background: url("../assets/nar-mont.png") no-repeat center center;
    7. PREFERS-REDUCED-MOTION
    ==================================================================== */
 @media (prefers-reduced-motion: reduce) {
-
+.cuspide-cross-sell {
+background: url("../assets/fondo-degrade.png") no-repeat center center;
+  padding: clamp(3.5rem, 8vh, 6rem) var(--pad);
+  padding-top: 16rem;
+}
   .cuspide-cross-sell__title,
   .cuspide-cross-sell__card,
   .cuspide-cross-sell__card-img,
