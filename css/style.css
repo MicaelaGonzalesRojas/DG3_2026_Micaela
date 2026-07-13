@@ -35,6 +35,7 @@
   --dur-slow: 1.1s;
 }
 
+
 /* ==========================================
    CÚSPIDE · CUSTOM AMBER CURSOR
 ========================================== */
@@ -5866,7 +5867,7 @@ background: url("../assets/nar-mont.png") no-repeat center center;
 
 .cuspide-cross-sell__card-price {
   font-family: var(--font-mono);
-  font-size: clamp(.72rem, 1.1vw, .82rem);
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -6256,3 +6257,779 @@ background: url("../assets/nar-mont.png") no-repeat center center;
 
    -------------------------------------------------------------------------- */
    
+
+   
+/* ---------------------------------------------------------------------
+   HEADER / NAV — rectángulo flotante con auto-hide en scroll
+   --------------------------------------------------------------------- */
+
+/* Cápsula exterior: fija, transparente, sólo da el "aire" (gap) desde
+   los bordes. pointer-events:none para que el margen transparente no
+   bloquee clicks sobre lo que hay detrás; se reactiva en .header-inner. */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 14px var(--pad) 0;
+  pointer-events: none;
+
+  transition: transform 450ms cubic-bezier(.25,1,.5,1);
+  will-change: transform;
+}
+
+/* Se esconde al bajar, reaparece al subir (clase controlada por JS) */
+.site-header.header--hidden {
+  transform: translateY(-130%);
+}
+
+/* El rectángulo flotante: sólido desde el inicio, sin fade-in por scroll */
+.header-inner {
+  position: relative;
+  pointer-events: auto;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  height: 60px;
+  padding: 0 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  background: rgba(10,13,16,.82);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(140,151,160,.18);
+  box-shadow: 0 12px 32px rgba(0,0,0,.28);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-void);
+  white-space: nowrap;
+}
+
+.primary-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  font-size: .85rem;
+}
+
+.nav-list a {
+  color: var(--color-void);
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #FF9E95;
+}
+
+.nav-cta {
+  font-family: 'Montserrat', sans-serif;
+  color: #ff6b6b !important;
+  border: 1px solid #ff6b6b;
+  padding: .45rem 1rem;
+  border-radius: 2px;
+}
+
+/* Hamburguesa (con animación a "X" al abrir) */
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* oculto en desktop */
+  padding: 8px;
+}
+
+.nav-toggle-bar {
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  display: block;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--color-void);
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.nav-toggle-bar::before { top: -7px; }
+.nav-toggle-bar::after { top: 7px; }
+
+/* Estado abierto: las 3 barras forman una X */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile */
+/* Ocultar botón en mobile */
+@media (max-width: 768px) {
+  .site-header .cuspide-action-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    height: 56px;
+    padding: 0 1rem;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .primary-nav {
+    flex: none;
+  }
+
+  /* El menú cuelga del propio rectángulo (position:relative en .header-inner),
+     así siempre queda pegado justo debajo, sin importar el gap superior. */
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+    background: rgba(10,13,16,.95);
+    backdrop-filter: blur(12px);
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(260px, 74vw);
+    border-radius: 16px;
+    border: 1px solid rgba(140,151,160,.18);
+    box-shadow: 0 16px 36px rgba(0,0,0,.32);
+
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-list.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .header-inner,
+  .nav-list,
+  .nav-toggle-bar,
+  .nav-toggle-bar::before,
+  .nav-toggle-bar::after {
+    transition: none !important;
+  }
+}
+/* ---------------------------------------------------------------------
+   SHARED SECTION LAYOUT
+   --------------------------------------------------------------------- */
+section{ padding: clamp(4rem, 10vh, 7rem) var(--pad); 
+margin-top: 0px; /* compensa la altura del header */}
+.section-grid{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.section-copy p{ margin-bottom: 1.1rem; color: var(--color-ice-dim); }
+  
+.cuspide-uikit { background: var(--color-void); }
+
+/* ---------------------------------------------------------------------
+   HERO
+   --------------------------------------------------------------------- */
+.cuspide-uikit__hero {
+  background: linear-gradient(150deg, var(--color-ink) 0%, #1c1512 55%, #311706 100%);
+  padding: clamp(56px, 8vw, 96px) var(--pad) clamp(40px, 6vw, 64px);
+}
+
+.cuspide-uikit__hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.cuspide-uikit__hero .eyebrow {
+  color: var(--color-ember);
+}
+
+.cuspide-uikit__hero-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: .01em;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  color: var(--color-void);
+  margin: 0 0 1.1rem;
+}
+
+.cuspide-uikit__hero-title span { color: var(--color-ember); }
+
+.cuspide-uikit__hero-desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(253, 249, 244, .68);
+  max-width: 62ch;
+  margin: 0;
+}
+
+.cuspide-uikit__hero-desc code {
+  font-family: var(--font-body);
+  color: var(--color-void);
+  background: rgba(255, 255, 255, .1);
+  padding: .1em .4em;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   NAV (sticky, scrollspy vía JS)
+   --------------------------------------------------------------------- */
+.cuspide-uikit__nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-void);
+  border-bottom: 1px solid rgba(41, 32, 32, .08);
+}
+
+.cuspide-uikit__nav-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.cuspide-uikit__nav-link {
+  flex-shrink: 0;
+  padding: 16px 14px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-ice);
+  border-bottom: 2px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.cuspide-uikit__nav-link:hover { color: var(--color-ink); }
+
+.cuspide-uikit__nav-link.is-active {
+  color: var(--color-ember);
+  border-color: var(--color-ember);
+}
+
+/* ---------------------------------------------------------------------
+   SECCIONES
+   --------------------------------------------------------------------- */
+.cuspide-uikit__section {
+  padding: clamp(52px, 7vw, 88px) var(--pad);
+  scroll-margin-top: 64px;
+}
+
+.cuspide-uikit__section:nth-child(even) {
+  background: rgba(215, 237, 238, .28);
+}
+
+.cuspide-uikit__section-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.cuspide-uikit__section-index {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-ember);
+  margin-bottom: .6rem;
+}
+
+.cuspide-uikit__section-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: var(--color-ink);
+  margin: 0 0 .85rem;
+}
+
+.cuspide-uikit__section-desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ice);
+  max-width: 62ch;
+  margin: 0 0 2.4rem;
+}
+
+/* Nota / callout técnico (hallazgos del propio código fuente) */
+.cuspide-uikit__callout {
+  margin-top: 1.75rem;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(255, 74, 24, .07);
+  border: 1px solid rgba(255, 74, 24, .25);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-ink);
+  max-width: 62ch;
+}
+
+.cuspide-uikit__callout strong { color: var(--color-ember); }
+
+.cuspide-uikit__callout code {
+  background: rgba(41, 32, 32, .08);
+  padding: .1em .35em;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   01 — PALETA
+   --------------------------------------------------------------------- */
+.cuspide-uikit__swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.cuspide-uikit__swatch {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+}
+
+.cuspide-uikit__swatch-block {
+  height: 84px;
+}
+
+.cuspide-uikit__swatch-meta {
+  padding: 14px 14px 16px;
+}
+
+.cuspide-uikit__swatch-meta strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 2px;
+}
+
+.cuspide-uikit__swatch-meta code {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ember);
+  margin-bottom: 6px;
+}
+
+.cuspide-uikit__swatch-meta small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--color-ice);
+}
+
+/* ---------------------------------------------------------------------
+   02 — TIPOGRAFÍA
+   --------------------------------------------------------------------- */
+.cuspide-uikit__type-row {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: center;
+  padding: 22px 0;
+  border-top: 1px solid rgba(41, 32, 32, .08);
+}
+
+.cuspide-uikit__type-row:last-child { border-bottom: 1px solid rgba(41, 32, 32, .08); }
+
+.cuspide-uikit__type-label strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 3px;
+}
+
+.cuspide-uikit__type-label small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  color: var(--color-ice);
+}
+
+.cuspide-uikit__type-sample { min-width: 0; }
+.cuspide-uikit__type-sample p { margin: 0; }
+
+/* ---------------------------------------------------------------------
+   03 — BOTONES
+   --------------------------------------------------------------------- */
+.cuspide-uikit__btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 2rem;
+}
+
+.cuspide-uikit__btn-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 28px var(--pad);
+  border-radius: 14px;
+  background: var(--color-ink);
+}
+
+/* Botón deshabilitado: no existe modificador propio en el sitio,
+   se documenta el patrón recomendado (opacity + pointer-events) */
+.cuspide-uikit__btn-disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+   04 — BADGES & PILLS
+   Componente nuevo (el sitio no tenía uno reutilizable): reusa
+   exactamente los mismos tokens de radio, color y tipografía UI.
+   --------------------------------------------------------------------- */
+.cuspide-uikit__badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.75rem;
+}
+
+.cuspide-ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cuspide-ui-badge--muted {
+  background: rgba(41, 32, 32, .06);
+  color: var(--color-ice);
+}
+
+.cuspide-ui-badge--outline {
+  background: transparent;
+  color: var(--color-ember);
+  border: 1.5px solid var(--color-ember);
+}
+
+.cuspide-ui-badge--solid {
+  background: var(--color-ember);
+  color: var(--color-void);
+}
+
+.cuspide-ui-badge--dark {
+  background: rgba(253, 249, 244, .1);
+  color: var(--color-void);
+}
+
+.cuspide-uikit__badge-strip {
+  padding: 22px var(--pad);
+  border-radius: 14px;
+  background: var(--color-ink);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------------
+   05 — CARDS & STATS
+   --------------------------------------------------------------------- */
+.cuspide-uikit__stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 2.4rem;
+}
+
+.cuspide-uikit__stat-pill {
+  background: var(--color-ember);
+  color: var(--color-void);
+  border-radius: 12px;
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.cuspide-uikit__stat-pill strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-void);
+}
+
+.cuspide-uikit__stat-pill span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(253, 249, 244, .85);
+  margin-top: 3px;
+}
+
+.cuspide-uikit__card-showcase {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Reutiliza .expedicion-card sin el 3D/flip (sólo se muestra la cara frontal) */
+.cuspide-uikit__card-showcase .expedicion-card {
+  position: static;
+  width: 240px;
+  transform: none !important;
+}
+.cuspide-uikit__card-showcase .expedicion-face { position: static; }
+.cuspide-uikit__card-showcase .expedicion-face--back { display: none; }
+
+.cuspide-uikit__step-sample {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: white;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+}
+
+.cuspide-uikit__step-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.cuspide-uikit__step-sample h4 {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--color-ink);
+  margin: 0 0 4px;
+}
+
+.cuspide-uikit__step-sample p {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--color-ice);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+   06 — FORMULARIOS (contexto real: fondo oscuro degradé)
+   --------------------------------------------------------------------- */
+.cuspide-uikit__form-demo {
+  background: linear-gradient(to bottom, #311706 45%, #271001 100%);
+  border-radius: 16px;
+  padding: clamp(28px, 4vw, 44px);
+  max-width: 640px;
+}
+
+.cuspide-uikit__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.cuspide-uikit__form-grid .cuspide-field:only-child { grid-column: 1 / -1; }
+
+/* ---------------------------------------------------------------------
+   07 — ÍCONOS & ESTADOS
+   --------------------------------------------------------------------- */
+.cuspide-uikit__state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.cuspide-uikit__state-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
+}
+
+.cuspide-uikit__state-card svg {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 10px;
+}
+
+.cuspide-uikit__state-card--positive svg { color: var(--color-ember); }
+.cuspide-uikit__state-card--neutral svg { color: var(--color-ice); }
+.cuspide-uikit__state-card--error svg { color: #d73232; }
+
+.cuspide-uikit__state-card strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+
+.cuspide-uikit__state-card small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-ice);
+}
+
+/* ---------------------------------------------------------------------
+   08 — RADIOS & SOMBRAS
+   --------------------------------------------------------------------- */
+.cuspide-uikit__scale-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.cuspide-uikit__scale-item { text-align: center; }
+
+.cuspide-uikit__scale-box {
+  height: 64px;
+  background: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.cuspide-uikit__scale-item strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.cuspide-uikit__scale-item small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ice);
+}
+
+.cuspide-uikit__shadow-box {
+  height: 64px;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* ---------------------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------------------- */
+.cuspide-uikit__footer {
+  padding: 30px var(--pad) 50px;
+  text-align: center;
+}
+
+.cuspide-uikit__footer p {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-ice);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .cuspide-uikit__swatch-grid { grid-template-columns: repeat(3, 1fr); }
+  .cuspide-uikit__stats-row { grid-template-columns: repeat(2, 1fr); }
+  .cuspide-uikit__card-showcase { grid-template-columns: 1fr; }
+  .cuspide-uikit__card-showcase .expedicion-card { width: 100%; max-width: 260px; margin: 0 auto; }
+  .cuspide-uikit__state-grid { grid-template-columns: 1fr; }
+  .cuspide-uikit__scale-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .cuspide-uikit__swatch-grid { grid-template-columns: repeat(2, 1fr); }
+  .cuspide-uikit__type-row { grid-template-columns: 1fr; gap: 8px; }
+  .cuspide-uikit__form-grid { grid-template-columns: 1fr; }
+  .cuspide-uikit__scale-grid { grid-template-columns: repeat(2, 1fr); }
+}
