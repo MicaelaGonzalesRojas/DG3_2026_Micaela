@@ -655,21 +655,39 @@ margin-top: 0px; /* compensa la altura del header */}
    CUSPIDE SUMMIT HERO
 ================================================== */
 .csp-summit-hero {
-    margin-top: 0px; /* compensa la altura del header */
-    min-height: 100vh; /* ocupa todo el alto visible del monitor */
+    margin-top: 0px;
+    min-height: 100vh;
     background-image: url("../assets/hero-home.png");
-    background-size: cover; /* mantiene proporción y cubre toda la sección */
-    background-position: center top; /* centra la imagen en la parte superior */
+    background-size: cover;
+    background-position: center top;
     background-repeat: no-repeat;
-  }
+}
 
+/* Solo animación del título */
 .csp-summit-hero h1 {
   font-size: 3rem;
   font-weight: 900;
   color: var(--color-ink);
-
-  /* sombra más marcada */
   text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.65);
+
+  opacity: 0;
+  transform: translateY(40px);
+  animation: titleSlideUp 1s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+/* ==================================================
+   ANIMACIONES
+================================================== */
+@keyframes titleSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -862,9 +880,9 @@ background: url("../assets/fondoo.png") no-repeat center center;
 .cuspide-home-intro__counter-item p{
 
     color:white;
-
+font-size: 15px;
     opacity:.95;
-
+font-weight: 400;
     line-height:1.4;
 
 }
@@ -1268,7 +1286,7 @@ transform:none;
 }
 
 .metodo-step p {
-  max-width: 520px;
+  max-width: 420px;
   margin: 0 ;
 }
 
@@ -3591,13 +3609,14 @@ background-image: url("../assets/1hero-curso.png");
 COURSE BREAKER
 =========================================*/
 
-.cuspide-course-breaker{
-
-    background:var(--color-cream);
-
-    padding:110px 0;
-
+.cuspide-course-breaker {
+  background: var(--color-cream) url("../assets/CREMA-FONDO.png") no-repeat center center;
+  background-size: cover;
+  padding: 60px 0;
 }
+
+
+
 
 .cuspide-course-breaker__wrapper{
 
@@ -3611,7 +3630,7 @@ COURSE BREAKER
     max-width:920px;
 
     margin:0 auto 65px;
-
+color: var(--color-ink);
     text-align:center;
 
     opacity:0;
@@ -3645,15 +3664,31 @@ COURSE BREAKER
 
 }
 
+.cuspide-course-breaker__tagline{
+
+    margin:20px auto 0;
+
+    max-width:560px;
+
+    font-family:var(--font-body);
+    font-size:1.1rem;
+    font-weight:600;
+    font-style:italic;
+    line-height:1.5;
+
+    color:var(--color-ember);
+
+}
+
 .cuspide-course-breaker__specs-grid{
 
-    max-width:640px;
+    max-width:1050px;
 
     margin:auto;
 
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(4,1fr);
 
     gap:18px;
 
@@ -3785,10 +3820,14 @@ margin-bottom:45px;
 .cuspide-course-breaker__manifesto h2 {
     font-size: 28px;
 }
+.cuspide-course-breaker__tagline{
+    font-size:.95rem;
+}
 .cuspide-course-breaker__specs-grid{
 
 max-width:380px;
 gap:14px;
+grid-template-columns:repeat(2,1fr);
 
 }
 
@@ -3804,13 +3843,16 @@ padding:28px 14px 22px;
 }
 }
 
+
+
 /*====================================================
     CURSO INFO
 ====================================================*/
 
 .cuspide-pain-agitation{
-    padding:120px 0;
+    padding:70px 0;
     background:var(--color-cream);
+    
 }
 
 .cuspide-pain-agitation__wrapper{
