@@ -5172,7 +5172,7 @@ height: 400px;
   overflow: hidden;
 
   /* Fondo con imagen + color de respaldo */
-background: url("../assets/naranja.png") no-repeat center center;
+background: url("../assets/2fondo.png") no-repeat center center;
 background-size: cover;
 }
 
@@ -5756,7 +5756,7 @@ background-size: cover;
 .cuspide-cross-sell {
 background: url("../assets/2fondo-degrade.png") no-repeat center center;
   padding: clamp(3.5rem, 8vh, 6rem) var(--pad);
-  padding-top: 16rem;
+  padding-top: 10rem;
 }
 
 /* ====================================================================
