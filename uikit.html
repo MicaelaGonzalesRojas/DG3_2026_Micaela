@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Kit — Cúspide</title>
+<link rel="stylesheet" href="css/uikit.css">
+<link rel="stylesheet" href="uikit.css">
+</head>
+<body class="cuspide-uikit">
+
+<!-- =========================
+     CÚSPIDE CUSTOM CURSOR
+========================= -->
+<div class="cuspide-cursor" aria-hidden="true">
+    <div class="cuspide-cursor__ring"></div>
+    <div class="cuspide-cursor__dot"></div>
+</div>
+
+<body>
+
+<a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+
+  <!-- ==================== HERO ==================== -->
+  <header class="cuspide-uikit__hero">
+    <div class="cuspide-uikit__hero-inner">
+      <span class="eyebrow">Sistema de diseño</span>
+      <h1 class="cuspide-uikit__hero-title">UI KIT<br><span>CÚSPIDE</span></h1>
+      <p class="cuspide-uikit__hero-desc">
+        Biblioteca de componentes extraída directamente de <code>style.css</code>:
+        paleta, tipografía, botones, badges, cards, formularios e íconos —
+        listos para reutilizar en nuevas secciones sin reinventar nada.
+      </p>
+    </div>
+  </header>
+
+  <!-- ==================== NAV ==================== -->
+  <nav class="cuspide-uikit__nav" id="uikitNav" aria-label="Secciones del UI Kit">
+    <div class="cuspide-uikit__nav-inner">
+      <a class="cuspide-uikit__nav-link" href="#paleta">Paleta</a>
+      <a class="cuspide-uikit__nav-link" href="#tipografia">Tipografía</a>
+      <a class="cuspide-uikit__nav-link" href="#botones">Botones</a>
+      <a class="cuspide-uikit__nav-link" href="#badges">Badges</a>
+      <a class="cuspide-uikit__nav-link" href="#cards">Cards &amp; Stats</a>
+      <a class="cuspide-uikit__nav-link" href="#formularios">Formularios</a>
+      <a class="cuspide-uikit__nav-link" href="#iconos">Íconos &amp; Estados</a>
+      <a class="cuspide-uikit__nav-link" href="#radios">Radios &amp; Sombras</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== 01 · PALETA ==================== -->
+    <section class="cuspide-uikit__section" id="paleta">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">01 — Color</span>
+        <h2 class="cuspide-uikit__section-title">Paleta</h2>
+        <p class="cuspide-uikit__section-desc">
+          Base crema + celeste para contenido claro, con un naranja táctico como
+          único acento. El marrón hace de "texto secundario" en toda la web.
+        </p>
+
+        <div class="cuspide-uikit__swatch-grid">
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#FDF9F4;border-bottom:1px solid rgba(0,0,0,.06)"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Crema</strong>
+              <code>#FDF9F4</code>
+              <small>--color-void · --color-rock — Fondo principal del sitio</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#D7EDEE"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Celeste</strong>
+              <code>#D7EDEE</code>
+              <small>--color-rock-soft · --color-frost · --color-pale — Fondo de tarjetas y superficies</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#D7E2E5"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Celeste grisáceo</strong>
+              <code>#D7E2E5</code>
+              <small>--color-mint — Variante sutil de superficie</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#7E6A65"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Marrón</strong>
+              <code>#7E6A65</code>
+              <small>--color-ice · --color-ice-dim · --color-titanium · --color-slate — Texto de cuerpo y secundario</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#FF4A18"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Naranja táctico</strong>
+              <code>#FF4A18</code>
+              <small>--color-ember · --color-ember-soft · --color-glacier · --color-coral — Único acento: CTAs, foco, destacados</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#292020"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Ink</strong>
+              <code>#292020</code>
+              <small>--color-ink — Texto de alta jerarquía, fondos oscuros</small>
+            </div>
+          </article>
+
+          <article class="cuspide-uikit__swatch">
+            <div class="cuspide-uikit__swatch-block" style="background:#D73232"></div>
+            <div class="cuspide-uikit__swatch-meta">
+              <strong>Rojo error</strong>
+              <code>#D73232</code>
+              <small>Sin variable propia (color literal) — exclusivo de validación de formularios</small>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="cuspide-uikit__callout">
+          <strong>Hallazgo:</strong> 5 de las 15 variables de color definidas en
+          <code>:root</code> son alias exactos de otra (mismo hex). Por ejemplo
+          <code>--color-rock-soft</code>, <code>--color-frost</code> y
+          <code>--color-pale</code> son el mismo <code>#D7EDEE</code>. No rompe nada,
+          pero si el naranja o el marrón cambian algún día, hay que actualizar 4
+          variables en simultáneo para que no queden inconsistencias.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 02 · TIPOGRAFÍA ==================== -->
+    <section class="cuspide-uikit__section" id="tipografia">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">02 — Type</span>
+        <h2 class="cuspide-uikit__section-title">Tipografía</h2>
+        <p class="cuspide-uikit__section-desc">
+          Dos familias con roles fijos: <strong>Nippo</strong> (con Anton de respaldo)
+          para títulos de impacto, y <strong>Outfit</strong> para texto de lectura,
+          labels y UI.
+        </p>
+
+        <div class="cuspide-uikit__type-rows">
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>Display / .display-md</strong>
+              <small>Nippo 400 · uppercase · clamp(2rem, 5vw, 3.4rem)</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <p class="display-md" style="margin:0;">Fitz Roy</p>
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>H1 / H2</strong>
+              <small>Nippo 500 · uppercase · letter-spacing -0.02em</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <h2 style="font-size:2rem;margin:0;">La expedición</h2>
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>Eyebrow / .eyebrow</strong>
+              <small>Outfit uppercase · +18% tracking · color ember</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <span class="eyebrow" style="margin:0;">Reservá tu cupo</span>
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>Body / párrafo</strong>
+              <small>Outfit 300 · 21px · 30px de interlínea</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <p>Con sus 3.405 metros, el Monte Fitz Roy es una de las montañas más difíciles y hermosas del mundo.</p>
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>Pullquote / .pullquote</strong>
+              <small>Nippo uppercase · borde ember lateral</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <p class="pullquote" style="margin:0;">Vas a estar acompañado en todo momento por guías certificados.</p>
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__type-row">
+            <div class="cuspide-uikit__type-label">
+              <strong>UI / label</strong>
+              <small>Outfit 600–700 · uppercase, tamaños chicos (11–13px)</small>
+            </div>
+            <div class="cuspide-uikit__type-sample">
+              <span style="font-family:var(--font-body);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--color-ink);">Fecha preferida</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 03 · BOTONES ==================== -->
+    <section class="cuspide-uikit__section" id="botones">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">03 — Acciones</span>
+        <h2 class="cuspide-uikit__section-title">Botones</h2>
+        <p class="cuspide-uikit__section-desc">
+          Un solo componente (<code>.cuspide-action-btn</code>) con dos modificadores
+          de color y un barrido diagonal en hover (el color de relleno y el del
+          barrido se invierten entre variantes).
+        </p>
+
+        <div class="cuspide-uikit__btn-row">
+          <button class="cuspide-action-btn cuspide-action-btn--pyromountain"><span>Enviar solicitud</span></button>
+          <button class="cuspide-action-btn cuspide-action-btn--darkabyss"><span>Contacto</span></button>
+          <button class="cuspide-action-btn cuspide-action-btn--pyromountain cuspide-uikit__btn-disabled"><span>No disponible</span></button>
+        </div>
+
+        <div class="cuspide-uikit__btn-strip">
+          <button class="cuspide-action-btn cuspide-action-btn--darkabyss"><span>Descubrí la ruta</span></button>
+          <button class="cuspide-action-btn cuspide-action-btn--pyromountain"><span>Reservar mi lugar</span></button>
+        </div>
+
+        <div class="cuspide-uikit__callout">
+          <strong>Convención de uso:</strong> <code>--pyromountain</code> (fondo naranja)
+          es la acción principal de cada sección — nunca hay dos juntos compitiendo.
+          <code>--darkabyss</code> (fondo ink) es la acción secundaria/de contexto.
+          El estado deshabilitado no existe como modificador propio: se documenta acá
+          el patrón recomendado (<code>opacity:.4; pointer-events:none;</code>).
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 04 · BADGES & PILLS ==================== -->
+    <section class="cuspide-uikit__section" id="badges">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">04 — Etiquetas</span>
+        <h2 class="cuspide-uikit__section-title">Badges &amp; Pills</h2>
+        <p class="cuspide-uikit__section-desc">
+          El sitio no tenía un componente de badge reutilizable — cada sección
+          resolvía sus etiquetas por separado (<code>.expedicion-dificultad</code>,
+          <code>.expedicion-meta-value</code>, etc). Acá se propone
+          <code>.cuspide-ui-badge</code>, con los mismos tokens de color y radio
+          que ya usa el resto del sitio, para no seguir repitiendo ese patrón.
+        </p>
+
+        <div class="cuspide-uikit__badge-row">
+          <span class="cuspide-ui-badge cuspide-ui-badge--muted">Alta montaña</span>
+          <span class="cuspide-ui-badge cuspide-ui-badge--outline">Dificultad: Extrema</span>
+          <span class="cuspide-ui-badge cuspide-ui-badge--solid">Cupos limitados</span>
+        </div>
+
+        <div class="cuspide-uikit__badge-strip">
+          <span class="cuspide-ui-badge cuspide-ui-badge--dark">El Chaltén</span>
+          <span class="cuspide-ui-badge cuspide-ui-badge--dark">8 días</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 05 · CARDS & STATS ==================== -->
+    <section class="cuspide-uikit__section" id="cards">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">05 — Componentes</span>
+        <h2 class="cuspide-uikit__section-title">Cards &amp; Stats</h2>
+        <p class="cuspide-uikit__section-desc">
+          Stats en grilla sólida ember: números grandes + label. Cards de
+          expedición con foto + nombre + meta. Pasos numerados con círculo ink,
+          igual que en "¿Cómo te preparamos?".
+        </p>
+
+        <div class="cuspide-uikit__stats-row">
+          <div class="cuspide-uikit__stat-pill"><strong>3.405 m</strong><span>Altura</span></div>
+          <div class="cuspide-uikit__stat-pill"><strong>8 días</strong><span>Duración</span></div>
+          <div class="cuspide-uikit__stat-pill"><strong>Extrema</strong><span>Dificultad</span></div>
+          <div class="cuspide-uikit__stat-pill"><strong>4 a 8</strong><span>Grupo</span></div>
+        </div>
+
+        <div class="cuspide-uikit__card-showcase">
+
+          <article class="expedicion-card">
+            <div class="expedicion-card-inner">
+              <div class="expedicion-face expedicion-face--front">
+                <figure class="expedicion-photo">
+                  <img src="https://loremflickr.com/480/480/mountaineering,climber/all?lock=901" alt="Fitz Roy">
+                </figure>
+                <h3 class="expedicion-name">Fitz Roy</h3>
+                <div class="expedicion-meta">
+                  <span class="expedicion-dificultad">Dificultad alta</span> – 105 M
+                  <br>
+                  <span class="expedicion-duracion">Duración: 1 semana</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="cuspide-uikit__step-sample">
+            <div class="cuspide-uikit__step-number">Día<br>01</div>
+            <div>
+              <h4>Llegada a El Chaltén</h4>
+              <p>Recepción del grupo, revisión de equipo y briefing con los guías.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 06 · FORMULARIOS ==================== -->
+    <section class="cuspide-uikit__section" id="formularios">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">06 — Inputs</span>
+        <h2 class="cuspide-uikit__section-title">Formularios</h2>
+        <p class="cuspide-uikit__section-desc">
+          Siempre sobre el fondo degradé marrón/ink de la zona de conversión:
+          inputs translúcidos con foco en naranja, y checkbox custom.
+        </p>
+
+        <div class="cuspide-uikit__form-demo">
+          <div class="cuspide-uikit__form-grid">
+            <div class="cuspide-field">
+              <label>Nombre y apellido</label>
+              <input class="cuspide-conversion-zone__input-field" type="text" placeholder="Tu nombre completo">
+            </div>
+            <div class="cuspide-field">
+              <label>Email</label>
+              <input class="cuspide-conversion-zone__input-field" type="email" placeholder="tu@email.com">
+            </div>
+          </div>
+
+          <div class="cuspide-uikit__form-grid">
+            <div class="cuspide-field">
+              <label>Teléfono</label>
+              <input class="cuspide-conversion-zone__input-field is-error" type="text" placeholder="Campo obligatorio">
+            </div>
+          </div>
+
+          <div class="cuspide-conversion-zone__checkbox-group" style="margin-top:6px;">
+            <label class="cuspide-checkbox">
+              <input type="checkbox" checked>
+              <span class="cuspide-checkbox__mark" style="background:var(--color-ember);border-color:var(--color-ember);"></span>
+              <span class="cuspide-checkbox__text">Acepto recibir novedades de expediciones</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="cuspide-uikit__callout">
+          <strong>Bug encontrado:</strong> <code>.cuspide-checkbox__mark</code> usa
+          <code>var(--primary-color)</code> para su estado marcado, pero esa
+          variable nunca se define en <code>:root</code>. Sin fallback, el
+          checkbox tildado se queda sin color de fondo. En esta demo lo forzamos
+          con un inline-style a <code>var(--color-ember)</code> — recomendado:
+          reemplazar las 3 referencias en <code>style.css</code> por
+          <code>var(--color-ember)</code> directamente.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 07 · ÍCONOS & ESTADOS ==================== -->
+    <section class="cuspide-uikit__section" id="iconos">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">07 — Feedback</span>
+        <h2 class="cuspide-uikit__section-title">Íconos &amp; Estados</h2>
+        <p class="cuspide-uikit__section-desc">
+          El sitio no usa verde en ningún lado: el naranja cumple el rol de
+          "positivo/incluido", el marrón/ink el de "neutro" y el rojo queda
+          reservado exclusivamente para errores de formulario.
+        </p>
+
+        <div class="cuspide-uikit__state-grid">
+
+          <div class="cuspide-uikit__state-card cuspide-uikit__state-card--positive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <strong>Incluido / activo</strong>
+            <small>Naranja ember — checks de features, paso activo, foco de inputs.</small>
+          </div>
+
+          <div class="cuspide-uikit__state-card cuspide-uikit__state-card--neutral">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <strong>No incluido / inactivo</strong>
+            <small>Marrón/ice — se usa el mismo color que el texto secundario, sin un tono propio.</small>
+          </div>
+
+          <div class="cuspide-uikit__state-card cuspide-uikit__state-card--error">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <strong>Error de formulario</strong>
+            <small>#D73232 — único uso del rojo en todo el sitio, sin variable propia.</small>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 08 · RADIOS & SOMBRAS ==================== -->
+    <section class="cuspide-uikit__section" id="radios">
+      <div class="cuspide-uikit__section-inner">
+        <span class="cuspide-uikit__section-index">08 — Superficie</span>
+        <h2 class="cuspide-uikit__section-title">Radios &amp; Sombras</h2>
+        <p class="cuspide-uikit__section-desc">
+          Sin una escala declarada como variables — cada componente define su
+          propio radio. Estos son los valores reales encontrados en el código,
+          de menor a mayor.
+        </p>
+
+        <div class="cuspide-uikit__scale-grid">
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:4px;"></div>
+            <strong>4px</strong><small>--radius (base, poco usado)</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:5px;"></div>
+            <strong>5px</strong><small>Botones</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:8px;"></div>
+            <strong>8px</strong><small>Inputs</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:12px;"></div>
+            <strong>12px</strong><small>Stats, popovers</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:16px;"></div>
+            <strong>16px</strong><small>Cards grandes</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__scale-box" style="border-radius:999px;"></div>
+            <strong>Pill</strong><small>Badges, botón redondo</small>
+          </div>
+        </div>
+
+        <div class="cuspide-uikit__scale-grid" style="margin-top:14px;">
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__shadow-box" style="box-shadow:0 4px 14px rgba(0,0,0,.04);"></div>
+            <strong>Sutil</strong><small>0 4px 14px rgba(0,0,0,.04)</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__shadow-box" style="box-shadow:0 15px 30px rgba(0,0,0,.08);"></div>
+            <strong>Media</strong><small>0 15px 30px rgba(0,0,0,.08)</small>
+          </div>
+          <div class="cuspide-uikit__scale-item">
+            <div class="cuspide-uikit__shadow-box" style="box-shadow:0 25px 50px rgba(0,0,0,.15);"></div>
+            <strong>Elevada</strong><small>0 25px 50px rgba(0,0,0,.15)</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="cuspide-uikit__footer">
+    <p>Cúspide Expediciones · UI Kit generado a partir del código fuente del sitio</p>
+  </footer>
+
+<script src="js/uikit.js"></script>
+
+</body>
+</html>
