@@ -8,6 +8,7 @@
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) document.documentElement.setAttribute('data-motion', 'reduced');
 
+
 /* ---------------------------------------------------------------------
    HEADER — fondo al scrollear + auto-hide (baja=oculta, sube=reaparece)
    --------------------------------------------------------------------- */
@@ -86,6 +87,8 @@ navList.querySelectorAll('a').forEach(link => {
 // Estado inicial correcto si la página ya carga scrolleada
 updateHeader();
 
+
+
   /* ---------------- ACCORDION: ¿QUÉ VAS A APRENDER? ---------------- */
 /* ===============================
    REVEAL
@@ -113,37 +116,61 @@ document
 
 
 /* ===============================
-   CLASE ACTIVA
+   LÍNEA DE TIEMPO — el progreso se calcula en base
+   a la posición real del scroll, no en saltos por bloque.
+   Esto evita el desfasaje en mobile (barra de direcciones
+   dinámica, scroll con inercia, etc.)
 ================================== */
 
-const lessonBlocks = document.querySelectorAll(
-".cuspide-class-schedule__lesson-block"
-);
+const lessonTimeline = document.getElementById("lessonTimeline");
+const lessonProgress = document.getElementById("lessonProgress");
 
-const lessonObserver = new IntersectionObserver((entries)=>{
+function updateLessonProgress(){
 
-    entries.forEach(entry=>{
+    if(!lessonTimeline || !lessonProgress) return;
 
-        if(entry.isIntersecting){
+    const rect = lessonTimeline.getBoundingClientRect();
+    const viewportH = window.innerHeight;
 
-            lessonBlocks.forEach(item=>{
+    // Punto de referencia: el centro del viewport.
+    const center = viewportH * 0.5;
 
-                item.classList.remove("active");
+    // Cuánto del timeline ya "pasó" ese punto de referencia.
+    const scrolled = center - rect.top;
 
-            });
+    let percentage = (scrolled / rect.height) * 100;
 
-            entry.target.classList.add("active");
+    percentage = Math.max(0, Math.min(100, percentage));
 
-        }
+    lessonProgress.style.height = `${percentage}%`;
+
+}
+
+let lessonTicking = false;
+
+function onLessonScroll(){
+
+    if(lessonTicking) return;
+
+    lessonTicking = true;
+
+    window.requestAnimationFrame(()=>{
+
+        updateLessonProgress();
+
+        lessonTicking = false;
 
     });
 
-},{
-    rootMargin:"-45% 0px -45% 0px",
-    threshold:0
-});
+}
 
-lessonBlocks.forEach(block=>lessonObserver.observe(block));
+window.addEventListener("scroll", onLessonScroll, {passive:true});
+window.addEventListener("resize", onLessonScroll);
+
+updateLessonProgress();
+
+
+
 
 
 
@@ -627,6 +654,51 @@ MAS CURSOS
   if (grid) gridObserver.observe(grid);
 
 })();
+
+
+
+/**
+ * CUSPIDE — Sección FOOTER (Terminal Footer)
+ * -----------------------------------------------------------------------
+ * Intersection Observer: dispara la animación de entrada en cascada
+ * (identidad con fade, columnas con stagger de 0.1s vía CSS nth-of-type)
+ * una sola vez, cuando el footer alcanza la base de la pantalla.
+ * -----------------------------------------------------------------------
+ */
+
+(function () {
+  'use strict';
+
+  const SECTION_SELECTOR = '.cuspide-terminal-footer';
+
+  function initFooter(footer) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            footer.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealObserver.observe(footer);
+  }
+
+  function init() {
+    document.querySelectorAll(SECTION_SELECTOR).forEach(initFooter);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+
 
 
 /* ==========================================

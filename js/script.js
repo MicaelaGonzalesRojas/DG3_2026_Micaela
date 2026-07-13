@@ -71,7 +71,6 @@ window.addEventListener(
 
 
 
-
 /* ---------------------------------------------------------------------
    HEADER — fondo al scrollear + auto-hide (baja=oculta, sube=reaparece)
    --------------------------------------------------------------------- */

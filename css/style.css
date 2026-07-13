@@ -563,6 +563,13 @@ h4 {
 }
 
 /* Mobile */
+/* Ocultar botón en mobile */
+@media (max-width: 768px) {
+  .site-header .cuspide-action-btn {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .header-inner {
     height: 56px;
@@ -617,8 +624,6 @@ h4 {
     transition: none !important;
   }
 }
-
-
 /* ---------------------------------------------------------------------
    SHARED SECTION LAYOUT
    --------------------------------------------------------------------- */
