@@ -657,7 +657,7 @@ margin-top: 0px; /* compensa la altura del header */}
 .csp-summit-hero {
     margin-top: 0px; /* compensa la altura del header */
     min-height: 100vh; /* ocupa todo el alto visible del monitor */
-    background-image: url("../assets/hero-large.png");
+    background-image: url("../assets/hero-home.png");
     background-size: cover; /* mantiene proporción y cubre toda la sección */
     background-position: center top; /* centra la imagen en la parte superior */
     background-repeat: no-repeat;
