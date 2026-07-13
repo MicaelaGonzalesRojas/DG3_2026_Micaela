@@ -664,12 +664,12 @@ margin-top: 0px; /* compensa la altura del header */}
   }
 
 .csp-summit-hero h1 {
-  font-size: 3rem;          /* ajustá según tu diseño */
+  font-size: 3rem;
   font-weight: 900;
-  color: var(--color-ink);           /* color principal del texto */
+  color: var(--color-ink);
 
-  /* Sombra suave de fondo */
-  text-shadow: 2px 2px 4px rgba(166, 138, 121, 0.4);
+  /* sombra más marcada */
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.65);
 }
 
 
@@ -1325,7 +1325,7 @@ transform:none;
     position: static;
     transform: none;
     height: auto;
-    padding: 0 var(--pad) 1.75rem;
+    padding: 0 7rem 1.75rem;
   }
 
   .timeline-track {
@@ -2601,6 +2601,7 @@ transform:none;
 .cuspide-academy-launch__visual-space {
   position: relative;
   width: 100%;
+  height: 100%;
   /* La altura se define por el contenido + aspect ratio */
 aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes con transform no causen scroll */
   overflow: visible;
@@ -2623,7 +2624,7 @@ aspect-ratio: 1 / 0.7; /* más ancho que alto */  /* Garantiza que las imágenes
   width: clamp(110px, 13vw, 155px);
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 5px;
   filter: grayscale(15%) contrast(105%);
 
   /* Scroll reveal: estado inicial */
@@ -3396,9 +3397,12 @@ section.curso-sugeridos{
    --------------------------------------------------------------------- */
 .curso-hero {
 background-image: url("../assets/1hero-curso.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+
+    min-height: 100vh; /* ocupa todo el alto visible del monitor */
+
+    background-size: cover; /* mantiene proporción y cubre toda la sección */
+    background-position: center top; /* centra la imagen en la parte superior */
+    background-repeat: no-repeat;
 }
 
 .curso-hero__content {
@@ -3468,10 +3472,12 @@ background-image: url("../assets/1hero-curso.png");
   font-weight: 500;
   color: var(--color-void);
   font-size: clamp(2.6rem, 6vw, 4.6rem);
-  line-height: .95;
+  line-height: 1.2;
   letter-spacing: -.01em;
   margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,.25);
+ 
+  /* sombra más marcada */
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.65);
 }
 
 .curso-hero__subtitle {
