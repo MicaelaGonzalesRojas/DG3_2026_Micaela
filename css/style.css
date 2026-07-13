@@ -561,6 +561,14 @@ h4 {
   top: 0;
   transform: rotate(-45deg);
 }
+@media (min-width: 1024px) {
+  .header-cta {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    height: auto;
+  }
+}
+
 
 /* Mobile */
 /* Ocultar botón en mobile */
@@ -5443,7 +5451,7 @@ background: url("../assets/nar-mont.png") no-repeat center center;
   letter-spacing: .02em;
   color: var(--color-void);
   text-align: center;
-  margin: 0 0 clamp(1.8rem, 4vw, 2.8rem);
+  margin: 0 0 clamp(1.8rem, 1vw, 2.8rem);
 
   /* Estado inicial para reveal */
   opacity: 0;
