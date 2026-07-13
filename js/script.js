@@ -1971,7 +1971,87 @@ updateLessonProgress();
 
 
 
+document.addEventListener("DOMContentLoaded",()=>{
 
+const section=document.querySelector(".cuspide-course-heroes");
+
+const track=document.querySelector(".cuspide-course-heroes__track");
+
+const prev=document.querySelector(".cuspide-course-heroes__prev");
+
+const next=document.querySelector(".cuspide-course-heroes__next");
+
+if(!section) return;
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+section.classList.add("cuspide-course-heroes--visible");
+
+}
+
+});
+
+},{
+threshold:.25
+});
+
+observer.observe(section);
+
+let index=0;
+
+function visibleCards(){
+
+return window.innerWidth<768?1:3;
+
+}
+
+function updateSlider(){
+
+const card=track.querySelector(".cuspide-course-heroes__card");
+
+const gap=24;
+
+const width=card.offsetWidth+gap;
+
+track.style.transform=`translateX(-${index*width}px)`;
+
+}
+
+next.addEventListener("click",()=>{
+
+const total=track.children.length;
+
+const max=Math.max(0,total-visibleCards());
+
+if(index<max){
+
+index++;
+
+updateSlider();
+
+}
+
+});
+
+prev.addEventListener("click",()=>{
+
+if(index>0){
+
+index--;
+
+updateSlider();
+
+}
+
+});
+
+window.addEventListener("resize",updateSlider);
+
+});
 
 
 
