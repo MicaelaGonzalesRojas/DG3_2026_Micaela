@@ -1494,10 +1494,7 @@ transform:none;
 /* ---------------------------------------------------------------------
    6. TESTIMONIOS ("Conquistadores") — scroll infinito, pausable, arrastrable
    --------------------------------------------------------------------- */
-/* =======================================================
-   TESTIMONIOS PREMIUM
-   ======================================================= */
- 
+
 #conquistadores {
   background: url("../assets/fondo-mon.png") no-repeat center center;
   background-size: cover;

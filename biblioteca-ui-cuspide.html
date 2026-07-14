@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca UI — Cúspide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=WDXL+Lubrifont+JP+N&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=nippo@400,500,600&display=swap" rel="stylesheet">
+<style>
+
+/* =====================================================================
+   CÚSPIDE — BIBLIOTECA UI
+   Tokens consolidados desde style.css. Se eliminaron alias duplicados
+   (rock/rock-soft/frost/mint/pale eran el mismo celeste; ice/titanium/
+   slate el mismo marrón; ember/glacier/coral el mismo naranja) y se
+   corrigió el header, que usaba un negro azulado (#0A0D10) heredado
+   de una versión anterior en vez de la tinta real de la marca.
+   ===================================================================== */
+
+:root{
+  --cream:      #FDF9F4;  /* fondo principal */
+  --frost:      #D7EDEE;  /* celeste — fondos de cards */
+  --brown:      #7E6A65;  /* texto base / secundario */
+  --ember:      #FF4A18;  /* naranja táctico — acciones */
+  --ink:        #292020;  /* negro cálido — títulos, secciones oscuras */
+  --white:      #FDF9F4;
+
+  --font-display: 'Nippo', 'Anton', sans-serif;
+  --font-body:    'Outfit', -apple-system, sans-serif;
+  --font-brand:   'WDXL Lubrifont JP N', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --maxw: 1180px;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-full: 999px;
+
+  --ease: cubic-bezier(.16,.84,.32,1);
+  --dur-fast: .25s;
+  --dur-base: .55s;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--brown);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ display:block; filter:grayscale(15%) contrast(105%); }
+ul,ol{ margin:0; padding:0; list-style:none; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+h1,h2,h3,h4,p{ margin:0; color:var(--ink); }
+
+h1,h2,h3,.display{
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  line-height:1.05;
+}
+
+:focus-visible{ outline:3px solid var(--ember); outline-offset:3px; }
+
+/* -------------------- cursor custom (solo desktop, como en el sitio real) -------------------- */
+@media (min-width:1024px){
+  html, body, a, button, input, textarea, .interactive-hover{ cursor:none; }
+  .cuspide-cursor{ position:fixed; inset:0; pointer-events:none; z-index:9999; }
+  .cuspide-cursor__dot, .cuspide-cursor__ring{
+    position:fixed; top:0; left:0; border-radius:50%;
+    pointer-events:none; will-change:transform;
+    transform:translate3d(-100px,-100px,0);
+  }
+  .cuspide-cursor__dot{
+    width:8px; height:8px; background:var(--ember);
+    transition:width .25s cubic-bezier(.25,1,.5,1), height .25s cubic-bezier(.25,1,.5,1);
+  }
+  .cuspide-cursor__ring{
+    width:30px; height:30px; border:1.5px solid var(--ember);
+    transition:width .25s cubic-bezier(.25,1,.5,1), height .25s cubic-bezier(.25,1,.5,1), opacity .25s ease;
+  }
+  .cuspide-cursor.is-hover .cuspide-cursor__dot{ width:24px; height:24px; }
+  .cuspide-cursor.is-hover .cuspide-cursor__ring{ width:20px; height:20px; opacity:.9; }
+  .cuspide-cursor.is-pressed .cuspide-cursor__dot,
+  .cuspide-cursor.is-pressed .cuspide-cursor__ring{ transform:scale(.85); }
+}
+@media (max-width:1023px){ .cuspide-cursor{ display:none !important; } }
+
+/* -------------------- layout helpers -------------------- */
+.wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad); }
+.uikit-section{ padding:4.5rem 0; border-bottom:1px solid rgba(41,32,32,.08); }
+.uikit-section:last-of-type{ border-bottom:none; }
+.section-head{ max-width:640px; margin-bottom:2.5rem; }
+.eyebrow{
+  display:block; font-family:var(--font-mono); text-transform:uppercase;
+  letter-spacing:.18em; font-size:.72rem; color:var(--ember); margin-bottom:.75rem;
+}
+.section-head h2{ font-size:clamp(1.6rem,3.5vw,2.4rem); margin-bottom:.75rem; }
+.section-head p{ font-size:1rem; font-weight:300; color:var(--brown); }
+
+/* -------------------- header flotante -------------------- */
+.site-header{
+  position:sticky; top:0; z-index:100; padding:14px var(--pad) 0;
+}
+.header-inner{
+  max-width:var(--maxw); margin:0 auto; height:60px; padding:0 1.5rem;
+  border-radius:var(--r-md); display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+  background:rgba(41,32,32,.92); /* --ink, corregido: antes era un negro azulado #0A0D10 sin relación con la paleta */
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(253,249,244,.12);
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.brand{
+  font-family:var(--font-brand); font-weight:600; letter-spacing:.2rem;
+  font-size:1rem; color:var(--white); white-space:nowrap;
+}
+.nav-list{ display:flex; align-items:center; gap:1.6rem; font-size:.85rem; }
+.nav-list a{ color:var(--white); transition:color .3s ease; }
+.nav-list a:hover{ color:var(--ember); }
+.nav-toggle{ display:none; }
+@media (max-width:768px){
+  .nav-list{ display:none; }
+  .nav-toggle{ display:block; color:var(--white); font-family:var(--font-mono); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }
+}
+
+/* -------------------- swatches -------------------- */
+.swatch-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.swatch{
+  border-radius:var(--r-md); overflow:hidden; border:1px solid rgba(41,32,32,.08);
+  background:var(--white); cursor:pointer;
+}
+.swatch__fill{ height:88px; }
+.swatch__meta{ padding:12px 14px; }
+.swatch__meta strong{ display:block; font-size:.85rem; font-weight:600; color:var(--ink); }
+.swatch__meta span{ display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--brown); margin-top:2px; }
+.swatch__meta small{ display:block; font-family:var(--font-mono); font-size:.65rem; color:var(--ember); margin-top:6px; opacity:0; transition:opacity .2s ease; }
+.swatch.copied .swatch__meta small{ opacity:1; }
+
+/* -------------------- tipografía -------------------- */
+.type-row{
+  display:grid; grid-template-columns:200px 1fr; gap:24px; align-items:baseline;
+  padding:20px 0; border-top:1px solid rgba(41,32,32,.08);
+}
+.type-row:first-of-type{ border-top:none; }
+.type-label small{ display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--brown); margin-top:4px; }
+.f-display{ font-family:var(--font-display); text-transform:uppercase; }
+.f-body{ font-family:var(--font-body); }
+.f-brand{ font-family:var(--font-brand); letter-spacing:.15rem; }
+.f-mono{ font-family:var(--font-mono); }
+
+/* -------------------- botones (sistema real del sitio, con barrido) -------------------- */
+.btn-row{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:1.5rem; }
+.btn-strip{ padding:28px var(--pad); border-radius:var(--r-lg); background:var(--ink); display:flex; gap:14px; flex-wrap:wrap; }
+
+.cuspide-action-btn{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  height:42px; padding-inline:1.1rem; overflow:hidden; border:none; border-radius:5px;
+  cursor:pointer; font-family:var(--font-display); font-size:1rem; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase; isolation:isolate;
+  transition:transform .25s ease; will-change:transform; z-index:1;
+}
+.cuspide-action-btn span{ position:relative; z-index:1; color:var(--white); }
+.cuspide-action-btn::before{
+  content:""; position:absolute; width:180%; height:220%; left:50%; bottom:-220%;
+  transform:translateX(-50%); border-radius:48%;
+  transition:bottom .55s cubic-bezier(.25,1,.5,1); z-index:0;
+}
+.cuspide-action-btn:hover{ transform:translateY(-2px); }
+.cuspide-action-btn:hover::before{ bottom:-45%; }
+.cuspide-action-btn:active{ transform:scale(.985); }
+.cuspide-action-btn:focus-visible{ outline:3px solid #ffb9a7; outline-offset:5px; }
+
+.cuspide-action-btn--pyromountain{ background:var(--ember); }
+.cuspide-action-btn--pyromountain::before{ background:var(--ink); }
+.cuspide-action-btn--darkabyss{ background:var(--ink); }
+.cuspide-action-btn--darkabyss::before{ background:var(--ember); }
+.cuspide-action-btn--outline{ background:transparent; border:1.5px solid var(--ember); }
+.cuspide-action-btn--outline span{ color:var(--ember); }
+.cuspide-action-btn--outline::before{ background:var(--ember); }
+.cuspide-action-btn--outline:hover span{ color:var(--white); }
+.cuspide-action-btn--disabled{ opacity:.4; pointer-events:none; }
+
+/* -------------------- badges -------------------- */
+.badge-row{ display:flex; flex-wrap:wrap; gap:10px; }
+.ui-badge{
+  display:inline-flex; align-items:center; height:30px; padding:0 14px;
+  border-radius:var(--r-full); font-size:12px; font-weight:600; letter-spacing:.04em;
+  text-transform:uppercase; white-space:nowrap;
+}
+.ui-badge--muted{ background:rgba(41,32,32,.06); color:var(--brown); }
+.ui-badge--outline{ background:transparent; color:var(--ember); border:1.5px solid var(--ember); }
+.ui-badge--solid{ background:var(--ember); color:var(--white); }
+.ui-badge--dark{ background:var(--ink); color:var(--white); }
+
+/* -------------------- cards -------------------- */
+.card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+.stat-card{
+  background:var(--ember); color:var(--white); border-radius:var(--r-md);
+  padding:20px 16px; text-align:center;
+}
+.stat-card strong{ display:block; font-family:var(--font-display); font-size:1.6rem; color:var(--white); }
+.stat-card span{ display:block; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(253,249,244,.85); margin-top:4px; }
+
+.content-card{
+  background:var(--white); border:1px solid rgba(41,32,32,.08); border-radius:var(--r-lg);
+  padding:24px; box-shadow:0 4px 16px rgba(41,32,32,.05);
+}
+.content-card h4{ font-family:var(--font-body); font-size:1.05rem; font-weight:700; margin-bottom:8px; }
+.content-card p{ font-size:.9rem; font-weight:300; line-height:1.55; }
+
+.quote-card{
+  background:var(--frost); border-radius:var(--r-lg); padding:24px;
+}
+.quote-card .mark{ font-family:var(--font-display); font-size:2.2rem; color:var(--ember); line-height:1; }
+.quote-card p{ font-size:.95rem; margin:.5rem 0 1rem; }
+.quote-card .who{ display:flex; align-items:center; gap:10px; }
+.quote-card .who span{ width:36px; height:36px; border-radius:50%; background:var(--ink); flex-shrink:0; }
+.quote-card .who strong{ display:block; font-size:.8rem; }
+.quote-card .who small{ font-size:.72rem; color:var(--brown); }
+
+/* card flip — versión simplificada del expedicion-card real */
+.flip-card{ width:100%; max-width:230px; height:300px; perspective:1200px; margin:0 auto; }
+.flip-card-inner{
+  width:100%; height:100%; position:relative; transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.16,.84,.32,1); cursor:pointer;
+}
+.flip-card:hover .flip-card-inner{ transform:rotateY(180deg); }
+.flip-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:10px;
+  border:2px solid var(--ember); background:var(--white); box-shadow:0 20px 40px rgba(0,0,0,.12);
+  overflow:hidden; display:flex; flex-direction:column;
+}
+.flip-face--front img{ width:100%; height:170px; object-fit:cover; }
+.flip-face--front .info{ padding:14px 16px; }
+.flip-face--front .info strong{ font-family:var(--font-display); font-size:1.3rem; text-transform:uppercase; display:block; }
+.flip-face--front .info span{ font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ember); font-weight:600; }
+.flip-face--back{ transform:rotateY(180deg); padding:20px; justify-content:center; gap:10px; }
+.flip-face--back strong{ font-family:var(--font-display); text-transform:uppercase; font-size:1.1rem; }
+.flip-face--back p{ font-size:.82rem; line-height:1.5; }
+
+/* -------------------- formularios -------------------- */
+.form-demo{ background:var(--ink); border-radius:var(--r-lg); padding:clamp(24px,4vw,40px); max-width:560px; }
+.field{ margin-bottom:16px; }
+.field label{
+  display:block; font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; color:rgba(253,249,244,.6); margin-bottom:6px;
+}
+.field input, .field textarea{
+  width:100%; background:rgba(253,249,244,.06); border:1px solid rgba(253,249,244,.16);
+  border-radius:var(--r-sm); padding:.75rem 1rem; color:var(--white); font-family:var(--font-body); font-size:.9rem;
+}
+.field input:focus, .field textarea:focus{ outline:none; border-color:var(--ember); }
+.field input::placeholder, .field textarea::placeholder{ color:rgba(253,249,244,.35); }
+
+.check-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+.ui-checkbox{ position:relative; width:20px; height:20px; flex-shrink:0; }
+.ui-checkbox input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+.ui-checkbox__mark{
+  position:absolute; inset:0; border:1.5px solid rgba(253,249,244,.4); border-radius:4px;
+  transition:all .2s ease;
+}
+.ui-checkbox input:checked + .ui-checkbox__mark{ background:var(--ember); border-color:var(--ember); }
+.check-row span.label{ font-size:.82rem; color:rgba(253,249,244,.8); }
+
+/* -------------------- escala de radios / sombras -------------------- */
+.scale-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.scale-item{ text-align:center; }
+.scale-box{ height:64px; background:var(--ink); margin-bottom:8px; }
+.scale-item strong{ display:block; font-size:.78rem; font-weight:700; color:var(--ink); }
+.scale-item small{ display:block; font-family:var(--font-mono); font-size:.68rem; color:var(--brown); }
+.shadow-box{ height:64px; background:var(--white); border-radius:var(--r-md); margin-bottom:8px; }
+
+footer.uikit-footer{ padding:32px var(--pad) 60px; text-align:center; }
+footer.uikit-footer p{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--brown); }
+
+/* -------------------- responsive -------------------- */
+@media (max-width:900px){
+  .swatch-grid{ grid-template-columns:repeat(2,1fr); }
+  .card-grid{ grid-template-columns:1fr; }
+  .type-row{ grid-template-columns:1fr; gap:6px; }
+  .scale-grid{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="cuspide-cursor" id="cursor">
+  <div class="cuspide-cursor__ring"></div>
+  <div class="cuspide-cursor__dot"></div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="brand">CÚSPIDE</span>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="#colores">Colores</a></li>
+        <li><a href="#tipografia">Tipografía</a></li>
+        <li><a href="#botones">Botones</a></li>
+        <li><a href="#cards">Cards</a></li>
+        <li><a href="#formularios">Formularios</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle">Menú</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="uikit-section" style="padding-top:3rem;">
+    <span class="eyebrow">Design system · v1</span>
+    <h1 style="font-size:clamp(2.2rem,6vw,3.6rem); max-width:720px;">Biblioteca UI de Cúspide</h1>
+    <p style="font-size:1.05rem; font-weight:300; max-width:600px; margin-top:1rem;">
+      Todos los estilos visuales del sitio en un solo lugar: paleta, tipografías, botones,
+      cards, formularios y el cursor custom. Página estática de referencia — no es parte del sitio público.
+    </p>
+  </section>
+
+  <section class="uikit-section" id="colores">
+    <div class="section-head">
+      <span class="eyebrow">01 — Paleta</span>
+      <h2>Colores</h2>
+      <p>Cinco tonos base. Click en cualquiera para copiar su valor hexadecimal.</p>
+    </div>
+    <div class="swatch-grid" id="swatches">
+      <div class="swatch" data-hex="#FDF9F4">
+        <div class="swatch__fill" style="background:#FDF9F4; border-bottom:1px solid rgba(41,32,32,.08);"></div>
+        <div class="swatch__meta"><strong>Crema</strong><span>--cream · #FDF9F4</span><small>Copiado ✓</small></div>
+      </div>
+      <div class="swatch" data-hex="#D7EDEE">
+        <div class="swatch__fill" style="background:#D7EDEE;"></div>
+        <div class="swatch__meta"><strong>Celeste</strong><span>--frost · #D7EDEE</span><small>Copiado ✓</small></div>
+      </div>
+      <div class="swatch" data-hex="#7E6A65">
+        <div class="swatch__fill" style="background:#7E6A65;"></div>
+        <div class="swatch__meta"><strong>Marrón</strong><span>--brown · #7E6A65</span><small>Copiado ✓</small></div>
+      </div>
+      <div class="swatch" data-hex="#FF4A18">
+        <div class="swatch__fill" style="background:#FF4A18;"></div>
+        <div class="swatch__meta"><strong>Ember</strong><span>--ember · #FF4A18</span><small>Copiado ✓</small></div>
+      </div>
+      <div class="swatch" data-hex="#292020">
+        <div class="swatch__fill" style="background:#292020;"></div>
+        <div class="swatch__meta"><strong>Tinta</strong><span>--ink · #292020</span><small>Copiado ✓</small></div>
+      </div>
+    </div>
+    <p style="font-size:.8rem; margin-top:1.25rem; font-family:var(--font-mono); color:var(--brown);">
+      Nota: se unificaron alias redundantes del CSS original (rock, rock-soft, mint, pale, glacier,
+      coral, titanium, slate) que apuntaban al mismo valor. Quedan 5 tokens reales.
+    </p>
+  </section>
+
+  <section class="uikit-section" id="tipografia">
+    <div class="section-head">
+      <span class="eyebrow">02 — Tipografía</span>
+      <h2>Familias y escala</h2>
+      <p>Tres roles: display para títulos, body para texto corrido, mono para datos y eyebrows.</p>
+    </div>
+
+    <div class="type-row">
+      <div class="type-label"><strong>Display</strong><small>Nippo (fallback Anton)</small></div>
+      <div class="type-sample f-display" style="font-size:clamp(1.8rem,4vw,2.8rem);">La cima no es para todos</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label"><strong>Marca / logo</strong><small>WDXL Lubrifont JP N</small></div>
+      <div class="type-sample f-brand" style="font-size:1.4rem; color:var(--ink);">CÚSPIDE</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label"><strong>Body</strong><small>Outfit 300–600</small></div>
+      <div class="type-sample f-body" style="font-size:1.05rem;">Porque primero se necesita una buena preparación. Es una expedición que no se toma a la ligera.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label"><strong>Mono / datos</strong><small>JetBrains Mono</small></div>
+      <div class="type-sample f-mono" style="font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ember);">Etapa 01 — Evaluación física</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-label"><strong>Escala</strong><small>tamaños de uso frecuente</small></div>
+      <div class="type-sample f-display" style="display:flex; flex-direction:column; gap:10px; align-items:flex-start;">
+        <span style="font-size:2.8rem;">Aa 44px</span>
+        <span style="font-size:2rem;">Aa 32px</span>
+        <span style="font-size:1.4rem;">Aa 22px</span>
+        <span style="font-size:1rem;" class="f-body">Aa 16px — body</span>
+        <span style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;" class="f-mono">Aa 11.5px — eyebrow</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="uikit-section" id="botones">
+    <div class="section-head">
+      <span class="eyebrow">03 — Botones</span>
+      <h2>Sistema de acción</h2>
+      <p>Todos comparten el barrido diagonal al hover. Tres variantes según jerarquía, más el estado deshabilitado.</p>
+    </div>
+    <div class="btn-strip">
+      <button class="cuspide-action-btn cuspide-action-btn--pyromountain"><span>Ver programa</span></button>
+      <button class="cuspide-action-btn cuspide-action-btn--darkabyss"><span>Inscribirme</span></button>
+      <button class="cuspide-action-btn cuspide-action-btn--outline"><span>Saber más</span></button>
+      <button class="cuspide-action-btn cuspide-action-btn--pyromountain cuspide-action-btn--disabled"><span>No disponible</span></button>
+    </div>
+  </section>
+
+  <section class="uikit-section">
+    <div class="section-head">
+      <span class="eyebrow">04 — Badges</span>
+      <h2>Etiquetas y pills</h2>
+      <p>Para estados, dificultad o metadata corta dentro de cards.</p>
+    </div>
+    <div class="badge-row">
+      <span class="ui-badge ui-badge--solid">Dificultad alta</span>
+      <span class="ui-badge ui-badge--outline">Próximamente</span>
+      <span class="ui-badge ui-badge--muted">30 profesores</span>
+      <span class="ui-badge ui-badge--dark">Cupos limitados</span>
+    </div>
+  </section>
+
+  <section class="uikit-section" id="cards">
+    <div class="section-head">
+      <span class="eyebrow">05 — Cards</span>
+      <h2>Contenedores</h2>
+      <p>Cuatro patrones: métricas, contenido, testimonio y la card de expedición con flip.</p>
+    </div>
+    <div class="card-grid" style="margin-bottom:24px;">
+      <div class="stat-card"><strong>+35</strong><span>Expediciones</span></div>
+      <div class="content-card">
+        <h4>Entrenamiento base</h4>
+        <p>Ejercicios de fuerza y movilidad para tolerar los desafíos en cualquier entorno.</p>
+      </div>
+      <div class="quote-card">
+        <span class="mark">“</span>
+        <p>El curso estuvo buenísimo, aprendí cosas que nunca había probado en montaña.</p>
+        <div class="who"><span></span><div><strong>Curso de Orientación</strong><small>Alumno egresado</small></div></div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-face flip-face--front">
+          <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=400&q=60" alt="Fitz Roy">
+          <div class="info"><strong>Fitz Roy</strong><span>Dificultad alta · 1 semana</span></div>
+        </div>
+        <div class="flip-face flip-face--back">
+          <strong>Fitz Roy</strong>
+          <p>105 m de desnivel técnico. Guías certificados, cupos reducidos, entrenamiento previo obligatorio.</p>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:.78rem; text-align:center; font-family:var(--font-mono); color:var(--brown); margin-top:10px;">
+      Hover para voltear (en el sitio real, tap en mobile)
+    </p>
+  </section>
+
+  <section class="uikit-section" id="formularios">
+    <div class="section-head">
+      <span class="eyebrow">06 — Formularios</span>
+      <h2>Campos e inputs</h2>
+      <p>Sobre fondo oscuro, como en la sección de contacto del sitio real.</p>
+    </div>
+    <div class="form-demo">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="tu@email.com">
+      </div>
+      <div class="field">
+        <label>¿Qué cumbre querés alcanzar?</label>
+        <textarea rows="3" placeholder="Contanos tu objetivo"></textarea>
+      </div>
+      <div class="check-row">
+        <span class="ui-checkbox"><input type="checkbox"><span class="ui-checkbox__mark"></span></span>
+        <span class="label">Acepto recibir novedades de Cúspide</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="uikit-section">
+    <div class="section-head">
+      <span class="eyebrow">07 — Radios y sombras</span>
+      <h2>Escala de superficies</h2>
+    </div>
+    <div class="scale-grid" style="margin-bottom:2rem;">
+      <div class="scale-item"><div class="scale-box" style="border-radius:4px;"></div><strong>4px</strong><small>--r-sm · botones</small></div>
+      <div class="scale-item"><div class="scale-box" style="border-radius:8px;"></div><strong>8px</strong><small>--r-md · header, inputs</small></div>
+      <div class="scale-item"><div class="scale-box" style="border-radius:14px;"></div><strong>14px</strong><small>--r-lg · cards, forms</small></div>
+      <div class="scale-item"><div class="scale-box" style="border-radius:999px;"></div><strong>999px</strong><small>--r-full · badges</small></div>
+    </div>
+    <div class="scale-grid">
+      <div class="scale-item"><div class="shadow-box" style="box-shadow:0 4px 14px rgba(0,0,0,.04);"></div><strong>Sutil</strong><small>cards de contenido</small></div>
+      <div class="scale-item"><div class="shadow-box" style="box-shadow:0 12px 32px rgba(0,0,0,.18);"></div><strong>Media</strong><small>header flotante</small></div>
+      <div class="scale-item"><div class="shadow-box" style="box-shadow:0 25px 50px rgba(0,0,0,.15);"></div><strong>Alta</strong><small>cards de expedición</small></div>
+      <div class="scale-item"><div class="shadow-box" style="box-shadow:none; border:1px solid rgba(41,32,32,.1);"></div><strong>Ninguna</strong><small>borde solo</small></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="uikit-footer">
+  <p>Cúspide — Biblioteca UI interna · No pública</p>
+</footer>
+
+<script>
+// Cursor custom — dot + ring que siguen el mouse (solo desktop, igual que en el sitio real)
+(function(){
+  if (window.matchMedia('(max-width:1023px)').matches) return;
+  var cursor = document.getElementById('cursor');
+  var dot = cursor.querySelector('.cuspide-cursor__dot');
+  var ring = cursor.querySelector('.cuspide-cursor__ring');
+  var mx=0,my=0, rx=0,ry=0;
+  window.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = 'translate3d(' + (mx-4) + 'px,' + (my-4) + 'px,0)';
+  });
+  function loop(){
+    rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+    ring.style.transform = 'translate3d(' + (rx-15) + 'px,' + (ry-15) + 'px,0)';
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.querySelectorAll('a,button,input,textarea,.interactive-hover').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ cursor.classList.add('is-hover'); });
+    el.addEventListener('mouseleave', function(){ cursor.classList.remove('is-hover'); });
+  });
+  window.addEventListener('mousedown', function(){ cursor.classList.add('is-pressed'); });
+  window.addEventListener('mouseup', function(){ cursor.classList.remove('is-pressed'); });
+})();
+
+// Copiar hex al hacer click en un swatch
+document.querySelectorAll('.swatch').forEach(function(sw){
+  sw.addEventListener('click', function(){
+    var hex = sw.getAttribute('data-hex');
+    navigator.clipboard && navigator.clipboard.writeText(hex).catch(function(){});
+    sw.classList.add('copied');
+    setTimeout(function(){ sw.classList.remove('copied'); }, 1200);
+  });
+});
+</script>
+</body>
+</html>
