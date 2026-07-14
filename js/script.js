@@ -720,7 +720,7 @@ requestAnimationFrame(update);
       {
         nombre: 'FITZ ROY',
         dificultad: 'DIFICULTAD ALTA',
-        duracion: '1 SEMANA',
+        duracion: '1 SEM',
         fondo: 'assets/fitzroy-act.png',
         descripcion: 'Glaciares dinámicos, grietas ocultas y progresión alpina técnica.',
         altura: '105 M',
@@ -730,13 +730,13 @@ requestAnimationFrame(update);
       },
       {
         nombre: 'TRONADOR',
-        dificultad: 'DIFICULTAD EXTREMA',
-        duracion: '8 SEMANAS',
+        dificultad: 'DIFICULTAD ALTA',
+        duracion: '8 SEM',
         fondo: 'assets/tronador-act.png',
         descripcion: 'La cima más alta del planeta. Hipoxia severa, temperaturas letales y exposición continua.',
         altura: '71 M',
         ubicacion: 'RÍO NEGRO, ARGENTINA',
-        precio: '$1.450.000',
+        precio: '$900.000',
         lugares: ['Refugio Otto Meiling', 'Glaciar Blanco', 'Cumbre Internnal']
       },
       {
@@ -753,7 +753,7 @@ requestAnimationFrame(update);
       {
         nombre: 'ACONCAGUA',
         dificultad: 'DIFICULTAD MEDIA',
-        duracion: '2 SEMANAS',
+        duracion: '2 SEM',
         fondo: 'assets/aconcagua-act.png',
         descripcion: 'Lo que se gana no es una foto en la cima, certeza de haber vencido tus propios límites.',
         altura: '71 M',
@@ -763,13 +763,13 @@ requestAnimationFrame(update);
       },
       {
         nombre: 'SAN VALENTÍN',
-        dificultad: 'DIFICULTAD EXTREMA',
-        duracion: '3 SEMANAS',
+        dificultad: 'DIFICULTAD ALTA',
+        duracion: '3 SEM',
         fondo: 'assets/sanvalentin-act.png',
         descripcion: 'La montaña más dura de Norteamérica por clima, aislamiento y carga .',
         altura: '85 M',
         ubicacion: 'AYSÉN, CHILE',
-        precio: '$1.100.000',
+        precio: '$950.000',
         lugares: ['Campamento Kahiltna', 'Campo Alto', 'Cumbre Norte']
       }
     ];
